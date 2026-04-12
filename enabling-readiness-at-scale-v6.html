@@ -16,7 +16,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:24
 .page-subtitle{font-size:18px;color:#8a9a72}
 .instance-badge{font-size:14px;font-weight:700;padding:4px 12px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.2s}
 .instance-badge.cnap{background:rgba(168,192,112,0.15);border:1px solid rgba(168,192,112,0.35);color:#a8c070}
-.instance-badge.mhcr{background:rgba(120,200,72,0.15);border:1px solid rgba(120,200,72,0.35);color:#78c848}
 .instance-badge.afsfc{background:rgba(201,184,122,0.15);border:1px solid rgba(201,184,122,0.35);color:#c9b87a}
 
 /* ===== MEASUREMENT BAR ===== */
@@ -93,6 +92,93 @@ body.full-suite .full-branch{display:block}
 .ed .cell-input{background:transparent;border:none;color:var(--text);font-size:19px;font-family:inherit;width:100%;padding:0;outline:none}
 .discuss{color:var(--amber);font-style:italic}
 .na{color:var(--muted)}
+
+/* ===== DOCUMENT CARDS (Section 01 interactive) ===== */
+.doc-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+.dcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all 0.25s;position:relative}
+.dcard:hover{border-color:#a8a490}
+.dcard.removing{opacity:0;transform:scale(0.96);max-height:0;margin:0;padding:0;border:0;overflow:hidden}
+.dcard-top{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dcard-left{padding:20px 24px;border-right:1px solid var(--border)}
+.dcard-right{padding:20px 24px;background:rgba(46,61,26,0.012)}
+.dcard-num{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--olive);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.dcard-bottom{padding:12px 24px;border-top:1px solid var(--border);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.remove-btn{margin-left:auto;width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-size:14px;line-height:20px;text-align:center;cursor:pointer;transition:all 0.12s;font-family:var(--font);display:flex;align-items:center;justify-content:center;opacity:0}
+.dcard:hover .remove-btn{opacity:1}
+.remove-btn:hover{background:rgba(138,40,24,0.08);border-color:rgba(138,40,24,0.3);color:var(--red)}
+.fl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:3px;margin-top:10px}
+.fl:first-child{margin-top:0}
+.ed-doc{background:rgba(46,61,26,0.03);border:1px dashed var(--border);border-radius:5px;padding:7px 11px;font-family:var(--font);font-size:17px;color:var(--text);cursor:text;transition:all 0.12s;display:block;width:100%}
+.ed-doc:hover{background:rgba(46,61,26,0.06);border-color:var(--olive)}
+.ed-doc:focus{outline:none;background:var(--surface);border:1px solid var(--accent)}
+.ed-doc.big{font-size:19px;font-weight:600}
+.ed-doc.ph{color:var(--muted);font-style:italic}
+.stakeholder-row{display:flex;gap:10px;align-items:flex-end}
+.stakeholder-icon{width:30px;height:30px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);flex-shrink:0}
+.signal-box{margin-top:12px;padding:10px 14px;background:rgba(122,94,16,0.05);border:1px solid rgba(122,94,16,0.12);border-radius:6px}
+.signal-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--amber);margin-bottom:4px}
+.ml{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);white-space:nowrap}
+.copt{font-size:13px;font-weight:600;padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;transition:all 0.12s;font-family:var(--font)}
+.copt:hover{border-color:var(--olive);color:var(--accent)}
+.copt.sel{background:var(--accent);color:#e8ead4;border-color:var(--accent)}
+.achip{font-size:13px;font-weight:600;padding:4px 10px;border-radius:4px;cursor:pointer;transition:all 0.12s;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:var(--font)}
+.achip.g{background:rgba(58,110,24,0.1);color:var(--green);border-color:rgba(58,110,24,0.25)}
+.achip.a{background:rgba(122,94,16,0.1);color:var(--amber);border-color:rgba(122,94,16,0.25)}
+.achip.r{background:rgba(138,40,24,0.08);color:var(--red);border-color:rgba(138,40,24,0.2)}
+.add-card{border:2px dashed var(--border);border-radius:10px;padding:28px;text-align:center;color:var(--muted);font-size:17px;font-weight:600;cursor:pointer;transition:all 0.12s}
+.add-card:hover{border-color:var(--olive);color:var(--accent);background:rgba(46,61,26,0.02)}
+.fac-prompt{border-left:3px solid var(--border);padding:10px 18px;margin-bottom:22px;font-size:18px;color:var(--muted);font-style:italic;line-height:1.55}
+
+/* ===== SECTION DIVIDER ===== */
+.section-divider{margin:40px 0 24px;padding:20px 0;text-align:center;position:relative}
+.section-divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:2px;background:var(--border)}
+.section-divider span{position:relative;background:var(--bg);padding:0 20px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--olive)}
+
+/* ===== EXPANSION ZONE ===== */
+.expansion-zone{background:var(--surface);border:2px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:0}
+.expansion-header{background:rgba(94,110,42,0.06);padding:20px 28px;border-bottom:1px solid var(--border)}
+.expansion-title{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.expansion-sub{font-size:16px;color:var(--muted);font-style:italic}
+.exp-prompt{padding:18px 28px;border-bottom:1px solid var(--border);font-size:18px;color:var(--muted);font-style:italic;line-height:1.55;background:rgba(46,61,26,0.015)}
+.exp-row{display:flex;align-items:flex-start;gap:16px;padding:18px 28px;border-bottom:1px solid var(--border);transition:background 0.1s;cursor:pointer;user-select:none}
+.exp-row:last-child{border-bottom:none}
+.exp-row:hover{background:rgba(46,61,26,0.02)}
+.tgl{width:42px;height:23px;border-radius:12px;background:var(--border);position:relative;flex-shrink:0;transition:background 0.2s;cursor:pointer;margin-top:2px}
+.tgl::after{content:'';position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.12)}
+.exp-row.on .tgl{background:var(--green)}
+.exp-row.on .tgl::after{transform:translateX(19px)}
+.exp-content{flex:1}
+.exp-name{font-size:18px;font-weight:600;margin-bottom:2px}
+.exp-cite{font-size:14px;color:var(--muted);font-family:'Consolas','Courier New',monospace;margin-bottom:4px}
+.exp-detail{font-size:16px;color:var(--muted);line-height:1.5}
+.exp-hook{font-size:15px;color:var(--amber);font-style:italic;min-width:200px;text-align:right;margin-top:2px;flex-shrink:0}
+
+/* ===== ALIGNMENT STATEMENT ===== */
+.stmt-zone{margin-top:36px}
+.live-hint{font-size:13px;color:var(--olive);font-weight:600;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.stmt-box{background:var(--surface);border:2px solid var(--accent);border-radius:12px;overflow:hidden}
+.stmt-header{background:var(--accent);padding:14px 28px;display:flex;align-items:center;gap:12px}
+.stmt-header-title{font-size:17px;font-weight:700;color:#e8ead4;letter-spacing:0.5px}
+.stmt-header-badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:3px 10px;border-radius:3px;margin-left:auto}
+.stmt-header-badge.draft{background:rgba(168,192,112,0.2);color:#a8c070}
+.stmt-header-badge.validated{background:rgba(58,110,24,0.2);color:#78c848}
+.stmt-body{padding:24px 28px}
+.stmt-text{font-size:19px;line-height:1.75;color:var(--text)}
+.slot{display:inline;border-bottom:2px solid var(--olive);padding-bottom:1px;font-weight:600;color:var(--accent)}
+.slot.empty{border-bottom:2px dashed var(--border);color:var(--muted);font-weight:400;font-style:italic}
+.stmt-footer{padding:14px 28px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;background:rgba(46,61,26,0.02)}
+.stmt-footer-text{font-size:15px;color:var(--muted);flex:1;font-style:italic}
+.stmt-btn{padding:8px 20px;border:none;background:var(--accent);color:#e8ead4;border-radius:6px;font-family:var(--font);font-size:15px;font-weight:600;cursor:pointer;transition:background 0.12s}
+.stmt-btn:hover{background:#3a4e22}
+
+/* ===== KEY GAPS CALLOUT (proven instances) ===== */
+.gaps-callout{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:8px;padding:18px 24px;margin-top:20px}
+.gaps-callout-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--red);margin-bottom:8px}
+.gaps-callout ul{margin:0;padding-left:20px;font-size:18px;color:var(--muted);line-height:1.7}
+.gaps-callout li{margin-bottom:4px}
+.gaps-callout strong{color:var(--text)}
 
 /* ===== FIELDING SUMMARY ===== */
 .fielding-summary{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--olive);border-radius:8px;padding:24px 28px;font-size:21px;line-height:1.6;margin-bottom:20px}
@@ -302,51 +388,262 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
         <div class="card card-amber"><div class="card-label">Domain 2</div><div class="card-title">Active Shooter</div><div class="card-body">Shipboard threat response</div></div>
         <div class="card card-red"><div class="card-label">Domain 3</div><div class="card-title">Hostile Waterborne</div><div class="card-body">Small boat / harbor defense</div></div>
       </div>
-      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">Fragmented Fleet Training</div><div class="card-body">7 carriers operating independently. No standardized measurement between ships.</div></div>
-        <div class="card card-red"><div class="card-title">Participation, Not Evidence</div><div class="card-body">Legacy systems tracked completion. No scored evidence of crew capability.</div></div>
+      <div class="gaps-callout">
+        <div class="gaps-callout-title">Gaps Identified</div>
+        <ul>
+          <li><strong>Fragmented fleet training</strong> &mdash; 7 carriers operating independently, no standardized measurement between ships</li>
+          <li><strong>Participation, not evidence</strong> &mdash; legacy systems tracked completion, no scored evidence of crew capability</li>
+        </ul>
       </div>
-    </div>
 
-    <!-- MHCR -->
-    <div class="pane" data-inst="mhcr">
-      <div class="tree"><span class="tree-root">Community Safety and Policing Act (CSPA), 2019</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>O. Reg. 96/26 &mdash; Mandatory MHCR Training &middot; In force April 1, 2024</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>DePICT&trade; &mdash; 14-Item Validated Competency Assessment Framework</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">3 Non-Kinetic Domains</span> <span class="tree-sub">&middot; Frontline deadline: Oct 1, 2026</span></span></div>
-      <div class="card-grid tri">
-        <div class="card card-green"><div class="card-label">Domain 1</div><div class="card-title">Verbal De-escalation</div><div class="card-body">Command presence, crisis intervention, communication</div></div>
-        <div class="card card-green"><div class="card-label">Domain 2</div><div class="card-title">Non-Lethal Weapons</div><div class="card-body">Deployment timing, target accuracy, proportional response</div></div>
-        <div class="card card-green"><div class="card-label">Domain 3</div><div class="card-title">Communications</div><div class="card-body">Radio procedures, dispatch coordination, SALUTE-style reporting</div></div>
-      </div>
-      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">DePICT&trade; Unscalable at Human-Rater Speed</div><div class="card-body">DePICT requires one trained observer per scenario. Province-scale compliance is impossible without automated scoring.</div></div>
-        <div class="card card-red"><div class="card-title">Attendance = Compliance</div><div class="card-body">Legacy training proved course completion &mdash; not demonstrated competency. No auditable DePICT outputs for regulators.</div></div>
+      <div class="stmt-zone" style="margin-top:24px">
+        <div class="stmt-box">
+          <div class="stmt-header">
+            <span class="stmt-header-title">Alignment Statement &mdash; CNAP</span>
+            <span class="stmt-header-badge validated">Validated</span>
+          </div>
+          <div class="stmt-body">
+            <div class="stmt-text">The carrier force protection training requirement is governed by <span class="slot">OPNAVINST 5530.14E &mdash; Physical Security &amp; Anti-Terrorism</span>. The training operating system is configured across three mission domains &mdash; C-UAS response, active shooter, and hostile waterborne &mdash; with every scored behavior traced to carrier security force requirements. CNAP N3D sponsored Pacific Fleet deployment and introduced the system to CNAL and TACAMO. CNIC is on a parallel track targeting the SAWS Program of Record.</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- AFSFC -->
     <div class="pane" data-inst="afsfc">
-      <div class="tree"><span class="tree-root">Integrated Base Defense</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>AFI 31-101 &mdash; Integrated Defense</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>DAFI 31-131 Vol 2 &middot; AFI 10-201 &middot; DAFMAN 36-2655</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span>AFJQS SEI 3CS &middot; TC 3-01.81 &middot; 10 U.S.C. &sect; 130i</span>
-<span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">Shotgun</span> <span class="tree-sub">(kinetic)</span> &ensp; <span class="tree-hl">Dronebuster</span> <span class="tree-sub">(EW)</span></span>
-<span class="tree-line full-branch"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">LMAMS</span> <span class="tree-sub">(kinetic interceptor)</span> &ensp; <span class="tree-hl">Coyote</span> <span class="tree-sub">(loitering munition)</span> <span style="font-family:var(--font);font-size:12px;font-weight:700;background:rgba(63,185,80,0.15);border:1px solid rgba(63,185,80,0.4);color:var(--green);padding:2px 8px;border-radius:4px;margin-left:6px;vertical-align:middle">FULL C-UAS</span></span></div>
-      <div class="kc">
-        <div class="kc-step"><div class="kc-num">1</div><div class="kc-name">Detect / Identify</div></div><div class="kc-arrow">&rarr;</div>
-        <div class="kc-step"><div class="kc-num">2</div><div class="kc-name">Track / Report</div></div><div class="kc-arrow">&rarr;</div>
-        <div class="kc-step"><div class="kc-num">3</div><div class="kc-name">Engage / Defeat</div></div><div class="kc-arrow">&rarr;</div>
-        <div class="kc-step"><div class="kc-num">4</div><div class="kc-name">Measurement</div></div>
+      <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px">Governing Requirements &mdash; Name the Documents<span style="flex:1;height:1px;background:var(--border)"></span></h3>
+      <div class="fac-prompt">&ldquo;What document would you point to if a wing commander asked you to prove C-UAS training meets the standard? And who owns it &mdash; not just the office, but the person driving the updates?&rdquo;</div>
+
+      <div class="doc-grid" id="docGrid">
+        <!-- DOC 1 -->
+        <div class="dcard" data-doccard>
+          <div class="dcard-top">
+            <div class="dcard-left">
+              <div class="dcard-num"><span>Document 1</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
+              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">AFI 31-101 &mdash; Integrated Defense</div>
+              <div class="fl">Publication</div>
+              <div class="ed-doc" contenteditable="true">AFI 31-101</div>
+              <div class="fl">Owning Office</div>
+              <div class="ed-doc" contenteditable="true">AFSFC</div>
+            </div>
+            <div class="dcard-right">
+              <div class="fl">Owning Stakeholder</div>
+              <div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Name / title / shop?</div></div>
+              <div class="fl">Who has change authority?</div>
+              <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Who signs off on updates?</div>
+              <div class="signal-box"><div class="signal-label">Political Signal / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">Tensions, timelines, competing priorities&hellip;</div></div>
+            </div>
+          </div>
+          <div class="dcard-bottom">
+            <span class="ml">Cadence</span>
+            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+            <span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span>
+          </div>
+        </div>
+
+        <!-- DOC 2 -->
+        <div class="dcard" data-doccard>
+          <div class="dcard-top">
+            <div class="dcard-left">
+              <div class="dcard-num"><span>Document 2</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
+              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">DAFI 31-131 Vol 2</div>
+              <div class="fl">Publication</div><div class="ed-doc" contenteditable="true">DAFI 31-131v2</div>
+              <div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office?</div>
+            </div>
+            <div class="dcard-right">
+              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Name / title / shop?</div></div>
+              <div class="fl">Who has change authority?</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Who signs off?</div>
+              <div class="signal-box"><div class="signal-label">Political Signal / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">&mdash;</div></div>
+            </div>
+          </div>
+          <div class="dcard-bottom">
+            <span class="ml">Cadence</span>
+            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+            <span style="flex:1"></span><span class="ml">Access</span><span class="achip a" onclick="cycleA(this)">Pending</span>
+          </div>
+        </div>
+
+        <!-- DOC 3 -->
+        <div class="dcard" data-doccard>
+          <div class="dcard-top">
+            <div class="dcard-left">
+              <div class="dcard-num"><span>Document 3</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
+              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">AFJQS SEI 3CS</div>
+              <div class="fl">Publication</div><div class="ed-doc" contenteditable="true">AFJQS 3CS</div>
+              <div class="fl">Owning Office</div><div class="ed-doc" contenteditable="true">SFTRG</div>
+            </div>
+            <div class="dcard-right">
+              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Name / title / shop?</div></div>
+              <div class="fl">Who has change authority?</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Who signs off?</div>
+              <div class="signal-box"><div class="signal-label">Political Signal / Notes</div><div class="ed-doc" contenteditable="true" style="font-size:15px">SEI program still maturing &mdash; training standards not yet codified. Key input for our configuration.</div></div>
+            </div>
+          </div>
+          <div class="dcard-bottom">
+            <span class="ml">Cadence</span>
+            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt sel" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+            <span style="flex:1"></span><span class="ml">Access</span><span class="achip r" onclick="cycleA(this)">Restricted</span>
+          </div>
+        </div>
+
+        <!-- DOC 4 -->
+        <div class="dcard" data-doccard>
+          <div class="dcard-top">
+            <div class="dcard-left">
+              <div class="dcard-num"><span>Document 4</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
+              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">SFTRG C-sUAS TTPs</div>
+              <div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Pub # &mdash; in draft?</div>
+              <div class="fl">Owning Office</div><div class="ed-doc" contenteditable="true">SFTRG</div>
+            </div>
+            <div class="dcard-right">
+              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Who is writing this?</div></div>
+              <div class="fl">Who has change authority?</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">When is it expected to publish?</div>
+              <div class="signal-box"><div class="signal-label">Political Signal / Notes</div><div class="ed-doc" contenteditable="true" style="font-size:15px">Draft TTPs = exposure risk if we build to a standard that changes. Also = opportunity: we&rsquo;re the platform that adapts when it does. CATM is building the live kinetic range side &mdash; we&rsquo;re the scenario and measurement complement.</div></div>
+            </div>
+          </div>
+          <div class="dcard-bottom">
+            <span class="ml">Cadence</span>
+            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt sel" onclick="pickC(this)">TBD</span>
+            <span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">In Draft</span>
+          </div>
+        </div>
+
+        <!-- DOC 5 blank -->
+        <div class="dcard" data-doccard>
+          <div class="dcard-top">
+            <div class="dcard-left">
+              <div class="dcard-num"><span>Document 5</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
+              <div class="ed-doc big ph" contenteditable="true" data-doc oninput="updateStmt()" onfocus="clrPh(this)">Name the document&hellip;</div>
+              <div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Pub #</div>
+              <div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office</div>
+            </div>
+            <div class="dcard-right">
+              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Name / title / shop?</div></div>
+              <div class="fl">Who has change authority?</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">&mdash;</div>
+              <div class="signal-box"><div class="signal-label">Political Signal / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">&mdash;</div></div>
+            </div>
+          </div>
+          <div class="dcard-bottom">
+            <span class="ml">Cadence</span>
+            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+            <span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span>
+          </div>
+        </div>
+
+        <div class="add-card" onclick="addDocCard()">+ Add another governing document</div>
       </div>
-      <h3 style="margin:20px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Current-State Gaps</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">Attendance, Not Performance</div><div class="card-body">AFI 10-201 requires measurable readiness. Training proves attendance &mdash; not capability.</div></div>
-        <div class="card card-red"><div class="card-title">No C-UAS Qualification Tables</div><div class="card-body">SFTRG C-sUAS content still being drafted. Each installation improvises.</div></div>
-        <div class="card card-red"><div class="card-title">Data Latency</div><div class="card-body">Performance data doesn't flow from measurement to command in time.</div></div>
-        <div class="card card-red"><div class="card-title">No On-Demand Readiness</div><div class="card-body">Commanders cannot demonstrate C-UAS readiness when asked.</div></div>
+
+      <!-- EXPANSION ZONE -->
+      <div class="section-divider"><span>End of Session &mdash; Expansion Play</span></div>
+
+      <div class="expansion-zone">
+        <div class="expansion-header">
+          <div class="expansion-title">What Else Touches These Same Airmen?</div>
+          <div class="expansion-sub">Surface after Sections 01&ndash;04 are complete for C-UAS. This is a close, not an opener.</div>
+        </div>
+        <div class="exp-prompt">&ldquo;We just built the full C-UAS training operating system together. Now &mdash; how many of these same airmen also need to meet any of these other mandates? Because the same platform already supports them.&rdquo;</div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="CATM Qualification (AFI 36-2654)">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">CATM Qualification &mdash; Small Arms &amp; Crew-Served</div>
+            <div class="exp-cite">AFI 36-2654 / DAFMAN 36-2655</div>
+            <div class="exp-detail">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight &mdash; scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF. M320 sustainment is an identified near-term gap.</div>
+          </div>
+          <span class="exp-hook">&ldquo;The live range teaches the shot. We teach the fight.&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="Ready Airman Training (DAFMAN 36-2655 / HAF A3T)">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">Ready Airman Training (RAT)</div>
+            <div class="exp-cite">DAFMAN 36-2655 / HAF A3T / RAT Council</div>
+            <div class="exp-detail">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates &mdash; same session, no separate event.</div>
+          </div>
+          <span class="exp-hook">&ldquo;Same rep feeds the AFFORGEN gate&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="Deployment Familiarization &mdash; Home Station Reps on Perishable Skills">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">Deployment Familiarization &mdash; Perishable Skills at Home Station</div>
+            <div class="exp-cite">AFFORGEN / Expeditionary Readiness</div>
+            <div class="exp-detail">AFSFC leadership has identified the core gap: Airmen don&rsquo;t touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills &mdash; not just familiarization, but repeatable proficiency.</div>
+          </div>
+          <span class="exp-hook">&ldquo;Hands on it before they get there&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="Unit Readiness Reporting (AFI 10-201 / SORTS / DRRS-S)">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">Unit Readiness Reporting</div>
+            <div class="exp-cite">AFI 10-201 / SORTS / DRRS-S</div>
+            <div class="exp-detail">AFI 10-201 requires measurable readiness &mdash; but most C-UAS training today proves attendance, not capability. The Evidence Engine produces structured session records mapped to standards. Output is a readiness proof artifact commanders can defend when asked.</div>
+          </div>
+          <span class="exp-hook">&ldquo;Demonstrate readiness on demand&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="VTS Validation (AFSFC / CADMS)">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">VTS Validation &mdash; Institutional Acceptance Pathway</div>
+            <div class="exp-cite">AFSFC / CADMS &middot; AETC / A3X Credentialing</div>
+            <div class="exp-detail">AFSFC is the requirements owner and VTS validation authority via CADMS. AETC/A3X owns the credentialing and accreditation pathway. The objective isn&rsquo;t just technical performance &mdash; it&rsquo;s institutional acceptance. Training that &ldquo;counts&rdquo; flows through these gates.</div>
+          </div>
+          <span class="exp-hook">&ldquo;From interesting to counts&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="Use-of-Force / Non-Lethal Weapons (AFI 31-118)">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">Use-of-Force / Non-Lethal Weapons</div>
+            <div class="exp-cite">AFI 31-118 / Force Continuum</div>
+            <div class="exp-detail">SF units with LE missions rarely get consistent force-continuum reps between NLW certification cycles. Baton, OC, CEW content is proven across 5+ Ontario law enforcement services &mdash; directly applicable to home-station SF missions. No separate procurement.</div>
+          </div>
+          <span class="exp-hook">&ldquo;Already proven across Ontario LE&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="M320 Grenade Launcher Sustainment">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">M320 Grenade Launcher &mdash; Sustainment &amp; Procedural Proficiency</div>
+            <div class="exp-cite">AF Simulator Requirement / AFSFC Priority</div>
+            <div class="exp-detail">M320 is in the AF weapon family and explicitly included in the simulator requirement. Already identified as an AFSFC near-term priority alongside C-UAS. The requirement is not just familiarization &mdash; it&rsquo;s repeatable procedural proficiency. Same platform, same evidence pipeline.</div>
+          </div>
+          <span class="exp-hook">&ldquo;Already scoped as Phase 2&rdquo;</span>
+        </div>
+
+        <div class="exp-row" onclick="toggleExp(this)" data-ix="Tactical Communications Proficiency">
+          <div class="tgl"></div>
+          <div class="exp-content">
+            <div class="exp-name">Tactical Communications &mdash; Radio &amp; SALUTE Reporting</div>
+            <div class="exp-cite">AFSFC Priority / Deployment Readiness</div>
+            <div class="exp-detail">Surfaced repeatedly in AFSFC calls as a priority between C-UAS and M320. Radio procedures, SALUTE reporting, dispatch coordination &mdash; all scored within the same scenario environment. Comms proficiency is already a measured behavior in the C-UAS kill chain; extending it to standalone comms training is configuration, not new development.</div>
+          </div>
+          <span class="exp-hook">&ldquo;Already measured inside C-UAS scenarios&rdquo;</span>
+        </div>
+      </div>
+
+      <!-- ALIGNMENT STATEMENT -->
+      <div class="stmt-zone">
+        <div class="live-hint"><div class="live-dot"></div>Live &mdash; updates as you capture inputs above</div>
+        <div class="stmt-box">
+          <div class="stmt-header">
+            <span class="stmt-header-title">Alignment Statement</span>
+            <span class="stmt-header-badge draft">Co-authored &middot; Draft</span>
+          </div>
+          <div class="stmt-body">
+            <div class="stmt-text" id="stmtText">
+              The ICST C-UAS training requirement is governed by <span class="slot" id="slot-docs">AFI 31-101 &mdash; Integrated Defense, DAFI 31-131 Vol 2, AFJQS SEI 3CS, SFTRG C-sUAS TTPs</span>.<br><br>
+              The training operating system will be configured to trace every scored behavior back to these governing documents. When governing documents are updated, the platform will reconfigure training standards within approximately 30 days &mdash; no instructor re-certification required, no new procurement action needed.<br><br>
+              <span id="ix-block" style="display:none">This requirement intersects with <span class="slot" id="slot-ix"></span>. Where intersecting mandates apply to the same airmen, the same training rep will generate evidence for multiple compliance outputs &mdash; one platform, one data pipeline, no additional procurement.<br><br></span>
+              AFSFC will provide access to governing documents <span class="slot empty" id="slot-access" contenteditable="true">by [date TBD]</span>. Sections 01&ndash;04 of this document remain in DRAFT status until the requirements trace is validated against source documents.
+            </div>
+          </div>
+          <div class="stmt-footer">
+            <span class="stmt-footer-text">Read this back to the room. Their nod makes it a program artifact.</span>
+            <button class="stmt-btn" onclick="copyStmt()">Copy Statement</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -361,10 +658,24 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
         <div class="card card-accent"><div class="card-label">Domain 2</div><div class="card-title">Course of Fire</div><div class="card-body">Scored marksmanship across distances and conditions</div></div>
         <div class="card card-accent"><div class="card-label">Domain 3</div><div class="card-title">Sustainment Cadence</div><div class="card-body">Periodic requalification, not one-time certification</div></div>
       </div>
-      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">No Instrumented Baseline</div><div class="card-body">Qualification tables existed but no system to capture and report performance data at scale across shore installations.</div></div>
-        <div class="card card-red"><div class="card-title">Shore &ne; Afloat</div><div class="card-body">CNAP carriers had training momentum; shore installations had no equivalent structured program.</div></div>
+      <div class="gaps-callout">
+        <div class="gaps-callout-title">Gaps Identified</div>
+        <ul>
+          <li><strong>No instrumented baseline</strong> &mdash; qualification tables existed but no system to capture and report performance data at scale across shore installations</li>
+          <li><strong>Shore &ne; Afloat</strong> &mdash; CNAP carriers had training momentum; shore installations had no equivalent structured program</li>
+        </ul>
+      </div>
+
+      <div class="stmt-zone" style="margin-top:24px">
+        <div class="stmt-box">
+          <div class="stmt-header">
+            <span class="stmt-header-title">Alignment Statement &mdash; CNIC</span>
+            <span class="stmt-header-badge validated">Validated</span>
+          </div>
+          <div class="stmt-body">
+            <div class="stmt-text">The shore-based pistol qualification requirement is governed by <span class="slot">OPNAVINST 3591.1F &mdash; Navy Handgun Qualification Program</span>. The training operating system is configured for instrumented M18 qualification across 31 shore installations, with the same Evidence Engine deployed on Pacific Fleet carriers now extended to the shore security force. CNIC pre-contracted development ahead of delivery, establishing a repeatable procurement path targeting the SAWS Program of Record.</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -380,12 +691,25 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
         <div class="card card-green"><div class="card-label">Domain 2</div><div class="card-title">Non-Lethal Weapons</div><div class="card-body">Deployment timing, proportional response, accuracy</div></div>
         <div class="card card-green"><div class="card-label">Domain 3</div><div class="card-title">Communications</div><div class="card-body">Radio procedures, dispatch coordination, incident documentation</div></div>
       </div>
-      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">Mandate Without Infrastructure</div><div class="card-body">Regulation passed province-wide. No scalable delivery model existed for services of 500&ndash;2,000 officers.</div></div>
-        <div class="card card-red"><div class="card-title">No Shared Measurement</div><div class="card-body">Each service independently tried to prove compliance. No common scoring framework across municipalities.</div></div>
-        <div class="card card-red"><div class="card-title">DePICT&trade; Unscalable at Human-Rater Speed</div><div class="card-body">DePICT requires one trained observer per scenario. Province-scale compliance is impossible without automated scoring.</div></div>
-        <div class="card card-red"><div class="card-title">Attendance = Compliance</div><div class="card-body">Legacy training proved course completion &mdash; not demonstrated competency. No auditable DePICT outputs for regulators.</div></div>
+      <div class="gaps-callout">
+        <div class="gaps-callout-title">Gaps Identified</div>
+        <ul>
+          <li><strong>Mandate without infrastructure</strong> &mdash; regulation passed province-wide with no scalable delivery model for services of 500&ndash;2,000 officers</li>
+          <li><strong>DePICT&trade; unscalable at human-rater speed</strong> &mdash; one trained observer per scenario makes province-scale compliance impossible without automated scoring</li>
+          <li><strong>Attendance = compliance</strong> &mdash; legacy training proved course completion, not demonstrated competency; no auditable DePICT outputs for regulators</li>
+        </ul>
+      </div>
+
+      <div class="stmt-zone" style="margin-top:24px">
+        <div class="stmt-box">
+          <div class="stmt-header">
+            <span class="stmt-header-title">Alignment Statement &mdash; Ontario Police</span>
+            <span class="stmt-header-badge validated">Validated</span>
+          </div>
+          <div class="stmt-body">
+            <div class="stmt-text">The MHCR training requirement is governed by <span class="slot">O. Reg. 96/26 &mdash; Community Safety and Policing Act</span>, assessed through the <span class="slot">DePICT&trade; 14-item validated competency framework</span>. The Evidence Engine automates DePICT scoring, removing the human-rater bottleneck and making province-scale compliance measurable and auditable. Frontline patrol officers must be certified by October 1, 2026; all sworn officers by October 1, 2027.</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -397,12 +721,25 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span>Evidence Engine &middot; Creator &middot; Unitrack Sensors</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">7 Domains &middot; 1 Platform &middot; Credential-Aligned to Your Requirements</span></span></div>
       <p style="font-size:17px;color:var(--muted);font-style:italic;margin:16px 0 20px">V-CSTR is the Air Force&rsquo;s digital training infrastructure &mdash; deployed at 60+ units, aligned to Ready Airman Training requirements, and designed to extend the reach and repeatability of CSTR sites. Over years of working directly with Security Forces Defenders and SMEs, Street Smarts built content in response to what units said they couldn&rsquo;t train. The ICST baseline is that catalog &mdash; credential-aligned, evidence-generating, and available today.</p>
-      <h3 style="margin:20px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Current-State Gaps</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">Training by Waiver</div><div class="card-body">Across domains &mdash; crowd control, non-lethal deployment, C-UAS &mdash; commanders signed training waivers by the stack. No accredited protocol. Documentation to satisfy compliance, not to prove capability.</div></div>
-        <div class="card card-red"><div class="card-title">One Brief, No Reps</div><div class="card-body">Whether it was a Dronebuster, a use-of-force scenario, or a crowd situation, the average Defender saw training once &mdash; usually a slide deck before deployment &mdash; and never touched it again.</div></div>
-        <div class="card card-red"><div class="card-title">No Domestic Operations Framework</div><div class="card-body">Security Forces manage base access, crowd control, and non-lethal force situations at home station. No structured, repeatable training existed for the non-kinetic side of the mission.</div></div>
-        <div class="card card-red"><div class="card-title">Point Solutions, Not a System</div><div class="card-body">Units that did have training bought it piece by piece. No common measurement. No shared data. No way to demonstrate readiness across the full spectrum.</div></div>
+      <div class="gaps-callout">
+        <div class="gaps-callout-title">Current-State Gaps</div>
+        <ul>
+          <li><strong>Training by waiver</strong> &mdash; commanders signed training waivers by the stack across crowd control, NLW deployment, C-UAS; documentation to satisfy compliance, not to prove capability</li>
+          <li><strong>One brief, no reps</strong> &mdash; the average Defender saw training once (usually a slide deck before deployment) and never touched it again</li>
+          <li><strong>Point solutions, not a system</strong> &mdash; no common measurement, no shared data, no way to demonstrate readiness across the full spectrum</li>
+        </ul>
+      </div>
+
+      <div class="stmt-zone" style="margin-top:24px">
+        <div class="stmt-box">
+          <div class="stmt-header">
+            <span class="stmt-header-title">Alignment Statement &mdash; ICST Baseline</span>
+            <span class="stmt-header-badge validated">Validated</span>
+          </div>
+          <div class="stmt-body">
+            <div class="stmt-text">The ICST baseline is the V-CSTR platform &mdash; deployed at 60+ USAF units, credential-aligned to Ready Airman Training, ATF, and DCW requirements. Every capability in the catalog is proven in at least one fielded program, generating evidence and reporting to commanders. The baseline is not a proposal &mdash; it is the installed base. C-UAS and rapid configuration are additions to it.</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -424,12 +761,26 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
         <div class="card card-accent"><div class="card-label">Base Defense</div><div class="card-title">IBD &amp; Post-Attack Recon</div><div class="card-body">Defensive sectors &middot; interlocking fires &middot; Light-All/NVG night defense &middot; post-attack route sweep &middot; UXO/CBRN stanchion &amp; report</div></div>
         <div class="card card-accent"><div class="card-label">Patrol &amp; Incident</div><div class="card-title">Base Patrol Contacts</div><div class="card-body">Housing disturbances &middot; EDP with bystanders &middot; active threat in admin building &middot; USAF-specific NPC environments (OCP uniforms, base infrastructure)</div></div>
       </div>
-      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
-      <div class="card-grid">
-        <div class="card card-red"><div class="card-title">No Digital Qualification Records</div><div class="card-body">Qual cards are paper-based. No centralized visibility into which airmen are current across which weapons.</div></div>
-        <div class="card card-red"><div class="card-title">CATM Range Bottleneck</div><div class="card-body">Sustainment qualification constrained by range access and instructor availability &mdash; not by airmen readiness.</div></div>
-        <div class="card card-red"><div class="card-title">Non-Lethal Training Gap</div><div class="card-body">SF units with LE missions rarely get consistent force-continuum reps between NLW certification cycles. No sustainment scaffold between annual qualifications.</div></div>
-        <div class="card card-red"><div class="card-title">No Shared Measurement Layer</div><div class="card-body">Each weapon system is a separate training event. No common scoring framework links pistol, rifle, crew-served, NLW, and extended-range qualification.</div></div>
+      <div class="gaps-callout">
+        <div class="gaps-callout-title">Gaps Identified</div>
+        <ul>
+          <li><strong>No digital qualification records</strong> &mdash; qual cards are paper-based; no centralized visibility into which airmen are current across which weapons</li>
+          <li><strong>CATM range bottleneck</strong> &mdash; sustainment qualification constrained by range access and instructor availability, not airmen readiness</li>
+          <li><strong>Non-lethal training gap</strong> &mdash; no sustainment scaffold between annual NLW certification cycles for SF units with LE missions</li>
+          <li><strong>No shared measurement layer</strong> &mdash; each weapon system is a separate training event; no common scoring framework across the arsenal</li>
+        </ul>
+      </div>
+
+      <div class="stmt-zone" style="margin-top:24px">
+        <div class="stmt-box">
+          <div class="stmt-header">
+            <span class="stmt-header-title">Alignment Statement &mdash; ICST Rapid Config</span>
+            <span class="stmt-header-badge validated">Validated</span>
+          </div>
+          <div class="stmt-body">
+            <div class="stmt-text">The rapid configuration requirement is governed by <span class="slot">AFI 36-2654 (CATM)</span> and the <span class="slot">Use-of-Force Continuum</span>. Small arms (M18, M4A1) and non-lethals (baton, OC, CEW) are available now &mdash; deployed at Navy CNIC and Ontario law enforcement. Crew-served weapons are in configuration. Extended range systems are on request. One platform, one data pipeline, every system the Defender carries. Unit request to deployed qual tables in less than 30 days.</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -457,19 +808,6 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
         <tr><td class="cat" colspan="4">Tactical &amp; Procedural</td></tr>
         <tr><td class="rlabel">ROE compliance</td><td>100%</td><td>100%</td><td>100%</td></tr>
         <tr><td class="rlabel">Comms / reporting</td><td>SALUTE &le;30s</td><td>Broadcast &le;15s</td><td>SALUTE &le;30s</td></tr>
-      </tbody></table>
-    </div>
-
-    <!-- MHCR -->
-    <div class="pane" data-inst="mhcr">
-      <table class="dtable"><thead><tr><th>Criteria</th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
-        <tr><td class="cat" colspan="4">Behavioral Assessment</td></tr>
-        <tr><td class="rlabel">Response initiation</td><td>&le;5s verbal contact</td><td>&le;3s deployment</td><td>&le;10s first transmission</td></tr>
-        <tr><td class="rlabel">Technique compliance</td><td>Crisis intervention model</td><td>Proportional force matrix</td><td>Standard radio protocol</td></tr>
-        <tr><td class="rlabel">Effectiveness</td><td>Subject compliance rate</td><td>Target accuracy &ge;85%</td><td>Message accuracy &ge;90%</td></tr>
-        <tr><td class="cat" colspan="4">Legal &amp; Procedural</td></tr>
-        <tr><td class="rlabel">Use-of-force compliance</td><td>100%</td><td>100%</td><td>N/A</td></tr>
-        <tr><td class="rlabel">Documentation</td><td>Incident narrative &le;60s</td><td>Force report &le;60s</td><td>Dispatch log accuracy</td></tr>
       </tbody></table>
     </div>
 
@@ -760,29 +1098,6 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
         <tr><td style="font-weight:700;color:var(--muted)">CNIC Shore</td><td>Multiple CONUS installations</td><td>31 systems &middot; Path to SAWS Program of Record (PEO MLB / NETC)</td><td>Separate contract track</td><td style="color:var(--green);font-weight:700">Contracted &#10003;</td></tr>
       </tbody></table>
       <div class="fielding-summary" style="margin-top:16px">TYCOM adoption model: <strong>CNAP N3D</strong> (Edgar Tovar, NAS North Island) sponsored the Pacific deployment and introduced the system to <strong>CNAL</strong> and <strong>TACAMO</strong>. CNIC is on a parallel track targeting the <strong>SAWS Program of Record</strong> &mdash; which would establish this as the Navy standard for small arms training fleet-wide. An Exception-to-Policy (ETP) for deployed carrier pistol sustainment training is nearing signature.</div>
-    </div>
-
-    <!-- MHCR -->
-    <div class="pane" data-inst="mhcr">
-      <div style="background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-left:3px solid var(--red);border-radius:8px;padding:18px 24px;margin-bottom:20px;font-size:18px;line-height:1.5"><strong style="color:var(--red)">Active Compliance Deadline:</strong> O. Reg. 96/26 requires all frontline patrol officers certified by <strong>October 1, 2026</strong>. All other sworn officers by <strong>October 1, 2027</strong>. Police services are in active procurement now.</div>
-      <div class="card-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:20px">
-        <div class="card" style="border-top:3px solid var(--green)"><div class="card-label">Governing Statute</div><div class="card-value" style="font-size:20px;color:var(--green)">CSPA 2019</div><div class="card-body">In force April 1, 2024 &middot; Replaces Police Services Act</div></div>
-        <div class="card" style="border-top:3px solid var(--red)"><div class="card-label">Frontline Deadline</div><div class="card-value" style="font-size:22px;color:var(--red)">Oct 1 2026</div><div class="card-body">Community patrol functions &middot; ~6 months</div></div>
-        <div class="card" style="border-top:3px solid var(--amber)"><div class="card-label">Full Deadline</div><div class="card-value" style="font-size:22px;color:var(--amber)">Oct 1 2027</div><div class="card-body">All sworn officers &middot; Province-wide</div></div>
-        <div class="card" style="border-top:3px solid var(--accent)"><div class="card-label">Assessment Framework</div><div class="card-value" style="font-size:22px;color:var(--accent)">DePICT&trade;</div><div class="card-body">14-item validated competency tool &middot; Ministry-licensed</div></div>
-      </div>
-      <div class="fielding-summary" style="margin-bottom:16px"><strong>DePICT&trade; Integration:</strong> De-escalating Persons in Crisis Competencies Tool &mdash; the provincial standard for measuring MHCR competency. 14 scored behaviors, scenario-based, licensed to Ontario&rsquo;s Ministry of the Solicitor General. Currently requires a trained human rater per scenario. <strong>The Evidence Engine automates DePICT scoring</strong>, removing the human-rater bottleneck and making province-scale compliance measurable and auditable.</div>
-      <table class="dtable"><thead><tr><th>Agency</th><th>Scale</th><th>Deadline Pressure</th><th>Status / Pathway</th></tr></thead><tbody>
-        <tr><td class="cat" colspan="4">Active Deployment</td></tr>
-        <tr><td>Hamilton Police Service</td><td>~900 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td>WLU-facilitated &middot; Deploying</td></tr>
-        <tr><td>Ottawa Police Service</td><td>~1,400 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td>WLU-facilitated &middot; Deploying</td></tr>
-        <tr><td>York Regional Police</td><td>~2,000 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td>WLU-facilitated &middot; Deploying</td></tr>
-        <tr><td>Peel Regional Police</td><td>~8,000 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td style="color:var(--amber)">White-glove delivery risk &rarr; VR + Evidence Engine opportunity</td></tr>
-        <tr><td class="cat" colspan="4">Strategic Pipeline</td></tr>
-        <tr><td>Ontario Provincial Police (OPP)</td><td>~9,000 officers &middot; Province-wide</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td style="color:var(--accent)">APA lighthouse customer &rarr; direct OPP referral path</td></tr>
-        <tr><td>Atlantic Police Academy (APA)</td><td>Multi-agency &middot; Atlantic Canada</td><td>&mdash;</td><td style="color:var(--accent)">Unitrack + Evidence Engine proof point in progress</td></tr>
-        <tr><td>Toronto Police Service</td><td>~5,500 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td style="color:var(--muted)">Follows Peel / WLU direction</td></tr>
-      </tbody></table>
     </div>
 
     <!-- AFSFC -->
@@ -1113,7 +1428,7 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 <script>
 var inst='cnap',scope='cuas';
 var badges={cnap:'US Navy Carriers',afsfc:'ICST &mdash; C-UAS',cnic:'US Navy Installations',ontario:'Ontario Police',sfsq:'ICST Baseline','icst-rc':'ICST &mdash; Rapid Config'};
-var badgeCls={cnap:'cnap',mhcr:'mhcr',afsfc:'afsfc',cnic:'cnap',ontario:'mhcr',sfsq:'afsfc','icst-rc':'afsfc'};
+var badgeCls={cnap:'cnap',afsfc:'afsfc',cnic:'cnap',ontario:'cnap',sfsq:'afsfc','icst-rc':'afsfc'};
 
 /* FORMAT HELPERS */
 function fmtD(n){if(n>=1000000)return'$'+(Math.round(n/10000)/100)+'M';if(n>=1000)return'$'+(Math.round(n/100)/10)+'K';return'$'+n}
@@ -1323,12 +1638,94 @@ function edit(c){
   });
 }
 
+/* DOCUMENT CARDS */
+function pickC(el){el.parentElement.querySelectorAll('.copt').forEach(function(o){o.classList.remove('sel')});el.classList.add('sel');save()}
+var aStates=[{t:'TBD',c:''},{t:'Yes',c:'g'},{t:'Pending',c:'a'},{t:'Restricted',c:'r'},{t:'In Draft',c:''}];
+function cycleA(el){var i=aStates.findIndex(function(s){return el.textContent===s.t});var n=(i+1)%aStates.length;el.textContent=aStates[n].t;el.className='achip';if(aStates[n].c)el.classList.add(aStates[n].c);save()}
+function clrPh(el){if(el.classList.contains('ph')){el.textContent='';el.classList.remove('ph')}}
+function removeCard(btn){var card=btn.closest('[data-doccard]');card.classList.add('removing');setTimeout(function(){card.remove();renumberCards();updateStmt();save()},300)}
+function renumberCards(){document.querySelectorAll('[data-doccard]').forEach(function(c,i){var s=c.querySelector('.dcard-num span');if(s)s.textContent='Document '+(i+1)})}
+var cardCount=5;
+function addDocCard(){cardCount++;var html='<div class="dcard" data-doccard><div class="dcard-top"><div class="dcard-left"><div class="dcard-num"><span>Document '+cardCount+'</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div><div class="ed-doc big ph" contenteditable="true" data-doc oninput="updateStmt()" onfocus="clrPh(this)">Name the document\u2026</div><div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Pub #</div><div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office</div></div><div class="dcard-right"><div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Name / title / shop?</div></div><div class="fl">Who has change authority?</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">\u2014</div><div class="signal-box"><div class="signal-label">Political Signal / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">\u2014</div></div></div></div><div class="dcard-bottom"><span class="ml">Cadence</span><span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span><span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span></div></div>';var addBtn=document.querySelector('.add-card');addBtn.insertAdjacentHTML('beforebegin',html);save()}
+
+/* EXPANSION ZONE */
+function toggleExp(el){el.classList.toggle('on');updateStmt();save()}
+
+/* ALIGNMENT STATEMENT */
+function updateStmt(){
+  var docs=[];
+  document.querySelectorAll('[data-doc]').forEach(function(el){
+    var t=el.textContent.trim();
+    if(t&&!el.classList.contains('ph')&&t!=='Name the document\u2026')docs.push(t);
+  });
+  var ds=document.getElementById('slot-docs');
+  if(ds){if(docs.length>0){ds.textContent=docs.join(', ');ds.classList.remove('empty')}else{ds.textContent='no governing documents captured yet';ds.classList.add('empty')}}
+  var ixs=[];
+  document.querySelectorAll('.exp-row.on').forEach(function(el){ixs.push(el.getAttribute('data-ix'))});
+  var ixB=document.getElementById('ix-block'),ixS=document.getElementById('slot-ix');
+  if(ixB&&ixS){if(ixs.length>0){ixB.style.display='';ixS.textContent=ixs.join('; ');ixS.classList.remove('empty')}else{ixB.style.display='none'}}
+}
+function copyStmt(){
+  var t=document.getElementById('stmtText');if(!t)return;
+  navigator.clipboard.writeText(t.innerText).then(function(){
+    var b=document.querySelector('.stmt-btn');b.textContent='Copied \u2713';
+    setTimeout(function(){b.textContent='Copy Statement'},1500);
+  });
+}
+
+/* Save contenteditable on blur */
+document.addEventListener('blur',function(e){if(e.target.classList&&e.target.classList.contains('ed-doc')){save();updateStmt()}},true);
+
 /* STATE */
 var SK='ers-v6';
-function save(){try{var st={inst:inst,scope:scope,cells:{},exp:[]};document.querySelectorAll('.ed').forEach(function(c){if(c.dataset.key)st.cells[c.dataset.key]=c.textContent.trim()});document.querySelectorAll('.section.expanded').forEach(function(s){st.exp.push(s.dataset.s)});localStorage.setItem(SK,JSON.stringify(st))}catch(e){}}
-function load(){try{var r=localStorage.getItem(SK);if(!r)return;var st=JSON.parse(r);if(st.cells)Object.keys(st.cells).forEach(function(k){var c=document.querySelector('[data-key="'+k+'"]');if(c)c.textContent=st.cells[k]});if(st.scope==='full'){scope='full';document.body.classList.add('full-suite');document.getElementById('scope-label').textContent='Scope: Full C-UAS';}if(st.inst)switchInst(st.inst);if(st.exp){document.querySelectorAll('.section').forEach(function(s){s.classList.remove('expanded')});st.exp.forEach(function(n){var s=document.getElementById('s'+n);if(s)s.classList.add('expanded')});}updateLock();calc()}catch(e){}}
+function save(){try{
+  var st={inst:inst,scope:scope,cells:{},exp:[],docCards:[],expRows:[]};
+  /* Table cells (Sections 02-04) */
+  document.querySelectorAll('.ed').forEach(function(c){if(c.dataset.key)st.cells[c.dataset.key]=c.textContent.trim()});
+  /* Expanded sections */
+  document.querySelectorAll('.section.expanded').forEach(function(s){st.exp.push(s.dataset.s)});
+  /* Document cards */
+  document.querySelectorAll('[data-doccard]').forEach(function(card){
+    var fields=[];card.querySelectorAll('.ed-doc').forEach(function(f){fields.push({text:f.textContent.trim(),ph:f.classList.contains('ph')})});
+    var cadence='';card.querySelectorAll('.copt.sel').forEach(function(c){cadence=c.textContent});
+    var access='';var ac=card.querySelector('.achip');if(ac){access=ac.textContent}
+    st.docCards.push({fields:fields,cadence:cadence,access:access});
+  });
+  /* Expansion toggles */
+  document.querySelectorAll('.exp-row').forEach(function(r){st.expRows.push(r.classList.contains('on'))});
+  /* Alignment statement access date */
+  var sa=document.getElementById('slot-access');if(sa)st.slotAccess=sa.textContent.trim();
+  localStorage.setItem(SK,JSON.stringify(st));
+}catch(e){}}
+function load(){try{
+  var r=localStorage.getItem(SK);if(!r)return;var st=JSON.parse(r);
+  /* Table cells */
+  if(st.cells)Object.keys(st.cells).forEach(function(k){var c=document.querySelector('[data-key="'+k+'"]');if(c)c.textContent=st.cells[k]});
+  /* Scope */
+  if(st.scope==='full'){scope='full';document.body.classList.add('full-suite');document.getElementById('scope-label').textContent='Scope: Full C-UAS';}
+  /* Instance */
+  if(st.inst)switchInst(st.inst);
+  /* Expanded sections */
+  if(st.exp){document.querySelectorAll('.section').forEach(function(s){s.classList.remove('expanded')});st.exp.forEach(function(n){var s=document.getElementById('s'+n);if(s)s.classList.add('expanded')});}
+  /* Document cards */
+  if(st.docCards){
+    var cards=document.querySelectorAll('[data-doccard]');
+    st.docCards.forEach(function(dc,i){
+      if(!cards[i])return;
+      var fields=cards[i].querySelectorAll('.ed-doc');
+      dc.fields.forEach(function(f,j){if(fields[j]){fields[j].textContent=f.text;if(f.ph)fields[j].classList.add('ph');else fields[j].classList.remove('ph')}});
+      if(dc.cadence){cards[i].querySelectorAll('.copt').forEach(function(c){c.classList.toggle('sel',c.textContent===dc.cadence)})}
+      if(dc.access){var ac=cards[i].querySelector('.achip');if(ac){ac.textContent=dc.access;ac.className='achip';var st2=aStates.find(function(s){return s.t===dc.access});if(st2&&st2.c)ac.classList.add(st2.c)}}
+    });
+  }
+  /* Expansion toggles */
+  if(st.expRows){document.querySelectorAll('.exp-row').forEach(function(r,i){if(st.expRows[i])r.classList.add('on');else r.classList.remove('on')})}
+  /* Alignment statement access date */
+  if(st.slotAccess){var sa=document.getElementById('slot-access');if(sa)sa.textContent=st.slotAccess}
+  updateLock();updateStmt();calc();
+}catch(e){}}
 function xport(){document.querySelectorAll('.section').forEach(function(s){s.classList.add('expanded')});setTimeout(function(){window.print()},100)}
-load();updateLock();calc();
+load();updateLock();updateStmt();calc();
 </script>
 </body>
 </html>
