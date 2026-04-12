@@ -160,12 +160,6 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 .gap-filled-text{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:700;color:#fff;white-space:nowrap}
 .gap-empty{flex:1;display:flex;align-items:center;justify-content:center}
 .gap-empty-text{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:600;color:var(--red)}
-.cost-section{margin-bottom:16px}
-.cost-label{font-size:11px;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between}
-.cost-track{height:28px;border-radius:4px;background:rgba(138,40,24,0.06);border:1px solid rgba(138,40,24,0.12);position:relative;overflow:hidden}
-.cost-fill{height:100%;background:var(--green);border-radius:3px 0 0 3px;display:flex;align-items:center;padding:0 8px;transition:width .3s}
-.cost-fill-text{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:700;color:#fff;white-space:nowrap}
-.cost-remainder{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:600;color:var(--red)}
 .insight{padding:12px 16px;border-radius:8px;font-size:11px;line-height:1.6;color:var(--muted);margin-bottom:0}
 .insight b{color:var(--text)}
 .insight.gap-insight{background:rgba(138,40,24,0.06);border:1px solid rgba(138,40,24,0.12);border-left:3px solid var(--red)}
@@ -834,69 +828,44 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
     </div>
   </div>
 
-  <!-- Cost bar -->
-  <div class="cost-section">
-    <div class="cost-label"><span>Annual Cost Comparison &mdash; at Desired Frequency</span><span id="savings-label" style="font-family:'Consolas','Courier New',monospace;font-size:11px;font-weight:700;color:var(--green)">Saves $1.1M/yr</span></div>
-    <div class="cost-track">
-      <div class="cost-fill" id="cost-fill" style="width:30%"><span class="cost-fill-text" id="cost-fill-text">ICST: $600K</span></div>
-      <span class="cost-remainder" id="cost-remainder">Live: $1.7M</span>
-    </div>
-  </div>
-
-  <!-- Cost avoidance breakdown -->
+  <!-- Live-fire cost burden -->
   <div id="cost-breakdown" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:16px">
-    <div style="font-family:'Consolas','Courier New',monospace;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Cost Avoidance Breakdown &mdash; Annual</div>
+    <div style="font-family:'Consolas','Courier New',monospace;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Live-Fire Cost Burden &mdash; Annual at Desired Frequency</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px">
       <div style="padding:14px 16px;border-radius:6px;border:1px solid var(--border);border-left:3px solid var(--red);background:var(--surface)">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px">Ammunition Cost</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px">Ammunition</div>
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-          <span style="font-size:13px;color:var(--muted)">Rounds required (at desired freq)</span>
-          <span style="font-family:'Consolas','Courier New',monospace;font-size:15px;font-weight:700;color:var(--red)" id="bd-rounds">250K</span>
+          <span style="font-size:13px;color:var(--muted)">Rounds required</span>
+          <span style="font-family:'Consolas','Courier New',monospace;font-size:15px;font-weight:700;color:var(--red)" id="bd-rounds">500,000</span>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <span style="font-size:13px;color:var(--muted)">Total ammo spend</span>
-          <span style="font-family:'Consolas','Courier New',monospace;font-size:18px;font-weight:700;color:var(--red)" id="bd-ammo-cost">$375K</span>
+          <span style="font-size:13px;color:var(--muted)">Annual ammo spend</span>
+          <span style="font-family:'Consolas','Courier New',monospace;font-size:18px;font-weight:700;color:var(--red)" id="bd-ammo-cost">$750K</span>
         </div>
         <div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic" id="bd-ammo-math">10,000 airmen &times; 25 rds &times; 2 quals &times; $1.50/rd</div>
       </div>
       <div style="padding:14px 16px;border-radius:6px;border:1px solid var(--border);border-left:3px solid var(--red);background:var(--surface)">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px">Range Operations Cost</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px">Range Operations</div>
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-          <span style="font-size:13px;color:var(--muted)">Range days required (at desired freq)</span>
+          <span style="font-size:13px;color:var(--muted)">Range days required</span>
           <span style="font-family:'Consolas','Courier New',monospace;font-size:15px;font-weight:700;color:var(--red)" id="bd-rdays-needed">800</span>
         </div>
         <div style="display:flex;justify-content:space-between;align-items:baseline">
-          <span style="font-size:13px;color:var(--muted)">Total range ops spend</span>
+          <span style="font-size:13px;color:var(--muted)">Annual range ops spend</span>
           <span style="font-family:'Consolas','Courier New',monospace;font-size:18px;font-weight:700;color:var(--red)" id="bd-range-cost">$2.4M</span>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic" id="bd-range-math">50 sites &times; 24 days &times; $3,000/day (available) &mdash; need 800 days</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic" id="bd-range-math">800 days needed &times; $3,000/day &mdash; 1,200 days available</div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
-      <div style="padding:12px 14px;border-radius:6px;border:1px solid var(--border);border-top:3px solid var(--red);text-align:center;background:var(--surface)">
-        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px">Total Live-Fire Cost</div>
-        <div style="font-family:'Consolas','Courier New',monospace;font-size:22px;font-weight:700;color:var(--red)" id="bd-total-live">$2.78M</div>
-        <div style="font-size:10px;color:var(--muted)" id="bd-total-note">At desired frequency</div>
-      </div>
-      <div style="padding:12px 14px;border-radius:6px;border:1px solid var(--border);border-top:3px solid var(--green);text-align:center;background:var(--surface)">
-        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px">ICST Platform Cost</div>
-        <div style="font-family:'Consolas','Courier New',monospace;font-size:22px;font-weight:700;color:var(--green)" id="bd-icst-cost">$600K</div>
-        <div style="font-size:10px;color:var(--muted)">Unlimited quals &middot; No ammo &middot; No range</div>
-      </div>
-      <div style="padding:12px 14px;border-radius:6px;border:1px solid rgba(42,125,63,0.3);border-top:3px solid var(--green);text-align:center;background:rgba(42,125,63,0.06)">
-        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:4px">Annual Cost Avoidance</div>
-        <div style="font-family:'Consolas','Courier New',monospace;font-size:22px;font-weight:700;color:var(--green)" id="bd-savings">$2.18M</div>
-        <div style="font-size:10px;color:var(--muted)" id="bd-savings-pct">78% reduction</div>
-      </div>
+    <div style="padding:16px 18px;border-radius:8px;border:1px solid rgba(196,41,28,0.25);border-top:3px solid var(--red);text-align:center;background:rgba(196,41,28,0.04)">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:6px">Total Annual Live-Fire Burden</div>
+      <div style="font-family:'Consolas','Courier New',monospace;font-size:28px;font-weight:700;color:var(--red)" id="bd-total-live">$3.15M</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:4px" id="bd-total-note">To qualify <span id="bd-total-airmen">10,000</span> airmen at <span id="bd-total-freq">2</span>&times;/yr &mdash; and none of it produces scored data</div>
     </div>
-    <div style="margin-top:12px;font-size:11px;color:var(--muted);font-style:italic;padding:8px 12px;border-left:2px solid var(--amber);background:rgba(122,94,16,0.04);border-radius:0 4px 4px 0" id="bd-freq-warning">
-      <strong style="color:var(--amber)">Frequency gap:</strong> At 2&times;/yr desired cadence, each installation needs 16 range days — but only 24 are available. <span id="bd-freq-status" style="font-weight:700"></span>
-    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted);font-style:italic;padding:8px 12px;border-left:2px solid var(--amber);background:rgba(122,94,16,0.04);border-radius:0 4px 4px 0" id="bd-freq-warning"></div>
   </div>
 
-  <div class="insight gap-insight" id="insight-box">
-    <b>The readiness gap is the argument.</b> At 24 range days/year with 25 airmen/day, only 600 out of 10,000 airmen can physically cycle through live-fire qualification. <b>94% of the force has no path to C-UAS qualification under the current model.</b> ICST closes that gap entirely &mdash; and every qualification generates scored, reportable evidence.
-  </div>
+  <div class="insight gap-insight" id="insight-box"></div>
 </div>
 
 <!-- ========== GANTT ========== -->
@@ -969,20 +938,20 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
     </div>
   </div>
 
-  <!-- HERO SAVINGS -->
+  <!-- HERO: CUMULATIVE LIVE-FIRE BURDEN -->
   <div class="savings-hero">
     <div class="savings-hero-inner">
       <div class="sh-left">
-        <div class="sh-label">Estimated Cost Avoidance by FY28</div>
+        <div class="sh-label">Cumulative Live-Fire Burden by FY28</div>
         <div class="sh-val" id="co-savings">&mdash;</div>
-        <div class="sh-sub">vs. live-fire shotgun qualification across <span id="sh-inst">50</span> installations</div>
+        <div class="sh-sub">What it costs to sustain live-fire C-UAS qualification across <span id="sh-inst">50</span> installations &mdash; at your desired cadence</div>
       </div>
       <div class="sh-right">
         <div class="sh-detail">
-          <div class="sh-row"><span class="sh-item">Ammo not purchased</span><span class="sh-num" id="sh-ammo">&mdash;</span></div>
-          <div class="sh-row"><span class="sh-item">Range days not scheduled</span><span class="sh-num" id="sh-rdays">&mdash;</span></div>
-          <div class="sh-row"><span class="sh-item">Range ops not funded</span><span class="sh-num" id="sh-rops">&mdash;</span></div>
-          <div class="sh-row sh-row-total"><span class="sh-item">And zero of that produces scored data</span></div>
+          <div class="sh-row"><span class="sh-item">Ammunition consumed</span><span class="sh-num" id="sh-ammo">&mdash;</span></div>
+          <div class="sh-row"><span class="sh-item">Range days consumed</span><span class="sh-num" id="sh-rdays">&mdash;</span></div>
+          <div class="sh-row"><span class="sh-item">Range ops funded</span><span class="sh-num" id="sh-rops">&mdash;</span></div>
+          <div class="sh-row sh-row-total"><span class="sh-item">And none of it produces scored, reportable data</span></div>
         </div>
       </div>
     </div>
@@ -1009,7 +978,7 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
     </div>
   </div>
   <div class="callout-statement" id="co-statement">
-    By the end of FY28, <span class="num" id="cs-airmen">10,000</span> airmen across <span class="num" id="cs-inst">50</span> installations have access to scored, qualification-grade C-UAS training &mdash; generating <span class="num" id="cs-quals">240K+</span> evidence records and avoiding an estimated <span class="num" id="cs-savings">$2.2M</span> in live-fire range costs. <b>And that&rsquo;s C-UAS alone</b> &mdash; before M18, non-lethal, and use-of-force layers activate across the installed base.
+    By the end of FY28, <span class="num" id="cs-airmen">10,000</span> airmen across <span class="num" id="cs-inst">50</span> installations have access to scored, qualification-grade C-UAS training &mdash; generating <span class="num" id="cs-quals">240K+</span> evidence records. The current live-fire model carries a <span class="num" id="cs-savings">$9.6M</span> cumulative burden to achieve the same coverage &mdash; and produces zero scored data. <b>And that&rsquo;s C-UAS alone</b> &mdash; before M18, non-lethal, and use-of-force layers activate across the installed base.
   </div>
 </div>
 
@@ -1177,9 +1146,6 @@ function calc(){
   var rangeCost=rdaysNeededTotal*rdcost;
 
   var altCost=ammoCost+rangeCost;
-  var ssvrCost=inst*lanes*12000;
-  var savings=altCost-ssvrCost;
-  var fillPct=Math.max(5,Math.min(95,altCost>0?Math.round((ssvrCost/altCost)*100):50));
 
   // ICST quals per year (12 scored scenarios per airman per cycle, freq cycles)
   var totalQuals=totalAirmen*12*freq;
@@ -1198,19 +1164,7 @@ function calc(){
   document.getElementById('o-quals').textContent=fmtS(totalQuals);
   document.getElementById('o-icst').textContent='100%';
 
-  // === Cost bar ===
-  document.getElementById('cost-fill').style.width=fillPct+'%';
-  document.getElementById('cost-fill-text').textContent='ICST: '+fmtD(Math.round(ssvrCost));
-  document.getElementById('cost-remainder').textContent='Live: '+fmtD(Math.round(altCost));
-  if(savings>0){
-    document.getElementById('savings-label').textContent='Saves '+fmtD(Math.round(savings))+'/yr';
-    document.getElementById('savings-label').style.color='var(--green)';
-  }else{
-    document.getElementById('savings-label').textContent='Platform exceeds by '+fmtD(Math.round(Math.abs(savings)));
-    document.getElementById('savings-label').style.color='var(--amber)';
-  }
-
-  // === Cost avoidance breakdown ===
+  // === Cost burden breakdown ===
   document.getElementById('bd-rounds').textContent=fmtN(totalRoundsNeeded);
   document.getElementById('bd-ammo-cost').textContent=fmtD(Math.round(ammoCost));
   document.getElementById('bd-ammo-math').textContent=fmtN(totalAirmen)+' airmen \u00d7 '+rounds+' rds \u00d7 '+freq+' quals \u00d7 $'+cpr.toFixed(2)+'/rd';
@@ -1222,14 +1176,11 @@ function calc(){
   document.getElementById('bd-range-math').textContent=fmtN(rdaysNeededTotal)+' days needed \u00d7 $'+fmtN(rdcost)+'/day \u2014 '+fmtN(rdaysAvailTotal)+' days available';
 
   document.getElementById('bd-total-live').textContent=fmtD(Math.round(altCost));
-  document.getElementById('bd-total-note').textContent='At '+freq+'\u00d7/yr desired frequency';
-  document.getElementById('bd-icst-cost').textContent=fmtD(Math.round(ssvrCost));
-  document.getElementById('bd-savings').textContent=savings>0?fmtD(Math.round(savings)):'-'+fmtD(Math.round(Math.abs(savings)));
-  document.getElementById('bd-savings-pct').textContent=altCost>0?Math.round((Math.max(0,savings)/altCost)*100)+'% reduction':'—';
+  document.getElementById('bd-total-airmen').textContent=fmtN(totalAirmen);
+  document.getElementById('bd-total-freq').textContent=freq;
 
   // Frequency gap warning
   var freqWarn=document.getElementById('bd-freq-warning');
-  var freqStatus=document.getElementById('bd-freq-status');
   if(rdayShortfall>0){
     freqWarn.style.display='';
     freqWarn.innerHTML='<strong style="color:var(--amber)">Frequency gap:</strong> At '+freq+'\u00d7/yr desired cadence, each installation needs <strong>'+rdaysNeededPerSite+'</strong> range days \u2014 but only <strong>'+rdays+'</strong> are available. <span style="font-weight:700;color:var(--red)">Shortfall: '+fmtN(rdayShortfall)+' range days across the enterprise. Even if you fund the cost, the range access doesn\u2019t exist.</span>';
@@ -1242,13 +1193,10 @@ function calc(){
   var ib=document.getElementById('insight-box');
   if(gapPct>30){
     ib.className='insight gap-insight';
-    ib.innerHTML='<b>The readiness gap is the argument.</b> At '+rdays+' range days/year with '+tput+' airmen/day, only <b>'+fmtN(liveCapped)+'</b> out of <b>'+fmtN(totalAirmen)+'</b> airmen can physically cycle through even one live-fire qualification. <b>'+gapPct+'% of the force has no path to C-UAS qualification under the current model.</b> Scale that to '+freq+'\u00d7/yr cadence and the math breaks entirely. ICST closes the gap \u2014 every qualification generates scored, reportable evidence.';
-  }else if(savings>altCost*0.3){
-    ib.className='insight cost-insight';
-    ib.innerHTML='<b>The cost avoidance is the argument.</b> At '+freq+'\u00d7/yr cadence, the live-fire model costs <b>'+fmtD(Math.round(altCost))+'</b>/year \u2014 <b>'+fmtD(Math.round(ammoCost))+'</b> in ammo and <b>'+fmtD(Math.round(rangeCost))+'</b> in range ops. ICST delivers the same coverage for <b>'+fmtD(Math.round(ssvrCost))+'</b>. And live-fire still produces <b>zero reportable qualification data</b>. You pay more and measure nothing.';
+    ib.innerHTML='<b>The readiness gap is the argument.</b> At '+rdays+' range days/year with '+tput+' airmen/day, only <b>'+fmtN(liveCapped)+'</b> out of <b>'+fmtN(totalAirmen)+'</b> airmen can physically cycle through even one live-fire qualification. <b>'+gapPct+'% of the force has no path to C-UAS qualification under the current model.</b> Scale that to '+freq+'\u00d7/yr cadence and the math breaks entirely \u2014 and the annual cost burden reaches <b>'+fmtD(Math.round(altCost))+'</b> for training that produces zero scored data.';
   }else{
     ib.className='insight cost-insight';
-    ib.innerHTML='<b>Even at parity, ICST wins on data.</b> The cost comparison is close at this configuration \u2014 but live-fire produces <b>zero scored, reportable qualification evidence</b>. No commander dashboard. No AFI 10-201 reporting. ICST generates <b>'+fmtS(totalQuals)+'</b> scored qualification records per year. The measurement layer is the product.';
+    ib.innerHTML='<b>The cost burden is the argument.</b> At '+freq+'\u00d7/yr cadence, the live-fire model costs <b>'+fmtD(Math.round(altCost))+'</b>/year \u2014 <b>'+fmtD(Math.round(ammoCost))+'</b> in ammo and <b>'+fmtD(Math.round(rangeCost))+'</b> in range ops. And live-fire still produces <b>zero reportable qualification data</b>. No commander dashboard. No AFI 10-201 reporting. No evidence that training happened beyond a signature on a roster.';
   }
 
   // === Callout updates ===
@@ -1257,22 +1205,23 @@ function calc(){
   var fy27Sites=Math.min(inst,Math.max(15,Math.round(inst*0.3)));
   var fy27Airmen=fy27Sites*lanes*airmen;
   var fy28Airmen=totalAirmen;
-  var cumSavings=Math.max(0,savings)*1.5;
+  // Cumulative live-fire burden over ~2 years of scaling (0.5x year 1 + 1x year 2)
+  var cumBurden=Math.round(altCost*1.5);
   var cumQuals=Math.round(totalQuals*0.5+totalQuals);
 
   document.getElementById('co-fy26-airmen').textContent=fmtN(confAirmen);
   document.getElementById('co-fy27-airmen').textContent=fmtN(fy27Airmen);
   document.getElementById('co-fy27-sub').textContent=fy27Sites+' installations fielded';
   document.getElementById('co-fy28-airmen').textContent=fmtN(fy28Airmen);
-  document.getElementById('co-savings').textContent=fmtD(Math.round(cumSavings));
+  document.getElementById('co-savings').textContent=fmtD(cumBurden);
   document.getElementById('co-quals').textContent=fmtS(cumQuals)+'+';
   document.getElementById('co-lanes-total').textContent=fmtN(inst*lanes);
   document.getElementById('cs-airmen').textContent=fmtN(fy28Airmen);
   document.getElementById('cs-inst').textContent=inst;
   document.getElementById('cs-quals').textContent=fmtS(cumQuals)+'+';
-  document.getElementById('cs-savings').textContent=fmtD(Math.round(cumSavings));
+  document.getElementById('cs-savings').textContent=fmtD(cumBurden);
 
-  // Savings hero breakdown
+  // Cumulative live-fire burden breakdown
   document.getElementById('sh-inst').textContent=inst;
   var cumAmmoRounds=Math.round(totalRoundsNeeded*1.5);
   var cumRangeDays=Math.round(rdaysNeededTotal*1.5);
