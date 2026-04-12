@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)file:///G:/My%20Drive/ObisidianVaultOliver/Obsidian%20Vault/enabling-readiness-at-scale-v5.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enabling Readiness at Scale</title>
+<style>
+:root{--bg:#f4f3ee;--surface:#ffffff;--surface2:#edeae0;--border:#ccc9b8;--text:#1a1a10;--muted:#555540;--accent:#2e3d1a;--green:#3a6e18;--amber:#7a5e10;--red:#8a2818;--olive:#5e6e2a;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:24px;line-height:1.5;min-height:100vh;padding-bottom:68px}
+
+/* ===== HEADER ===== */
+.page-header{position:sticky;top:0;z-index:100;background:#2e3d1a;border-bottom:2px solid #1a2410;display:flex;align-items:center;padding:14px 48px;gap:20px}
+.page-title{font-size:28px;font-weight:700;flex:1;color:#e8ead4}
+.page-subtitle{font-size:18px;color:#8a9a72}
+.instance-badge{font-size:16px;font-weight:700;padding:6px 14px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;transition:all 0.2s}
+.instance-badge.cnap{background:rgba(168,192,112,0.15);border:1px solid rgba(168,192,112,0.35);color:#a8c070}
+.instance-badge.mhcr{background:rgba(120,200,72,0.15);border:1px solid rgba(120,200,72,0.35);color:#78c848}
+.instance-badge.afsfc{background:rgba(201,184,122,0.15);border:1px solid rgba(201,184,122,0.35);color:#c9b87a}
+
+/* ===== MEASUREMENT BAR ===== */
+.measurement-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:10px 48px;font-size:16px;font-weight:600;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.measurement-bar .arrow{margin-left:auto;font-size:18px}
+
+/* ===== SECTIONS ===== */
+.main{max-width:1600px;margin:0 auto;padding:24px 48px 24px}
+.section{border:1px solid var(--border);border-radius:10px;margin-bottom:14px;overflow:hidden;transition:border-color 0.15s}
+.section:hover{border-color:#a8a490}
+.section-header{display:flex;align-items:center;gap:20px;padding:0 28px;height:64px;cursor:pointer;user-select:none;background:var(--surface);transition:background 0.15s}
+.section-header:hover{background:var(--surface2)}
+.section-header:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.section-num{font-size:20px;font-weight:700;color:var(--olive);min-width:32px}
+.section-title{font-size:24px;font-weight:600}
+.section-title .verb{color:var(--olive);font-weight:700}
+.section-subtitle{font-size:17px;color:var(--muted);font-style:italic;margin-left:8px}
+.section-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.section-summary{font-size:16px;color:var(--muted)}
+.section-chevron{font-size:18px;color:var(--muted);transition:transform 0.2s}
+.section.expanded .section-chevron{transform:rotate(180deg)}
+.section-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.section.expanded .section-body{max-height:15000px}
+.section-content{padding:28px 32px 36px;border-top:1px solid var(--border)}
+
+/* ===== INSTANCE PANES ===== */
+.pane{display:none}.pane.active{display:block}
+
+/* ===== CARDS ===== */
+.card-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card-grid.tri{grid-template-columns:1fr 1fr 1fr}
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:22px 24px}
+.card-accent{border-left:3px solid var(--accent)}
+.card-green{border-left:3px solid var(--green)}
+.card-amber{border-left:3px solid var(--amber)}
+.card-red{border-left:3px solid var(--red)}
+.card-label{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:4px}
+.card-title{font-size:20px;font-weight:700;margin-bottom:6px}
+.card-body{font-size:18px;color:var(--muted);line-height:1.5}
+.card-value{font-size:32px;font-weight:700;color:var(--green)}
+.card-value.blue{color:var(--accent)}.card-value.amber{color:var(--amber)}
+
+/* ===== TREE ===== */
+.tree{font-family:'Consolas','Courier New',monospace;font-size:20px;line-height:2;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:20px}
+.tree-root{font-size:22px;font-weight:700;color:var(--accent)}
+.tree-line{display:block}.tree-connector{color:var(--muted)}
+.tree-hl{background:rgba(46,61,26,0.08);border-radius:4px;padding:1px 8px;color:var(--accent);font-weight:600}
+.tree-sub{color:var(--muted);font-size:17px}
+.full-branch{display:none}
+body.full-suite .full-branch{display:block}
+
+/* ===== KILL CHAIN ===== */
+.kc{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin:16px 0}
+.kc-step{flex:1;min-width:130px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px 14px;text-align:center}
+.kc-num{font-size:16px;font-weight:700;color:var(--accent);margin-bottom:2px}
+.kc-name{font-size:17px;font-weight:600}
+.kc-arrow{display:flex;align-items:center;font-size:22px;color:var(--muted)}
+
+/* ===== DATA TABLES ===== */
+.dtable{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:20px}
+.dtable thead th{background:var(--surface);padding:14px 16px;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:left;border-bottom:2px solid var(--border);white-space:nowrap}
+.dtable thead th.col-accent{color:var(--accent)}
+.dtable thead th.col-green{color:var(--green)}
+.dtable tbody td{padding:12px 16px;font-size:19px;border-bottom:1px solid var(--border);vertical-align:top}
+.dtable tbody tr:last-child td{border-bottom:none}
+.dtable .cat{background:var(--surface2);font-size:16px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1px;padding:10px 16px;border-left:3px solid var(--olive)}
+.dtable .rlabel{font-size:17px;color:var(--muted);min-width:180px}
+.col-fs{display:none}body.full-suite .col-fs{display:table-cell}
+
+/* ===== EDITABLE ===== */
+.ed{cursor:text;border-radius:4px;transition:background 0.12s,box-shadow 0.12s;min-height:44px}
+.ed:hover{background:rgba(46,61,26,0.06)}
+.ed:focus-visible,.ed.editing{background:var(--bg);box-shadow:inset 0 0 0 2px var(--accent);outline:none}
+.ed .cell-input{background:transparent;border:none;color:var(--text);font-size:19px;font-family:inherit;width:100%;padding:0;outline:none}
+.discuss{color:var(--amber);font-style:italic}
+.na{color:var(--muted)}
+
+/* ===== FIELDING SUMMARY ===== */
+.fielding-summary{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--olive);border-radius:8px;padding:24px 28px;font-size:21px;line-height:1.6;margin-bottom:20px}
+.fielding-summary strong{color:var(--accent)}
+.detail-btn{display:inline-block;padding:7px 16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--accent);font-size:15px;cursor:pointer;transition:background 0.12s;margin-bottom:16px}
+.detail-btn:hover{background:var(--surface2)}
+.detail-area{display:none}.detail-area.open{display:block}
+
+/* ===== TAB BAR ===== */
+.tab-bar{position:fixed;bottom:0;left:0;right:0;height:56px;background:#2e3d1a;border-top:2px solid #1a2410;display:flex;align-items:stretch;z-index:200;padding:0 20px}
+.tab{padding:0 28px;border:none;background:transparent;color:#6a8050;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.12s;font-family:inherit;border-top:3px solid transparent;display:flex;align-items:center;gap:8px}
+.tab:hover:not(.active){color:#c8d8a0;background:rgba(255,255,255,0.06)}
+.tab.active{color:#e8ead4;border-top-color:#a8c070}
+.tab .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tab .dot.blue{background:#a8c070}.tab .dot.green{background:#78c848}.tab .dot.amber{background:#c9b87a}
+.tab-right{margin-left:auto;display:flex;align-items:center;gap:12px;padding:0 8px}
+.scope-btn{display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:#c8d8a0;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.12s}
+.scope-btn:hover:not(.locked){border-color:#a8c070;background:rgba(255,255,255,0.06)}
+.scope-btn.locked{opacity:0.35;cursor:not-allowed}
+.scope-btn .pill{width:36px;height:20px;border-radius:10px;background:rgba(255,255,255,0.2);position:relative;transition:background 0.25s;flex-shrink:0}
+.scope-btn .pill::after{content:'';position:absolute;top:3px;left:3px;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,0.5);transition:transform 0.25s,background 0.25s}
+body.full-suite .scope-btn .pill{background:#78c848}
+body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#fff}
+.export-btn{padding:8px 16px;border-radius:6px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:#6a8050;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.12s}
+.export-btn:hover{border-color:#a8c070;color:#c8d8a0}
+
+/* ===== RECOMPUTE ===== */
+.recompute{position:fixed;inset:0;background:rgba(244,243,238,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:300;opacity:0;pointer-events:none;transition:opacity 0.12s}
+.recompute.on{opacity:1;pointer-events:all}
+.recompute-label{font-size:16px;color:var(--muted);font-weight:600;letter-spacing:1px}
+.recompute-bar{width:280px;height:3px;background:var(--border);border-radius:2px;overflow:hidden}
+.recompute-fill{width:0;height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:2px;transition:width 0.5s ease-out}
+.recompute.on .recompute-fill{width:100%}
+
+/* ===== PROJECTOR / RESPONSIVE ===== */
+@media (max-width:1280px){
+  .main{padding:20px 28px}
+  .page-header{padding:12px 28px}
+  .card-grid.tri{grid-template-columns:1fr 1fr}
+  .card-grid[style*="1fr 1fr 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
+}
+@media (max-width:1024px){
+  body{font-size:20px}
+  .main{padding:16px 20px}
+  .page-header{padding:10px 20px}
+  .page-title{font-size:24px}
+  .section-title{font-size:20px}
+  .card-grid{grid-template-columns:1fr}
+  .card-grid.tri{grid-template-columns:1fr}
+  .dtable tbody td{font-size:17px;padding:10px 12px}
+  .dtable thead th{font-size:16px;padding:10px 12px}
+  .tree{font-size:17px}
+}
+
+/* ===== PRINT ===== */
+@media print{
+  body{font-size:12px;padding-bottom:0}
+  .page-header{background:#2e3d1a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section-body{max-height:none!important} .tab-bar,.recompute{display:none!important}
+  .dtable thead th,.dtable tbody td{padding:4px 8px;font-size:10px}
+  .section{break-inside:avoid;border:1px solid var(--border)}
+  .pane{display:block!important}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div>
+    <div class="page-title">Enabling Readiness at Scale</div>
+    <div class="page-subtitle">Our Process for Configuring &amp; Fielding Training Operating Systems</div>
+  </div>
+  <span class="instance-badge afsfc" id="instance-badge">ICST &mdash; C-UAS</span>
+</div>
+<div class="measurement-bar">Shared Measurement Layer Across the Formation <span class="arrow">→</span></div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ========== SECTION 01: ALIGN ========== -->
+<div class="section" id="s1" data-s="1">
+  <div class="section-header" tabindex="0" onclick="tog(1)" onkeydown="if(event.key===&#39;Enter&#39;)tog(1)">
+    <span class="section-num">01</span>
+    <span class="section-title"><span class="verb">Align</span> the Mission Needs</span>
+    <span class="section-subtitle">Training Requirements</span>
+    <div class="section-right"><span class="section-summary" id="sum1"></span><span class="section-chevron">▾</span></div>
+  </div>
+  <div class="section-body"><div class="section-content">
+
+    <!-- CNAP -->
+    <div class="pane" data-inst="cnap">
+      <div class="tree"><span class="tree-root">Fleet Force Protection</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>OPNAVINST 5530.14E — Physical Security &amp; Anti-Terrorism</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>Carrier Security Force Requirements</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span><span class="tree-hl">3 Mission Domains</span></span></div>
+      <div class="card-grid tri">
+        <div class="card card-accent"><div class="card-label">Domain 1</div><div class="card-title">C-UAS Response</div><div class="card-body">Counter-drone shipboard defense</div></div>
+        <div class="card card-amber"><div class="card-label">Domain 2</div><div class="card-title">Active Shooter</div><div class="card-body">Shipboard threat response</div></div>
+        <div class="card card-red"><div class="card-label">Domain 3</div><div class="card-title">Hostile Waterborne</div><div class="card-body">Small boat / harbor defense</div></div>
+      </div>
+      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">Fragmented Fleet Training</div><div class="card-body">7 carriers operating independently. No standardized measurement between ships.</div></div>
+        <div class="card card-red"><div class="card-title">Participation, Not Evidence</div><div class="card-body">Legacy systems tracked completion. No scored evidence of crew capability.</div></div>
+      </div>
+    </div>
+
+    <!-- MHCR -->
+    <div class="pane" data-inst="mhcr">
+      <div class="tree"><span class="tree-root">Community Safety and Policing Act (CSPA), 2019</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>O. Reg. 96/26 — Mandatory MHCR Training · In force April 1, 2024</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>DePICT™ — 14-Item Validated Competency Assessment Framework</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span><span class="tree-hl">3 Non-Kinetic Domains</span> <span class="tree-sub">· Frontline deadline: Oct 1, 2026</span></span></div>
+      <div class="card-grid tri">
+        <div class="card card-green"><div class="card-label">Domain 1</div><div class="card-title">Verbal De-escalation</div><div class="card-body">Command presence, crisis intervention, communication</div></div>
+        <div class="card card-green"><div class="card-label">Domain 2</div><div class="card-title">Non-Lethal Weapons</div><div class="card-body">Deployment timing, target accuracy, proportional response</div></div>
+        <div class="card card-green"><div class="card-label">Domain 3</div><div class="card-title">Communications</div><div class="card-body">Radio procedures, dispatch coordination, SALUTE-style reporting</div></div>
+      </div>
+      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">DePICT™ Unscalable at Human-Rater Speed</div><div class="card-body">DePICT requires one trained observer per scenario. Province-scale compliance is impossible without automated scoring.</div></div>
+        <div class="card card-red"><div class="card-title">Attendance = Compliance</div><div class="card-body">Legacy training proved course completion — not demonstrated competency. No auditable DePICT outputs for regulators.</div></div>
+      </div>
+    </div>
+
+    <!-- AFSFC -->
+    <div class="pane active" data-inst="afsfc">
+      <div class="tree"><span class="tree-root">Integrated Base Defense</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>AFI 31-101 — Integrated Defense</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>DAFI 31-131 Vol 2 · AFI 10-201 · DAFMAN 36-2655</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span>AFJQS SEI 3CS · TC 3-01.81 · 10 U.S.C. § 130i</span>
+<span class="tree-line"><span class="tree-connector">       └─ </span><span class="tree-hl">Shotgun</span> <span class="tree-sub">(kinetic)</span>   <span class="tree-hl">Dronebuster</span> <span class="tree-sub">(EW)</span></span>
+<span class="tree-line full-branch"><span class="tree-connector">       └─ </span><span class="tree-hl">LMAMS</span> <span class="tree-sub">(kinetic interceptor)</span>   <span class="tree-hl">Coyote</span> <span class="tree-sub">(loitering munition)</span> <span style="font-family:var(--font);font-size:12px;font-weight:700;background:rgba(63,185,80,0.15);border:1px solid rgba(63,185,80,0.4);color:var(--green);padding:2px 8px;border-radius:4px;margin-left:6px;vertical-align:middle">FULL C-UAS</span></span></div>
+      <div class="kc">
+        <div class="kc-step"><div class="kc-num">1</div><div class="kc-name">Detect / Identify</div></div><div class="kc-arrow">→</div>
+        <div class="kc-step"><div class="kc-num">2</div><div class="kc-name">Track / Report</div></div><div class="kc-arrow">→</div>
+        <div class="kc-step"><div class="kc-num">3</div><div class="kc-name">Engage / Defeat</div></div><div class="kc-arrow">→</div>
+        <div class="kc-step"><div class="kc-num">4</div><div class="kc-name">Measurement</div></div>
+      </div>
+      <h3 style="margin:20px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Current-State Gaps</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">Attendance, Not Performance</div><div class="card-body">AFI 10-201 requires measurable readiness. Training proves attendance — not capability.</div></div>
+        <div class="card card-red"><div class="card-title">No C-UAS Qualification Tables</div><div class="card-body">SFTRG C-sUAS content still being drafted. Each installation improvises.</div></div>
+        <div class="card card-red"><div class="card-title">Data Latency</div><div class="card-body">Performance data doesn't flow from measurement to command in time.</div></div>
+        <div class="card card-red"><div class="card-title">No On-Demand Readiness</div><div class="card-body">Commanders cannot demonstrate C-UAS readiness when asked.</div></div>
+      </div>
+    </div>
+
+    <!-- CNIC -->
+    <div class="pane" data-inst="cnic">
+      <div class="tree"><span class="tree-root">Shore-Based Force Protection</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>OPNAVINST 3591.1F — Navy Handgun Qualification Program</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>M18 Pistol Sustainment Training</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span><span class="tree-hl">Instrumented Pistol Qualification</span></span></div>
+      <div class="card-grid tri">
+        <div class="card card-accent"><div class="card-label">Domain 1</div><div class="card-title">Draw &amp; Present</div><div class="card-body">Time-to-first-shot from holster</div></div>
+        <div class="card card-accent"><div class="card-label">Domain 2</div><div class="card-title">Course of Fire</div><div class="card-body">Scored marksmanship across distances and conditions</div></div>
+        <div class="card card-accent"><div class="card-label">Domain 3</div><div class="card-title">Sustainment Cadence</div><div class="card-body">Periodic requalification, not one-time certification</div></div>
+      </div>
+      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">No Instrumented Baseline</div><div class="card-body">Qualification tables existed but no system to capture and report performance data at scale across shore installations.</div></div>
+        <div class="card card-red"><div class="card-title">Shore ≠ Afloat</div><div class="card-body">CNAP carriers had training momentum; shore installations had no equivalent structured program.</div></div>
+      </div>
+    </div>
+
+    <!-- ONTARIO -->
+    <div class="pane" data-inst="ontario">
+      <div class="tree"><span class="tree-root">Municipal Use-of-Force Compliance</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>Ontario Regulation 96/26 — Community Safety and Policing Act</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>Regional Police Services</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span>MHCR Training Obligation</span>
+<span class="tree-line"><span class="tree-connector">       └─ </span><span class="tree-hl">1,600+ Officers Across Multiple Services</span></span></div>
+      <div class="card-grid tri">
+        <div class="card card-green"><div class="card-label">Domain 1</div><div class="card-title">Verbal De-escalation</div><div class="card-body">Command presence, crisis intervention, communication</div></div>
+        <div class="card card-green"><div class="card-label">Domain 2</div><div class="card-title">Non-Lethal Weapons</div><div class="card-body">Deployment timing, proportional response, accuracy</div></div>
+        <div class="card card-green"><div class="card-label">Domain 3</div><div class="card-title">Communications</div><div class="card-body">Radio procedures, dispatch coordination, incident documentation</div></div>
+      </div>
+      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">Mandate Without Infrastructure</div><div class="card-body">Regulation passed province-wide. No scalable delivery model existed for services of 500–2,000 officers.</div></div>
+        <div class="card card-red"><div class="card-title">No Shared Measurement</div><div class="card-body">Each service independently tried to prove compliance. No common scoring framework across municipalities.</div></div>
+        <div class="card card-red"><div class="card-title">DePICT™ Unscalable at Human-Rater Speed</div><div class="card-body">DePICT requires one trained observer per scenario. Province-scale compliance is impossible without automated scoring.</div></div>
+        <div class="card card-red"><div class="card-title">Attendance = Compliance</div><div class="card-body">Legacy training proved course completion — not demonstrated competency. No auditable DePICT outputs for regulators.</div></div>
+      </div>
+    </div>
+
+    <!-- SFSQ -->
+    <div class="pane" data-inst="sfsq">
+      <div class="tree"><span class="tree-root">Security Forces — Full Spectrum Readiness</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>AFFORGEN Cycle → Ready Airman Training</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>Security Forces Squadron, Home Station</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span>Use-of-Force Continuum + Base Defense + C-UAS</span>
+<span class="tree-line"><span class="tree-connector">       └─ </span><span class="tree-hl">7 Domains · 1 Platform · Configured to Your Requirements</span></span></div>
+      <p style="font-size:17px;color:var(--muted);font-style:italic;margin:16px 0 20px">Over years of working directly with Security Forces Defenders and SMEs, Street Smarts built content in response to what units said they couldn’t train. Each capability started as a field request. The catalog is what that looks like when it accumulates.</p>
+      <h3 style="margin:20px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Current-State Gaps</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">Training by Waiver</div><div class="card-body">Across domains — crowd control, non-lethal deployment, C-UAS — commanders signed training waivers by the stack. No accredited protocol. Documentation to satisfy compliance, not to prove capability.</div></div>
+        <div class="card card-red"><div class="card-title">One Brief, No Reps</div><div class="card-body">Whether it was a Dronebuster, a use-of-force scenario, or a crowd situation, the average Defender saw training once — usually a slide deck before deployment — and never touched it again.</div></div>
+        <div class="card card-red"><div class="card-title">No Domestic Operations Framework</div><div class="card-body">Security Forces manage base access, crowd control, and non-lethal force situations at home station. No structured, repeatable training existed for the non-kinetic side of the mission.</div></div>
+        <div class="card card-red"><div class="card-title">Point Solutions, Not a System</div><div class="card-body">Units that did have training bought it piece by piece. No common measurement. No shared data. No way to demonstrate readiness across the full spectrum.</div></div>
+      </div>
+    </div>
+
+    <!-- ICST-RC -->
+    <div class="pane" data-inst="icst-rc">
+      <div class="tree"><span class="tree-root">Conventional Weapons &amp; Non-Lethal Qualification</span>
+<span class="tree-line"><span class="tree-connector"> └─ </span>AFI 36-2654 — Combat Arms Training and Maintenance (CATM)</span>
+<span class="tree-line"><span class="tree-connector">   └─ </span>Weapon Qualification Tables · Force Continuum · Installation NPCs</span>
+<span class="tree-line"><span class="tree-connector">     └─ </span><span class="tree-hl">Weapons + Non-Lethals + Optics · USAF NPC Environments</span></span></div>
+      <div class="card-grid">
+        <div class="card card-accent"><div class="card-label">Small Arms</div><div class="card-title">M18 Pistol · M4A1 Carbine</div><div class="card-body">Individual qualification · shoot/no-shoot · optics/sights · sustainment cadence</div></div>
+        <div class="card card-amber"><div class="card-label">Crew-Served</div><div class="card-title">M240 · M249 SAW</div><div class="card-body">Team qualification · sector coverage · burst control · crew drills</div></div>
+        <div class="card card-red"><div class="card-label">Extended Range</div><div class="card-title">M3 MAAWS · M2 .50 Cal · M320 GLM</div><div class="card-body">Complex employment · range control · firing solution validation</div></div>
+        <div class="card card-green"><div class="card-label">Non-Lethal</div><div class="card-title">Baton · OC/Pepper Spray · CEW (TASER)</div><div class="card-body">Force-continuum decision drills · deployment timing · proportional response scenarios</div></div>
+      </div>
+      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">USAF NPC Scenario Environments</h3>
+      <div class="card-grid tri">
+        <div class="card card-accent"><div class="card-label">Access Control</div><div class="card-title">Gate &amp; ECP Scenarios</div><div class="card-body">DBIDS-style ID flow · gate runner · vehicle challenge · protest at the gate · flight-line restricted-area contact</div></div>
+        <div class="card card-accent"><div class="card-label">Base Defense</div><div class="card-title">IBD &amp; Post-Attack Recon</div><div class="card-body">Defensive sectors · interlocking fires · Light-All/NVG night defense · post-attack route sweep · UXO/CBRN stanchion &amp; report</div></div>
+        <div class="card card-accent"><div class="card-label">Patrol &amp; Incident</div><div class="card-title">Base Patrol Contacts</div><div class="card-body">Housing disturbances · EDP with bystanders · active threat in admin building · USAF-specific NPC environments (OCP uniforms, base infrastructure)</div></div>
+      </div>
+      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Gaps Identified</h3>
+      <div class="card-grid">
+        <div class="card card-red"><div class="card-title">No Digital Qualification Records</div><div class="card-body">Qual cards are paper-based. No centralized visibility into which airmen are current across which weapons.</div></div>
+        <div class="card card-red"><div class="card-title">CATM Range Bottleneck</div><div class="card-body">Sustainment qualification constrained by range access and instructor availability — not by airmen readiness.</div></div>
+        <div class="card card-red"><div class="card-title">Non-Lethal Training Gap</div><div class="card-body">SF units with LE missions rarely get consistent force-continuum reps between NLW certification cycles. No sustainment scaffold between annual qualifications.</div></div>
+        <div class="card card-red"><div class="card-title">No Shared Measurement Layer</div><div class="card-body">Each weapon system is a separate training event. No common scoring framework links pistol, rifle, crew-served, NLW, and extended-range qualification.</div></div>
+      </div>
+    </div>
+
+  </div></div>
+</div>
+
+<!-- ========== SECTION 02: DEFINE ========== -->
+<div class="section" id="s2" data-s="2">
+  <div class="section-header" tabindex="0" onclick="tog(2)" onkeydown="if(event.key===&#39;Enter&#39;)tog(2)">
+    <span class="section-num">02</span>
+    <span class="section-title"><span class="verb">Define</span> What “Right” Looks Like</span>
+    <span class="section-subtitle">Measurable Behaviors</span>
+    <div class="section-right"><span class="section-summary" id="sum2"></span><span class="section-chevron">▾</span></div>
+  </div>
+  <div class="section-body"><div class="section-content">
+
+    <!-- CNAP -->
+    <div class="pane" data-inst="cnap">
+      <table class="dtable"><thead><tr><th>Criteria</th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Core Engagement</td></tr>
+        <tr><td class="rlabel">Threat detection time</td><td>≤8s</td><td>≤3s</td><td>≤12s</td></tr>
+        <tr><td class="rlabel">Positive ID</td><td>Grp 1 vs 2 ≥90%</td><td>Threat vs bystander 100%</td><td>Hostile vs civilian ≥95%</td></tr>
+        <tr><td class="rlabel">Time to engagement</td><td>≤20s from detect</td><td>≤5s from ID</td><td>≤15s from auth</td></tr>
+        <tr><td class="rlabel">Effects on target</td><td>Drone neutralized</td><td>Threat stopped</td><td>Vessel disabled</td></tr>
+        <tr><td class="cat" colspan="4">Tactical &amp; Procedural</td></tr>
+        <tr><td class="rlabel">ROE compliance</td><td>100%</td><td>100%</td><td>100%</td></tr>
+        <tr><td class="rlabel">Comms / reporting</td><td>SALUTE ≤30s</td><td>Broadcast ≤15s</td><td>SALUTE ≤30s</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- MHCR -->
+    <div class="pane" data-inst="mhcr">
+      <table class="dtable"><thead><tr><th>Criteria</th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Behavioral Assessment</td></tr>
+        <tr><td class="rlabel">Response initiation</td><td>≤5s verbal contact</td><td>≤3s deployment</td><td>≤10s first transmission</td></tr>
+        <tr><td class="rlabel">Technique compliance</td><td>Crisis intervention model</td><td>Proportional force matrix</td><td>Standard radio protocol</td></tr>
+        <tr><td class="rlabel">Effectiveness</td><td>Subject compliance rate</td><td>Target accuracy ≥85%</td><td>Message accuracy ≥90%</td></tr>
+        <tr><td class="cat" colspan="4">Legal &amp; Procedural</td></tr>
+        <tr><td class="rlabel">Use-of-force compliance</td><td>100%</td><td>100%</td><td>N/A</td></tr>
+        <tr><td class="rlabel">Documentation</td><td>Incident narrative ≤60s</td><td>Force report ≤60s</td><td>Dispatch log accuracy</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- AFSFC -->
+    <div class="pane active" data-inst="afsfc">
+      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Click any value to edit. <span class="discuss">[Discuss]</span> = input needed.</p>
+      <table class="dtable"><thead><tr><th>Category</th><th>Criteria</th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="6">Detect / Identify</td></tr>
+        <tr><td class="rlabel" rowspan="3">Detection</td><td class="rlabel">Time to detect</td><td class="ed" data-key="d-det-sg" tabindex="0">≤10s</td><td class="ed" data-key="d-det-db" tabindex="0">≤10s</td><td class="ed col-fs" data-key="d-det-lm" tabindex="0">≤10s</td><td class="ed col-fs" data-key="d-det-cy" tabindex="0">≤10s</td></tr>
+        <tr><td class="rlabel">Time to PID</td><td class="ed" data-key="d-pid-sg" tabindex="0">≤15s</td><td class="ed" data-key="d-pid-db" tabindex="0">≤15s</td><td class="ed col-fs" data-key="d-pid-lm" tabindex="0">≤15s</td><td class="ed col-fs" data-key="d-pid-cy" tabindex="0">≤15s</td></tr>
+        <tr><td class="rlabel">VACR accuracy</td><td class="ed" data-key="d-vacr-sg" tabindex="0">≥90%</td><td class="ed" data-key="d-vacr-db" tabindex="0">≥90%</td><td class="ed col-fs" data-key="d-vacr-lm" tabindex="0">≥90%</td><td class="ed col-fs" data-key="d-vacr-cy" tabindex="0">≥90%</td></tr>
+        <tr><td class="cat" colspan="6">Track / Report</td></tr>
+        <tr><td class="rlabel" rowspan="2">Tracking</td><td class="rlabel">Track hold</td><td class="ed" data-key="d-trk-sg" tabindex="0">≥5s</td><td class="ed" data-key="d-trk-db" tabindex="0">≥5s</td><td class="ed col-fs" data-key="d-trk-lm" tabindex="0">≥5s</td><td class="ed col-fs" data-key="d-trk-cy" tabindex="0">≥5s</td></tr>
+        <tr><td class="rlabel">SALUTE time</td><td class="ed" data-key="d-sal-sg" tabindex="0">≤30s</td><td class="ed" data-key="d-sal-db" tabindex="0">≤30s</td><td class="ed col-fs" data-key="d-sal-lm" tabindex="0">≤30s</td><td class="ed col-fs" data-key="d-sal-cy" tabindex="0">≤30s</td></tr>
+        <tr><td class="cat" colspan="6">Engage / Defeat</td></tr>
+        <tr><td class="rlabel" rowspan="2">Engagement</td><td class="rlabel">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="d-t1e-db" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed col-fs" data-key="d-t1e-lm" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed col-fs" data-key="d-t1e-cy" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="na">N/A (EW)</td><td class="ed col-fs" data-key="d-hit-lm" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed col-fs" data-key="d-hit-cy" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="cat" colspan="6">Tactical</td></tr>
+        <tr><td class="rlabel">Tactics</td><td class="rlabel">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td class="ed" data-key="d-roe-db" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-lm" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-cy" tabindex="0">100%</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- CNIC -->
+    <div class="pane" data-inst="cnic">
+      <table class="dtable"><thead><tr><th>Criteria</th><th class="col-accent">M18 Pistol</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="2">Marksmanship &amp; Qualification</td></tr>
+        <tr><td class="rlabel">Time to draw</td><td>≤1.5s</td></tr>
+        <tr><td class="rlabel">Time to first shot</td><td>≤2.5s</td></tr>
+        <tr><td class="rlabel">Hit rate (qual course)</td><td>≥80%</td></tr>
+        <tr><td class="rlabel">Low-light performance</td><td>≥70%</td></tr>
+        <tr><td class="rlabel">ROE compliance</td><td>100%</td></tr>
+        <tr><td class="rlabel">Requalification interval</td><td>90 days</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ONTARIO -->
+    <div class="pane" data-inst="ontario">
+      <table class="dtable"><thead><tr><th>Criteria</th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Behavioral Assessment</td></tr>
+        <tr><td class="rlabel">Response initiation</td><td>≤5s verbal contact</td><td>≤3s deployment</td><td>≤10s first transmission</td></tr>
+        <tr><td class="rlabel">Technique compliance</td><td>Crisis intervention model</td><td>Proportional force matrix</td><td>Standard radio protocol</td></tr>
+        <tr><td class="rlabel">Effectiveness</td><td>Subject compliance rate</td><td>Target accuracy ≥85%</td><td>Message accuracy ≥90%</td></tr>
+        <tr><td class="cat" colspan="4">Legal &amp; Procedural</td></tr>
+        <tr><td class="rlabel">Use-of-force compliance</td><td>100%</td><td>100%</td><td>N/A</td></tr>
+        <tr><td class="rlabel">Documentation</td><td>Incident narrative ≤60s</td><td>Force report ≤60s</td><td>Dispatch log accuracy</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- SFSQ -->
+    <div class="pane" data-inst="sfsq">
+      <table class="dtable"><thead><tr><th>Domain</th><th>Sample Criteria</th></tr></thead><tbody>
+        <tr><td class="rlabel">Use-of-Force / De-escalation</td><td>Subject compliance rate · technique compliance · force proportionality</td></tr>
+        <tr><td class="rlabel">Non-Lethal Weapons</td><td>Deployment time ≤3s · target accuracy ≥85% · proportional response</td></tr>
+        <tr><td class="rlabel">Crowd Control</td><td>Correct formation · communication protocol · escalation/de-escalation decision</td></tr>
+        <tr><td class="rlabel">Active Shooter / Base Defense</td><td>Threat ID accuracy ≥95% · time to engage ≤5s · ROE compliance 100%</td></tr>
+        <tr><td class="rlabel">C-UAS — Shotgun</td><td>Time to PID ≤15s · engagement decision · defeat confirmation</td></tr>
+        <tr><td class="rlabel">C-UAS — Dronebuster (EW)</td><td>Detect &amp; classify · track &amp; lock · employment sequence</td></tr>
+        <tr><td class="rlabel">Communications</td><td>SALUTE ≤30s · radio protocol compliance · dispatch coordination</td></tr>
+      </tbody></table>
+      <p style="font-size:16px;color:var(--muted);font-style:italic;margin-top:16px">Criteria co-developed with Security Forces SMEs. Not all doctrine — some of this is what the field said right looks like before doctrine caught up.</p>
+    </div>
+
+    <!-- ICST-RC -->
+    <div class="pane" data-inst="icst-rc">
+      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Click any value to edit. <span class="discuss">[Discuss]</span> = input needed.</p>
+      <table class="dtable"><thead><tr><th>Category</th><th>Criteria</th><th class="col-accent">M18 Pistol</th><th class="col-accent">M4A1 Carbine</th><th>M240 MG</th><th>M249 SAW</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="6">Individual Weapons</td></tr>
+        <tr><td class="rlabel" rowspan="4">Marksmanship</td><td class="rlabel">Draw / ready time</td><td class="ed" data-key="rc-draw-m18" tabindex="0">≤1.5s</td><td class="ed" data-key="rc-draw-m4" tabindex="0">≤2s</td><td class="na">N/A</td><td class="na">N/A</td></tr>
+        <tr><td class="rlabel">Time to first shot</td><td class="ed" data-key="rc-t1s-m18" tabindex="0">≤2.5s</td><td class="ed" data-key="rc-t1s-m4" tabindex="0">≤3s</td><td class="na">N/A</td><td class="na">N/A</td></tr>
+        <tr><td class="rlabel">Hit rate (qual course)</td><td class="ed" data-key="rc-hit-m18" tabindex="0">≥80%</td><td class="ed" data-key="rc-hit-m4" tabindex="0">≥80%</td><td class="ed" data-key="rc-hit-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-hit-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel">Optics / sights</td><td class="ed" data-key="rc-opt-m18" tabindex="0">Iron + red dot</td><td class="ed" data-key="rc-opt-m4" tabindex="0">Iron + red dot + ACOG</td><td class="na">N/A</td><td class="na">N/A</td></tr>
+        <tr><td class="cat" colspan="6">Crew-Served Weapons</td></tr>
+        <tr><td class="rlabel" rowspan="2">Crew Performance</td><td class="rlabel">Sector setup time</td><td class="na">N/A</td><td class="na">N/A</td><td class="ed" data-key="rc-sec-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-sec-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel">Crew drill score</td><td class="na">N/A</td><td class="na">N/A</td><td class="ed" data-key="rc-crew-m240" tabindex="0">≥85%</td><td class="ed" data-key="rc-crew-m249" tabindex="0">≥85%</td></tr>
+        <tr><td class="cat" colspan="6">Shared Standards</td></tr>
+        <tr><td class="rlabel" rowspan="3">Compliance</td><td class="rlabel">NVG performance</td><td class="ed" data-key="rc-nvg-m18" tabindex="0">≥70%</td><td class="ed" data-key="rc-nvg-m4" tabindex="0">≥70%</td><td class="ed" data-key="rc-nvg-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-nvg-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel">ROE compliance</td><td class="ed" data-key="rc-roe-m18" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m4" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m240" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m249" tabindex="0">100%</td></tr>
+        <tr><td class="rlabel">Requalification interval</td><td class="ed" data-key="rc-req-m18" tabindex="0">90 days</td><td class="ed" data-key="rc-req-m4" tabindex="0">180 days</td><td class="ed" data-key="rc-req-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-req-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+      </tbody></table>
+      <table class="dtable" style="margin-top:16px"><thead><tr><th>Category</th><th>Criteria</th><th class="col-green">Baton</th><th class="col-green">OC / Pepper Spray</th><th class="col-green">CEW (TASER)</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="5">Non-Lethal Weapons</td></tr>
+        <tr><td class="rlabel" rowspan="3">Force Continuum</td><td class="rlabel">Deployment time</td><td class="ed" data-key="rc-dep-bat" tabindex="0">≤3s</td><td class="ed" data-key="rc-dep-oc" tabindex="0">≤3s</td><td class="ed" data-key="rc-dep-cew" tabindex="0">≤3s</td></tr>
+        <tr><td class="rlabel">Target accuracy</td><td class="ed" data-key="rc-acc-bat" tabindex="0">≥85%</td><td class="ed" data-key="rc-acc-oc" tabindex="0">≥85%</td><td class="ed" data-key="rc-acc-cew" tabindex="0">≥90%</td></tr>
+        <tr><td class="rlabel">Proportional response</td><td class="ed" data-key="rc-prop-bat" tabindex="0">Force matrix compliance</td><td class="ed" data-key="rc-prop-oc" tabindex="0">Force matrix compliance</td><td class="ed" data-key="rc-prop-cew" tabindex="0">Force matrix compliance</td></tr>
+        <tr><td class="rlabel">Policy</td><td class="rlabel">Use-of-force compliance</td><td class="ed" data-key="rc-uof-bat" tabindex="0">100%</td><td class="ed" data-key="rc-uof-oc" tabindex="0">100%</td><td class="ed" data-key="rc-uof-cew" tabindex="0">100%</td></tr>
+      </tbody></table>
+    </div>
+
+  </div></div>
+</div>
+
+<!-- ========== SECTION 03: CONFIGURE ========== -->
+<div class="section" id="s3" data-s="3">
+  <div class="section-header" tabindex="0" onclick="tog(3)" onkeydown="if(event.key===&#39;Enter&#39;)tog(3)">
+    <span class="section-num">03</span>
+    <span class="section-title"><span class="verb">Configure</span> Training Operating Systems</span>
+    <span class="section-subtitle">Instrumented Reps &amp; Sets</span>
+    <div class="section-right"><span class="section-summary" id="sum3"></span><span class="section-chevron">▾</span></div>
+  </div>
+  <div class="section-body"><div class="section-content">
+
+    <!-- CNAP -->
+    <div class="pane" data-inst="cnap">
+      <table class="dtable"><thead><tr><th>Dimension</th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Scenarios</td></tr>
+        <tr><td class="rlabel">Progression</td><td>Detect → Track → Engage → Defeat</td><td>Alert → Respond → Engage → Secure</td><td>Detect → Classify → Warn → Engage</td></tr>
+        <tr><td class="cat" colspan="4">Environments</td></tr>
+        <tr><td class="rlabel">Conditions</td><td>Flight deck · Open water</td><td>Below-deck · Bridge</td><td>Harbor · Anchorage</td></tr>
+        <tr><td class="cat" colspan="4">Scoring</td></tr>
+        <tr><td class="rlabel">Method</td><td>Defeat + time + ROE</td><td>Stopped + bystander safety</td><td>Disabled + ROE + comms</td></tr>
+        <tr><td class="cat" colspan="4">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td colspan="3">Evidence Engine → Ship DB → Fleet Roll-up → CNAP HQ</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- MHCR -->
+    <div class="pane" data-inst="mhcr">
+      <table class="dtable"><thead><tr><th>Dimension</th><th class="col-green">Verbal</th><th class="col-green">Non-Lethal</th><th class="col-green">Communications</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Scenarios</td></tr>
+        <tr><td class="rlabel">Progression</td><td>Approach → Assess → De-escalate → Resolve</td><td>Threat assessment → Deploy → Control → Secure</td><td>Dispatch → Relay → Coordinate → Log</td></tr>
+        <tr><td class="cat" colspan="4">Environments</td></tr>
+        <tr><td class="rlabel">Conditions</td><td>Domestic · Public space · Vehicle stop</td><td>Indoor · Outdoor · Crowd</td><td>Field · Dispatch center</td></tr>
+        <tr><td class="cat" colspan="4">Scoring</td></tr>
+        <tr><td class="rlabel">Method</td><td>Subject outcome + technique + time</td><td>Accuracy + proportionality + safety</td><td>Protocol compliance + accuracy</td></tr>
+        <tr><td class="cat" colspan="4">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td colspan="3">Evidence Engine → Detachment DB → Provincial Roll-up → HQ</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- AFSFC -->
+    <div class="pane active" data-inst="afsfc">
+      <table class="dtable"><thead><tr><th>Dimension</th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="5">Scenarios</td></tr>
+        <tr><td class="rlabel">Stage 1</td><td class="ed" data-key="c-s1-sg" tabindex="0">Setup &amp; Safety</td><td class="ed" data-key="c-s1-db" tabindex="0">Setup &amp; Safety</td><td class="ed col-fs" data-key="c-s1-lm" tabindex="0">System check &amp; arm</td><td class="ed col-fs" data-key="c-s1-cy" tabindex="0">Launch prep &amp; checklist</td></tr>
+        <tr><td class="rlabel">Stage 2</td><td class="ed" data-key="c-s2-sg" tabindex="0">Find &amp; Hold (no-shoot)</td><td class="ed" data-key="c-s2-db" tabindex="0">Detect &amp; classify</td><td class="ed col-fs" data-key="c-s2-lm" tabindex="0">Target acquisition</td><td class="ed col-fs" data-key="c-s2-cy" tabindex="0">Loiter &amp; search</td></tr>
+        <tr><td class="rlabel">Stage 3</td><td class="ed" data-key="c-s3-sg" tabindex="0">ID &amp; Report</td><td class="ed" data-key="c-s3-db" tabindex="0">Track &amp; lock</td><td class="ed col-fs" data-key="c-s3-lm" tabindex="0">Track &amp; lock</td><td class="ed col-fs" data-key="c-s3-cy" tabindex="0">Target classification</td></tr>
+        <tr><td class="rlabel">Stage 4</td><td class="ed" data-key="c-s4-sg" tabindex="0">Decision Gate (ROE)</td><td class="ed" data-key="c-s4-db" tabindex="0">Employ EW</td><td class="ed col-fs" data-key="c-s4-lm" tabindex="0">Authorization / ROE gate</td><td class="ed col-fs" data-key="c-s4-cy" tabindex="0">Terminal engagement auth</td></tr>
+        <tr><td class="rlabel">Stage 5</td><td class="ed" data-key="c-s5-sg" tabindex="0">Engage — single</td><td class="ed" data-key="c-s5-db" tabindex="0">Multi-drone</td><td class="ed col-fs" data-key="c-s5-lm" tabindex="0">Engage — single target</td><td class="ed col-fs" data-key="c-s5-cy" tabindex="0">Single-drone intercept</td></tr>
+        <tr><td class="rlabel">Stage 6</td><td class="ed" data-key="c-s6-sg" tabindex="0">Two-target sequence</td><td class="ed" data-key="c-s6-db" tabindex="0">Swarm</td><td class="ed col-fs" data-key="c-s6-lm" tabindex="0">Multi-target sequence</td><td class="ed col-fs" data-key="c-s6-cy" tabindex="0">Multi-drone scenario</td></tr>
+        <tr><td class="cat" colspan="5">Environments</td></tr>
+        <tr><td class="rlabel">Conditions</td><td class="ed" data-key="c-env-sg" tabindex="0">Day/Night · Open/Urban</td><td class="ed" data-key="c-env-db" tabindex="0">Day/Night · Open/Urban</td><td class="ed col-fs" data-key="c-env-lm" tabindex="0">Day/Night · Perimeter</td><td class="ed col-fs" data-key="c-env-cy" tabindex="0">Day/Night · 3km loiter radius</td></tr>
+        <tr><td class="cat" colspan="5">Scoring</td></tr>
+        <tr><td class="rlabel">Method</td><td class="ed" data-key="c-scr-sg" tabindex="0">Pass/fail per AFJQS + composite</td><td class="ed" data-key="c-scr-db" tabindex="0">Defeat confirmation + time</td><td class="ed col-fs" data-key="c-scr-lm" tabindex="0">Employment checklist + intercept confirm</td><td class="ed col-fs" data-key="c-scr-cy" tabindex="0">Intercept confirm + time on station</td></tr>
+        <tr><td class="cat" colspan="5">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td class="ed" data-key="c-dat-sg" tabindex="0" colspan="1">Evidence Engine → Installation → AFSFC HQ</td><td class="ed" data-key="c-dat-db" tabindex="0">Evidence Engine → Installation → AFSFC HQ</td><td class="ed col-fs" data-key="c-dat-lm" tabindex="0">Same</td><td class="ed col-fs" data-key="c-dat-cy" tabindex="0">Same</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- CNIC -->
+    <div class="pane" data-inst="cnic">
+      <table class="dtable"><thead><tr><th>Dimension</th><th class="col-accent">M18 Pistol</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="2">Scenarios</td></tr>
+        <tr><td class="rlabel">Stage 1</td><td>Draw &amp; Present — holster, grip, sight picture</td></tr>
+        <tr><td class="rlabel">Stage 2</td><td>Timed fire — 3, 5, 7 yards</td></tr>
+        <tr><td class="rlabel">Stage 3</td><td>Qualification course of fire</td></tr>
+        <tr><td class="rlabel">Stage 4</td><td>Use-of-force scenario (shoot/no-shoot)</td></tr>
+        <tr><td class="rlabel">Stage 5</td><td>Low-light / night condition</td></tr>
+        <tr><td class="cat" colspan="2">Scoring</td></tr>
+        <tr><td class="rlabel">Method</td><td>Pass/fail per qual table + composite score</td></tr>
+        <tr><td class="cat" colspan="2">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td>Evidence Engine → Installation DB → CNIC HQ</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ONTARIO -->
+    <div class="pane" data-inst="ontario">
+      <table class="dtable"><thead><tr><th>Dimension</th><th class="col-green">Verbal</th><th class="col-green">Non-Lethal</th><th class="col-green">Communications</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Scenarios</td></tr>
+        <tr><td class="rlabel">Progression</td><td>Approach → Assess → De-escalate → Resolve</td><td>Threat assessment → Deploy → Control → Secure</td><td>Dispatch → Relay → Coordinate → Log</td></tr>
+        <tr><td class="cat" colspan="4">Environments</td></tr>
+        <tr><td class="rlabel">Conditions</td><td>Domestic · Public space · Vehicle stop</td><td>Indoor · Outdoor · Crowd</td><td>Field · Dispatch center</td></tr>
+        <tr><td class="cat" colspan="4">Scoring</td></tr>
+        <tr><td class="rlabel">Method</td><td>Subject outcome + technique + time</td><td>Accuracy + proportionality + safety</td><td>Protocol compliance + accuracy</td></tr>
+        <tr><td class="cat" colspan="4">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td colspan="3">Evidence Engine → Service DB → Regional Roll-up → Solicitor General</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- SFSQ -->
+    <div class="pane" data-inst="sfsq">
+      <table class="dtable"><thead><tr><th>Capability</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+        <tr><td class="rlabel">Use-of-Force / De-escalation</td><td style="color:var(--green);font-weight:700">Available</td><td>Mirrors MHCR framework proven across Ontario law enforcement</td></tr>
+        <tr><td class="rlabel">Non-Lethal Weapons</td><td style="color:var(--green);font-weight:700">Available</td><td>Deployment scenarios, proportionality scoring</td></tr>
+        <tr><td class="rlabel">Crowd Control</td><td style="color:var(--green);font-weight:700">Available</td><td>Multiple environment types, formation and comms scoring</td></tr>
+        <tr><td class="rlabel">Active Shooter / Base Defense</td><td style="color:var(--green);font-weight:700">Available</td><td>Scenario library, shoot/no-shoot, ROE gates</td></tr>
+        <tr><td class="rlabel">C-UAS — Shotgun</td><td style="color:var(--amber);font-weight:700">In Configuration</td><td>Co-developed with AFSFC SMEs, 6-stage progression</td></tr>
+        <tr><td class="rlabel">C-UAS — Dronebuster</td><td style="color:var(--green);font-weight:700">Available</td><td>Built under SBIR; detect → classify → track → employ</td></tr>
+        <tr><td class="rlabel">M18 Pistol</td><td style="color:var(--green);font-weight:700">Available</td><td>Deployed at Navy CNIC; available for AF</td></tr>
+        <tr><td class="rlabel">M4A1</td><td style="color:var(--green);font-weight:700">Available</td><td>Qual tables, sustainment, night/NVG</td></tr>
+        <tr><td class="cat" colspan="3">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td colspan="2">Evidence Engine → Squadron DB → MAJCOM Roll-up → AFSFC HQ</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- ICST-RC -->
+    <div class="pane" data-inst="icst-rc">
+      <table class="dtable"><thead><tr><th>System / Capability</th><th>Status</th><th>Notes</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="3">Small Arms — Available Now</td></tr>
+        <tr><td class="rlabel">M18 Pistol</td><td style="color:var(--green);font-weight:700">Available</td><td>Deployed at Navy CNIC · qual tables, draw-to-shot timing, NVG, iron + red dot optics</td></tr>
+        <tr><td class="rlabel">M4A1 Carbine</td><td style="color:var(--green);font-weight:700">Available</td><td>Standard qual tables · shoot/no-shoot · night/NVG · iron, red dot, ACOG sights</td></tr>
+        <tr><td class="cat" colspan="3">Non-Lethal Weapons — Available Now</td></tr>
+        <tr><td class="rlabel">Baton</td><td style="color:var(--green);font-weight:700">Available</td><td>Force-continuum drills · deployment timing · proportional response scenarios</td></tr>
+        <tr><td class="rlabel">OC / Pepper Spray</td><td style="color:var(--green);font-weight:700">Available</td><td>Deployment sequence · target accuracy · force matrix compliance</td></tr>
+        <tr><td class="rlabel">CEW (TASER)</td><td style="color:var(--green);font-weight:700">Available</td><td>Decision-making within force continuum · accuracy · use-of-force compliance</td></tr>
+        <tr><td class="cat" colspan="3">Crew-Served — In Configuration</td></tr>
+        <tr><td class="rlabel">M240 Machine Gun</td><td style="color:var(--amber);font-weight:700">In Configuration</td><td>Crew drill scenarios · sector coverage · 6-stage progression in build</td></tr>
+        <tr><td class="rlabel">M249 SAW</td><td style="color:var(--amber);font-weight:700">In Configuration</td><td>Team qualification · burst control · assault team integration scenario</td></tr>
+        <tr><td class="cat" colspan="3">Extended Range — On Request</td></tr>
+        <tr><td class="rlabel">M3 MAAWS</td><td style="color:var(--accent);font-weight:700">On Request</td><td>Complex employment sequence · firing solution validation</td></tr>
+        <tr><td class="rlabel">M2 .50 Cal</td><td style="color:var(--accent);font-weight:700">On Request</td><td>Range control compliance · crew drill · fixed/flexible mount configs</td></tr>
+        <tr><td class="rlabel">M320 GLM</td><td style="color:var(--accent);font-weight:700">On Request</td><td>Standalone &amp; underslung config · range procedures</td></tr>
+        <tr><td class="cat" colspan="3">USAF NPC Scenario Environments — Available Now</td></tr>
+        <tr><td class="rlabel">Access Control &amp; ECP</td><td style="color:var(--green);font-weight:700">Available</td><td>DBIDS-style ID flow · gate runner · vehicle challenge · flight-line contact · protest at gate</td></tr>
+        <tr><td class="rlabel">Base Defense (IBD + PAR)</td><td style="color:var(--green);font-weight:700">Available</td><td>Defensive sectors · interlocking fires · NVG night defense · post-attack route sweep · UXO/CBRN report</td></tr>
+        <tr><td class="rlabel">Base Patrol &amp; Critical Incident</td><td style="color:var(--green);font-weight:700">Available</td><td>Housing disturbances · EDP with bystanders · active threat · OCP-uniformed NPCs · USAF base infrastructure</td></tr>
+        <tr><td class="cat" colspan="3">Data &amp; Reporting</td></tr>
+        <tr><td class="rlabel">Pipeline</td><td colspan="2">Evidence Engine → Unit DB → Wing Roll-up → CATM / HQ</td></tr>
+      </tbody></table>
+    </div>
+
+  </div></div>
+</div>
+
+<!-- ========== SECTION 04: FIELD ========== -->
+<div class="section" id="s4" data-s="4">
+  <div class="section-header" tabindex="0" onclick="tog(4)" onkeydown="if(event.key===&#39;Enter&#39;)tog(4)">
+    <span class="section-num">04</span>
+    <span class="section-title"><span class="verb">Field</span> Training Operating Systems</span>
+    <span class="section-subtitle">Structured Evidence</span>
+    <div class="section-right"><span class="section-summary" id="sum4"></span><span class="section-chevron">▾</span></div>
+  </div>
+  <div class="section-body"><div class="section-content">
+
+    <!-- CNAP -->
+    <div class="pane" data-inst="cnap">
+      <div class="card-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:20px">
+        <div class="card" style="border-top:3px solid var(--accent)"><div class="card-label">Systems Deployed</div><div class="card-value blue">14</div><div class="card-body">7 Pacific Fleet carriers · 2 kits each (CONUS + OCONUS)</div></div>
+        <div class="card" style="border-top:3px solid var(--green)"><div class="card-label">Atlantic Fleet</div><div class="card-value" style="font-size:22px;color:var(--green)">CNAL</div><div class="card-body">Purchased 2025 · Naval Base Norfolk, VA</div></div>
+        <div class="card" style="border-top:3px solid var(--amber)"><div class="card-label">Strategic Extension</div><div class="card-value amber" style="font-size:22px">TACAMO</div><div class="card-body">3 nuclear C2 bases · In pipeline</div></div>
+        <div class="card" style="border-top:3px solid var(--muted)"><div class="card-label">Shore Installations</div><div class="card-value" style="color:var(--text)">31</div><div class="card-body">CNIC systems · Separate contract track</div></div>
+      </div>
+      <table class="dtable"><thead><tr><th>Fleet</th><th>Homeport</th><th>Notable Units</th><th>Configuration</th><th>Status</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="5">Pacific Fleet (CNAP) — 7 Carriers · 14 Systems</td></tr>
+        <tr><td style="font-weight:700;color:var(--accent)">Pacific</td><td>NAS North Island, San Diego, CA</td><td>USS Carl Vinson (CVN-70) · CNAP N3D HQ</td><td>2 kits/carrier · CONUS + OCONUS configs</td><td style="color:var(--green);font-weight:700">Deployed ✓</td></tr>
+        <tr><td style="font-weight:700;color:var(--accent)">Pacific</td><td>Naval Base Everett, WA</td><td>USS Nimitz (CVN-68)</td><td>2 kits/carrier</td><td style="color:var(--green);font-weight:700">Deployed ✓</td></tr>
+        <tr><td style="font-weight:700;color:var(--accent)">Pacific · OCONUS</td><td>CFA Yokosuka, Japan</td><td>USS Ronald Reagan (CVN-76) · Forward-Deployed</td><td>OCONUS configuration</td><td style="color:var(--green);font-weight:700">Deployed ✓</td></tr>
+        <tr><td class="cat" colspan="5">Atlantic Fleet (CNAL) — Purchased 2025, via CNAP TYCOM Recommendation</td></tr>
+        <tr><td style="font-weight:700;color:var(--green)">Atlantic</td><td>Naval Base Norfolk, VA</td><td>Atlantic carrier strike groups · CNAL HQ</td><td>Enterprise license</td><td style="color:var(--amber);font-weight:700">Onboarding</td></tr>
+        <tr><td class="cat" colspan="5">Strategic Pipeline — TACAMO &amp; Shore</td></tr>
+        <tr><td style="font-weight:700;color:var(--muted)">TACAMO</td><td>3 bases (TBD)</td><td>Airborne nuclear command-and-control platforms</td><td>TBD · Separate funding pot</td><td style="color:var(--accent);font-weight:700">In Pipeline</td></tr>
+        <tr><td style="font-weight:700;color:var(--muted)">CNIC Shore</td><td>Multiple CONUS installations</td><td>31 systems · Path to SAWS Program of Record (PEO MLB / NETC)</td><td>Separate contract track</td><td style="color:var(--green);font-weight:700">Contracted ✓</td></tr>
+      </tbody></table>
+      <div class="fielding-summary" style="margin-top:16px">TYCOM adoption model: <strong>CNAP N3D</strong> (Edgar Tovar, NAS North Island) sponsored the Pacific deployment and introduced the system to <strong>CNAL</strong> and <strong>TACAMO</strong>. CNIC is on a parallel track targeting the <strong>SAWS Program of Record</strong> — which would establish this as the Navy standard for small arms training fleet-wide. An Exception-to-Policy (ETP) for deployed carrier pistol sustainment training is nearing signature.</div>
+    </div>
+
+    <!-- MHCR -->
+    <div class="pane" data-inst="mhcr">
+      <div style="background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-left:3px solid var(--red);border-radius:8px;padding:18px 24px;margin-bottom:20px;font-size:18px;line-height:1.5"><strong style="color:var(--red)">Active Compliance Deadline:</strong> O. Reg. 96/26 requires all frontline patrol officers certified by <strong>October 1, 2026</strong>. All other sworn officers by <strong>October 1, 2027</strong>. Police services are in active procurement now.</div>
+      <div class="card-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:20px">
+        <div class="card" style="border-top:3px solid var(--green)"><div class="card-label">Governing Statute</div><div class="card-value" style="font-size:20px;color:var(--green)">CSPA 2019</div><div class="card-body">In force April 1, 2024 · Replaces Police Services Act</div></div>
+        <div class="card" style="border-top:3px solid var(--red)"><div class="card-label">Frontline Deadline</div><div class="card-value" style="font-size:22px;color:var(--red)">Oct 1 2026</div><div class="card-body">Community patrol functions · ~6 months</div></div>
+        <div class="card" style="border-top:3px solid var(--amber)"><div class="card-label">Full Deadline</div><div class="card-value" style="font-size:22px;color:var(--amber)">Oct 1 2027</div><div class="card-body">All sworn officers · Province-wide</div></div>
+        <div class="card" style="border-top:3px solid var(--accent)"><div class="card-label">Assessment Framework</div><div class="card-value" style="font-size:22px;color:var(--accent)">DePICT™</div><div class="card-body">14-item validated competency tool · Ministry-licensed</div></div>
+      </div>
+      <div class="fielding-summary" style="margin-bottom:16px"><strong>DePICT™ Integration:</strong> De-escalating Persons in Crisis Competencies Tool — the provincial standard for measuring MHCR competency. 14 scored behaviors, scenario-based, licensed to Ontario’s Ministry of the Solicitor General. Currently requires a trained human rater per scenario. <strong>The Evidence Engine provides the automated scoring architecture</strong> designed to address the human-rater bottleneck — the same measurement pipeline approach used across all deployment instances.</div>
+      <table class="dtable"><thead><tr><th>Agency</th><th>Scale</th><th>Deadline Pressure</th><th>Status / Pathway</th></tr></thead><tbody>
+        <tr><td class="cat" colspan="4">Active Deployment</td></tr>
+        <tr><td>Hamilton Police Service</td><td>~900 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td>WLU-facilitated · Deploying</td></tr>
+        <tr><td>Ottawa Police Service</td><td>~1,400 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td>WLU-facilitated · Deploying</td></tr>
+        <tr><td>York Regional Police</td><td>~2,000 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td>WLU-facilitated · Deploying</td></tr>
+        <tr><td>Peel Regional Police</td><td>~8,000 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td style="color:var(--amber)">White-glove delivery risk → VR + Evidence Engine opportunity</td></tr>
+        <tr><td class="cat" colspan="4">Strategic Pipeline</td></tr>
+        <tr><td>Ontario Provincial Police (OPP)</td><td>~9,000 officers · Province-wide</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td style="color:var(--accent)">APA lighthouse customer → direct OPP referral path</td></tr>
+        <tr><td>Atlantic Police Academy (APA)</td><td>Multi-agency · Atlantic Canada</td><td>—</td><td style="color:var(--accent)">Unitrack + Evidence Engine proof point in progress</td></tr>
+        <tr><td>Toronto Police Service</td><td>~5,500 officers</td><td style="color:var(--red);font-weight:700">Oct 2026</td><td style="color:var(--muted)">Follows Peel / WLU direction</td></tr>
+      </tbody></table>
+    </div>
+
+    <!-- AFSFC -->
+    <div class="pane active" data-inst="afsfc">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:20px">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:20px">Configure Deployment</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px">
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Installations</div>
+            <input type="range" id="cfg-inst" min="1" max="200" value="50" style="width:100%;accent-color:var(--accent);margin-bottom:6px" oninput="updateConfig()">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:36px;font-weight:700;color:var(--accent)" id="cfg-inst-val">50</span><span style="font-size:13px;color:var(--muted)">AF installations</span></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Squadrons / Installation</div>
+            <input type="range" id="cfg-sq" min="1" max="10" value="2" style="width:100%;accent-color:var(--accent);margin-bottom:6px" oninput="updateConfig()">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:36px;font-weight:700;color:var(--accent)" id="cfg-sq-val">2</span><span style="font-size:13px;color:var(--muted)">security force sqns</span></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">Airmen / Squadron</div>
+            <input type="range" id="cfg-airmen" min="100" max="400" step="50" value="100" style="width:100%;accent-color:var(--accent);margin-bottom:6px" oninput="updateConfig()">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:36px;font-weight:700;color:var(--accent)" id="cfg-airmen-val">100</span><span style="font-size:13px;color:var(--muted)">security force airmen</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:12px">Readiness Outcomes</div>
+      <div class="card-grid tri" style="margin-bottom:16px">
+        <div class="card card-accent"><div class="card-label">Airmen with Qualification-Grade C-UAS Training</div><div class="card-value blue" id="out-airmen">10,000</div><div class="card-body">Across <span id="out-sq">100</span> sqns · <span id="out-inst">50</span> installations</div></div>
+        <div class="card card-green"><div class="card-label">Weapon Systems Configured</div><div class="card-value" id="out-weapons">2</div><div class="card-body" id="out-weapons-label">Shotgun + Dronebuster</div></div>
+        <div class="card card-accent"><div class="card-label">Scored Scenarios / Airman / Cycle</div><div class="card-value blue" id="out-scenarios">12</div><div class="card-body"><span id="out-stages">6</span> stages × <span id="out-weapons2">2</span> systems · Evidence-generating</div></div>
+      </div>
+      <div class="card-grid" style="margin-bottom:16px">
+        <div class="card card-green"><div class="card-label">Speed to Train Against Latest TTPs</div><div class="card-value" style="font-size:28px">∼30 days</div><div class="card-body">From SFTRG doctrine update to training available at every installation — versus months of instructor re-certification under legacy models</div></div>
+        <div class="card card-accent"><div class="card-label">Commander Readiness Visibility</div><div class="card-value blue">On-Demand</div><div class="card-body">Every qualification scored, recorded, and reportable to AFSFC HQ. Commanders demonstrate C-UAS readiness when asked — aligned to AFI 10-201.</div></div>
+      </div>
+      <div class="fielding-summary">Not a hardware purchase or a software license — a <strong>readiness capability</strong>. <strong><span id="out-airmen-summary">10,000</span> airmen</strong> across <strong><span id="out-inst-summary">50</span> installations</strong> training to the same scored standard. Every rep generates evidence. Every qualification is auditable. TTPs update once, deploy everywhere.</div>
+    </div>
+
+    <!-- CNIC -->
+    <div class="pane" data-inst="cnic">
+      <div class="card-grid tri" style="margin-bottom:16px">
+        <div class="card card-accent"><div class="card-label">Contract Model</div><div class="card-value blue" style="font-size:22px">Pre-Contracted</div><div class="card-body">Funded before delivery — paid upfront on award</div></div>
+        <div class="card card-accent"><div class="card-label">Platform</div><div class="card-value blue" style="font-size:28px">UniTrack</div><div class="card-body">First deployment of proprietary M18 pistol tracking hardware</div></div>
+        <div class="card card-accent"><div class="card-label">Scope</div><div class="card-value blue" style="font-size:20px">CONUS + OCONUS</div><div class="card-body">Shore installations across the Navy’s global installation network</div></div>
+      </div>
+      <div class="fielding-summary">CNIC pre-contracted the development of instrumented M18 qualification before the capability existed — paying upfront, ahead of delivery. This established the pre-contracted development model as a repeatable procurement path and brought the same Evidence Engine deployed on Pacific Fleet carriers to shore-based installations for the first time.</div>
+    </div>
+
+    <!-- ONTARIO -->
+    <div class="pane" data-inst="ontario">
+      <div class="card-grid tri" style="margin-bottom:16px">
+        <div class="card card-green"><div class="card-label">Services Contracted</div><div class="card-value">5+</div><div class="card-body">York Regional, Halton, Hamilton, Timmins, Brantford</div></div>
+        <div class="card card-green"><div class="card-label">Officers — York Alone</div><div class="card-value">1,600</div><div class="card-body">964 in first 6 months. Full 1,600 on 12-month runway</div></div>
+        <div class="card card-green"><div class="card-label">Regulatory Driver</div><div class="card-value" style="font-size:22px;color:var(--green)">O. Reg. 96/26</div><div class="card-body">Mandatory MHCR training for all sworn officers by Oct 2026</div></div>
+      </div>
+      <div class="fielding-summary" style="border-left-color:var(--green)">Methodological proof point: the same measurement architecture — automated scenario scoring, evidence pipeline, commander-level reporting — deployed across multiple independent agencies against a shared regulatory standard. The regulation created the demand. The architecture is the scalable layer that makes compliance measurable, not just documented. Different domain, same structural approach.</div>
+    </div>
+
+    <!-- SFSQ -->
+    <div class="pane" data-inst="sfsq">
+      <div class="card-grid tri" style="margin-bottom:16px">
+        <div class="card card-amber"><div class="card-label">Installed Base</div><div class="card-value amber">50</div><div class="card-body">AF installations already running the platform. Each new capability is a layer, not a new procurement</div></div>
+        <div class="card card-amber"><div class="card-label">Entry Point</div><div class="card-value amber" style="font-size:28px">C-UAS</div><div class="card-body">Dronebuster and Shotgun configuration brings units to the table. The catalog is what makes them stay</div></div>
+        <div class="card card-amber"><div class="card-label">Domestic Ops</div><div class="card-value amber" style="font-size:28px">Fielded</div><div class="card-body">De-escalation and non-lethal measurement architecture deployed across Canadian law enforcement services — same structural approach applicable to home-station Security Forces missions</div></div>
+      </div>
+      <div class="fielding-summary" style="border-left-color:var(--amber)">The C-UAS configuration brings the measurement infrastructure to your installations. Once that infrastructure exists, adjacent training requirements — use-of-force, non-lethal, base defense — run on the same pipeline without additional procurement. These capabilities already exist in the catalog because other commands asked for them first. They’re available to AFSFC as a configuration decision, not a new buy.</div>
+    </div>
+
+    <!-- ICST-RC -->
+    <div class="pane" data-inst="icst-rc">
+      <div class="card-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:20px">
+        <div class="card card-amber"><div class="card-label">Kinetic Systems</div><div class="card-value amber">7</div><div class="card-body">M18 · M4A1 · M240 · M249 · M3 MAAWS · M2 · M320</div></div>
+        <div class="card card-green"><div class="card-label">Non-Lethal Systems</div><div class="card-value">3</div><div class="card-body">Baton · OC / Pepper Spray · CEW (TASER)</div></div>
+        <div class="card card-accent"><div class="card-label">USAF NPC Environments</div><div class="card-value blue">3</div><div class="card-body">Access Control · Base Defense (IBD+PAR) · Patrol &amp; Critical Incident</div></div>
+        <div class="card card-amber"><div class="card-label">Configure New System</div><div class="card-value amber" style="font-size:28px">&lt;30 days</div><div class="card-body">Unit request to deployed qual tables — no instructor re-cert</div></div>
+      </div>
+      <div class="card-grid" style="margin-bottom:16px">
+        <div class="card card-amber"><div class="card-label">Already Deployed</div><div class="card-title">M18 · M4A1 · Baton · OC · CEW</div><div class="card-body">Small arms running at Navy CNIC. Non-lethal measurement architecture fielded across Ontario law enforcement. Both ready to extend to AF.</div></div>
+        <div class="card card-amber"><div class="card-label">Measurement Continuity</div><div class="card-title">One Pipeline, Every System</div><div class="card-body">Kinetic weapons, non-lethals, and NPC scenario performance all feed the same Evidence Engine. Cross-capability readiness in a single dashboard.</div></div>
+      </div>
+      <div class="fielding-summary" style="border-left-color:var(--amber)">Rapid Configuration isn’t a separate product — it’s a capability mode. <strong>Small arms and non-lethals are available now.</strong> Crew-served (M240, M249) are in configuration. Extended range (M3 MAAWS, M2 .50 cal, M320 GLM) are on request. USAF-specific NPC environments — gate runners, IBD sectors, base patrol contacts — are available today. One platform. One data pipeline. Every system the Defender carries.</div>
+    </div>
+
+  </div></div>
+</div>
+</div><!-- /main -->
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab" data-inst="cnap" onclick="switchInst(&#39;cnap&#39;)"><span class="dot blue"></span>US Navy Carriers</button>
+  <button class="tab" data-inst="cnic" onclick="switchInst(&#39;cnic&#39;)"><span class="dot blue"></span>US Navy Installations</button>
+  <button class="tab" data-inst="ontario" onclick="switchInst(&#39;ontario&#39;)"><span class="dot green"></span>Ontario Police</button>
+  <button class="tab" data-inst="sfsq" onclick="switchInst(&#39;sfsq&#39;)"><span class="dot amber"></span>Air Force COTS</button>
+  <button class="tab active" data-inst="afsfc" onclick="switchInst(&#39;afsfc&#39;)"><span class="dot amber"></span>ICST (C-UAS)</button>
+  <button class="tab" data-inst="icst-rc" onclick="switchInst(&#39;icst-rc&#39;)"><span class="dot amber"></span>ICST (Rapid Config)</button>
+  <div class="tab-right">
+    <button class="scope-btn locked" id="scope-btn" onclick="toggleScope()"><span id="scope-label">Scope: Core C-UAS · 2 systems</span><span id="lock">🔒</span><div class="pill"></div></button>
+    <button class="export-btn" onclick="xport()">Export PDF</button>
+  </div>
+</div>
+
+<!-- RECOMPUTE -->
+<div class="recompute" id="rc"><div class="recompute-label">EXPANDING SCOPE...</div><div class="recompute-bar"><div class="recompute-fill" id="rc-fill"></div></div></div>
+
+<script>
+var inst='afsfc',scope='cuas';
+var badges={cnap:'US Navy Carriers',afsfc:'ICST &mdash; C-UAS',cnic:'US Navy Installations',ontario:'Ontario Police',sfsq:'Air Force COTS','icst-rc':'ICST &mdash; Rapid Config'};
+var badgeCls={cnap:'cnap',mhcr:'mhcr',afsfc:'afsfc',cnic:'cnap',ontario:'mhcr',sfsq:'afsfc','icst-rc':'afsfc'};
+
+function switchInst(id){
+  inst=id;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.inst===id)});
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('active',p.dataset.inst===id)});
+  var b=document.getElementById('instance-badge');b.innerHTML=badges[id];b.className='instance-badge '+badgeCls[id];
+  document.getElementById('scope-btn').style.display=id==='afsfc'?'':'none';
+  updateLock();save();
+}
+
+function tog(n){
+  var s=document.getElementById('s'+n);
+  if(s.classList.contains('expanded')){s.classList.remove('expanded')}
+  else{s.classList.add('expanded');setTimeout(function(){s.scrollIntoView({behavior:'smooth',block:'start'})},50)}
+  updateLock();save();
+}
+
+function updateLock(){
+  if(inst!=='afsfc')return;
+  var ok=['s2','s3','s4'].some(function(id){return document.getElementById(id).classList.contains('expanded')});
+  var btn=document.getElementById('scope-btn'),lk=document.getElementById('lock');
+  if(ok){btn.classList.remove('locked');lk.style.display='none'}else{btn.classList.add('locked');lk.style.display=''}
+}
+
+function toggleScope(){
+  if(document.getElementById('scope-btn').classList.contains('locked'))return;
+  var rc=document.getElementById('rc'),fill=document.getElementById('rc-fill');
+  rc.querySelector('.recompute-label').textContent=scope==='cuas'?'EXPANDING TO FULL C-UAS...':'NARROWING TO CORE C-UAS...';
+  fill.style.transition='none';fill.style.width='0';rc.classList.add('on');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){fill.style.transition='width 0.5s ease-out';fill.style.width='100%'})});
+  setTimeout(function(){
+    scope=scope==='cuas'?'full':'cuas';
+    document.body.classList.toggle('full-suite',scope==='full');
+    document.getElementById('scope-label').textContent=scope==='full'?'Scope: Full Weapons Suite \u00b7 4 systems':'Scope: Core C-UAS \u00b7 2 systems';
+    rc.classList.remove('on');updateConfig();save();
+  },600);
+}
+
+/* CONFIGURATOR */
+function updateConfig(){
+  var ci=document.getElementById('cfg-inst');if(!ci)return;
+  var nI=parseInt(ci.value)||50,nS=parseInt(document.getElementById('cfg-sq').value)||2,nA=parseInt(document.getElementById('cfg-airmen').value)||20;
+  var nW=document.body.classList.contains('full-suite')?4:2;
+  var tA=nI*nS*nA,tS=nI*nS,tSc=6*nW;
+  function s(id,v){var e=document.getElementById(id);if(e)e.textContent=v}
+  s('cfg-inst-val',nI);s('cfg-sq-val',nS);s('cfg-airmen-val',nA);
+  s('out-airmen',tA.toLocaleString());s('out-sq',tS.toLocaleString());s('out-inst',nI);
+  s('out-weapons',nW);s('out-weapons-label',nW===4?'Shotgun + Dronebuster + M18 + M4A1':'Shotgun + Dronebuster');
+  s('out-scenarios',tSc);s('out-stages',6);s('out-weapons2',nW);
+  s('out-airmen-summary',tA.toLocaleString());s('out-inst-summary',nI);
+}
+
+/* EDITING */
+document.addEventListener('click',function(e){var c=e.target.closest('.ed');if(!c||c.querySelector('.cell-input'))return;edit(c)});
+function edit(c){
+  var t=c.textContent.trim();c.classList.add('editing');
+  var i=document.createElement('input');i.type='text';i.className='cell-input';i.value=t;
+  c.textContent='';c.appendChild(i);i.focus();i.select();
+  i.addEventListener('blur',function(){c.textContent=i.value.trim()||t;c.classList.remove('editing');save()});
+  i.addEventListener('keydown',function(ev){
+    if(ev.key==='Enter')i.blur();if(ev.key==='Escape'){i.value=t;i.blur()}
+    if(ev.key==='Tab'){ev.preventDefault();i.blur();var all=Array.from(document.querySelectorAll('.ed')).filter(function(el){return el.offsetParent!==null});var idx=all.indexOf(c);var nx=ev.shiftKey?all[idx-1]:all[idx+1];if(nx){nx.focus();edit(nx)}}
+  });
+}
+
+/* STATE */
+var SK='ers-v4';
+function save(){try{var st={inst:inst,scope:scope,cells:{},exp:[]};document.querySelectorAll('.ed').forEach(function(c){if(c.dataset.key)st.cells[c.dataset.key]=c.textContent.trim()});document.querySelectorAll('.section.expanded').forEach(function(s){st.exp.push(s.dataset.s)});localStorage.setItem(SK,JSON.stringify(st))}catch(e){}}
+function load(){try{var r=localStorage.getItem(SK);if(!r)return;var st=JSON.parse(r);if(st.cells)Object.keys(st.cells).forEach(function(k){var c=document.querySelector('[data-key="'+k+'"]');if(c)c.textContent=st.cells[k]});if(st.scope==='full'){scope='full';document.body.classList.add('full-suite');document.getElementById('scope-label').textContent='Scope: Full Weapons Suite \u00b7 4 systems';}if(st.inst)switchInst(st.inst);if(st.exp){document.querySelectorAll('.section').forEach(function(s){s.classList.remove('expanded')});st.exp.forEach(function(n){var s=document.getElementById('s'+n);if(s)s.classList.add('expanded')});}updateLock()}catch(e){}}
+function xport(){document.querySelectorAll('.section').forEach(function(s){s.classList.add('expanded')});setTimeout(function(){window.print()},100)}
+load();updateLock();updateConfig();
+</script>
+
+
+</body></html>
