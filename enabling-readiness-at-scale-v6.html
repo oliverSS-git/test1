@@ -413,38 +413,56 @@ tr:hover .remove-row-btn{opacity:1}
 
     <!-- CNAP -->
     <div class="pane active" data-inst="cnap">
-      <div class="tree"><span class="tree-root">Fleet Force Protection</span>
+      <div class="sub-section sub-expanded" id="sub-1a-cnap" data-sub="1a-cnap">
+        <div class="sub-header" onclick="togSub('1a-cnap')">
+          <span class="sub-num">1a</span><span>Doctrine &amp; Mission Domains</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="tree"><span class="tree-root">Fleet Force Protection</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>OPNAVINST 5530.14E &mdash; Physical Security &amp; Anti-Terrorism</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>Carrier Security Force Requirements</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">3 Mission Domains</span></span></div>
-      <div class="card-grid tri">
-        <div class="card card-accent"><div class="card-label">Domain 1</div><div class="card-title">C-UAS Response</div><div class="card-body">Counter-drone shipboard defense</div></div>
-        <div class="card card-amber"><div class="card-label">Domain 2</div><div class="card-title">Active Shooter</div><div class="card-body">Shipboard threat response</div></div>
-        <div class="card card-red"><div class="card-label">Domain 3</div><div class="card-title">Hostile Waterborne</div><div class="card-body">Small boat / harbor defense</div></div>
-      </div>
-      <div class="gaps-callout">
-        <div class="gaps-callout-title">Gaps Identified</div>
-        <ul>
-          <li><strong>Fragmented fleet training</strong> &mdash; 7 carriers operating independently, no standardized measurement between ships</li>
-          <li><strong>Participation, not evidence</strong> &mdash; legacy systems tracked completion, no scored evidence of crew capability</li>
-        </ul>
-      </div>
-
-      <div class="stmt-zone" style="margin-top:24px">
-        <div class="stmt-box">
-          <div class="stmt-header">
-            <span class="stmt-header-title">Alignment Statement &mdash; CNAP</span>
-            <span class="stmt-header-badge validated">Validated</span>
+          <div class="card-grid tri">
+            <div class="card card-accent"><div class="card-label">Domain 1</div><div class="card-title">C-UAS Response</div><div class="card-body">Counter-drone shipboard defense</div></div>
+            <div class="card card-amber"><div class="card-label">Domain 2</div><div class="card-title">Active Shooter</div><div class="card-body">Shipboard threat response</div></div>
+            <div class="card card-red"><div class="card-label">Domain 3</div><div class="card-title">Hostile Waterborne</div><div class="card-body">Small boat / harbor defense</div></div>
           </div>
-          <div class="stmt-body">
-            <div class="stmt-text">The carrier force protection training requirement is governed by <span class="slot">OPNAVINST 5530.14E &mdash; Physical Security &amp; Anti-Terrorism</span>. The training operating system is configured across three mission domains &mdash; C-UAS response, active shooter, and hostile waterborne &mdash; with every scored behavior traced to carrier security force requirements. CNAP N3D sponsored Pacific Fleet deployment and introduced the system to CNAL and TACAMO. CNIC is on a parallel track targeting the SAWS Program of Record.</div>
-          </div>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-1b-cnap" data-sub="1b-cnap">
+        <div class="sub-header" onclick="togSub('1b-cnap')">
+          <span class="sub-num">1b</span><span>Gaps &amp; Alignment</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="gaps-callout">
+            <div class="gaps-callout-title">Gaps Identified</div>
+            <ul>
+              <li><strong>Fragmented fleet training</strong> &mdash; 7 carriers operating independently, no standardized measurement between ships</li>
+              <li><strong>Participation, not evidence</strong> &mdash; legacy systems tracked completion, no scored evidence of crew capability</li>
+            </ul>
+          </div>
+          <div class="stmt-zone" style="margin-top:24px">
+            <div class="stmt-box">
+              <div class="stmt-header">
+                <span class="stmt-header-title">Alignment Statement &mdash; CNAP</span>
+                <span class="stmt-header-badge validated">Validated</span>
+              </div>
+              <div class="stmt-body">
+                <div class="stmt-text">The carrier force protection training requirement is governed by <span class="slot">OPNAVINST 5530.14E &mdash; Physical Security &amp; Anti-Terrorism</span>. The training operating system is configured across three mission domains &mdash; C-UAS response, active shooter, and hostile waterborne &mdash; with every scored behavior traced to carrier security force requirements. CNAP N3D sponsored Pacific Fleet deployment and introduced the system to CNAL and TACAMO. CNIC is on a parallel track targeting the SAWS Program of Record.</div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
     </div>
 
     <!-- AFSFC -->
     <div class="pane" data-inst="afsfc">
+      <div class="sub-section sub-expanded" id="sub-1a-afsfc" data-sub="1a-afsfc">
+        <div class="sub-header" onclick="togSub('1a-afsfc')">
+          <span class="sub-num">1a</span><span>Governing Requirements</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px">Governing Requirements &mdash; Name the Documents<span style="flex:1;height:1px;background:var(--border)"></span></h3>
       <div class="fac-prompt">&ldquo;What document would you point to if a wing commander asked you to prove C-UAS training meets the standard? And who owns it &mdash; not just the office, but the person driving the updates?&rdquo;</div>
 
@@ -566,6 +584,13 @@ tr:hover .remove-row-btn{opacity:1}
         <div class="add-card" onclick="addDocCard()">+ Add another governing document</div>
       </div>
 
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-1b-afsfc" data-sub="1b-afsfc">
+        <div class="sub-header" onclick="togSub('1b-afsfc')">
+          <span class="sub-num">1b</span><span>Adjacent Mandates</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <!-- EXPANSION ZONE -->
       <div class="section-divider"><span>End of Session &mdash; Expansion Play</span></div>
 
@@ -656,7 +681,14 @@ tr:hover .remove-row-btn{opacity:1}
           <span class="exp-hook">&ldquo;Already measured inside C-UAS scenarios&rdquo;</span>
         </div>
       </div>
+        </div></div>
+      </div>
 
+      <div class="sub-section" id="sub-1c-afsfc" data-sub="1c-afsfc">
+        <div class="sub-header" onclick="togSub('1c-afsfc')">
+          <span class="sub-num">1c</span><span>Alignment Statement</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <!-- ALIGNMENT STATEMENT -->
       <div class="stmt-zone">
         <div class="live-hint"><div class="live-dot"></div>Live &mdash; updates as you capture inputs above</div>
@@ -679,142 +711,196 @@ tr:hover .remove-row-btn{opacity:1}
           </div>
         </div>
       </div>
+        </div></div>
+      </div>
     </div>
 
     <!-- CNIC -->
     <div class="pane" data-inst="cnic">
-      <div class="tree"><span class="tree-root">Shore-Based Force Protection</span>
+      <div class="sub-section sub-expanded" id="sub-1a-cnic" data-sub="1a-cnic">
+        <div class="sub-header" onclick="togSub('1a-cnic')">
+          <span class="sub-num">1a</span><span>Doctrine &amp; Mission Domains</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="tree"><span class="tree-root">Shore-Based Force Protection</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>OPNAVINST 3591.1F &mdash; Navy Handgun Qualification Program</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>M18 Pistol Sustainment Training</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">Instrumented Pistol Qualification</span></span></div>
-      <div class="card-grid tri">
-        <div class="card card-accent"><div class="card-label">Domain 1</div><div class="card-title">Draw &amp; Present</div><div class="card-body">Time-to-first-shot from holster</div></div>
-        <div class="card card-accent"><div class="card-label">Domain 2</div><div class="card-title">Course of Fire</div><div class="card-body">Scored marksmanship across distances and conditions</div></div>
-        <div class="card card-accent"><div class="card-label">Domain 3</div><div class="card-title">Sustainment Cadence</div><div class="card-body">Periodic requalification, not one-time certification</div></div>
-      </div>
-      <div class="gaps-callout">
-        <div class="gaps-callout-title">Gaps Identified</div>
-        <ul>
-          <li><strong>No instrumented baseline</strong> &mdash; qualification tables existed but no system to capture and report performance data at scale across shore installations</li>
-          <li><strong>Shore &ne; Afloat</strong> &mdash; CNAP carriers had training momentum; shore installations had no equivalent structured program</li>
-        </ul>
-      </div>
-
-      <div class="stmt-zone" style="margin-top:24px">
-        <div class="stmt-box">
-          <div class="stmt-header">
-            <span class="stmt-header-title">Alignment Statement &mdash; CNIC</span>
-            <span class="stmt-header-badge validated">Validated</span>
+          <div class="card-grid tri">
+            <div class="card card-accent"><div class="card-label">Domain 1</div><div class="card-title">Draw &amp; Present</div><div class="card-body">Time-to-first-shot from holster</div></div>
+            <div class="card card-accent"><div class="card-label">Domain 2</div><div class="card-title">Course of Fire</div><div class="card-body">Scored marksmanship across distances and conditions</div></div>
+            <div class="card card-accent"><div class="card-label">Domain 3</div><div class="card-title">Sustainment Cadence</div><div class="card-body">Periodic requalification, not one-time certification</div></div>
           </div>
-          <div class="stmt-body">
-            <div class="stmt-text">The shore-based pistol qualification requirement is governed by <span class="slot">OPNAVINST 3591.1F &mdash; Navy Handgun Qualification Program</span>. The training operating system is configured for instrumented M18 qualification across 31 shore installations, with the same Evidence Engine deployed on Pacific Fleet carriers now extended to the shore security force. CNIC pre-contracted development ahead of delivery, establishing a repeatable procurement path targeting the SAWS Program of Record.</div>
-          </div>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-1b-cnic" data-sub="1b-cnic">
+        <div class="sub-header" onclick="togSub('1b-cnic')">
+          <span class="sub-num">1b</span><span>Gaps &amp; Alignment</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="gaps-callout">
+            <div class="gaps-callout-title">Gaps Identified</div>
+            <ul>
+              <li><strong>No instrumented baseline</strong> &mdash; qualification tables existed but no system to capture and report performance data at scale across shore installations</li>
+              <li><strong>Shore &ne; Afloat</strong> &mdash; CNAP carriers had training momentum; shore installations had no equivalent structured program</li>
+            </ul>
+          </div>
+          <div class="stmt-zone" style="margin-top:24px">
+            <div class="stmt-box">
+              <div class="stmt-header">
+                <span class="stmt-header-title">Alignment Statement &mdash; CNIC</span>
+                <span class="stmt-header-badge validated">Validated</span>
+              </div>
+              <div class="stmt-body">
+                <div class="stmt-text">The shore-based pistol qualification requirement is governed by <span class="slot">OPNAVINST 3591.1F &mdash; Navy Handgun Qualification Program</span>. The training operating system is configured for instrumented M18 qualification across 31 shore installations, with the same Evidence Engine deployed on Pacific Fleet carriers now extended to the shore security force. CNIC pre-contracted development ahead of delivery, establishing a repeatable procurement path targeting the SAWS Program of Record.</div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
     </div>
 
     <!-- ONTARIO -->
     <div class="pane" data-inst="ontario">
-      <div class="tree"><span class="tree-root">Municipal Use-of-Force Compliance</span>
+      <div class="sub-section sub-expanded" id="sub-1a-ont" data-sub="1a-ont">
+        <div class="sub-header" onclick="togSub('1a-ont')">
+          <span class="sub-num">1a</span><span>Doctrine &amp; Mission Domains</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="tree"><span class="tree-root">Municipal Use-of-Force Compliance</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>Ontario Regulation 96/26 &mdash; Community Safety and Policing Act</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>Regional Police Services</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span>MHCR Training Obligation</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">1,600+ Officers Across Multiple Services</span></span></div>
-      <div class="card-grid tri">
-        <div class="card card-green"><div class="card-label">Domain 1</div><div class="card-title">Verbal De-escalation</div><div class="card-body">Command presence, crisis intervention, communication</div></div>
-        <div class="card card-green"><div class="card-label">Domain 2</div><div class="card-title">Non-Lethal Weapons</div><div class="card-body">Deployment timing, proportional response, accuracy</div></div>
-        <div class="card card-green"><div class="card-label">Domain 3</div><div class="card-title">Communications</div><div class="card-body">Radio procedures, dispatch coordination, incident documentation</div></div>
-      </div>
-      <div class="gaps-callout">
-        <div class="gaps-callout-title">Gaps Identified</div>
-        <ul>
-          <li><strong>Mandate without infrastructure</strong> &mdash; regulation passed province-wide with no scalable delivery model for services of 500&ndash;2,000 officers</li>
-          <li><strong>DePICT&trade; unscalable at human-rater speed</strong> &mdash; one trained observer per scenario makes province-scale compliance impossible without automated scoring</li>
-          <li><strong>Attendance = compliance</strong> &mdash; legacy training proved course completion, not demonstrated competency; no auditable DePICT outputs for regulators</li>
-        </ul>
-      </div>
-
-      <div class="stmt-zone" style="margin-top:24px">
-        <div class="stmt-box">
-          <div class="stmt-header">
-            <span class="stmt-header-title">Alignment Statement &mdash; Ontario Police</span>
-            <span class="stmt-header-badge validated">Validated</span>
+          <div class="card-grid tri">
+            <div class="card card-green"><div class="card-label">Domain 1</div><div class="card-title">Verbal De-escalation</div><div class="card-body">Command presence, crisis intervention, communication</div></div>
+            <div class="card card-green"><div class="card-label">Domain 2</div><div class="card-title">Non-Lethal Weapons</div><div class="card-body">Deployment timing, proportional response, accuracy</div></div>
+            <div class="card card-green"><div class="card-label">Domain 3</div><div class="card-title">Communications</div><div class="card-body">Radio procedures, dispatch coordination, incident documentation</div></div>
           </div>
-          <div class="stmt-body">
-            <div class="stmt-text">The MHCR training requirement is governed by <span class="slot">O. Reg. 96/26 &mdash; Community Safety and Policing Act</span>, assessed through the <span class="slot">DePICT&trade; 14-item validated competency framework</span>. The Evidence Engine automates DePICT scoring, removing the human-rater bottleneck and making province-scale compliance measurable and auditable. Frontline patrol officers must be certified by October 1, 2026; all sworn officers by October 1, 2027.</div>
-          </div>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-1b-ont" data-sub="1b-ont">
+        <div class="sub-header" onclick="togSub('1b-ont')">
+          <span class="sub-num">1b</span><span>Gaps &amp; Alignment</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="gaps-callout">
+            <div class="gaps-callout-title">Gaps Identified</div>
+            <ul>
+              <li><strong>Mandate without infrastructure</strong> &mdash; regulation passed province-wide with no scalable delivery model for services of 500&ndash;2,000 officers</li>
+              <li><strong>DePICT&trade; unscalable at human-rater speed</strong> &mdash; one trained observer per scenario makes province-scale compliance impossible without automated scoring</li>
+              <li><strong>Attendance = compliance</strong> &mdash; legacy training proved course completion, not demonstrated competency; no auditable DePICT outputs for regulators</li>
+            </ul>
+          </div>
+          <div class="stmt-zone" style="margin-top:24px">
+            <div class="stmt-box">
+              <div class="stmt-header">
+                <span class="stmt-header-title">Alignment Statement &mdash; Ontario Police</span>
+                <span class="stmt-header-badge validated">Validated</span>
+              </div>
+              <div class="stmt-body">
+                <div class="stmt-text">The MHCR training requirement is governed by <span class="slot">O. Reg. 96/26 &mdash; Community Safety and Policing Act</span>, assessed through the <span class="slot">DePICT&trade; 14-item validated competency framework</span>. The Evidence Engine automates DePICT scoring, removing the human-rater bottleneck and making province-scale compliance measurable and auditable. Frontline patrol officers must be certified by October 1, 2026; all sworn officers by October 1, 2027.</div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
     </div>
 
     <!-- SFSQ -->
     <div class="pane" data-inst="sfsq">
-      <div class="tree"><span class="tree-root">ICST Baseline &mdash; V-CSTR Platform</span>
+      <div class="sub-section sub-expanded" id="sub-1a-sfsq" data-sub="1a-sfsq">
+        <div class="sub-header" onclick="togSub('1a-sfsq')">
+          <span class="sub-num">1a</span><span>Platform Overview</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="tree"><span class="tree-root">ICST Baseline &mdash; V-CSTR Platform</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>Virtual Combat Support Training Range (V-CSTR) &middot; 60+ USAF units deployed</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>Ready Airman Training (RAT) &middot; ATF/DCW Credential Alignment</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span>Evidence Engine &middot; Creator &middot; Unitrack Sensors</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">7 Domains &middot; 1 Platform &middot; Credential-Aligned to Your Requirements</span></span></div>
-      <p style="font-size:17px;color:var(--muted);font-style:italic;margin:16px 0 20px">V-CSTR is the Air Force&rsquo;s digital training infrastructure &mdash; deployed at 60+ units, aligned to Ready Airman Training requirements, and designed to extend the reach and repeatability of CSTR sites. Over years of working directly with Security Forces Defenders and SMEs, Street Smarts built content in response to what units said they couldn&rsquo;t train. The ICST baseline is that catalog &mdash; credential-aligned, evidence-generating, and available today.</p>
-      <div class="gaps-callout">
-        <div class="gaps-callout-title">Current-State Gaps</div>
-        <ul>
-          <li><strong>Training by waiver</strong> &mdash; commanders signed training waivers by the stack across crowd control, NLW deployment, C-UAS; documentation to satisfy compliance, not to prove capability</li>
-          <li><strong>One brief, no reps</strong> &mdash; the average Defender saw training once (usually a slide deck before deployment) and never touched it again</li>
-          <li><strong>Point solutions, not a system</strong> &mdash; no common measurement, no shared data, no way to demonstrate readiness across the full spectrum</li>
-        </ul>
+          <p style="font-size:17px;color:var(--muted);font-style:italic;margin:16px 0 20px">V-CSTR is the Air Force&rsquo;s digital training infrastructure &mdash; deployed at 60+ units, aligned to Ready Airman Training requirements, and designed to extend the reach and repeatability of CSTR sites. Over years of working directly with Security Forces Defenders and SMEs, Street Smarts built content in response to what units said they couldn&rsquo;t train. The ICST baseline is that catalog &mdash; credential-aligned, evidence-generating, and available today.</p>
+        </div></div>
       </div>
-
-      <div class="stmt-zone" style="margin-top:24px">
-        <div class="stmt-box">
-          <div class="stmt-header">
-            <span class="stmt-header-title">Alignment Statement &mdash; ICST Baseline</span>
-            <span class="stmt-header-badge validated">Validated</span>
-          </div>
-          <div class="stmt-body">
-            <div class="stmt-text">The ICST baseline is the V-CSTR platform &mdash; deployed at 60+ USAF units, credential-aligned to Ready Airman Training, ATF, and DCW requirements. Every capability in the catalog is proven in at least one fielded program, generating evidence and reporting to commanders. The baseline is not a proposal &mdash; it is the installed base. C-UAS and rapid configuration are additions to it.</div>
-          </div>
+      <div class="sub-section" id="sub-1b-sfsq" data-sub="1b-sfsq">
+        <div class="sub-header" onclick="togSub('1b-sfsq')">
+          <span class="sub-num">1b</span><span>Gaps &amp; Alignment</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="gaps-callout">
+            <div class="gaps-callout-title">Current-State Gaps</div>
+            <ul>
+              <li><strong>Training by waiver</strong> &mdash; commanders signed training waivers by the stack across crowd control, NLW deployment, C-UAS; documentation to satisfy compliance, not to prove capability</li>
+              <li><strong>One brief, no reps</strong> &mdash; the average Defender saw training once (usually a slide deck before deployment) and never touched it again</li>
+              <li><strong>Point solutions, not a system</strong> &mdash; no common measurement, no shared data, no way to demonstrate readiness across the full spectrum</li>
+            </ul>
+          </div>
+          <div class="stmt-zone" style="margin-top:24px">
+            <div class="stmt-box">
+              <div class="stmt-header">
+                <span class="stmt-header-title">Alignment Statement &mdash; ICST Baseline</span>
+                <span class="stmt-header-badge validated">Validated</span>
+              </div>
+              <div class="stmt-body">
+                <div class="stmt-text">The ICST baseline is the V-CSTR platform &mdash; deployed at 60+ USAF units, credential-aligned to Ready Airman Training, ATF, and DCW requirements. Every capability in the catalog is proven in at least one fielded program, generating evidence and reporting to commanders. The baseline is not a proposal &mdash; it is the installed base. C-UAS and rapid configuration are additions to it.</div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
     </div>
 
     <!-- ICST-RC -->
     <div class="pane" data-inst="icst-rc">
-      <div class="tree"><span class="tree-root">Conventional Weapons &amp; Non-Lethal Qualification</span>
+      <div class="sub-section sub-expanded" id="sub-1a-icrc" data-sub="1a-icrc">
+        <div class="sub-header" onclick="togSub('1a-icrc')">
+          <span class="sub-num">1a</span><span>Capabilities &amp; Environments</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="tree"><span class="tree-root">Conventional Weapons &amp; Non-Lethal Qualification</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&#9492;&#9472; </span>AFI 36-2654 &mdash; Combat Arms Training and Maintenance (CATM)</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&#9492;&#9472; </span>Weapon Qualification Tables &middot; Force Continuum &middot; Installation NPCs</span>
 <span class="tree-line"><span class="tree-connector">&ensp;&ensp;&ensp;&ensp;&ensp;&#9492;&#9472; </span><span class="tree-hl">Weapons + Non-Lethals + Optics &middot; USAF NPC Environments</span></span></div>
-      <div class="card-grid">
-        <div class="card card-accent"><div class="card-label">Small Arms</div><div class="card-title">M18 Pistol &middot; M4A1 Carbine</div><div class="card-body">Individual qualification &middot; shoot/no-shoot &middot; optics/sights &middot; sustainment cadence</div></div>
-        <div class="card card-amber"><div class="card-label">Crew-Served</div><div class="card-title">M240 &middot; M249 SAW</div><div class="card-body">Team qualification &middot; sector coverage &middot; burst control &middot; crew drills</div></div>
-        <div class="card card-red"><div class="card-label">Extended Range</div><div class="card-title">M3 MAAWS &middot; M2 .50 Cal &middot; M320 GLM</div><div class="card-body">Complex employment &middot; range control &middot; firing solution validation</div></div>
-        <div class="card card-green"><div class="card-label">Non-Lethal</div><div class="card-title">Baton &middot; OC/Pepper Spray &middot; CEW (TASER)</div><div class="card-body">Force-continuum decision drills &middot; deployment timing &middot; proportional response scenarios</div></div>
-      </div>
-      <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">USAF NPC Scenario Environments</h3>
-      <div class="card-grid tri">
-        <div class="card card-accent"><div class="card-label">Access Control</div><div class="card-title">Gate &amp; ECP Scenarios</div><div class="card-body">DBIDS-style ID flow &middot; gate runner &middot; vehicle challenge &middot; protest at the gate &middot; flight-line restricted-area contact</div></div>
-        <div class="card card-accent"><div class="card-label">Base Defense</div><div class="card-title">IBD &amp; Post-Attack Recon</div><div class="card-body">Defensive sectors &middot; interlocking fires &middot; Light-All/NVG night defense &middot; post-attack route sweep &middot; UXO/CBRN stanchion &amp; report</div></div>
-        <div class="card card-accent"><div class="card-label">Patrol &amp; Incident</div><div class="card-title">Base Patrol Contacts</div><div class="card-body">Housing disturbances &middot; EDP with bystanders &middot; active threat in admin building &middot; USAF-specific NPC environments (OCP uniforms, base infrastructure)</div></div>
-      </div>
-      <div class="gaps-callout">
-        <div class="gaps-callout-title">Gaps Identified</div>
-        <ul>
-          <li><strong>No digital qualification records</strong> &mdash; qual cards are paper-based; no centralized visibility into which airmen are current across which weapons</li>
-          <li><strong>CATM range bottleneck</strong> &mdash; sustainment qualification constrained by range access and instructor availability, not airmen readiness</li>
-          <li><strong>Non-lethal training gap</strong> &mdash; no sustainment scaffold between annual NLW certification cycles for SF units with LE missions</li>
-          <li><strong>No shared measurement layer</strong> &mdash; each weapon system is a separate training event; no common scoring framework across the arsenal</li>
-        </ul>
-      </div>
-
-      <div class="stmt-zone" style="margin-top:24px">
-        <div class="stmt-box">
-          <div class="stmt-header">
-            <span class="stmt-header-title">Alignment Statement &mdash; ICST Rapid Config</span>
-            <span class="stmt-header-badge validated">Validated</span>
+          <div class="card-grid">
+            <div class="card card-accent"><div class="card-label">Small Arms</div><div class="card-title">M18 Pistol &middot; M4A1 Carbine</div><div class="card-body">Individual qualification &middot; shoot/no-shoot &middot; optics/sights &middot; sustainment cadence</div></div>
+            <div class="card card-amber"><div class="card-label">Crew-Served</div><div class="card-title">M240 &middot; M249 SAW</div><div class="card-body">Team qualification &middot; sector coverage &middot; burst control &middot; crew drills</div></div>
+            <div class="card card-red"><div class="card-label">Extended Range</div><div class="card-title">M3 MAAWS &middot; M2 .50 Cal &middot; M320 GLM</div><div class="card-body">Complex employment &middot; range control &middot; firing solution validation</div></div>
+            <div class="card card-green"><div class="card-label">Non-Lethal</div><div class="card-title">Baton &middot; OC/Pepper Spray &middot; CEW (TASER)</div><div class="card-body">Force-continuum decision drills &middot; deployment timing &middot; proportional response scenarios</div></div>
           </div>
-          <div class="stmt-body">
-            <div class="stmt-text">The rapid configuration requirement is governed by <span class="slot">AFI 36-2654 (CATM)</span> and the <span class="slot">Use-of-Force Continuum</span>. Small arms (M18, M4A1) and non-lethals (baton, OC, CEW) are available now &mdash; deployed at Navy CNIC and Ontario law enforcement. Crew-served weapons are in configuration. Extended range systems are on request. One platform, one data pipeline, every system the Defender carries. Unit request to deployed qual tables in less than 30 days.</div>
+          <h3 style="margin:24px 0 12px;font-size:16px;color:var(--muted);text-transform:uppercase;letter-spacing:1px">USAF NPC Scenario Environments</h3>
+          <div class="card-grid tri">
+            <div class="card card-accent"><div class="card-label">Access Control</div><div class="card-title">Gate &amp; ECP Scenarios</div><div class="card-body">DBIDS-style ID flow &middot; gate runner &middot; vehicle challenge &middot; protest at the gate &middot; flight-line restricted-area contact</div></div>
+            <div class="card card-accent"><div class="card-label">Base Defense</div><div class="card-title">IBD &amp; Post-Attack Recon</div><div class="card-body">Defensive sectors &middot; interlocking fires &middot; Light-All/NVG night defense &middot; post-attack route sweep &middot; UXO/CBRN stanchion &amp; report</div></div>
+            <div class="card card-accent"><div class="card-label">Patrol &amp; Incident</div><div class="card-title">Base Patrol Contacts</div><div class="card-body">Housing disturbances &middot; EDP with bystanders &middot; active threat in admin building &middot; USAF-specific NPC environments (OCP uniforms, base infrastructure)</div></div>
           </div>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-1b-icrc" data-sub="1b-icrc">
+        <div class="sub-header" onclick="togSub('1b-icrc')">
+          <span class="sub-num">1b</span><span>Gaps &amp; Alignment</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <div class="gaps-callout">
+            <div class="gaps-callout-title">Gaps Identified</div>
+            <ul>
+              <li><strong>No digital qualification records</strong> &mdash; qual cards are paper-based; no centralized visibility into which airmen are current across which weapons</li>
+              <li><strong>CATM range bottleneck</strong> &mdash; sustainment qualification constrained by range access and instructor availability, not airmen readiness</li>
+              <li><strong>Non-lethal training gap</strong> &mdash; no sustainment scaffold between annual NLW certification cycles for SF units with LE missions</li>
+              <li><strong>No shared measurement layer</strong> &mdash; each weapon system is a separate training event; no common scoring framework across the arsenal</li>
+            </ul>
+          </div>
+          <div class="stmt-zone" style="margin-top:24px">
+            <div class="stmt-box">
+              <div class="stmt-header">
+                <span class="stmt-header-title">Alignment Statement &mdash; ICST Rapid Config</span>
+                <span class="stmt-header-badge validated">Validated</span>
+              </div>
+              <div class="stmt-body">
+                <div class="stmt-text">The rapid configuration requirement is governed by <span class="slot">AFI 36-2654 (CATM)</span> and the <span class="slot">Use-of-Force Continuum</span>. Small arms (M18, M4A1) and non-lethals (baton, OC, CEW) are available now &mdash; deployed at Navy CNIC and Ontario law enforcement. Crew-served weapons are in configuration. Extended range systems are on request. One platform, one data pipeline, every system the Defender carries. Unit request to deployed qual tables in less than 30 days.</div>
+              </div>
+            </div>
+          </div>
+        </div></div>
       </div>
     </div>
 
@@ -833,6 +919,11 @@ tr:hover .remove-row-btn{opacity:1}
 
     <!-- CNAP -->
     <div class="pane active" data-inst="cnap">
+      <div class="sub-section sub-expanded" id="sub-2a-cnap" data-sub="2a-cnap">
+        <div class="sub-header" onclick="togSub('2a-cnap')">
+          <span class="sub-num">2a</span><span>Behavioral Standards</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <table class="dtable"><thead><tr><th>Criteria</th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
         <tr><td class="cat" colspan="4">Core Engagement</td></tr>
         <tr><td class="rlabel">Threat detection time</td><td>&le;8s</td><td>&le;3s</td><td>&le;12s</td></tr>
@@ -843,10 +934,17 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td class="rlabel">ROE compliance</td><td>100%</td><td>100%</td><td>100%</td></tr>
         <tr><td class="rlabel">Comms / reporting</td><td>SALUTE &le;30s</td><td>Broadcast &le;15s</td><td>SALUTE &le;30s</td></tr>
       </tbody></table>
+        </div></div>
+      </div>
     </div>
 
     <!-- AFSFC -->
     <div class="pane" data-inst="afsfc">
+      <div class="sub-section sub-expanded" id="sub-2a-afsfc" data-sub="2a-afsfc">
+        <div class="sub-header" onclick="togSub('2a-afsfc')">
+          <span class="sub-num">2a</span><span>Measurable Behaviors</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Click any value to edit. <span class="discuss">[Discuss]</span> = input needed. Add or remove rows per DIDE stage.</p>
       <table class="dtable" id="afsfc-behaviors"><thead><tr><th>Criteria</th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th><th style="width:36px"></th></tr></thead><tbody>
         <tr><td class="cat" colspan="6" data-stage="detect">Detect / Identify</td></tr>
@@ -866,8 +964,15 @@ tr:hover .remove-row-btn{opacity:1}
         <tr data-behavior-row data-stage="tactical"><td class="rlabel">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td class="ed" data-key="d-roe-db" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-lm" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-cy" tabindex="0">100%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
         <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('tactical',this)">+ Add behavior to Tactical</button></td></tr>
       </tbody></table>
+        </div></div>
+      </div>
 
       <!-- DATA ROUTING -->
+      <div class="sub-section" id="sub-2b-afsfc" data-sub="2b-afsfc">
+        <div class="sub-header" onclick="togSub('2b-afsfc')">
+          <span class="sub-num">2b</span><span>Data Routing</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="data-routing">
         <div class="data-routing-title">Data Routing &mdash; Who&rsquo;s Watching? Who Wants This Data?</div>
         <table class="dtable" id="afsfc-routing"><thead><tr><th>Consumer</th><th>What They Want to See</th><th>Frequency</th><th>Priority</th><th style="width:36px"></th></tr></thead>
@@ -879,10 +984,17 @@ tr:hover .remove-row-btn{opacity:1}
         </tbody></table>
         <button class="add-consumer-btn" onclick="addRoutingRow()">+ Add data consumer</button>
       </div>
+        </div></div>
+      </div>
     </div>
 
     <!-- CNIC -->
     <div class="pane" data-inst="cnic">
+      <div class="sub-section sub-expanded" id="sub-2a-cnic" data-sub="2a-cnic">
+        <div class="sub-header" onclick="togSub('2a-cnic')">
+          <span class="sub-num">2a</span><span>Qualification Standards</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <table class="dtable"><thead><tr><th>Criteria</th><th class="col-accent">M18 Pistol</th></tr></thead><tbody>
         <tr><td class="cat" colspan="2">Marksmanship &amp; Qualification</td></tr>
         <tr><td class="rlabel">Time to draw</td><td>&le;1.5s</td></tr>
@@ -892,10 +1004,17 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td class="rlabel">ROE compliance</td><td>100%</td></tr>
         <tr><td class="rlabel">Requalification interval</td><td>90 days</td></tr>
       </tbody></table>
+        </div></div>
+      </div>
     </div>
 
     <!-- ONTARIO -->
     <div class="pane" data-inst="ontario">
+      <div class="sub-section sub-expanded" id="sub-2a-ont" data-sub="2a-ont">
+        <div class="sub-header" onclick="togSub('2a-ont')">
+          <span class="sub-num">2a</span><span>Behavioral Standards</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <table class="dtable"><thead><tr><th>Criteria</th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
         <tr><td class="cat" colspan="4">Behavioral Assessment</td></tr>
         <tr><td class="rlabel">Response initiation</td><td>&le;5s verbal contact</td><td>&le;3s deployment</td><td>&le;10s first transmission</td></tr>
@@ -905,10 +1024,17 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td class="rlabel">Use-of-force compliance</td><td>100%</td><td>100%</td><td>N/A</td></tr>
         <tr><td class="rlabel">Documentation</td><td>Incident narrative &le;60s</td><td>Force report &le;60s</td><td>Dispatch log accuracy</td></tr>
       </tbody></table>
+        </div></div>
+      </div>
     </div>
 
     <!-- SFSQ -->
     <div class="pane" data-inst="sfsq">
+      <div class="sub-section sub-expanded" id="sub-2a-sfsq" data-sub="2a-sfsq">
+        <div class="sub-header" onclick="togSub('2a-sfsq')">
+          <span class="sub-num">2a</span><span>Domain Criteria</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <table class="dtable"><thead><tr><th>Domain</th><th>Sample Criteria</th></tr></thead><tbody>
         <tr><td class="rlabel">Use-of-Force / De-escalation</td><td>Subject compliance rate &middot; technique compliance &middot; force proportionality</td></tr>
         <tr><td class="rlabel">Non-Lethal Weapons</td><td>Deployment time &le;3s &middot; target accuracy &ge;85% &middot; proportional response</td></tr>
@@ -919,10 +1045,17 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td class="rlabel">Communications</td><td>SALUTE &le;30s &middot; radio protocol compliance &middot; dispatch coordination</td></tr>
       </tbody></table>
       <p style="font-size:16px;color:var(--muted);font-style:italic;margin-top:16px">Criteria co-developed with Security Forces SMEs. Not all doctrine &mdash; some of this is what the field said right looks like before doctrine caught up.</p>
+        </div></div>
+      </div>
     </div>
 
     <!-- ICST-RC -->
     <div class="pane" data-inst="icst-rc">
+      <div class="sub-section sub-expanded" id="sub-2a-icrc" data-sub="2a-icrc">
+        <div class="sub-header" onclick="togSub('2a-icrc')">
+          <span class="sub-num">2a</span><span>Lethal Weapons Standards</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Click any value to edit. <span class="discuss">[Discuss]</span> = input needed.</p>
       <table class="dtable"><thead><tr><th>Category</th><th>Criteria</th><th class="col-accent">M18 Pistol</th><th class="col-accent">M4A1 Carbine</th><th>M240 MG</th><th>M249 SAW</th></tr></thead><tbody>
         <tr><td class="cat" colspan="6">Individual Weapons</td></tr>
@@ -938,6 +1071,13 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td class="rlabel">ROE compliance</td><td class="ed" data-key="rc-roe-m18" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m4" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m240" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m249" tabindex="0">100%</td></tr>
         <tr><td class="rlabel">Requalification interval</td><td class="ed" data-key="rc-req-m18" tabindex="0">90 days</td><td class="ed" data-key="rc-req-m4" tabindex="0">180 days</td><td class="ed" data-key="rc-req-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-req-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
       </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-2b-icrc" data-sub="2b-icrc">
+        <div class="sub-header" onclick="togSub('2b-icrc')">
+          <span class="sub-num">2b</span><span>Non-Lethal Weapons Standards</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <table class="dtable" style="margin-top:16px"><thead><tr><th>Category</th><th>Criteria</th><th class="col-green">Baton</th><th class="col-green">OC / Pepper Spray</th><th class="col-green">CEW (TASER)</th></tr></thead><tbody>
         <tr><td class="cat" colspan="5">Non-Lethal Weapons</td></tr>
         <tr><td class="rlabel" rowspan="3">Force Continuum</td><td class="rlabel">Deployment time</td><td class="ed" data-key="rc-dep-bat" tabindex="0">&le;3s</td><td class="ed" data-key="rc-dep-oc" tabindex="0">&le;3s</td><td class="ed" data-key="rc-dep-cew" tabindex="0">&le;3s</td></tr>
@@ -945,6 +1085,8 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td class="rlabel">Proportional response</td><td class="ed" data-key="rc-prop-bat" tabindex="0">Force matrix compliance</td><td class="ed" data-key="rc-prop-oc" tabindex="0">Force matrix compliance</td><td class="ed" data-key="rc-prop-cew" tabindex="0">Force matrix compliance</td></tr>
         <tr><td class="rlabel">Policy</td><td class="rlabel">Use-of-force compliance</td><td class="ed" data-key="rc-uof-bat" tabindex="0">100%</td><td class="ed" data-key="rc-uof-oc" tabindex="0">100%</td><td class="ed" data-key="rc-uof-cew" tabindex="0">100%</td></tr>
       </tbody></table>
+        </div></div>
+      </div>
     </div>
 
   </div></div>
@@ -970,150 +1112,282 @@ tr:hover .remove-row-btn{opacity:1}
     <!-- CNAP -->
     <div class="pane active" data-inst="cnap">
       <div class="s3-case"><div class="s3-case-title">US Navy Carriers &mdash; CNAP</div><div class="s3-case-sub">7 Pacific Fleet carriers &middot; 14 systems deployed &middot; CNAL onboarding</div></div>
-      <table class="dtable"><thead><tr><th></th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
-        <tr><td class="layer-header layer-mission" colspan="4">Mission configuration</td></tr>
-        <tr><td class="rlabel">Doctrine source</td><td colspan="3">OPNAVINST 5530.14E &mdash; Physical Security &amp; Anti-Terrorism</td></tr>
-        <tr><td class="rlabel">Scenario progression</td><td>Detect &rarr; Track &rarr; Engage &rarr; Defeat</td><td>Alert &rarr; Respond &rarr; Engage &rarr; Secure</td><td>Detect &rarr; Classify &rarr; Warn &rarr; Engage</td></tr>
-        <tr><td class="rlabel">Environments</td><td>Flight deck &middot; Open water</td><td>Below-deck &middot; Bridge</td><td>Harbor &middot; Anchorage</td></tr>
-        <tr><td class="rlabel">Conditions</td><td>Day / Night</td><td>Day / Night &middot; Confined space</td><td>Day / Night &middot; Reduced visibility</td></tr>
-        <tr><td class="rlabel">Threat / NPC</td><td>Group 1 &amp; 2 UAS profiles</td><td>Armed hostile aboard</td><td>Small boat / swimmer</td></tr>
-        <tr><td class="layer-header layer-sensor" colspan="4">Sensor configuration</td></tr>
-        <tr><td class="rlabel">Readiness sensors</td><td>Shotgun replica</td><td>M18 &middot; M4A1</td><td>M2 / M240 replica</td></tr>
-        <tr><td class="rlabel">Headset</td><td colspan="3">Standalone VR (per carrier kit)</td></tr>
-        <tr><td class="rlabel">Kit config</td><td colspan="3">2 kits per carrier &mdash; CONUS + OCONUS configurations</td></tr>
-        <tr><td class="layer-header layer-meas" colspan="4">Measurement configuration</td></tr>
-        <tr><td class="rlabel">Scoring rubric</td><td>Defeat + time + ROE</td><td>Stopped + bystander safety</td><td>Disabled + ROE + comms</td></tr>
-        <tr><td class="rlabel">Qual gates</td><td>PID &ge;90% &middot; Engage &le;20s</td><td>ID 100% &middot; Engage &le;5s</td><td>Classify &ge;95% &middot; Engage &le;15s</td></tr>
-        <tr><td class="rlabel">Evidence pipeline</td><td colspan="3">Evidence Engine &rarr; Ship DB &rarr; Fleet Roll-up &rarr; CNAP HQ</td></tr>
-        <tr><td class="rlabel">Review / AAR</td><td colspan="3">Scenario replay &middot; shot-by-shot review &middot; crew debrief mode</td></tr>
-        <tr><td class="rlabel">Commander view</td><td colspan="3">Fleet readiness dashboard &mdash; cross-carrier comparison</td></tr>
-      </tbody></table>
-      <div class="s3-note"><strong>Proven.</strong> TYCOM adoption model: CNAP N3D sponsored Pacific deployment and introduced the system to CNAL and TACAMO. CNIC on parallel track targeting SAWS Program of Record.</div>
+      <div class="sub-section sub-expanded" id="sub-3a-cnap" data-sub="3a-cnap">
+        <div class="sub-header" onclick="togSub('3a-cnap')">
+          <span class="sub-num">3a</span><span>Mission Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
+            <tr><td class="rlabel">Doctrine source</td><td colspan="3">OPNAVINST 5530.14E &mdash; Physical Security &amp; Anti-Terrorism</td></tr>
+            <tr><td class="rlabel">Scenario progression</td><td>Detect &rarr; Track &rarr; Engage &rarr; Defeat</td><td>Alert &rarr; Respond &rarr; Engage &rarr; Secure</td><td>Detect &rarr; Classify &rarr; Warn &rarr; Engage</td></tr>
+            <tr><td class="rlabel">Environments</td><td>Flight deck &middot; Open water</td><td>Below-deck &middot; Bridge</td><td>Harbor &middot; Anchorage</td></tr>
+            <tr><td class="rlabel">Conditions</td><td>Day / Night</td><td>Day / Night &middot; Confined space</td><td>Day / Night &middot; Reduced visibility</td></tr>
+            <tr><td class="rlabel">Threat / NPC</td><td>Group 1 &amp; 2 UAS profiles</td><td>Armed hostile aboard</td><td>Small boat / swimmer</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3b-cnap" data-sub="3b-cnap">
+        <div class="sub-header" onclick="togSub('3b-cnap')">
+          <span class="sub-num">3b</span><span>Sensor Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
+            <tr><td class="rlabel">Readiness sensors</td><td>Shotgun replica</td><td>M18 &middot; M4A1</td><td>M2 / M240 replica</td></tr>
+            <tr><td class="rlabel">Headset</td><td colspan="3">Standalone VR (per carrier kit)</td></tr>
+            <tr><td class="rlabel">Kit config</td><td colspan="3">2 kits per carrier &mdash; CONUS + OCONUS configurations</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3c-cnap" data-sub="3c-cnap">
+        <div class="sub-header" onclick="togSub('3c-cnap')">
+          <span class="sub-num">3c</span><span>Measurement Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">C-UAS Response</th><th>Active Shooter</th><th>Hostile Waterborne</th></tr></thead><tbody>
+            <tr><td class="rlabel">Scoring rubric</td><td>Defeat + time + ROE</td><td>Stopped + bystander safety</td><td>Disabled + ROE + comms</td></tr>
+            <tr><td class="rlabel">Qual gates</td><td>PID &ge;90% &middot; Engage &le;20s</td><td>ID 100% &middot; Engage &le;5s</td><td>Classify &ge;95% &middot; Engage &le;15s</td></tr>
+            <tr><td class="rlabel">Evidence pipeline</td><td colspan="3">Evidence Engine &rarr; Ship DB &rarr; Fleet Roll-up &rarr; CNAP HQ</td></tr>
+            <tr><td class="rlabel">Review / AAR</td><td colspan="3">Scenario replay &middot; shot-by-shot review &middot; crew debrief mode</td></tr>
+            <tr><td class="rlabel">Commander view</td><td colspan="3">Fleet readiness dashboard &mdash; cross-carrier comparison</td></tr>
+          </tbody></table>
+          <div class="s3-note"><strong>Proven.</strong> TYCOM adoption model: CNAP N3D sponsored Pacific deployment and introduced the system to CNAL and TACAMO. CNIC on parallel track targeting SAWS Program of Record.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- CNIC -->
     <div class="pane" data-inst="cnic">
       <div class="s3-case"><div class="s3-case-title">US Navy Installations &mdash; CNIC</div><div class="s3-case-sub">31 shore installations contracted &middot; Path to SAWS Program of Record</div></div>
-      <table class="dtable"><thead><tr><th></th><th class="col-accent">M18 Pistol Qualification</th></tr></thead><tbody>
-        <tr><td class="layer-header layer-mission" colspan="2">Mission configuration</td></tr>
-        <tr><td class="rlabel">Doctrine source</td><td>OPNAVINST 3591.1F &mdash; Navy Handgun Qualification Program</td></tr>
-        <tr><td class="rlabel">Scenario progression</td><td>Draw &amp; Present &rarr; Timed Fire (3/5/7 yd) &rarr; Qual Course &rarr; Shoot/No-Shoot &rarr; Low-Light</td></tr>
-        <tr><td class="rlabel">Environments</td><td>Shore range &middot; Installation indoor</td></tr>
-        <tr><td class="rlabel">Conditions</td><td>Day / Night / NVG &middot; Iron sights + red dot</td></tr>
-        <tr><td class="rlabel">Threat / NPC</td><td>Shoot/no-shoot target discrimination</td></tr>
-        <tr><td class="layer-header layer-sensor" colspan="2">Sensor configuration</td></tr>
-        <tr><td class="rlabel">Readiness sensors</td><td>M18 pistol replica (UniTrack)</td></tr>
-        <tr><td class="rlabel">Headset</td><td>Standalone VR</td></tr>
-        <tr><td class="rlabel">Kit config</td><td>Per-installation kit</td></tr>
-        <tr><td class="layer-header layer-meas" colspan="2">Measurement configuration</td></tr>
-        <tr><td class="rlabel">Scoring rubric</td><td>Pass/fail per qual table + composite score</td></tr>
-        <tr><td class="rlabel">Qual gates</td><td>Draw &le;1.5s &middot; First shot &le;2.5s &middot; Hit rate &ge;80% &middot; Low-light &ge;70%</td></tr>
-        <tr><td class="rlabel">Evidence pipeline</td><td>Evidence Engine &rarr; Installation DB &rarr; CNIC HQ</td></tr>
-        <tr><td class="rlabel">Review / AAR</td><td>Shot-by-shot replay &middot; draw mechanics review</td></tr>
-        <tr><td class="rlabel">Commander view</td><td>Installation readiness &mdash; qualification currency across personnel</td></tr>
-      </tbody></table>
-      <div class="s3-note"><strong>Proven.</strong> Pre-contracted development model. First deployment of UniTrack M18 hardware. Exception-to-Policy for deployed carrier pistol sustainment training nearing signature.</div>
+      <div class="sub-section sub-expanded" id="sub-3a-cnic" data-sub="3a-cnic">
+        <div class="sub-header" onclick="togSub('3a-cnic')">
+          <span class="sub-num">3a</span><span>Mission Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">M18 Pistol Qualification</th></tr></thead><tbody>
+            <tr><td class="rlabel">Doctrine source</td><td>OPNAVINST 3591.1F &mdash; Navy Handgun Qualification Program</td></tr>
+            <tr><td class="rlabel">Scenario progression</td><td>Draw &amp; Present &rarr; Timed Fire (3/5/7 yd) &rarr; Qual Course &rarr; Shoot/No-Shoot &rarr; Low-Light</td></tr>
+            <tr><td class="rlabel">Environments</td><td>Shore range &middot; Installation indoor</td></tr>
+            <tr><td class="rlabel">Conditions</td><td>Day / Night / NVG &middot; Iron sights + red dot</td></tr>
+            <tr><td class="rlabel">Threat / NPC</td><td>Shoot/no-shoot target discrimination</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3b-cnic" data-sub="3b-cnic">
+        <div class="sub-header" onclick="togSub('3b-cnic')">
+          <span class="sub-num">3b</span><span>Sensor Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">M18 Pistol Qualification</th></tr></thead><tbody>
+            <tr><td class="rlabel">Readiness sensors</td><td>M18 pistol replica (UniTrack)</td></tr>
+            <tr><td class="rlabel">Headset</td><td>Standalone VR</td></tr>
+            <tr><td class="rlabel">Kit config</td><td>Per-installation kit</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3c-cnic" data-sub="3c-cnic">
+        <div class="sub-header" onclick="togSub('3c-cnic')">
+          <span class="sub-num">3c</span><span>Measurement Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">M18 Pistol Qualification</th></tr></thead><tbody>
+            <tr><td class="rlabel">Scoring rubric</td><td>Pass/fail per qual table + composite score</td></tr>
+            <tr><td class="rlabel">Qual gates</td><td>Draw &le;1.5s &middot; First shot &le;2.5s &middot; Hit rate &ge;80% &middot; Low-light &ge;70%</td></tr>
+            <tr><td class="rlabel">Evidence pipeline</td><td>Evidence Engine &rarr; Installation DB &rarr; CNIC HQ</td></tr>
+            <tr><td class="rlabel">Review / AAR</td><td>Shot-by-shot replay &middot; draw mechanics review</td></tr>
+            <tr><td class="rlabel">Commander view</td><td>Installation readiness &mdash; qualification currency across personnel</td></tr>
+          </tbody></table>
+          <div class="s3-note"><strong>Proven.</strong> Pre-contracted development model. First deployment of UniTrack M18 hardware. Exception-to-Policy for deployed carrier pistol sustainment training nearing signature.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- ONTARIO -->
     <div class="pane" data-inst="ontario">
       <div class="s3-case"><div class="s3-case-title">Ontario Police Services &mdash; MHCR</div><div class="s3-case-sub">1,600+ officers across multiple services &middot; Frontline deadline Oct 1, 2026</div></div>
-      <table class="dtable"><thead><tr><th></th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
-        <tr><td class="layer-header layer-mission" colspan="4">Mission configuration</td></tr>
-        <tr><td class="rlabel">Doctrine source</td><td colspan="3">O. Reg. 96/26 &mdash; Community Safety and Policing Act &middot; DePICT&trade; 14-item framework</td></tr>
-        <tr><td class="rlabel">Scenario progression</td><td>Approach &rarr; Assess &rarr; De-escalate &rarr; Resolve</td><td>Threat Assessment &rarr; Deploy &rarr; Control &rarr; Secure</td><td>Dispatch &rarr; Relay &rarr; Coordinate &rarr; Log</td></tr>
-        <tr><td class="rlabel">Environments</td><td>Domestic &middot; Public space &middot; Vehicle stop</td><td>Indoor &middot; Outdoor &middot; Crowd</td><td>Field &middot; Dispatch center</td></tr>
-        <tr><td class="rlabel">Conditions</td><td colspan="3">Day / Night &middot; Indoor / Outdoor &middot; Weather variation</td></tr>
-        <tr><td class="rlabel">Threat / NPC</td><td>Person in crisis &middot; Bystanders</td><td>Resistant subject &middot; Crowd</td><td>Dispatch operator &middot; Responding units</td></tr>
-        <tr><td class="layer-header layer-sensor" colspan="4">Sensor configuration</td></tr>
-        <tr><td class="rlabel">Readiness sensors</td><td>&mdash;</td><td>Baton &middot; OC &middot; CEW replicas</td><td>&mdash;</td></tr>
-        <tr><td class="rlabel">Headset</td><td colspan="3">Standalone VR</td></tr>
-        <tr><td class="rlabel">Kit config</td><td colspan="3">Per-service deployment (500&ndash;2,000 officers per service)</td></tr>
-        <tr><td class="layer-header layer-meas" colspan="4">Measurement configuration</td></tr>
-        <tr><td class="rlabel">Scoring rubric</td><td>Subject outcome + technique + time</td><td>Accuracy + proportionality + safety</td><td>Protocol compliance + accuracy</td></tr>
-        <tr><td class="rlabel">Qual gates</td><td>DePICT&trade; pass &ge; threshold</td><td>Accuracy &ge;85% &middot; UoF 100%</td><td>Message accuracy &ge;90%</td></tr>
-        <tr><td class="rlabel">Evidence pipeline</td><td colspan="3">Evidence Engine &rarr; Service DB &rarr; Regional Roll-up &rarr; Solicitor General</td></tr>
-        <tr><td class="rlabel">Review / AAR</td><td colspan="3">Automated DePICT&trade; scoring replaces human rater &middot; scenario replay</td></tr>
-        <tr><td class="rlabel">Commander view</td><td colspan="3">Service compliance dashboard &mdash; provincial roll-up for regulator</td></tr>
-      </tbody></table>
-      <div class="s3-note"><strong>Proven.</strong> Automated DePICT&trade; scoring replaces the one-human-rater-per-scenario bottleneck. Province-scale compliance is impossible without it.</div>
+      <div class="sub-section sub-expanded" id="sub-3a-ont" data-sub="3a-ont">
+        <div class="sub-header" onclick="togSub('3a-ont')">
+          <span class="sub-num">3a</span><span>Mission Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
+            <tr><td class="rlabel">Doctrine source</td><td colspan="3">O. Reg. 96/26 &mdash; Community Safety and Policing Act &middot; DePICT&trade; 14-item framework</td></tr>
+            <tr><td class="rlabel">Scenario progression</td><td>Approach &rarr; Assess &rarr; De-escalate &rarr; Resolve</td><td>Threat Assessment &rarr; Deploy &rarr; Control &rarr; Secure</td><td>Dispatch &rarr; Relay &rarr; Coordinate &rarr; Log</td></tr>
+            <tr><td class="rlabel">Environments</td><td>Domestic &middot; Public space &middot; Vehicle stop</td><td>Indoor &middot; Outdoor &middot; Crowd</td><td>Field &middot; Dispatch center</td></tr>
+            <tr><td class="rlabel">Conditions</td><td colspan="3">Day / Night &middot; Indoor / Outdoor &middot; Weather variation</td></tr>
+            <tr><td class="rlabel">Threat / NPC</td><td>Person in crisis &middot; Bystanders</td><td>Resistant subject &middot; Crowd</td><td>Dispatch operator &middot; Responding units</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3b-ont" data-sub="3b-ont">
+        <div class="sub-header" onclick="togSub('3b-ont')">
+          <span class="sub-num">3b</span><span>Sensor Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
+            <tr><td class="rlabel">Readiness sensors</td><td>&mdash;</td><td>Baton &middot; OC &middot; CEW replicas</td><td>&mdash;</td></tr>
+            <tr><td class="rlabel">Headset</td><td colspan="3">Standalone VR</td></tr>
+            <tr><td class="rlabel">Kit config</td><td colspan="3">Per-service deployment (500&ndash;2,000 officers per service)</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3c-ont" data-sub="3c-ont">
+        <div class="sub-header" onclick="togSub('3c-ont')">
+          <span class="sub-num">3c</span><span>Measurement Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-green">Verbal De-escalation</th><th class="col-green">Non-Lethal Weapons</th><th class="col-green">Communications</th></tr></thead><tbody>
+            <tr><td class="rlabel">Scoring rubric</td><td>Subject outcome + technique + time</td><td>Accuracy + proportionality + safety</td><td>Protocol compliance + accuracy</td></tr>
+            <tr><td class="rlabel">Qual gates</td><td>DePICT&trade; pass &ge; threshold</td><td>Accuracy &ge;85% &middot; UoF 100%</td><td>Message accuracy &ge;90%</td></tr>
+            <tr><td class="rlabel">Evidence pipeline</td><td colspan="3">Evidence Engine &rarr; Service DB &rarr; Regional Roll-up &rarr; Solicitor General</td></tr>
+            <tr><td class="rlabel">Review / AAR</td><td colspan="3">Automated DePICT&trade; scoring replaces human rater &middot; scenario replay</td></tr>
+            <tr><td class="rlabel">Commander view</td><td colspan="3">Service compliance dashboard &mdash; provincial roll-up for regulator</td></tr>
+          </tbody></table>
+          <div class="s3-note"><strong>Proven.</strong> Automated DePICT&trade; scoring replaces the one-human-rater-per-scenario bottleneck. Province-scale compliance is impossible without it.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- SFSQ -->
     <div class="pane" data-inst="sfsq">
       <div class="s3-case"><div class="s3-case-title">ICST Baseline &mdash; V-CSTR Platform</div><div class="s3-case-sub">60+ USAF units deployed &middot; Credential-aligned to RAT, ATF, and DCW requirements &middot; Full capability catalog</div></div>
-      <table class="dtable"><thead><tr><th></th><th>Capability</th><th>Status</th><th>Credential / Requirement Alignment</th></tr></thead><tbody>
-        <tr><td class="layer-header layer-mission" colspan="4">Mission configuration &mdash; V-CSTR capability catalog</td></tr>
-        <tr><td class="rlabel">Use-of-force / De-escalation</td><td>NPC scenarios &middot; force continuum decision drills</td><td><span class="pill pill-green">Deployed</span></td><td>Ontario MHCR &middot; DePICT&trade; &middot; Use-of-Force policy</td></tr>
-        <tr><td class="rlabel">Non-lethal weapons</td><td>Baton &middot; OC &middot; CEW deployment &amp; scoring</td><td><span class="pill pill-green">Deployed</span></td><td>Ontario police proven &middot; Force matrix compliance</td></tr>
-        <tr><td class="rlabel">Crowd control</td><td>Formation &middot; comms &middot; escalation/de-escalation</td><td><span class="pill pill-green">Deployed</span></td><td>Domestic ops &middot; Installation defense SOP</td></tr>
-        <tr><td class="rlabel">Active shooter / base defense</td><td>Shoot/no-shoot &middot; ROE gates &middot; sector defense</td><td><span class="pill pill-green">Deployed</span></td><td>CNAP shipboard variant &middot; IBD doctrine</td></tr>
-        <tr><td class="rlabel">C-UAS &mdash; Dronebuster (EW)</td><td>Detect &rarr; Classify &rarr; Track &rarr; Employ</td><td><span class="pill pill-green">Deployed</span></td><td>SBIR-built &middot; AFSFC co-development</td></tr>
-        <tr><td class="rlabel">C-UAS &mdash; Shotgun</td><td>6-stage progression &middot; kinetic defeat</td><td><span class="pill pill-amber">In Config</span></td><td>AFJQS SEI 3CS &middot; ATP 3-01.81</td></tr>
-        <tr><td class="rlabel">M18 pistol</td><td>Qual tables &middot; draw-to-shot &middot; sustainment</td><td><span class="pill pill-green">Deployed</span></td><td>OPNAVINST 3591.1F &middot; CNIC contracted</td></tr>
-        <tr><td class="rlabel">M4A1 carbine</td><td>Qual tables &middot; optics &middot; night/NVG</td><td><span class="pill pill-green">Deployed</span></td><td>AFI 36-2654 (CATM)</td></tr>
-        <tr><td class="rlabel">Communications</td><td>SALUTE reporting &middot; radio protocol &middot; dispatch</td><td><span class="pill pill-green">Deployed</span></td><td>Ontario police &middot; CNAP carrier ops</td></tr>
-        <tr><td class="layer-header layer-sensor" colspan="4">Sensor configuration</td></tr>
-        <tr><td class="rlabel">Readiness sensors</td><td colspan="3">Full catalog: shotgun &middot; dronebuster &middot; M18 &middot; M4A1 &middot; baton &middot; OC &middot; CEW &middot; Unitrack platform</td></tr>
-        <tr><td class="rlabel">Headset</td><td colspan="3">Standalone VR &middot; Headset-agnostic via Unitrack sensor fusion</td></tr>
-        <tr><td class="rlabel">Kit config</td><td colspan="3">Configured per squadron &mdash; select from catalog based on mission set and credential requirements</td></tr>
-        <tr><td class="layer-header layer-meas" colspan="4">Measurement configuration &mdash; credential alignment layer</td></tr>
-        <tr><td class="rlabel">Credential mapping</td><td colspan="3">Each capability maps to specific doctrine, regulation, or credential requirement &mdash; training completion posts to the learner&rsquo;s record</td></tr>
-        <tr><td class="rlabel">Evidence pipeline</td><td colspan="3">Evidence Engine &rarr; Squadron DB &rarr; MAJCOM Roll-up &rarr; AFSFC HQ</td></tr>
-        <tr><td class="rlabel">Commander view</td><td colspan="3">Cross-capability readiness &mdash; one dashboard, every domain, credential currency visible</td></tr>
-        <tr><td class="rlabel">RAT alignment</td><td colspan="3">Ready Airman Training requirements mapped &mdash; requirements-writing office for ~350,000 Airmen</td></tr>
-      </tbody></table>
-      <div class="s3-note"><strong>This is the baseline.</strong> V-CSTR is deployed at 60+ units. Every row above is proven in at least one fielded program. The ICST baseline is not a proposal &mdash; it&rsquo;s a catalog of capabilities already generating evidence, already aligned to credentials, already reporting to commanders. C-UAS and rapid configuration are additions to this installed base.</div>
+      <div class="sub-section sub-expanded" id="sub-3a-sfsq" data-sub="3a-sfsq">
+        <div class="sub-header" onclick="togSub('3a-sfsq')">
+          <span class="sub-num">3a</span><span>Mission Configuration &mdash; V-CSTR Capability Catalog</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th>Capability</th><th>Status</th><th>Credential / Requirement Alignment</th></tr></thead><tbody>
+            <tr><td class="rlabel">Use-of-force / De-escalation</td><td>NPC scenarios &middot; force continuum decision drills</td><td><span class="pill pill-green">Deployed</span></td><td>Ontario MHCR &middot; DePICT&trade; &middot; Use-of-Force policy</td></tr>
+            <tr><td class="rlabel">Non-lethal weapons</td><td>Baton &middot; OC &middot; CEW deployment &amp; scoring</td><td><span class="pill pill-green">Deployed</span></td><td>Ontario police proven &middot; Force matrix compliance</td></tr>
+            <tr><td class="rlabel">Crowd control</td><td>Formation &middot; comms &middot; escalation/de-escalation</td><td><span class="pill pill-green">Deployed</span></td><td>Domestic ops &middot; Installation defense SOP</td></tr>
+            <tr><td class="rlabel">Active shooter / base defense</td><td>Shoot/no-shoot &middot; ROE gates &middot; sector defense</td><td><span class="pill pill-green">Deployed</span></td><td>CNAP shipboard variant &middot; IBD doctrine</td></tr>
+            <tr><td class="rlabel">C-UAS &mdash; Dronebuster (EW)</td><td>Detect &rarr; Classify &rarr; Track &rarr; Employ</td><td><span class="pill pill-green">Deployed</span></td><td>SBIR-built &middot; AFSFC co-development</td></tr>
+            <tr><td class="rlabel">C-UAS &mdash; Shotgun</td><td>6-stage progression &middot; kinetic defeat</td><td><span class="pill pill-amber">In Config</span></td><td>AFJQS SEI 3CS &middot; ATP 3-01.81</td></tr>
+            <tr><td class="rlabel">M18 pistol</td><td>Qual tables &middot; draw-to-shot &middot; sustainment</td><td><span class="pill pill-green">Deployed</span></td><td>OPNAVINST 3591.1F &middot; CNIC contracted</td></tr>
+            <tr><td class="rlabel">M4A1 carbine</td><td>Qual tables &middot; optics &middot; night/NVG</td><td><span class="pill pill-green">Deployed</span></td><td>AFI 36-2654 (CATM)</td></tr>
+            <tr><td class="rlabel">Communications</td><td>SALUTE reporting &middot; radio protocol &middot; dispatch</td><td><span class="pill pill-green">Deployed</span></td><td>Ontario police &middot; CNAP carrier ops</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3b-sfsq" data-sub="3b-sfsq">
+        <div class="sub-header" onclick="togSub('3b-sfsq')">
+          <span class="sub-num">3b</span><span>Sensor Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th>Capability</th><th>Status</th><th>Credential / Requirement Alignment</th></tr></thead><tbody>
+            <tr><td class="rlabel">Readiness sensors</td><td colspan="3">Full catalog: shotgun &middot; dronebuster &middot; M18 &middot; M4A1 &middot; baton &middot; OC &middot; CEW &middot; Unitrack platform</td></tr>
+            <tr><td class="rlabel">Headset</td><td colspan="3">Standalone VR &middot; Headset-agnostic via Unitrack sensor fusion</td></tr>
+            <tr><td class="rlabel">Kit config</td><td colspan="3">Configured per squadron &mdash; select from catalog based on mission set and credential requirements</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3c-sfsq" data-sub="3c-sfsq">
+        <div class="sub-header" onclick="togSub('3c-sfsq')">
+          <span class="sub-num">3c</span><span>Measurement Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th>Capability</th><th>Status</th><th>Credential / Requirement Alignment</th></tr></thead><tbody>
+            <tr><td class="rlabel">Credential mapping</td><td colspan="3">Each capability maps to specific doctrine, regulation, or credential requirement &mdash; training completion posts to the learner&rsquo;s record</td></tr>
+            <tr><td class="rlabel">Evidence pipeline</td><td colspan="3">Evidence Engine &rarr; Squadron DB &rarr; MAJCOM Roll-up &rarr; AFSFC HQ</td></tr>
+            <tr><td class="rlabel">Commander view</td><td colspan="3">Cross-capability readiness &mdash; one dashboard, every domain, credential currency visible</td></tr>
+            <tr><td class="rlabel">RAT alignment</td><td colspan="3">Ready Airman Training requirements mapped &mdash; requirements-writing office for ~350,000 Airmen</td></tr>
+          </tbody></table>
+          <div class="s3-note"><strong>This is the baseline.</strong> V-CSTR is deployed at 60+ units. Every row above is proven in at least one fielded program. The ICST baseline is not a proposal &mdash; it&rsquo;s a catalog of capabilities already generating evidence, already aligned to credentials, already reporting to commanders. C-UAS and rapid configuration are additions to this installed base.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- AFSFC -->
     <div class="pane" data-inst="afsfc">
       <div class="s3-case"><div class="s3-case-title">AFSFC &mdash; ICST C-UAS</div><div class="s3-case-sub">Configuration scoping &middot; Editable values &middot; <span class="discuss">[Discuss]</span> = input needed</div></div>
-      <table class="dtable"><thead><tr><th></th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th></tr></thead><tbody>
-        <tr><td class="layer-header layer-mission" colspan="5">Mission configuration</td></tr>
-        <tr><td class="rlabel">Doctrine source</td><td colspan="4">AFJQS SEI 3CS &middot; ATP 3-01.81 &middot; CNGBI 7500.00</td></tr>
-        <tr><td class="rlabel">Stage 1</td><td class="ed" data-key="c-s1-sg" tabindex="0">Setup &amp; Safety</td><td class="ed" data-key="c-s1-db" tabindex="0">Setup &amp; Safety</td><td class="ed col-fs" data-key="c-s1-lm" tabindex="0">System check &amp; arm</td><td class="ed col-fs" data-key="c-s1-cy" tabindex="0">Launch prep &amp; checklist</td></tr>
-        <tr><td class="rlabel">Stage 2</td><td class="ed" data-key="c-s2-sg" tabindex="0">Find &amp; Hold (no-shoot)</td><td class="ed" data-key="c-s2-db" tabindex="0">Detect &amp; classify</td><td class="ed col-fs" data-key="c-s2-lm" tabindex="0">Target acquisition</td><td class="ed col-fs" data-key="c-s2-cy" tabindex="0">Loiter &amp; search</td></tr>
-        <tr><td class="rlabel">Stage 3</td><td class="ed" data-key="c-s3-sg" tabindex="0">ID &amp; Report</td><td class="ed" data-key="c-s3-db" tabindex="0">Track &amp; lock</td><td class="ed col-fs" data-key="c-s3-lm" tabindex="0">Track &amp; lock</td><td class="ed col-fs" data-key="c-s3-cy" tabindex="0">Target classification</td></tr>
-        <tr><td class="rlabel">Stage 4</td><td class="ed" data-key="c-s4-sg" tabindex="0">Decision Gate (ROE)</td><td class="ed" data-key="c-s4-db" tabindex="0">Employ EW</td><td class="ed col-fs" data-key="c-s4-lm" tabindex="0">Authorization / ROE gate</td><td class="ed col-fs" data-key="c-s4-cy" tabindex="0">Terminal engagement auth</td></tr>
-        <tr><td class="rlabel">Stage 5</td><td class="ed" data-key="c-s5-sg" tabindex="0">Engage &mdash; single</td><td class="ed" data-key="c-s5-db" tabindex="0">Multi-drone</td><td class="ed col-fs" data-key="c-s5-lm" tabindex="0">Engage &mdash; single target</td><td class="ed col-fs" data-key="c-s5-cy" tabindex="0">Single-drone intercept</td></tr>
-        <tr><td class="rlabel">Stage 6</td><td class="ed" data-key="c-s6-sg" tabindex="0">Two-target sequence</td><td class="ed" data-key="c-s6-db" tabindex="0">Swarm</td><td class="ed col-fs" data-key="c-s6-lm" tabindex="0">Multi-target sequence</td><td class="ed col-fs" data-key="c-s6-cy" tabindex="0">Multi-drone scenario</td></tr>
-        <tr><td class="rlabel">Environments</td><td class="ed" data-key="c-env-sg" tabindex="0">Day/Night &middot; Open/Urban</td><td class="ed" data-key="c-env-db" tabindex="0">Day/Night &middot; Open/Urban</td><td class="ed col-fs" data-key="c-env-lm" tabindex="0">Day/Night &middot; Perimeter</td><td class="ed col-fs" data-key="c-env-cy" tabindex="0">Day/Night &middot; 3km loiter</td></tr>
-        <tr><td class="rlabel">Threat / NPC</td><td colspan="4">Group 1 &amp; 2 UAS &middot; VACR profiles &middot; single + swarm</td></tr>
-        <tr><td class="layer-header layer-sensor" colspan="5">Sensor configuration</td></tr>
-        <tr><td class="rlabel">Readiness sensors</td><td><span class="pill pill-amber">In Config</span> Shotgun</td><td><span class="pill pill-green">Available</span> Dronebuster</td><td class="col-fs"><span class="pill pill-purple">Full Scope</span> LMAMS</td><td class="col-fs"><span class="pill pill-purple">Full Scope</span> Coyote</td></tr>
-        <tr><td class="rlabel">Headset</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Standalone VR &mdash; model selection TBD</td></tr>
-        <tr><td class="rlabel">Kit config</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Per-installation kit &middot; qty driven by squadron count &times; airmen per flight</td></tr>
-        <tr><td class="layer-header layer-meas" colspan="5">Measurement configuration</td></tr>
-        <tr><td class="rlabel">Scoring rubric</td><td class="ed" data-key="c-scr-sg" tabindex="0">Pass/fail per AFJQS + composite</td><td class="ed" data-key="c-scr-db" tabindex="0">Defeat confirmation + time</td><td class="ed col-fs" data-key="c-scr-lm" tabindex="0">Employment checklist + intercept</td><td class="ed col-fs" data-key="c-scr-cy" tabindex="0">Intercept + time on station</td></tr>
-        <tr><td class="rlabel">Qual gates</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Detect &le;10s &middot; PID &le;15s &middot; VACR &ge;90% &middot; ROE 100%</td></tr>
-        <tr><td class="rlabel">Evidence pipeline</td><td class="ed" data-key="c-dat-sg" tabindex="0">Evidence Engine &rarr; Installation &rarr; AFSFC HQ</td><td class="ed" data-key="c-dat-db" tabindex="0">Evidence Engine &rarr; Installation &rarr; AFSFC HQ</td><td class="ed col-fs" data-key="c-dat-lm" tabindex="0">Same</td><td class="ed col-fs" data-key="c-dat-cy" tabindex="0">Same</td></tr>
-        <tr><td class="rlabel">Review / AAR</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Scenario replay &middot; engagement review &middot; instructor override</td></tr>
-        <tr><td class="rlabel">Commander view</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Installation readiness &rarr; MAJCOM roll-up &rarr; AFSFC HQ</td></tr>
-      </tbody></table>
-      <div class="s3-note"><strong>Scoping session target.</strong> <span class="pill pill-scoping">Scoping</span> items = to be confirmed. <span class="pill pill-purple">Full Scope</span> items = available at full contract scope. Everything without a pill is decided by precedent from fielded programs.</div>
+      <div class="sub-section sub-expanded" id="sub-3a-afsfc" data-sub="3a-afsfc">
+        <div class="sub-header" onclick="togSub('3a-afsfc')">
+          <span class="sub-num">3a</span><span>Mission Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th></tr></thead><tbody>
+            <tr><td class="rlabel">Doctrine source</td><td colspan="4">AFJQS SEI 3CS &middot; ATP 3-01.81 &middot; CNGBI 7500.00</td></tr>
+            <tr><td class="rlabel">Stage 1</td><td class="ed" data-key="c-s1-sg" tabindex="0">Setup &amp; Safety</td><td class="ed" data-key="c-s1-db" tabindex="0">Setup &amp; Safety</td><td class="ed col-fs" data-key="c-s1-lm" tabindex="0">System check &amp; arm</td><td class="ed col-fs" data-key="c-s1-cy" tabindex="0">Launch prep &amp; checklist</td></tr>
+            <tr><td class="rlabel">Stage 2</td><td class="ed" data-key="c-s2-sg" tabindex="0">Find &amp; Hold (no-shoot)</td><td class="ed" data-key="c-s2-db" tabindex="0">Detect &amp; classify</td><td class="ed col-fs" data-key="c-s2-lm" tabindex="0">Target acquisition</td><td class="ed col-fs" data-key="c-s2-cy" tabindex="0">Loiter &amp; search</td></tr>
+            <tr><td class="rlabel">Stage 3</td><td class="ed" data-key="c-s3-sg" tabindex="0">ID &amp; Report</td><td class="ed" data-key="c-s3-db" tabindex="0">Track &amp; lock</td><td class="ed col-fs" data-key="c-s3-lm" tabindex="0">Track &amp; lock</td><td class="ed col-fs" data-key="c-s3-cy" tabindex="0">Target classification</td></tr>
+            <tr><td class="rlabel">Stage 4</td><td class="ed" data-key="c-s4-sg" tabindex="0">Decision Gate (ROE)</td><td class="ed" data-key="c-s4-db" tabindex="0">Employ EW</td><td class="ed col-fs" data-key="c-s4-lm" tabindex="0">Authorization / ROE gate</td><td class="ed col-fs" data-key="c-s4-cy" tabindex="0">Terminal engagement auth</td></tr>
+            <tr><td class="rlabel">Stage 5</td><td class="ed" data-key="c-s5-sg" tabindex="0">Engage &mdash; single</td><td class="ed" data-key="c-s5-db" tabindex="0">Multi-drone</td><td class="ed col-fs" data-key="c-s5-lm" tabindex="0">Engage &mdash; single target</td><td class="ed col-fs" data-key="c-s5-cy" tabindex="0">Single-drone intercept</td></tr>
+            <tr><td class="rlabel">Stage 6</td><td class="ed" data-key="c-s6-sg" tabindex="0">Two-target sequence</td><td class="ed" data-key="c-s6-db" tabindex="0">Swarm</td><td class="ed col-fs" data-key="c-s6-lm" tabindex="0">Multi-target sequence</td><td class="ed col-fs" data-key="c-s6-cy" tabindex="0">Multi-drone scenario</td></tr>
+            <tr><td class="rlabel">Environments</td><td class="ed" data-key="c-env-sg" tabindex="0">Day/Night &middot; Open/Urban</td><td class="ed" data-key="c-env-db" tabindex="0">Day/Night &middot; Open/Urban</td><td class="ed col-fs" data-key="c-env-lm" tabindex="0">Day/Night &middot; Perimeter</td><td class="ed col-fs" data-key="c-env-cy" tabindex="0">Day/Night &middot; 3km loiter</td></tr>
+            <tr><td class="rlabel">Threat / NPC</td><td colspan="4">Group 1 &amp; 2 UAS &middot; VACR profiles &middot; single + swarm</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3b-afsfc" data-sub="3b-afsfc">
+        <div class="sub-header" onclick="togSub('3b-afsfc')">
+          <span class="sub-num">3b</span><span>Sensor Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th></tr></thead><tbody>
+            <tr><td class="rlabel">Readiness sensors</td><td><span class="pill pill-amber">In Config</span> Shotgun</td><td><span class="pill pill-green">Available</span> Dronebuster</td><td class="col-fs"><span class="pill pill-purple">Full Scope</span> LMAMS</td><td class="col-fs"><span class="pill pill-purple">Full Scope</span> Coyote</td></tr>
+            <tr><td class="rlabel">Headset</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Standalone VR &mdash; model selection TBD</td></tr>
+            <tr><td class="rlabel">Kit config</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Per-installation kit &middot; qty driven by squadron count &times; airmen per flight</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3c-afsfc" data-sub="3c-afsfc">
+        <div class="sub-header" onclick="togSub('3c-afsfc')">
+          <span class="sub-num">3c</span><span>Measurement Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th></tr></thead><tbody>
+            <tr><td class="rlabel">Scoring rubric</td><td class="ed" data-key="c-scr-sg" tabindex="0">Pass/fail per AFJQS + composite</td><td class="ed" data-key="c-scr-db" tabindex="0">Defeat confirmation + time</td><td class="ed col-fs" data-key="c-scr-lm" tabindex="0">Employment checklist + intercept</td><td class="ed col-fs" data-key="c-scr-cy" tabindex="0">Intercept + time on station</td></tr>
+            <tr><td class="rlabel">Qual gates</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Detect &le;10s &middot; PID &le;15s &middot; VACR &ge;90% &middot; ROE 100%</td></tr>
+            <tr><td class="rlabel">Evidence pipeline</td><td class="ed" data-key="c-dat-sg" tabindex="0">Evidence Engine &rarr; Installation &rarr; AFSFC HQ</td><td class="ed" data-key="c-dat-db" tabindex="0">Evidence Engine &rarr; Installation &rarr; AFSFC HQ</td><td class="ed col-fs" data-key="c-dat-lm" tabindex="0">Same</td><td class="ed col-fs" data-key="c-dat-cy" tabindex="0">Same</td></tr>
+            <tr><td class="rlabel">Review / AAR</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Scenario replay &middot; engagement review &middot; instructor override</td></tr>
+            <tr><td class="rlabel">Commander view</td><td colspan="4"><span class="pill pill-scoping">Scoping</span> Installation readiness &rarr; MAJCOM roll-up &rarr; AFSFC HQ</td></tr>
+          </tbody></table>
+          <div class="s3-note"><strong>Scoping session target.</strong> <span class="pill pill-scoping">Scoping</span> items = to be confirmed. <span class="pill pill-purple">Full Scope</span> items = available at full contract scope. Everything without a pill is decided by precedent from fielded programs.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- ICST-RC -->
     <div class="pane" data-inst="icst-rc">
       <div class="s3-case"><div class="s3-case-title">AFSFC &mdash; ICST Rapid Configuration</div><div class="s3-case-sub">Conventional weapons &middot; Non-lethal &middot; NPC environments &middot; &lt;30 days to deploy</div></div>
-      <table class="dtable"><thead><tr><th></th><th>Small Arms</th><th>Non-Lethal</th><th>Crew-Served</th><th>Extended Range</th></tr></thead><tbody>
-        <tr><td class="layer-header layer-mission" colspan="5">Mission configuration</td></tr>
-        <tr><td class="rlabel">Doctrine source</td><td colspan="4">AFI 36-2654 (CATM) &middot; Use-of-Force Continuum &middot; Installation Defense SOPs</td></tr>
-        <tr><td class="rlabel">Scenarios</td><td>Qual tables &middot; shoot/no-shoot &middot; sustainment cadence</td><td>Force-continuum drills &middot; proportional response</td><td>Crew drills &middot; sector coverage &middot; burst control</td><td>Complex employment &middot; firing solution validation</td></tr>
-        <tr><td class="rlabel">Environments</td><td colspan="4">Range &middot; Gate/ECP &middot; IBD sectors &middot; Base patrol &middot; Housing disturbance</td></tr>
-        <tr><td class="rlabel">Threat / NPC</td><td colspan="4"><span class="pill pill-green">Available</span> Gate runner &middot; vehicle challenge &middot; EDP w/ bystanders &middot; active threat &middot; OCP-uniformed NPCs &middot; USAF base infrastructure</td></tr>
-        <tr><td class="layer-header layer-sensor" colspan="5">Sensor configuration</td></tr>
-        <tr><td class="rlabel">Readiness sensors</td><td><span class="pill pill-green">Available</span> M18 &middot; M4A1</td><td><span class="pill pill-green">Available</span> Baton &middot; OC &middot; CEW</td><td><span class="pill pill-amber">In Config</span> M240 &middot; M249</td><td><span class="pill pill-red">On Request</span> M3 &middot; M2 &middot; M320</td></tr>
-        <tr><td class="rlabel">Optics / sights</td><td>Iron &middot; Red dot &middot; ACOG</td><td>&mdash;</td><td>&mdash;</td><td>System-specific</td></tr>
-        <tr><td class="rlabel">Headset</td><td colspan="4">Standalone VR</td></tr>
-        <tr><td class="rlabel">Kit config</td><td colspan="4">Per-unit &middot; select from catalog based on mission set</td></tr>
-        <tr><td class="layer-header layer-meas" colspan="5">Measurement configuration</td></tr>
-        <tr><td class="rlabel">Scoring rubric</td><td>Qual table + composite</td><td>Force matrix compliance</td><td>Crew performance composite</td><td>Employment checklist</td></tr>
-        <tr><td class="rlabel">Evidence pipeline</td><td colspan="4">Evidence Engine &rarr; Unit DB &rarr; Wing Roll-up &rarr; CATM / AFSFC HQ</td></tr>
-        <tr><td class="rlabel">Commander view</td><td colspan="4">Cross-weapon readiness &mdash; single dashboard, every system the Defender carries</td></tr>
-      </tbody></table>
-      <div class="s3-note"><strong>Rapid configuration.</strong> Small arms and non-lethals are <strong>available now</strong> &mdash; deployed at Navy CNIC and Ontario law enforcement. Crew-served in build. Extended range on request. Unit request to deployed qual tables in <strong>&lt;30 days</strong>.</div>
+      <div class="sub-section sub-expanded" id="sub-3a-icrc" data-sub="3a-icrc">
+        <div class="sub-header" onclick="togSub('3a-icrc')">
+          <span class="sub-num">3a</span><span>Mission Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th>Small Arms</th><th>Non-Lethal</th><th>Crew-Served</th><th>Extended Range</th></tr></thead><tbody>
+            <tr><td class="rlabel">Doctrine source</td><td colspan="4">AFI 36-2654 (CATM) &middot; Use-of-Force Continuum &middot; Installation Defense SOPs</td></tr>
+            <tr><td class="rlabel">Scenarios</td><td>Qual tables &middot; shoot/no-shoot &middot; sustainment cadence</td><td>Force-continuum drills &middot; proportional response</td><td>Crew drills &middot; sector coverage &middot; burst control</td><td>Complex employment &middot; firing solution validation</td></tr>
+            <tr><td class="rlabel">Environments</td><td colspan="4">Range &middot; Gate/ECP &middot; IBD sectors &middot; Base patrol &middot; Housing disturbance</td></tr>
+            <tr><td class="rlabel">Threat / NPC</td><td colspan="4"><span class="pill pill-green">Available</span> Gate runner &middot; vehicle challenge &middot; EDP w/ bystanders &middot; active threat &middot; OCP-uniformed NPCs &middot; USAF base infrastructure</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3b-icrc" data-sub="3b-icrc">
+        <div class="sub-header" onclick="togSub('3b-icrc')">
+          <span class="sub-num">3b</span><span>Sensor Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th>Small Arms</th><th>Non-Lethal</th><th>Crew-Served</th><th>Extended Range</th></tr></thead><tbody>
+            <tr><td class="rlabel">Readiness sensors</td><td><span class="pill pill-green">Available</span> M18 &middot; M4A1</td><td><span class="pill pill-green">Available</span> Baton &middot; OC &middot; CEW</td><td><span class="pill pill-amber">In Config</span> M240 &middot; M249</td><td><span class="pill pill-red">On Request</span> M3 &middot; M2 &middot; M320</td></tr>
+            <tr><td class="rlabel">Optics / sights</td><td>Iron &middot; Red dot &middot; ACOG</td><td>&mdash;</td><td>&mdash;</td><td>System-specific</td></tr>
+            <tr><td class="rlabel">Headset</td><td colspan="4">Standalone VR</td></tr>
+            <tr><td class="rlabel">Kit config</td><td colspan="4">Per-unit &middot; select from catalog based on mission set</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-3c-icrc" data-sub="3c-icrc">
+        <div class="sub-header" onclick="togSub('3c-icrc')">
+          <span class="sub-num">3c</span><span>Measurement Configuration</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th></th><th>Small Arms</th><th>Non-Lethal</th><th>Crew-Served</th><th>Extended Range</th></tr></thead><tbody>
+            <tr><td class="rlabel">Scoring rubric</td><td>Qual table + composite</td><td>Force matrix compliance</td><td>Crew performance composite</td><td>Employment checklist</td></tr>
+            <tr><td class="rlabel">Evidence pipeline</td><td colspan="4">Evidence Engine &rarr; Unit DB &rarr; Wing Roll-up &rarr; CATM / AFSFC HQ</td></tr>
+            <tr><td class="rlabel">Commander view</td><td colspan="4">Cross-weapon readiness &mdash; single dashboard, every system the Defender carries</td></tr>
+          </tbody></table>
+          <div class="s3-note"><strong>Rapid configuration.</strong> Small arms and non-lethals are <strong>available now</strong> &mdash; deployed at Navy CNIC and Ontario law enforcement. Crew-served in build. Extended range on request. Unit request to deployed qual tables in <strong>&lt;30 days</strong>.</div>
+        </div></div>
+      </div>
     </div>
 
   </div></div>
@@ -1131,12 +1405,24 @@ tr:hover .remove-row-btn{opacity:1}
 
     <!-- CNAP -->
     <div class="pane active" data-inst="cnap">
+      <div class="sub-section sub-expanded" id="sub-4a-cnap" data-sub="4a-cnap">
+        <div class="sub-header" onclick="togSub('4a-cnap')">
+          <span class="sub-num">4a</span><span>Deployment Overview</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="card-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:20px">
         <div class="card" style="border-top:3px solid var(--accent)"><div class="card-label">Systems Deployed</div><div class="card-value blue">14</div><div class="card-body">7 Pacific Fleet carriers &middot; 2 kits each (CONUS + OCONUS)</div></div>
         <div class="card" style="border-top:3px solid var(--green)"><div class="card-label">Atlantic Fleet</div><div class="card-value" style="font-size:22px;color:var(--green)">CNAL</div><div class="card-body">Purchased 2025 &middot; Naval Base Norfolk, VA</div></div>
         <div class="card" style="border-top:3px solid var(--amber)"><div class="card-label">Strategic Extension</div><div class="card-value amber" style="font-size:22px">TACAMO</div><div class="card-body">3 nuclear C2 bases &middot; In pipeline</div></div>
         <div class="card" style="border-top:3px solid var(--muted)"><div class="card-label">Shore Installations</div><div class="card-value" style="color:var(--text)">31</div><div class="card-body">CNIC systems &middot; Separate contract track</div></div>
       </div>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-4b-cnap" data-sub="4b-cnap">
+        <div class="sub-header" onclick="togSub('4b-cnap')">
+          <span class="sub-num">4b</span><span>Fleet Status &amp; Roadmap</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <table class="dtable"><thead><tr><th>Fleet</th><th>Homeport</th><th>Notable Units</th><th>Configuration</th><th>Status</th></tr></thead><tbody>
         <tr><td class="cat" colspan="5">Pacific Fleet (CNAP) &mdash; 7 Carriers &middot; 14 Systems</td></tr>
         <tr><td style="font-weight:700;color:var(--accent)">Pacific</td><td>NAS North Island, San Diego, CA</td><td>USS Carl Vinson (CVN-70) &middot; CNAP N3D HQ</td><td>2 kits/carrier &middot; CONUS + OCONUS configs</td><td style="color:var(--green);font-weight:700">Deployed &#10003;</td></tr>
@@ -1149,6 +1435,8 @@ tr:hover .remove-row-btn{opacity:1}
         <tr><td style="font-weight:700;color:var(--muted)">CNIC Shore</td><td>Multiple CONUS installations</td><td>31 systems &middot; Path to SAWS Program of Record (PEO MLB / NETC)</td><td>Separate contract track</td><td style="color:var(--green);font-weight:700">Contracted &#10003;</td></tr>
       </tbody></table>
       <div class="fielding-summary" style="margin-top:16px">TYCOM adoption model: <strong>CNAP N3D</strong> (Edgar Tovar, NAS North Island) sponsored the Pacific deployment and introduced the system to <strong>CNAL</strong> and <strong>TACAMO</strong>. CNIC is on a parallel track targeting the <strong>SAWS Program of Record</strong> &mdash; which would establish this as the Navy standard for small arms training fleet-wide. An Exception-to-Policy (ETP) for deployed carrier pistol sustainment training is nearing signature.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- AFSFC -->
@@ -1428,36 +1716,62 @@ tr:hover .remove-row-btn{opacity:1}
 
     <!-- CNIC -->
     <div class="pane" data-inst="cnic">
+      <div class="sub-section sub-expanded" id="sub-4a-cnic" data-sub="4a-cnic">
+        <div class="sub-header" onclick="togSub('4a-cnic')">
+          <span class="sub-num">4a</span><span>Contract &amp; Platform</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="card-grid tri" style="margin-bottom:16px">
         <div class="card card-accent"><div class="card-label">Contract Model</div><div class="card-value blue" style="font-size:22px">Pre-Contracted</div><div class="card-body">Funded before delivery &mdash; paid upfront on award</div></div>
         <div class="card card-accent"><div class="card-label">Platform</div><div class="card-value blue" style="font-size:28px">UniTrack</div><div class="card-body">First deployment of proprietary M18 pistol tracking hardware</div></div>
         <div class="card card-accent"><div class="card-label">Scope</div><div class="card-value blue" style="font-size:20px">CONUS + OCONUS</div><div class="card-body">Shore installations across the Navy&rsquo;s global installation network</div></div>
       </div>
       <div class="fielding-summary">CNIC pre-contracted the development of instrumented M18 qualification before the capability existed &mdash; paying upfront, ahead of delivery. This established the pre-contracted development model as a repeatable procurement path and brought the same Evidence Engine deployed on Pacific Fleet carriers to shore-based installations for the first time.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- ONTARIO -->
     <div class="pane" data-inst="ontario">
+      <div class="sub-section sub-expanded" id="sub-4a-ont" data-sub="4a-ont">
+        <div class="sub-header" onclick="togSub('4a-ont')">
+          <span class="sub-num">4a</span><span>Services &amp; Compliance</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="card-grid tri" style="margin-bottom:16px">
         <div class="card card-green"><div class="card-label">Services Contracted</div><div class="card-value">5+</div><div class="card-body">York Regional, Halton, Hamilton, Timmins, Brantford</div></div>
         <div class="card card-green"><div class="card-label">Officers &mdash; York Alone</div><div class="card-value">1,600</div><div class="card-body">964 in first 6 months. Full 1,600 on 12-month runway</div></div>
         <div class="card card-green"><div class="card-label">Regulatory Driver</div><div class="card-value" style="font-size:22px;color:var(--green)">O. Reg. 96/26</div><div class="card-body">Mandatory MHCR training for all sworn officers by Oct 2026</div></div>
       </div>
       <div class="fielding-summary" style="border-left-color:var(--green)">The same platform and scoring framework used at the provincial level deploys independently to each municipal service &mdash; each reporting to the same provincial standard. The regulation created the demand. The platform is the scalable delivery layer that makes compliance measurable, not just documented.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- SFSQ -->
     <div class="pane" data-inst="sfsq">
+      <div class="sub-section sub-expanded" id="sub-4a-sfsq" data-sub="4a-sfsq">
+        <div class="sub-header" onclick="togSub('4a-sfsq')">
+          <span class="sub-num">4a</span><span>Installed Base</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="card-grid tri" style="margin-bottom:16px">
         <div class="card card-amber"><div class="card-label">Installed Base</div><div class="card-value amber">60+</div><div class="card-body">V-CSTR units already running the platform. Each new capability is a layer, not a new procurement</div></div>
         <div class="card card-amber"><div class="card-label">Entry Point</div><div class="card-value amber" style="font-size:28px">C-UAS</div><div class="card-body">C-UAS configuration brings units to the table. The baseline catalog is what makes them stay</div></div>
         <div class="card card-amber"><div class="card-label">Domestic Ops</div><div class="card-value amber" style="font-size:28px">Proven</div><div class="card-body">De-escalation and non-lethal content proven across 5+ Canadian law enforcement services &mdash; directly applicable to home-station Security Forces missions</div></div>
       </div>
       <div class="fielding-summary" style="border-left-color:var(--amber)">The ICST baseline isn&rsquo;t a single-use-case buy. It&rsquo;s a readiness infrastructure decision &mdash; V-CSTR deployed at 60+ units, one platform, one data pipeline, configured across every domain a Defender trains for. Credential-aligned. Evidence-generating. Available today. C-UAS and rapid configuration are the next layers on the installed base.</div>
+        </div></div>
+      </div>
     </div>
 
     <!-- ICST-RC -->
     <div class="pane" data-inst="icst-rc">
+      <div class="sub-section sub-expanded" id="sub-4a-icrc" data-sub="4a-icrc">
+        <div class="sub-header" onclick="togSub('4a-icrc')">
+          <span class="sub-num">4a</span><span>Systems Catalog</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="card-grid" style="grid-template-columns:1fr 1fr 1fr 1fr;margin-bottom:20px">
         <div class="card card-amber"><div class="card-label">Kinetic Systems</div><div class="card-value amber">7</div><div class="card-body">M18 &middot; M4A1 &middot; M240 &middot; M249 &middot; M3 MAAWS &middot; M2 &middot; M320</div></div>
         <div class="card card-green"><div class="card-label">Non-Lethal Systems</div><div class="card-value">3</div><div class="card-body">Baton &middot; OC / Pepper Spray &middot; CEW (TASER)</div></div>
@@ -1468,7 +1782,16 @@ tr:hover .remove-row-btn{opacity:1}
         <div class="card card-amber"><div class="card-label">Already Deployed</div><div class="card-title">M18 &middot; M4A1 &middot; Baton &middot; OC &middot; CEW</div><div class="card-body">Small arms running at Navy CNIC. Non-lethal pack proven across Ontario law enforcement. Both ready to extend to AF immediately.</div></div>
         <div class="card card-amber"><div class="card-label">Measurement Continuity</div><div class="card-title">One Pipeline, Every System</div><div class="card-body">Kinetic weapons, non-lethals, and NPC scenario performance all feed the same Evidence Engine. Cross-capability readiness in a single dashboard.</div></div>
       </div>
+        </div></div>
+      </div>
+      <div class="sub-section" id="sub-4b-icrc" data-sub="4b-icrc">
+        <div class="sub-header" onclick="togSub('4b-icrc')">
+          <span class="sub-num">4b</span><span>Deployment Status</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
       <div class="fielding-summary" style="border-left-color:var(--amber)">Rapid Configuration isn&rsquo;t a separate product &mdash; it&rsquo;s a capability mode. <strong>Small arms and non-lethals are available now.</strong> Crew-served (M240, M249) are in configuration. Extended range (M3 MAAWS, M2 .50 cal, M320 GLM) are on request. USAF-specific NPC environments &mdash; gate runners, IBD sectors, base patrol contacts &mdash; are available today. One platform. One data pipeline. Every system the Defender carries.</div>
+        </div></div>
+      </div>
     </div>
 
   </div></div>
