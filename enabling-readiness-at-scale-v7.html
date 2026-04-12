@@ -965,7 +965,7 @@ tr:hover .remove-row-btn{opacity:1}
           <span class="sub-num">2a</span><span>Measurable Behaviors</span><span class="sub-chevron">&#9662;</span>
         </div>
         <div class="sub-body"><div class="sub-content">
-      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Click any value to edit. <span class="discuss">[Discuss]</span> = input needed. Add or remove rows per DIDE stage.</p>
+      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">All values are tailorable to your mission. Highlighted cells are recommended discussion points.</p>
       <table class="dtable" id="afsfc-behaviors"><thead><tr><th>Criteria</th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th><th style="width:36px"></th></tr></thead><tbody>
         <tr><td class="cat" colspan="6" data-stage="detect">Detect / Identify</td></tr>
         <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to detect</td><td class="ed" data-key="d-det-sg" tabindex="0">&le;10s</td><td class="ed" data-key="d-det-db" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-lm" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-cy" tabindex="0">&le;10s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
@@ -977,8 +977,8 @@ tr:hover .remove-row-btn{opacity:1}
         <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">SALUTE time</td><td class="ed" data-key="d-sal-sg" tabindex="0">&le;30s</td><td class="ed" data-key="d-sal-db" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-lm" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-cy" tabindex="0">&le;30s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
         <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('track',this)">+ Add behavior to Track / Report</button></td></tr>
         <tr><td class="cat" colspan="6" data-stage="engage">Engage / Defeat</td></tr>
-        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="d-t1e-db" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed col-fs" data-key="d-t1e-lm" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed col-fs" data-key="d-t1e-cy" tabindex="0"><span class="discuss">[Discuss]</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="na">N/A (EW)</td><td class="ed col-fs" data-key="d-hit-lm" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed col-fs" data-key="d-hit-cy" tabindex="0"><span class="discuss">[Discuss]</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="ed" data-key="d-t1e-db" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="na">N/A (EW)</td><td class="ed col-fs" data-key="d-hit-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-hit-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
         <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('engage',this)">+ Add behavior to Engage / Defeat</button></td></tr>
         <tr><td class="cat" colspan="6" data-stage="tactical">Tactical</td></tr>
         <tr data-behavior-row data-stage="tactical"><td class="rlabel ed" tabindex="0">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td class="ed" data-key="d-roe-db" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-lm" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-cy" tabindex="0">100%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
@@ -1076,20 +1076,20 @@ tr:hover .remove-row-btn{opacity:1}
           <span class="sub-num">2a</span><span>Lethal Weapons Standards</span><span class="sub-chevron">&#9662;</span>
         </div>
         <div class="sub-body"><div class="sub-content">
-      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Click any value to edit. <span class="discuss">[Discuss]</span> = input needed.</p>
+      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">All values are tailorable. Highlighted cells are recommended discussion points.</p>
       <table class="dtable"><thead><tr><th>Category</th><th>Criteria</th><th class="col-accent">M18 Pistol</th><th class="col-accent">M4A1 Carbine</th><th>M240 MG</th><th>M249 SAW</th></tr></thead><tbody>
         <tr><td class="cat" colspan="6">Individual Weapons</td></tr>
         <tr><td class="rlabel" rowspan="4">Marksmanship</td><td class="rlabel">Draw / ready time</td><td class="ed" data-key="rc-draw-m18" tabindex="0">&le;1.5s</td><td class="ed" data-key="rc-draw-m4" tabindex="0">&le;2s</td><td class="na">N/A</td><td class="na">N/A</td></tr>
         <tr><td class="rlabel">Time to first shot</td><td class="ed" data-key="rc-t1s-m18" tabindex="0">&le;2.5s</td><td class="ed" data-key="rc-t1s-m4" tabindex="0">&le;3s</td><td class="na">N/A</td><td class="na">N/A</td></tr>
-        <tr><td class="rlabel">Hit rate (qual course)</td><td class="ed" data-key="rc-hit-m18" tabindex="0">&ge;80%</td><td class="ed" data-key="rc-hit-m4" tabindex="0">&ge;80%</td><td class="ed" data-key="rc-hit-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-hit-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel">Hit rate (qual course)</td><td class="ed" data-key="rc-hit-m18" tabindex="0">&ge;80%</td><td class="ed" data-key="rc-hit-m4" tabindex="0">&ge;80%</td><td class="ed" data-key="rc-hit-m240" tabindex="0"><span class="discuss">Your target</span></td><td class="ed" data-key="rc-hit-m249" tabindex="0"><span class="discuss">Your target</span></td></tr>
         <tr><td class="rlabel">Optics / sights</td><td class="ed" data-key="rc-opt-m18" tabindex="0">Iron + red dot</td><td class="ed" data-key="rc-opt-m4" tabindex="0">Iron + red dot + ACOG</td><td class="na">N/A</td><td class="na">N/A</td></tr>
         <tr><td class="cat" colspan="6">Crew-Served Weapons</td></tr>
-        <tr><td class="rlabel" rowspan="2">Crew Performance</td><td class="rlabel">Sector setup time</td><td class="na">N/A</td><td class="na">N/A</td><td class="ed" data-key="rc-sec-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-sec-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel" rowspan="2">Crew Performance</td><td class="rlabel">Sector setup time</td><td class="na">N/A</td><td class="na">N/A</td><td class="ed" data-key="rc-sec-m240" tabindex="0"><span class="discuss">Your target</span></td><td class="ed" data-key="rc-sec-m249" tabindex="0"><span class="discuss">Your target</span></td></tr>
         <tr><td class="rlabel">Crew drill score</td><td class="na">N/A</td><td class="na">N/A</td><td class="ed" data-key="rc-crew-m240" tabindex="0">&ge;85%</td><td class="ed" data-key="rc-crew-m249" tabindex="0">&ge;85%</td></tr>
         <tr><td class="cat" colspan="6">Shared Standards</td></tr>
-        <tr><td class="rlabel" rowspan="3">Compliance</td><td class="rlabel">NVG performance</td><td class="ed" data-key="rc-nvg-m18" tabindex="0">&ge;70%</td><td class="ed" data-key="rc-nvg-m4" tabindex="0">&ge;70%</td><td class="ed" data-key="rc-nvg-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-nvg-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel" rowspan="3">Compliance</td><td class="rlabel">NVG performance</td><td class="ed" data-key="rc-nvg-m18" tabindex="0">&ge;70%</td><td class="ed" data-key="rc-nvg-m4" tabindex="0">&ge;70%</td><td class="ed" data-key="rc-nvg-m240" tabindex="0"><span class="discuss">Your target</span></td><td class="ed" data-key="rc-nvg-m249" tabindex="0"><span class="discuss">Your target</span></td></tr>
         <tr><td class="rlabel">ROE compliance</td><td class="ed" data-key="rc-roe-m18" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m4" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m240" tabindex="0">100%</td><td class="ed" data-key="rc-roe-m249" tabindex="0">100%</td></tr>
-        <tr><td class="rlabel">Requalification interval</td><td class="ed" data-key="rc-req-m18" tabindex="0">90 days</td><td class="ed" data-key="rc-req-m4" tabindex="0">180 days</td><td class="ed" data-key="rc-req-m240" tabindex="0"><span class="discuss">[Discuss]</span></td><td class="ed" data-key="rc-req-m249" tabindex="0"><span class="discuss">[Discuss]</span></td></tr>
+        <tr><td class="rlabel">Requalification interval</td><td class="ed" data-key="rc-req-m18" tabindex="0">90 days</td><td class="ed" data-key="rc-req-m4" tabindex="0">180 days</td><td class="ed" data-key="rc-req-m240" tabindex="0"><span class="discuss">Your target</span></td><td class="ed" data-key="rc-req-m249" tabindex="0"><span class="discuss">Your target</span></td></tr>
       </tbody></table>
         </div></div>
       </div>
@@ -1318,7 +1318,7 @@ tr:hover .remove-row-btn{opacity:1}
 
     <!-- AFSFC -->
     <div class="pane active" data-inst="afsfc">
-      <div class="s3-case"><div class="s3-case-title">AFSFC &mdash; ICST C-UAS</div><div class="s3-case-sub">Configuration scoping &middot; Editable values &middot; <span class="discuss">[Discuss]</span> = input needed</div></div>
+      <div class="s3-case"><div class="s3-case-title">AFSFC &mdash; ICST C-UAS</div><div class="s3-case-sub">Configuration scoping &middot; Tailorable to your requirements</div></div>
       <div class="sub-section" id="sub-3a-afsfc" data-sub="3a-afsfc">
         <div class="sub-header" onclick="togSub('3a-afsfc')">
           <span class="sub-num">3a</span><span>Mission Configuration</span><span class="sub-chevron">&#9662;</span>
@@ -1763,7 +1763,7 @@ tr:hover .remove-row-btn{opacity:1}
         <div class="card card-green"><div class="card-label">Officers &mdash; York Alone</div><div class="card-value">1,600</div><div class="card-body">964 in first 6 months. Full 1,600 on 12-month runway</div></div>
         <div class="card card-green"><div class="card-label">Regulatory Driver</div><div class="card-value" style="font-size:22px;color:var(--green)">O. Reg. 96/26</div><div class="card-body">Mandatory MHCR training for all sworn officers by Oct 2026</div></div>
       </div>
-      <div class="fielding-summary" style="border-left-color:var(--green)">Methodological proof point: the same measurement architecture &mdash; automated scenario scoring, evidence pipeline, commander-level reporting &mdash; deployed across multiple independent agencies against a shared regulatory standard. The regulation created the demand. The architecture is the scalable layer that makes compliance measurable, not just documented. Different domain, same structural approach.</div>
+      <div class="fielding-summary" style="border-left-color:var(--green)">The same measurement architecture &mdash; automated scenario scoring, evidence pipeline, commander-level reporting &mdash; deployed across multiple independent agencies against a shared regulatory standard. The regulation created the demand. The architecture is the scalable layer that makes compliance measurable, not just documented. Different domain, same structural approach.</div>
         </div></div>
       </div>
     </div>
