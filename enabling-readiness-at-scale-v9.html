@@ -593,125 +593,161 @@ tr:hover .remove-row-btn{opacity:1}
           <span class="sub-num">1a</span><span>Governing Requirements</span><span class="sub-chevron">&#9662;</span>
         </div>
         <div class="sub-body"><div class="sub-content">
-      <h3 style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2.5px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px">Governing Requirements &mdash; Name the Documents<span style="flex:1;height:1px;background:var(--border)"></span></h3>
-      <div class="fac-prompt">&ldquo;Which governing documents define the C-UAS training standard &mdash; and who owns updates?&rdquo;</div>
+      <div class="ez-header" style="margin-bottom:16px">
+        <div class="expansion-title">Governing Requirements &mdash; Name the Documents</div>
+        <div class="expansion-sub">Which governing documents define the C-UAS training standard &mdash; and who owns updates?</div>
+      </div>
 
       <div class="doc-grid" id="docGrid">
         <!-- DOC 1 -->
-        <div class="dcard" data-doccard>
-          <div class="dcard-top">
-            <div class="dcard-left">
-              <div class="dcard-num"><span>Document 1</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
-              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">AFI 31-101 &mdash; Integrated Defense</div>
-              <div class="fl">Publication</div>
-              <div class="ed-doc" contenteditable="true">AFI 31-101</div>
-              <div class="fl">Owning Office</div>
-              <div class="ed-doc" contenteditable="true">AFSFC</div>
-            </div>
-            <div class="dcard-right">
-              <div class="fl">Owning Stakeholder</div>
-              <div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div>
-              <div class="fl">Change Authority</div>
-              <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
-              <div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">Relevant context, upcoming changes, dependencies&hellip;</div></div>
-            </div>
+        <div class="lcard" data-doccard>
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="lcard-name"><span data-doc>AFI 31-101 &mdash; Integrated Defense</span></div>
+            <span class="lcard-cite-pill">AFI 31-101</span>
+            <span class="achip" onclick="event.stopPropagation();cycleA(this)">TBD</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
-          <div class="dcard-bottom">
-            <span class="ml">Cadence</span>
-            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
-            <span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span>
-          </div>
+          <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="fl">Owning Office</div>
+                <div class="ed-doc" contenteditable="true">AFSFC</div>
+                <div class="fl">Owning Stakeholder</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+                <div class="fl">Change Authority</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+              </div>
+              <div>
+                <div class="fl">Context / Notes</div>
+                <div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">Relevant context, upcoming changes, dependencies&hellip;</div>
+                <div class="fl" style="margin-top:12px">Cadence</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
+                  <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
         </div>
 
         <!-- DOC 2 -->
-        <div class="dcard" data-doccard>
-          <div class="dcard-top">
-            <div class="dcard-left">
-              <div class="dcard-num"><span>Document 2</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
-              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">DAFI 31-131 Vol 2</div>
-              <div class="fl">Publication</div><div class="ed-doc" contenteditable="true">DAFI 31-131v2</div>
-              <div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
-            </div>
-            <div class="dcard-right">
-              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div>
-              <div class="fl">Change Authority</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
-              <div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">&mdash;</div></div>
-            </div>
+        <div class="lcard" data-doccard>
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="lcard-name"><span data-doc>DAFI 31-131 Vol 2</span></div>
+            <span class="lcard-cite-pill">DAFI 31-131v2</span>
+            <span class="achip a" onclick="event.stopPropagation();cycleA(this)">Pending</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
-          <div class="dcard-bottom">
-            <span class="ml">Cadence</span>
-            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
-            <span style="flex:1"></span><span class="ml">Access</span><span class="achip a" onclick="cycleA(this)">Pending</span>
-          </div>
+          <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="fl">Owning Office</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+                <div class="fl">Owning Stakeholder</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+                <div class="fl">Change Authority</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+              </div>
+              <div>
+                <div class="fl">Context / Notes</div>
+                <div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">&mdash;</div>
+                <div class="fl" style="margin-top:12px">Cadence</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
+                  <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
         </div>
 
         <!-- DOC 3 -->
-        <div class="dcard" data-doccard>
-          <div class="dcard-top">
-            <div class="dcard-left">
-              <div class="dcard-num"><span>Document 3</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
-              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">AFJQS SEI 3CS</div>
-              <div class="fl">Publication</div><div class="ed-doc" contenteditable="true">AFJQS 3CS</div>
-              <div class="fl">Owning Office</div><div class="ed-doc" contenteditable="true">SFTRG</div>
-            </div>
-            <div class="dcard-right">
-              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div>
-              <div class="fl">Change Authority</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
-              <div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc" contenteditable="true" style="font-size:15px">SEI program still maturing &mdash; training standards not yet codified. Key input for our configuration.</div></div>
-            </div>
+        <div class="lcard" data-doccard>
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="lcard-name"><span data-doc>AFJQS SEI 3CS</span></div>
+            <span class="lcard-cite-pill">AFJQS 3CS</span>
+            <span class="achip r" onclick="event.stopPropagation();cycleA(this)">Restricted</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
-          <div class="dcard-bottom">
-            <span class="ml">Cadence</span>
-            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt sel" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
-            <span style="flex:1"></span><span class="ml">Access</span><span class="achip r" onclick="cycleA(this)">Restricted</span>
-          </div>
+          <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="fl">Owning Office</div>
+                <div class="ed-doc" contenteditable="true">SFTRG</div>
+                <div class="fl">Owning Stakeholder</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+                <div class="fl">Change Authority</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+              </div>
+              <div>
+                <div class="fl">Context / Notes</div>
+                <div class="ed-doc" contenteditable="true" style="font-size:15px">SEI program still maturing &mdash; training standards not yet codified. Key input for our configuration.</div>
+                <div class="fl" style="margin-top:12px">Cadence</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
+                  <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt sel" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
         </div>
 
         <!-- DOC 4 -->
-        <div class="dcard" data-doccard>
-          <div class="dcard-top">
-            <div class="dcard-left">
-              <div class="dcard-num"><span>Document 4</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
-              <div class="ed-doc big" contenteditable="true" data-doc oninput="updateStmt()">SFTRG C-sUAS TTPs</div>
-              <div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Publication # TBD</div>
-              <div class="fl">Owning Office</div><div class="ed-doc" contenteditable="true">SFTRG</div>
-            </div>
-            <div class="dcard-right">
-              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div>
-              <div class="fl">Change Authority</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">When is it expected to publish?</div>
-              <div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc" contenteditable="true" style="font-size:15px">TTPs are in draft &mdash; training configuration will adapt as standards are finalized. Platform updates within ~30 days of publication. Complements live-fire CATM range with scenario-based measurement.</div></div>
-            </div>
+        <div class="lcard" data-doccard>
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="lcard-name"><span data-doc>SFTRG C-sUAS TTPs</span></div>
+            <span class="lcard-cite-pill">TTPs (Draft)</span>
+            <span class="achip" onclick="event.stopPropagation();cycleA(this)">In Draft</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
-          <div class="dcard-bottom">
-            <span class="ml">Cadence</span>
-            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt sel" onclick="pickC(this)">TBD</span>
-            <span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">In Draft</span>
-          </div>
+          <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="fl">Owning Office</div>
+                <div class="ed-doc" contenteditable="true">SFTRG</div>
+                <div class="fl">Owning Stakeholder</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+                <div class="fl">Change Authority</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">When is it expected to publish?</div>
+              </div>
+              <div>
+                <div class="fl">Context / Notes</div>
+                <div class="ed-doc" contenteditable="true" style="font-size:15px">TTPs are in draft &mdash; training configuration will adapt as standards are finalized. Platform updates within ~30 days of publication.</div>
+                <div class="fl" style="margin-top:12px">Cadence</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
+                  <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt sel" onclick="pickC(this)">TBD</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
         </div>
 
         <!-- DOC 5 blank -->
-        <div class="dcard" data-doccard>
-          <div class="dcard-top">
-            <div class="dcard-left">
-              <div class="dcard-num"><span>Document 5</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div>
-              <div class="ed-doc big ph" contenteditable="true" data-doc oninput="updateStmt()" onfocus="clrPh(this)">Name the document&hellip;</div>
-              <div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Pub #</div>
-              <div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office</div>
-            </div>
-            <div class="dcard-right">
-              <div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div>
-              <div class="fl">Change Authority</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">&mdash;</div>
-              <div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">&mdash;</div></div>
-            </div>
+        <div class="lcard" data-doccard>
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="lcard-name"><span data-doc class="ph" contenteditable="true" onfocus="clrPh(this)" oninput="updateStmt()">Name the document&hellip;</span></div>
+            <span class="lcard-cite-pill">&mdash;</span>
+            <span class="achip" onclick="event.stopPropagation();cycleA(this)">TBD</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
-          <div class="dcard-bottom">
-            <span class="ml">Cadence</span>
-            <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
-            <span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span>
-          </div>
+          <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div>
+                <div class="fl">Owning Office</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office</div>
+                <div class="fl">Owning Stakeholder</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div>
+                <div class="fl">Change Authority</div>
+                <div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">&mdash;</div>
+              </div>
+              <div>
+                <div class="fl">Context / Notes</div>
+                <div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">&mdash;</div>
+                <div class="fl" style="margin-top:12px">Cadence</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
+                  <span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span>
+                </div>
+              </div>
+            </div>
+          </div></div>
         </div>
-
-        <div class="add-card" onclick="addDocCard()">+ Add another governing document</div>
       </div>
 
         </div></div>
