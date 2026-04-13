@@ -22,19 +22,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:24
 .measurement-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:10px 48px;font-size:16px;font-weight:600;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:8px}
 .measurement-bar .arrow{margin-left:auto;font-size:18px}
 
-/* ===== PROOF PANEL ===== */
-.proof-panel{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden}
-.proof-toggle{display:flex;align-items:center;gap:10px;padding:8px 48px;cursor:pointer;user-select:none;transition:background 0.12s}
-.proof-toggle:hover{background:var(--surface2)}
-.proof-toggle-label{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--olive)}
-.proof-toggle-arrow{font-size:14px;color:var(--muted);transition:transform 0.25s}
-.proof-panel.expanded .proof-toggle-arrow{transform:rotate(180deg)}
-.proof-toggle-stats{margin-left:auto;font-size:14px;color:var(--muted);display:flex;gap:6px;align-items:center}
-.proof-toggle-stats span{white-space:nowrap}
-.proof-toggle-stats .sep{color:var(--border);font-weight:400}
-.proof-panel.expanded .proof-toggle-stats{opacity:0.35}
+/* ===== PROOF PANEL (mode selector + stats band) ===== */
+.proof-panel{background:var(--surface);border-bottom:1px solid var(--border);overflow:visible}
+.proof-header-row{display:flex;align-items:center;padding:8px 48px;gap:24px}
+.mode-selector{position:relative}
+.mode-current{display:flex;align-items:center;gap:10px;padding:6px 14px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--accent);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;cursor:pointer;font-family:inherit;transition:background 0.12s,border-color 0.12s}
+.mode-current:hover{background:var(--surface2);border-color:var(--olive)}
+.mode-caret{font-size:11px;color:var(--muted);transition:transform 0.2s}
+.mode-selector.menu-open .mode-caret{transform:rotate(180deg)}
+.mode-menu{position:absolute;top:100%;left:0;margin-top:4px;min-width:340px;background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px -8px rgba(0,0,0,0.18);list-style:none;padding:6px;z-index:50}
+.mode-menu li{padding:10px 14px;cursor:pointer;border-radius:5px;transition:background 0.1s}
+.mode-menu li:hover{background:var(--surface2)}
+.mode-menu li.active{background:var(--surface2)}
+.mode-menu li strong{display:block;color:var(--accent);font-size:14px;font-weight:700;margin-bottom:2px;text-transform:none;letter-spacing:0.3px}
+.mode-menu li span{color:var(--muted);font-size:12px;font-weight:400}
+.proof-stats-band{margin-left:auto;display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted);opacity:0.85;white-space:nowrap}
+.proof-stat strong{color:var(--accent);font-weight:700}
+.proof-stats-band .sep{color:var(--border);font-weight:400}
+.proof-panel[data-mode="deployed"] .proof-stats-band{opacity:0.35}
 .proof-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
-.proof-panel.expanded .proof-body{max-height:600px}
+.proof-panel[data-mode="deployed"] .proof-body{max-height:600px}
 .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0 48px 18px}
 .proof-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 20px;transition:border-color 0.12s}
 .proof-card:hover{border-color:#a8a490}
@@ -513,22 +520,36 @@ tr:hover .remove-row-btn{opacity:1}
 </div>
 <div class="measurement-bar">Shared Measurement Layer Across the Formation <span class="arrow">&rarr;</span></div>
 
-<!-- PROOF PANEL -->
-<div class="proof-panel" id="proof-panel">
-  <div class="proof-toggle" onclick="toggleProof()">
-    <span class="proof-toggle-label">Fielded Programs</span>
-    <span class="proof-toggle-arrow">&#9660;</span>
-    <div class="proof-toggle-stats">
-      <span>7 carriers deployed</span><span class="sep">|</span>
-      <span>31 installations contracted</span><span class="sep">|</span>
-      <span>1,600+ officers in certification</span><span class="sep">|</span>
-      <span>60+ V-CSTR units</span>
+<!-- PROOF PANEL — mode selector + stats band -->
+<div class="proof-panel" id="proof-panel" data-mode="config">
+  <div class="proof-header-row">
+    <div class="mode-selector" id="modeSelector">
+      <button class="mode-current" onclick="event.stopPropagation();toggleModeMenu()" type="button">
+        <span class="mode-label" id="modeLabel">Configuration Mode</span>
+        <span class="mode-caret">&#9662;</span>
+      </button>
+      <ul class="mode-menu" id="modeMenu" hidden>
+        <li class="active" data-mode-opt="config" onclick="setMode('config')">
+          <strong>Configuration Mode</strong>
+          <span>Editable C-UAS configuration scoping</span>
+        </li>
+        <li data-mode-opt="deployed" onclick="setMode('deployed')">
+          <strong>Deployed Configurations</strong>
+          <span>Case studies &mdash; fielded customer configurations</span>
+        </li>
+      </ul>
+    </div>
+    <div class="proof-stats-band">
+      <span class="proof-stat"><strong>7</strong> carriers deployed</span><span class="sep">|</span>
+      <span class="proof-stat"><strong>31</strong> installations contracted</span><span class="sep">|</span>
+      <span class="proof-stat"><strong>1,600+</strong> officers in certification</span><span class="sep">|</span>
+      <span class="proof-stat"><strong>60+</strong> V-CSTR units</span>
     </div>
   </div>
   <div class="proof-body">
     <div class="proof-nav" style="display:flex;align-items:center;justify-content:space-between;padding:12px 48px 0;margin-bottom:4px">
-      <span style="font-size:14px;color:var(--muted);font-weight:600;letter-spacing:0.5px">Currently configuring: C-UAS Response</span>
-      <button onclick="toggleProof()" style="padding:6px 16px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.12s">&larr; Back to Configuration</button>
+      <span style="font-size:14px;color:var(--muted);font-weight:600;letter-spacing:0.5px">Deployed Configurations &mdash; case studies</span>
+      <button onclick="setMode('config')" style="padding:6px 16px;background:var(--surface);border:1px solid var(--border);border-radius:5px;color:var(--accent);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all 0.12s">&larr; Back to Configuration</button>
     </div>
     <div class="proof-grid">
       <div class="proof-card">
@@ -2042,184 +2063,280 @@ tr:hover .remove-row-btn{opacity:1}
 <div class="section s5-hidden" id="s5" data-s="5">
   <div class="section-header" tabindex="0" onclick="tog(5)" onkeydown="if(event.key==='Enter')tog(5)">
     <span class="section-num">05</span>
-    <span class="section-title"><span class="verb">Expand</span> Capability Coverage</span>
-    <span class="section-subtitle">What Else Runs on This Infrastructure?</span>
+    <span class="section-title"><span class="verb">Expand</span> the System</span>
+    <span class="section-subtitle">C-UAS depth &middot; Defender mission breadth</span>
     <div class="section-right"><span class="section-chevron">&#9662;</span></div>
   </div>
   <div class="section-body"><div class="section-content">
     <div class="pane active" data-inst="afsfc">
 
-      <p style="font-size:19px;line-height:1.6;color:var(--muted);margin-bottom:24px">The C-UAS shotgun training infrastructure &mdash; kits, Evidence Engine, data pipeline &mdash; is being fielded to 50 installations. Every additional capability layers onto that same infrastructure. Below is the full ICST capability set, showing what&rsquo;s ready, what needs AFSFC credentialing, and where each capability is already proven.</p>
+      <!-- Status-pill legend -->
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:13px;color:var(--muted);margin-bottom:18px;padding:8px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:6px">
+        <span style="font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-size:11px;color:var(--olive)">Legend</span>
+        <span class="cred-pill cred-inconfig">In Configuration</span>
+        <span class="cred-pill cred-proven">Commercially Proven</span>
+        <span class="cred-pill cred-vcstr">V-CSTR Credentialed</span>
+        <span class="cred-pill cred-onrequest">Available</span>
+        <span class="cred-pill cred-onrequest">On Request</span>
+      </div>
 
-      <table class="cap-table" id="cap-table">
-        <thead>
-          <tr>
-            <th>Capability</th>
-            <th>Category</th>
-            <th>Credential / Standard</th>
-            <th>Credentialing Status</th>
-            <th>Fielded At</th>
-            <th style="width:36px"></th>
-          </tr>
-        </thead>
-        <tbody id="cap-tbody">
-          <!-- C-UAS -->
-          <tr class="cat-row"><td colspan="6">C-UAS</td></tr>
-          <tr data-cap-row data-cat="C-UAS">
-            <td class="ed" tabindex="0">Shotgun (C-UAS)</td>
-            <td>C-UAS</td>
-            <td class="ed" tabindex="0">AFI 36-2654 / AFSFC TBD</td>
-            <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
-            <td><span class="proof-tag">AFSFC SBIR</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="C-UAS">
-            <td class="ed" tabindex="0">Dronebuster EW</td>
-            <td>C-UAS</td>
-            <td class="ed" tabindex="0">V-CSTR EW Protocol</td>
-            <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-            <td><span class="proof-tag">SBIR co-dev with AFSFC</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="C-UAS">
-            <td class="ed" tabindex="0">LMAMS</td>
-            <td>C-UAS</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="C-UAS">
-            <td class="ed" tabindex="0">Coyote</td>
-            <td>C-UAS</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
+      <!-- 5a C-UAS EXPANSION -->
+      <div class="sub-section" id="sub-5a-afsfc" data-sub="5a-afsfc">
+        <div class="sub-header" onclick="togSub('5a-afsfc')" style="border-left:3px solid #1D9E75">
+          <span class="sub-num" style="color:#1D9E75">5a</span><span>C-UAS Expansion</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div style="background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.2);border-left:3px solid #1D9E75;border-radius:8px;padding:14px 20px;font-size:15px;line-height:1.6;margin-bottom:18px">
+            <strong style="color:#1D9E75">Same kit. Same cascade. New capability.</strong> Every category below is part of the C-UAS ecosystem beyond the shotgun entry point. Adding any of them re-runs the upstream cascade (mission &rarr; tasks &rarr; environments &rarr; gates &rarr; pack) but deploys on the same hardware already fielded. Note: <em>machine guns appear in both 5a and 5b &mdash; same weapon, different role (anti-UAS kinetic here, general base defense in 5b).</em>
+          </div>
 
-          <!-- Small Arms -->
-          <tr class="cat-row"><td colspan="6">Small Arms</td></tr>
-          <tr data-cap-row data-cat="Small Arms">
-            <td class="ed" tabindex="0">M18 Pistol</td>
-            <td>Small Arms</td>
-            <td class="ed" tabindex="0">Navy Qualification Standard</td>
-            <td><span class="cred-pill cred-proven" onclick="cycleCredStatus(this)">Commercially Proven</span></td>
-            <td><span class="proof-tag">31 Navy installations</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Small Arms">
-            <td class="ed" tabindex="0">M4A1 Carbine</td>
-            <td>Small Arms</td>
-            <td class="ed" tabindex="0">USAF Qualification Standard</td>
-            <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-            <td><span class="proof-tag">60+ USAF units</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
+          <table class="cap-table" id="cap-table-5a">
+            <thead><tr><th>Capability</th><th>Category</th><th>Credential / Standard</th><th>Credentialing Status</th><th>Fielded At</th><th style="width:36px"></th></tr></thead>
+            <tbody>
+              <!-- 1. Electronic Warfare Devices -->
+              <tr class="cat-row"><td colspan="6">1. Electronic Warfare Devices</td></tr>
+              <tr data-cap-row data-cat="EW">
+                <td class="ed" tabindex="0">Dronebuster EW</td>
+                <td>Electronic Warfare</td>
+                <td class="ed" tabindex="0">V-CSTR EW Protocol</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">SBIR co-dev with AFSFC</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="EW">
+                <td class="ed" tabindex="0">MODI II / Handheld EW</td>
+                <td>Electronic Warfare</td>
+                <td class="ed" tabindex="0">AFSFC TBD</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="EW">
+                <td class="ed" tabindex="0">Additional EW effector</td>
+                <td>Electronic Warfare</td>
+                <td class="ed" tabindex="0">&mdash;</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
 
-          <!-- Non-Lethal -->
-          <tr class="cat-row"><td colspan="6">Non-Lethal</td></tr>
-          <tr data-cap-row data-cat="Non-Lethal">
-            <td class="ed" tabindex="0">Baton</td>
-            <td>Non-Lethal</td>
-            <td class="ed" tabindex="0">Ontario LE Standard</td>
-            <td><span class="cred-pill cred-proven" onclick="cycleCredStatus(this)">Commercially Proven</span></td>
-            <td><span class="proof-tag">Ontario LE</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Non-Lethal">
-            <td class="ed" tabindex="0">OC Spray</td>
-            <td>Non-Lethal</td>
-            <td class="ed" tabindex="0">Ontario LE Standard</td>
-            <td><span class="cred-pill cred-proven" onclick="cycleCredStatus(this)">Commercially Proven</span></td>
-            <td><span class="proof-tag">Ontario LE</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Non-Lethal">
-            <td class="ed" tabindex="0">CEW / TASER</td>
-            <td>Non-Lethal</td>
-            <td class="ed" tabindex="0">Ontario LE Standard</td>
-            <td><span class="cred-pill cred-proven" onclick="cycleCredStatus(this)">Commercially Proven</span></td>
-            <td><span class="proof-tag">Ontario LE</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
+              <!-- 2. Machineguns (anti-UAS role) -->
+              <tr class="cat-row"><td colspan="6">2. Machineguns (anti-UAS role)</td></tr>
+              <tr data-cap-row data-cat="MG-CUAS">
+                <td class="ed" tabindex="0">M2 .50 Cal (anti-air)</td>
+                <td>Machineguns</td>
+                <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="MG-CUAS">
+                <td class="ed" tabindex="0">M240 (anti-UAS employment)</td>
+                <td>Machineguns</td>
+                <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
+                <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="MG-CUAS">
+                <td class="ed" tabindex="0">M249 (anti-UAS employment)</td>
+                <td>Machineguns</td>
+                <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
+                <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
 
-          <!-- Crew-Served -->
-          <tr class="cat-row"><td colspan="6">Crew-Served</td></tr>
-          <tr data-cap-row data-cat="Crew-Served">
-            <td class="ed" tabindex="0">M240</td>
-            <td>Crew-Served</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Crew-Served">
-            <td class="ed" tabindex="0">M249</td>
-            <td>Crew-Served</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
+              <!-- 3. Radio / Comms / Reporting -->
+              <tr class="cat-row"><td colspan="6">3. Radio / Comms / Reporting</td></tr>
+              <tr data-cap-row data-cat="Comms">
+                <td class="ed" tabindex="0">SALUTE reporting (timed, scored)</td>
+                <td>Comms</td>
+                <td class="ed" tabindex="0">USAF SF SOP</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">USAF SF units</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="Comms">
+                <td class="ed" tabindex="0">Dispatch / Sector coordination</td>
+                <td>Comms</td>
+                <td class="ed" tabindex="0">Installation defense SOP</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">USAF SF units</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="Comms">
+                <td class="ed" tabindex="0">Cross-team command relay</td>
+                <td>Comms</td>
+                <td class="ed" tabindex="0">&mdash;</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
 
-          <!-- Extended Range -->
-          <tr class="cat-row"><td colspan="6">Extended Range</td></tr>
-          <tr data-cap-row data-cat="Extended Range">
-            <td class="ed" tabindex="0">M3 MAAWS</td>
-            <td>Extended Range</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Extended Range">
-            <td class="ed" tabindex="0">M2 .50 Cal</td>
-            <td>Extended Range</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Extended Range">
-            <td class="ed" tabindex="0">M320 GLM</td>
-            <td>Extended Range</td>
-            <td class="ed" tabindex="0">&mdash;</td>
-            <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
-            <td>&mdash;</td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
+              <!-- 4. On-Location Training -->
+              <tr class="cat-row"><td colspan="6">4. On-Location Training</td></tr>
+              <tr data-cap-row data-cat="OLT">
+                <td class="ed" tabindex="0">Installation-specific environments (flight line, perimeter, ECP)</td>
+                <td>On-Location</td>
+                <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">USAF SF units</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="OLT">
+                <td class="ed" tabindex="0">Site-ingested terrain (from survey data)</td>
+                <td>On-Location</td>
+                <td class="ed" tabindex="0">&mdash;</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="OLT">
+                <td class="ed" tabindex="0">Mobile / expeditionary kit deployment</td>
+                <td>On-Location</td>
+                <td class="ed" tabindex="0">&mdash;</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+            </tbody>
+          </table>
 
-          <!-- Theater-Specific Training Objectives -->
-          <tr class="cat-row"><td colspan="6">Theater-Specific Training Objectives</td></tr>
-          <tr data-cap-row data-cat="Theater-Specific Training">
-            <td class="ed" tabindex="0">Access Control &mdash; Gate &amp; ECP</td>
-            <td>Theater-Specific Training</td>
-            <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
-            <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-            <td><span class="proof-tag">USAF SF units</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Theater-Specific Training">
-            <td class="ed" tabindex="0">Base Defense &mdash; IBD &amp; Post-Attack</td>
-            <td>Theater-Specific Training</td>
-            <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
-            <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-            <td><span class="proof-tag">USAF SF units</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-          <tr data-cap-row data-cat="Theater-Specific Training">
-            <td class="ed" tabindex="0">Patrol &amp; Critical Incident</td>
-            <td>Theater-Specific Training</td>
-            <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
-            <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-            <td><span class="proof-tag">USAF SF units</span></td>
-            <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-          </tr>
-        </tbody>
-      </table>
+          <div class="add-cap-btn" onclick="addCapabilityRow('5a')">+ Add C-UAS capability</div>
+        </div></div>
+      </div>
 
-      <div class="add-cap-btn" onclick="addCapabilityRow()">+ Add capability</div>
+      <!-- 5b OTHER COTS CAPABILITIES -->
+      <div class="sub-section" id="sub-5b-afsfc" data-sub="5b-afsfc">
+        <div class="sub-header" onclick="togSub('5b-afsfc')" style="border-left:3px solid var(--olive)">
+          <span class="sub-num" style="color:var(--olive)">5b</span><span>Other COTS Capabilities</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+          <div style="background:rgba(94,110,42,0.05);border:1px solid rgba(94,110,42,0.2);border-left:3px solid var(--olive);border-radius:8px;padding:14px 20px;font-size:15px;line-height:1.6;margin-bottom:18px">
+            <strong style="color:var(--olive)">V-CSTR is the foundation. Defender mission breadth runs on it.</strong> Every category below is commercially available today on the V-CSTR platform &mdash; already fielded at 60+ USAF units, already proven with Navy CNIC for pistol sustainment (31 installations). The Evidence Engine, the dashboards, and the data pipeline that C-UAS uses are the same ones these capabilities feed.
+          </div>
+
+          <table class="cap-table" id="cap-table-5b">
+            <thead><tr><th>Capability</th><th>Category</th><th>Credential / Standard</th><th>Credentialing Status</th><th>Fielded At</th><th style="width:36px"></th></tr></thead>
+            <tbody>
+              <!-- 1. Small Arms -->
+              <tr class="cat-row"><td colspan="6">1. Small Arms</td></tr>
+              <tr data-cap-row data-cat="SmallArms">
+                <td class="ed" tabindex="0">M18 Pistol</td>
+                <td>Small Arms</td>
+                <td class="ed" tabindex="0">Navy Qualification Standard (transferable to USAF CATM)</td>
+                <td><span class="cred-pill cred-proven" onclick="cycleCredStatus(this)">Commercially Proven</span></td>
+                <td><span class="proof-tag">Navy CNIC (31 installations)</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="SmallArms">
+                <td class="ed" tabindex="0">M4A1 Carbine</td>
+                <td>Small Arms</td>
+                <td class="ed" tabindex="0">USAF Qualification Standard</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">60+ USAF units</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+
+              <!-- 2. M320 GLM -->
+              <tr class="cat-row"><td colspan="6">2. M320 GLM (Grenade Launcher Module)</td></tr>
+              <tr data-cap-row data-cat="M320">
+                <td class="ed" tabindex="0">M320 &mdash; 40mm point target</td>
+                <td>M320</td>
+                <td class="ed" tabindex="0">USAF CATM standard</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="M320">
+                <td class="ed" tabindex="0">M320 &mdash; area effects (TP / HE variants)</td>
+                <td>M320</td>
+                <td class="ed" tabindex="0">USAF CATM standard</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+
+              <!-- 3. Crew-Served Weapons -->
+              <tr class="cat-row"><td colspan="6">3. Crew-Served Weapons (base-defense role)</td></tr>
+              <tr data-cap-row data-cat="CrewServed">
+                <td class="ed" tabindex="0">M240 (general base defense)</td>
+                <td>Crew-Served</td>
+                <td class="ed" tabindex="0">USAF CATM standard</td>
+                <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="CrewServed">
+                <td class="ed" tabindex="0">M249 SAW (general base defense)</td>
+                <td>Crew-Served</td>
+                <td class="ed" tabindex="0">USAF CATM standard</td>
+                <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="CrewServed">
+                <td class="ed" tabindex="0">M2 .50 Cal (general base defense)</td>
+                <td>Crew-Served</td>
+                <td class="ed" tabindex="0">USAF CATM standard</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="CrewServed">
+                <td class="ed" tabindex="0">M3 MAAWS</td>
+                <td>Crew-Served</td>
+                <td class="ed" tabindex="0">&mdash;</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+
+              <!-- 4. Integrated Base Defense -->
+              <tr class="cat-row"><td colspan="6">4. Integrated Base Defense (V-CSTR scenario environments)</td></tr>
+              <tr data-cap-row data-cat="IBD">
+                <td class="ed" tabindex="0">Base Defense &mdash; IBD sectors, perimeter, counterattack</td>
+                <td>IBD</td>
+                <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">USAF SF units</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="IBD">
+                <td class="ed" tabindex="0">PAR / CBRN &mdash; Post-Attack Recon + chem / bio / rad / nuc</td>
+                <td>IBD</td>
+                <td class="ed" tabindex="0">USAF SF / CBRN SOP</td>
+                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
+                <td><span class="proof-tag">USAF SF units</span></td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="IBD">
+                <td class="ed" tabindex="0">C2 &mdash; Command &amp; Control (sector ownership, decision ladders)</td>
+                <td>IBD</td>
+                <td class="ed" tabindex="0">USAF SF SOP</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+              <tr data-cap-row data-cat="IBD">
+                <td class="ed" tabindex="0">RADR &mdash; Rapid Airfield Damage Repair (scenario support)</td>
+                <td>IBD</td>
+                <td class="ed" tabindex="0">USAF contingency-response SOP</td>
+                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
+                <td>&mdash;</td>
+                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="add-cap-btn" onclick="addCapabilityRow('5b')">+ Add COTS capability</div>
+
+          <div style="margin-top:18px;font-size:15px;color:var(--muted);font-style:italic;line-height:1.5;text-align:center;padding:12px 20px;border-top:1px dashed var(--border)">
+            <strong style="color:var(--accent);font-style:normal">One V-CSTR platform. One Evidence Engine. Every mission set a Defender carries.</strong>
+          </div>
+        </div></div>
+      </div>
 
     </div>
   </div></div>
@@ -2245,10 +2362,34 @@ function fmtD(n){if(n>=1000000)return'$'+(Math.round(n/10000)/100)+'M';if(n>=100
 function fmtN(n){return n>=1000?n.toLocaleString():String(n)}
 function fmtS(n){if(n>=1000000)return(Math.round(n/10000)/100)+'M';if(n>=1000)return Math.round(n/1000)+'K';return String(n)}
 
-function toggleProof(){
-  var p=document.getElementById('proof-panel');
-  p.classList.toggle('expanded');
+function toggleModeMenu(){
+  var sel=document.getElementById('modeSelector');
+  var menu=document.getElementById('modeMenu');
+  var open=!sel.classList.contains('menu-open');
+  sel.classList.toggle('menu-open',open);
+  if(open)menu.removeAttribute('hidden');else menu.setAttribute('hidden','');
 }
+function setMode(mode){
+  var p=document.getElementById('proof-panel');
+  p.setAttribute('data-mode',mode);
+  document.getElementById('modeLabel').textContent=mode==='deployed'?'Deployed Configurations':'Configuration Mode';
+  document.querySelectorAll('#modeMenu li').forEach(function(li){li.classList.toggle('active',li.dataset.modeOpt===mode)});
+  /* close menu */
+  var sel=document.getElementById('modeSelector');
+  sel.classList.remove('menu-open');
+  document.getElementById('modeMenu').setAttribute('hidden','');
+}
+/* Click outside the selector closes the menu */
+document.addEventListener('click',function(e){
+  var sel=document.getElementById('modeSelector');
+  if(!sel)return;
+  if(!e.target.closest('.mode-selector')&&sel.classList.contains('menu-open')){
+    sel.classList.remove('menu-open');
+    document.getElementById('modeMenu').setAttribute('hidden','');
+  }
+});
+/* Backwards-compat shim in case anything else still calls it */
+function toggleProof(){setMode(document.getElementById('proof-panel').getAttribute('data-mode')==='deployed'?'config':'deployed')}
 
 function switchInst(id){
   inst=id;
@@ -2550,23 +2691,28 @@ function removeCapRow(btn){
 }
 var capCtr=200;
 var capCategories=['C-UAS','Small Arms','Non-Lethal','Crew-Served','Extended Range','Theater-Specific Training'];
-function addCapabilityRow(){
+function addCapabilityRow(target){
   capCtr++;
-  var tbody=document.getElementById('cap-tbody');if(!tbody)return;
+  /* target: '5a', '5b', or undefined (legacy cap-tbody) */
+  var tbody;
+  if(target==='5a')tbody=document.querySelector('#cap-table-5a tbody');
+  else if(target==='5b')tbody=document.querySelector('#cap-table-5b tbody');
+  else tbody=document.getElementById('cap-tbody');
+  if(!tbody)return;
   var k='cap-dyn'+capCtr;
   var catOpts='';
   capCategories.forEach(function(c){catOpts+='<option>'+c+'</option>'});
   var tr=document.createElement('tr');
   tr.setAttribute('data-cap-row','');
-  tr.setAttribute('data-cat','C-UAS');
+  tr.setAttribute('data-cat',target==='5b'?'Other':'C-UAS');
   tr.innerHTML='<td class="ed" tabindex="0">New capability</td>'
-    +'<td><select style="font-size:16px;font-family:inherit;border:1px solid var(--border);border-radius:4px;padding:4px 8px;background:var(--surface);color:var(--text)" onchange="this.closest(\'[data-cap-row]\').dataset.cat=this.value;updateCoverageSummary();save()">'+catOpts+'</select></td>'
+    +'<td><select style="font-size:16px;font-family:inherit;border:1px solid var(--border);border-radius:4px;padding:4px 8px;background:var(--surface);color:var(--text)" onchange="this.closest(\'[data-cap-row]\').dataset.cat=this.value;if(typeof updateCoverageSummary===\'function\')updateCoverageSummary();save()">'+catOpts+'</select></td>'
     +'<td class="ed" tabindex="0">&mdash;</td>'
     +'<td><span class="cred-pill cred-needs" onclick="cycleCredStatus(this)">Needs AFSFC Credentialing</span></td>'
     +'<td>&mdash;</td>'
     +'<td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>';
   tbody.appendChild(tr);
-  updateCoverageSummary();save();
+  if(typeof updateCoverageSummary==='function')updateCoverageSummary();save();
 }
 function updateCoverageSummary(){
   var rows=document.querySelectorAll('[data-cap-row]');
