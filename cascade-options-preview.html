@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Render Options — 3a/3b/3c Preview</title>
+<style>
+:root{--bg:#f4f3ee;--surface:#ffffff;--surface2:#edeae0;--border:#ccc9b8;--text:#1a1a10;--muted:#555540;--accent:#2e3d1a;--green:#3a6e18;--amber:#7a5e10;--red:#8a2818;--olive:#5e6e2a;--derived:#1D9E75;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.5;min-height:100vh}
+
+.page-header{position:sticky;top:0;z-index:100;background:#2e3d1a;padding:14px 40px;color:#e8ead4}
+.page-title{font-size:22px;font-weight:700}
+.page-sub{font-size:14px;color:#8a9a72;margin-top:2px}
+
+.tabs{display:flex;gap:0;background:var(--surface);border-bottom:1px solid var(--border);padding:0 40px;position:sticky;top:63px;z-index:90}
+.tab{padding:18px 28px;font-size:16px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all 0.15s;user-select:none;background:transparent;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.tab:hover{color:var(--accent);background:var(--surface2)}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .tab-letter{display:inline-block;width:22px;height:22px;background:var(--surface2);border:1px solid var(--border);border-radius:50%;text-align:center;line-height:20px;font-size:13px;font-weight:700;margin-right:8px}
+.tab.active .tab-letter{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.main{max-width:1400px;margin:0 auto;padding:32px 40px 80px}
+.case-hdr{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.case-title{font-size:22px;font-weight:700;color:var(--accent)}
+.case-sub{font-size:15px;color:var(--muted);font-style:italic;margin-top:2px}
+
+.pane{display:none}.pane.active{display:block}
+
+.option-intro{background:var(--surface2);border-left:3px solid var(--olive);border-radius:6px;padding:14px 20px;margin-bottom:24px;font-size:15px;color:var(--muted);line-height:1.6}
+.option-intro strong{color:var(--accent)}
+
+/* ============================================================
+   OPTION A: CONFIGURATOR PANEL
+   Clean form-style panels with label-left, value-right rows.
+   Settings-panel aesthetic. Focus is on clean editability.
+   ============================================================ */
+.a-panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.a-panel-derived{border-left:3px solid var(--derived)}
+.a-hdr{padding:16px 24px;background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:14px}
+.a-hdr-num{font-size:14px;font-weight:700;color:var(--olive);letter-spacing:0.1em}
+.a-hdr-derived .a-hdr-num{color:var(--derived)}
+.a-hdr-title{font-size:18px;font-weight:600;color:var(--text)}
+.a-hdr-title em{color:var(--derived);font-style:normal;font-weight:700}
+.a-row{display:grid;grid-template-columns:220px 1fr;gap:24px;padding:14px 24px;border-bottom:1px solid var(--border);align-items:baseline}
+.a-row:last-child{border-bottom:none}
+.a-label{font-size:12px;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.a-val{font-size:17px;color:var(--text);padding:4px 8px;margin:-4px -8px;border-radius:4px;cursor:text;transition:background 0.12s}
+.a-val:hover{background:var(--surface2)}
+.a-val:focus{background:var(--bg);box-shadow:inset 0 0 0 2px var(--accent);outline:none}
+.a-val strong{font-weight:700;color:var(--accent)}
+.a-callout{background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.2);border-left:3px solid var(--derived);border-radius:8px;padding:14px 20px;margin:16px 24px 20px;font-size:14px;line-height:1.6;color:var(--muted)}
+.a-callout strong{color:var(--derived)}
+
+/* ============================================================
+   OPTION B: EDITORIAL SPEC SHEET
+   Magazine-style layout with big uppercase labels, generous whitespace.
+   Presentational; good for screenshots/customer-facing.
+   ============================================================ */
+.b-sec{margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--border)}
+.b-sec:last-child{border-bottom:none}
+.b-sec-derived{background:linear-gradient(to right,rgba(29,158,117,0.04),transparent 60%);padding:24px;margin:0 -24px 40px;border-left:3px solid var(--derived);border-radius:0 10px 10px 0}
+.b-eyebrow{font-size:11px;font-weight:700;color:var(--olive);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:4px}
+.b-sec-derived .b-eyebrow{color:var(--derived)}
+.b-title{font-size:28px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-0.01em}
+.b-title em{color:var(--derived);font-style:normal;font-weight:700}
+.b-tag{font-size:16px;color:var(--muted);font-style:italic;margin-bottom:20px}
+.b-fields{display:grid;grid-template-columns:1fr 1fr;gap:28px 40px;margin-top:20px}
+.b-fields.single{grid-template-columns:1fr}
+.b-field-label{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:0.18em;text-transform:uppercase;margin-bottom:4px;border-top:1px solid var(--border);padding-top:8px}
+.b-sec-derived .b-field-label{color:var(--derived)}
+.b-field-val{font-size:17px;color:var(--text);line-height:1.55;padding:4px 0;cursor:text;border-radius:4px;transition:background 0.12s}
+.b-field-val:hover{background:var(--surface2);padding:4px 8px;margin:0 -8px}
+.b-field-val:focus{background:var(--bg);box-shadow:inset 0 0 0 2px var(--accent);outline:none;padding:4px 8px;margin:0 -8px}
+.b-field-val strong{font-weight:700;color:var(--accent)}
+.b-pull{font-size:17px;color:var(--derived);font-style:italic;line-height:1.5;margin-top:20px;padding:16px 20px;background:rgba(29,158,117,0.06);border-radius:6px;border-left:3px solid var(--derived)}
+.b-pull strong{font-weight:700;font-style:normal}
+
+/* ============================================================
+   OPTION C: CHIP GRID
+   Dense tag/chip-style layout — each value is a pill.
+   Dashboard-like; click chip to edit inline.
+   ============================================================ */
+.c-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 22px;margin-bottom:16px}
+.c-block-derived{border-color:rgba(29,158,117,0.35);background:linear-gradient(to bottom right,rgba(29,158,117,0.03),var(--surface))}
+.c-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.c-num{font-size:14px;font-weight:700;color:var(--olive);letter-spacing:0.1em;padding:3px 10px;background:var(--surface2);border-radius:4px}
+.c-block-derived .c-num{color:var(--derived);background:rgba(29,158,117,0.1)}
+.c-title{font-size:18px;font-weight:700}
+.c-title em{color:var(--derived);font-style:normal}
+.c-group{margin-bottom:14px}
+.c-group-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:8px}
+.c-chips{display:flex;flex-wrap:wrap;gap:8px}
+.c-chip{display:inline-flex;flex-direction:column;gap:2px;padding:8px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;max-width:100%;cursor:text;transition:all 0.12s}
+.c-chip:hover{border-color:var(--olive);background:var(--bg)}
+.c-chip:focus-within{border-color:var(--accent);background:var(--bg);box-shadow:0 0 0 2px rgba(46,61,26,0.15)}
+.c-block-derived .c-chip{background:rgba(29,158,117,0.05);border-color:rgba(29,158,117,0.25)}
+.c-block-derived .c-chip:hover{border-color:var(--derived);background:rgba(29,158,117,0.1)}
+.c-chip-lbl{font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+.c-block-derived .c-chip-lbl{color:var(--derived)}
+.c-chip-val{font-size:15px;color:var(--text);font-weight:500;line-height:1.3}
+.c-chip-val:focus{outline:none}
+.c-chip.c-wide{border-radius:8px;flex-direction:column;align-items:flex-start;min-width:260px;flex:1}
+.c-footer{font-size:13px;color:var(--muted);font-style:italic;margin-top:14px;padding-top:12px;border-top:1px solid var(--border);line-height:1.5}
+.c-footer strong{color:var(--derived);font-style:normal}
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-title">Cascade Render Options — 3a/3b/3c</div>
+  <div class="page-sub">Three candidate layouts for Section 03 AFSFC pane. Pick one, we'll roll it into v11.</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-opt="a" onclick="showOpt('a')"><span class="tab-letter">A</span>Configurator Panel</button>
+  <button class="tab" data-opt="b" onclick="showOpt('b')"><span class="tab-letter">B</span>Editorial Spec Sheet</button>
+  <button class="tab" data-opt="c" onclick="showOpt('c')"><span class="tab-letter">C</span>Chip Grid</button>
+</div>
+
+<div class="main">
+
+  <div class="case-hdr">
+    <div class="case-title">AFSFC — ICST C-UAS</div>
+    <div class="case-sub">Shotgun configuration scoping · C-UAS entry point</div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- OPTION A: CONFIGURATOR PANEL                                  -->
+  <!-- ============================================================ -->
+  <div class="pane active" data-opt="a">
+    <div class="option-intro"><strong>Option A — Configurator Panel.</strong> Form-style rows with a label-left, value-right grid. Clean, utilitarian, settings-panel feel. Best for in-session editing — the cursor always knows where the next input is.</div>
+
+    <!-- 3a Environments & Conditions -->
+    <div class="a-panel">
+      <div class="a-hdr"><span class="a-hdr-num">3a</span><span class="a-hdr-title">Environments &amp; Conditions</span></div>
+      <div class="a-row"><div class="a-label">Environments</div><div class="a-val" contenteditable>Day/Night · Open/Urban</div></div>
+      <div class="a-row"><div class="a-label">Lighting</div><div class="a-val" contenteditable>Day · Civil twilight · Night (unaided + NVG)</div></div>
+      <div class="a-row"><div class="a-label">Weather / Visibility</div><div class="a-val" contenteditable>Clear · Rain · Fog · Dust — degraded visibility stresses detection cues</div></div>
+      <div class="a-row"><div class="a-label">Geography</div><div class="a-val" contenteditable>CONUS installation perimeter · OCONUS austere · Flight line · ECP / gate · IBD sector</div></div>
+    </div>
+
+    <!-- 3b Content Pack -->
+    <div class="a-panel">
+      <div class="a-hdr"><span class="a-hdr-num">3b</span><span class="a-hdr-title">Content Pack</span></div>
+      <div class="a-row"><div class="a-label">Pack</div><div class="a-val" contenteditable><strong>ICST C-UAS Pack v1</strong> — scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the doctrine, tasks, environments, and gates configured upstream.</div></div>
+      <div class="a-row"><div class="a-label">Scenarios Included</div><div class="a-val" contenteditable>Six-stage progression × day/night × single-target and swarm variants</div></div>
+      <div class="a-row"><div class="a-label">NPC Library</div><div class="a-val" contenteditable>Group 1 &amp; Group 2 sUAS behaviors · VACR-profiled targets · civilians / OCP-uniformed friendlies for ROE gate</div></div>
+      <div class="a-row"><div class="a-label">Maps To</div><div class="a-val">Section 01 doctrine · Section 02 tasks &amp; gates · 3a environments — one pack, end-to-end</div></div>
+    </div>
+
+    <!-- 3c Hardware Loadout — Derived -->
+    <div class="a-panel a-panel-derived">
+      <div class="a-hdr a-hdr-derived"><span class="a-hdr-num">3c</span><span class="a-hdr-title">Hardware Loadout — <em>Derived</em></span></div>
+      <div class="a-callout"><strong>Hardware is the last thing configured, not the first.</strong> Doctrine, tasks, environments, gates, and pack — configured upstream — define the constraints. The kit below is what those constraints produce. Deployment-scale assumptions get applied in Section 04.</div>
+      <div class="a-row"><div class="a-label">Readiness Sensor — Opt 1</div><div class="a-val" contenteditable>Mossberg 590 replica</div></div>
+      <div class="a-row"><div class="a-label">Readiness Sensor — Opt 2</div><div class="a-val" contenteditable>Remington 870 replica</div></div>
+      <div class="a-row"><div class="a-label">Readiness Sensor — Opt 3</div><div class="a-val" contenteditable>Benelli M4 replica</div></div>
+      <div class="a-row"><div class="a-label">Headset Class</div><div class="a-val" contenteditable>Standalone VR — on-HMD compute, no tethered workstation, no base-network dependency</div></div>
+      <div class="a-row"><div class="a-label">Compute</div><div class="a-val" contenteditable>On-HMD — no tethered workstation required</div></div>
+      <div class="a-row"><div class="a-label">Kit Config</div><div class="a-val" contenteditable>Per-installation kit · qty driven by squadron count × airmen per flight (sized in Section 04)</div></div>
+      <div class="a-row"><div class="a-label">Why This Class</div><div class="a-val" contenteditable>Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding — the conditions the upstream configuration implies.</div></div>
+      <div class="a-callout"><strong>The layering moment.</strong> When a second capability — say M18 pistol sustainment — is added later, the upstream cascade re-runs: new doctrine, new tasks, new environments, new gates, new pack. The hardware doesn't. Same headset, same compute, same kit. New capability, same boxes.</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- OPTION B: EDITORIAL SPEC SHEET                                -->
+  <!-- ============================================================ -->
+  <div class="pane" data-opt="b">
+    <div class="option-intro"><strong>Option B — Editorial Spec Sheet.</strong> Magazine-style layout: big headlines, generous whitespace, field labels as small-caps eyebrow headers. Reads like a brief. Best for presentations, printouts, or customer-facing screenshots.</div>
+
+    <!-- 3a Environments & Conditions -->
+    <div class="b-sec">
+      <div class="b-eyebrow">3a — Environments &amp; Conditions</div>
+      <div class="b-title">Where the training lives.</div>
+      <div class="b-tag">Day, night, weather, geography — the conditions the rubric has to score under.</div>
+      <div class="b-fields">
+        <div><div class="b-field-label">Environments</div><div class="b-field-val" contenteditable>Day/Night · Open/Urban</div></div>
+        <div><div class="b-field-label">Lighting</div><div class="b-field-val" contenteditable>Day · Civil twilight · Night (unaided + NVG)</div></div>
+        <div><div class="b-field-label">Weather / Visibility</div><div class="b-field-val" contenteditable>Clear · Rain · Fog · Dust — degraded visibility stresses detection cues</div></div>
+        <div><div class="b-field-label">Geography</div><div class="b-field-val" contenteditable>CONUS installation perimeter · OCONUS austere · Flight line · ECP / gate · IBD sector</div></div>
+      </div>
+    </div>
+
+    <!-- 3b Content Pack -->
+    <div class="b-sec">
+      <div class="b-eyebrow">3b — Content Pack</div>
+      <div class="b-title">One pack, end-to-end.</div>
+      <div class="b-tag">The configured artifact — scenarios, NPCs, and rubrics bundled to what the cascade locked in upstream.</div>
+      <div class="b-fields">
+        <div style="grid-column:1 / -1"><div class="b-field-label">Pack</div><div class="b-field-val" contenteditable><strong>ICST C-UAS Pack v1</strong> — scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the doctrine, tasks, environments, and gates configured upstream.</div></div>
+        <div><div class="b-field-label">Scenarios Included</div><div class="b-field-val" contenteditable>Six-stage progression × day/night × single-target and swarm variants</div></div>
+        <div><div class="b-field-label">NPC Library</div><div class="b-field-val" contenteditable>Group 1 &amp; Group 2 sUAS behaviors · VACR-profiled targets · civilians / OCP-uniformed friendlies for ROE gate</div></div>
+        <div style="grid-column:1 / -1"><div class="b-field-label">Maps To</div><div class="b-field-val">Section 01 doctrine · Section 02 tasks &amp; gates · 3a environments — one pack, end-to-end</div></div>
+      </div>
+    </div>
+
+    <!-- 3c Hardware Loadout — Derived -->
+    <div class="b-sec b-sec-derived" style="border-bottom:none">
+      <div class="b-eyebrow">3c — Hardware Loadout</div>
+      <div class="b-title">The kit is <em>derived</em>.</div>
+      <div class="b-tag">Doctrine, tasks, environments, gates, and pack — configured upstream — pick the kit. You don't.</div>
+      <div class="b-fields">
+        <div><div class="b-field-label">Readiness Sensor — Opt 1</div><div class="b-field-val" contenteditable>Mossberg 590 replica</div></div>
+        <div><div class="b-field-label">Readiness Sensor — Opt 2</div><div class="b-field-val" contenteditable>Remington 870 replica</div></div>
+        <div><div class="b-field-label">Readiness Sensor — Opt 3</div><div class="b-field-val" contenteditable>Benelli M4 replica</div></div>
+        <div><div class="b-field-label">Compute</div><div class="b-field-val" contenteditable>On-HMD — no tethered workstation required</div></div>
+        <div style="grid-column:1 / -1"><div class="b-field-label">Headset Class</div><div class="b-field-val" contenteditable>Standalone VR — on-HMD compute, no tethered workstation, no base-network dependency</div></div>
+        <div style="grid-column:1 / -1"><div class="b-field-label">Kit Config</div><div class="b-field-val" contenteditable>Per-installation kit · qty driven by squadron count × airmen per flight (sized in Section 04)</div></div>
+        <div style="grid-column:1 / -1"><div class="b-field-label">Why This Class</div><div class="b-field-val" contenteditable>Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding — the conditions the upstream configuration implies.</div></div>
+      </div>
+      <div class="b-pull"><strong>The layering moment.</strong> When a second capability — say M18 pistol sustainment — is added later, the upstream cascade re-runs. The hardware doesn't. Same headset, same compute, same kit. New capability, same boxes.</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- OPTION C: CHIP GRID                                           -->
+  <!-- ============================================================ -->
+  <div class="pane" data-opt="c">
+    <div class="option-intro"><strong>Option C — Chip Grid.</strong> Dense tag-style chips, each click-to-edit. Grouped by category. Dashboard-like — a lot of configuration visible at a glance. Best when the scoping session moves fast and you want everything on one screen.</div>
+
+    <!-- 3a Environments & Conditions -->
+    <div class="c-block">
+      <div class="c-hdr"><span class="c-num">3a</span><span class="c-title">Environments &amp; Conditions</span></div>
+
+      <div class="c-group">
+        <div class="c-group-label">Environment frame</div>
+        <div class="c-chips">
+          <div class="c-chip"><span class="c-chip-lbl">Environments</span><span class="c-chip-val" contenteditable>Day/Night · Open/Urban</span></div>
+          <div class="c-chip"><span class="c-chip-lbl">Lighting</span><span class="c-chip-val" contenteditable>Day · Civil twilight · Night (unaided + NVG)</span></div>
+        </div>
+      </div>
+
+      <div class="c-group">
+        <div class="c-group-label">Conditions stress</div>
+        <div class="c-chips">
+          <div class="c-chip c-wide"><span class="c-chip-lbl">Weather / Visibility</span><span class="c-chip-val" contenteditable>Clear · Rain · Fog · Dust — degraded visibility stresses detection cues</span></div>
+          <div class="c-chip c-wide"><span class="c-chip-lbl">Geography</span><span class="c-chip-val" contenteditable>CONUS installation perimeter · OCONUS austere · Flight line · ECP / gate · IBD sector</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3b Content Pack -->
+    <div class="c-block">
+      <div class="c-hdr"><span class="c-num">3b</span><span class="c-title">Content Pack</span></div>
+
+      <div class="c-group">
+        <div class="c-group-label">Pack identity</div>
+        <div class="c-chips">
+          <div class="c-chip c-wide" style="flex:1 1 100%"><span class="c-chip-lbl">Pack</span><span class="c-chip-val" contenteditable><strong>ICST C-UAS Pack v1</strong> — scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the doctrine, tasks, environments, and gates configured upstream.</span></div>
+        </div>
+      </div>
+
+      <div class="c-group">
+        <div class="c-group-label">Contents</div>
+        <div class="c-chips">
+          <div class="c-chip c-wide"><span class="c-chip-lbl">Scenarios Included</span><span class="c-chip-val" contenteditable>Six-stage progression × day/night × single-target and swarm variants</span></div>
+          <div class="c-chip c-wide"><span class="c-chip-lbl">NPC Library</span><span class="c-chip-val" contenteditable>Group 1 &amp; Group 2 sUAS behaviors · VACR-profiled targets · civilians / OCP-uniformed friendlies for ROE gate</span></div>
+        </div>
+      </div>
+
+      <div class="c-footer">Maps to Section 01 doctrine · Section 02 tasks &amp; gates · 3a environments — one pack, end-to-end.</div>
+    </div>
+
+    <!-- 3c Hardware Loadout — Derived -->
+    <div class="c-block c-block-derived">
+      <div class="c-hdr"><span class="c-num">3c</span><span class="c-title">Hardware Loadout — <em>Derived</em></span></div>
+
+      <div class="c-group">
+        <div class="c-group-label">Readiness sensors (editable)</div>
+        <div class="c-chips">
+          <div class="c-chip"><span class="c-chip-lbl">Option 1</span><span class="c-chip-val" contenteditable>Mossberg 590 replica</span></div>
+          <div class="c-chip"><span class="c-chip-lbl">Option 2</span><span class="c-chip-val" contenteditable>Remington 870 replica</span></div>
+          <div class="c-chip"><span class="c-chip-lbl">Option 3</span><span class="c-chip-val" contenteditable>Benelli M4 replica</span></div>
+        </div>
+      </div>
+
+      <div class="c-group">
+        <div class="c-group-label">Platform class</div>
+        <div class="c-chips">
+          <div class="c-chip c-wide"><span class="c-chip-lbl">Headset Class</span><span class="c-chip-val" contenteditable>Standalone VR — on-HMD compute, no tethered workstation, no base-network dependency</span></div>
+          <div class="c-chip"><span class="c-chip-lbl">Compute</span><span class="c-chip-val" contenteditable>On-HMD</span></div>
+          <div class="c-chip c-wide"><span class="c-chip-lbl">Kit Config</span><span class="c-chip-val" contenteditable>Per-installation kit · qty driven by squadron count × airmen per flight (sized in Section 04)</span></div>
+        </div>
+      </div>
+
+      <div class="c-group">
+        <div class="c-group-label">Derivation rationale</div>
+        <div class="c-chips">
+          <div class="c-chip c-wide" style="flex:1 1 100%"><span class="c-chip-lbl">Why this class</span><span class="c-chip-val" contenteditable>Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding — the conditions the upstream configuration implies.</span></div>
+        </div>
+      </div>
+
+      <div class="c-footer"><strong>The layering moment.</strong> When a second capability — say M18 pistol sustainment — is added later, the upstream cascade re-runs. The hardware doesn't. Same headset, same compute, same kit. New capability, same boxes.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showOpt(opt){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.opt===opt)});
+  document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('active',p.dataset.opt===opt)});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
