@@ -325,6 +325,30 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 .panel.cost .sg-label .val{color:var(--red)}
 .panel.cost input[type=range]{accent-color:var(--red)}
 .panel.cost input[type=range]::-webkit-slider-thumb{background:var(--red)}
+
+/* ===== STEPPER INPUTS (replacement for slider bars in 4a/4b) ===== */
+.stp{padding:20px 22px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);margin-bottom:14px}
+.stp-title{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.4px;margin-bottom:10px}
+.stp-value-row{display:flex;align-items:center;gap:18px;margin-bottom:12px;flex-wrap:wrap}
+.stp-big-val{font-family:'Consolas','Courier New',monospace;font-size:48px;font-weight:700;color:var(--accent);line-height:1;min-width:140px;flex-shrink:0}
+.stp.cost .stp-big-val{color:var(--red)}
+.stp-ctrls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.stp-btn{width:48px;height:48px;border-radius:8px;border:1px solid var(--border);background:var(--surface);color:var(--accent);font-size:26px;font-weight:700;cursor:pointer;font-family:inherit;transition:all 0.12s;display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
+.stp-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.stp-btn:active{transform:scale(0.96)}
+.stp.cost .stp-btn{color:var(--red)}
+.stp.cost .stp-btn:hover{background:var(--red);border-color:var(--red);color:#fff}
+.stp-num{width:96px;height:48px;text-align:center;font-size:20px;font-weight:700;font-family:'Consolas','Courier New',monospace;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--text);padding:0 8px;-moz-appearance:textfield}
+.stp-num::-webkit-outer-spin-button,.stp-num::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.stp-num:focus{outline:none;border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.stp.cost .stp-num:focus{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.stp-presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.stp-preset{padding:7px 14px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.12s}
+.stp-preset:hover{border-color:var(--accent);color:var(--accent)}
+.stp-preset.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.stp.cost .stp-preset:hover{border-color:var(--red);color:var(--red)}
+.stp.cost .stp-preset.active{background:var(--red);border-color:var(--red);color:#fff}
+.stp-hint{font-size:13px;color:var(--muted);line-height:1.5;font-style:italic}
 .divider{height:1px;background:var(--border);margin:20px 0}
 .out-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px}
 .o{padding:18px 16px;border-radius:8px;border:1px solid var(--border);text-align:center}
@@ -1705,41 +1729,116 @@ tr:hover .remove-row-btn{opacity:1}
     <div class="calc" style="border:none;padding:0;margin:0">
       <div class="panel cost" style="margin-bottom:20px">
         <div class="panel-label">Live-Fire Cost Model</div>
-        <div class="sg">
-          <div class="sg-label">Desired Quals / Airman / Year <span class="val" id="v-freq">2</span></div>
-          <div class="sg-hint">How often should each airman qualify? 1 = annual &middot; 2 = semi-annual &middot; 4 = quarterly</div>
-          <input type="range" id="s-freq" min="1" max="4" value="2" oninput="calc()">
-          <div class="sg-range"><span>1&times;/yr</span><span>2&times;/yr</span><span>4&times;/yr</span></div>
+
+        <div class="stp cost">
+          <div class="stp-title">Desired Quals / Airman / Year</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-freq">2</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-freq',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-freq" min="1" max="4" step="1" value="2" oninput="calc();syncPresets('s-freq')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-freq',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-freq" data-val="1" onclick="setInputVal('s-freq',1)">1&times;/yr</button>
+            <button type="button" class="stp-preset active" data-for="s-freq" data-val="2" onclick="setInputVal('s-freq',2)">2&times;/yr</button>
+            <button type="button" class="stp-preset" data-for="s-freq" data-val="4" onclick="setInputVal('s-freq',4)">4&times;/yr</button>
+          </div>
+          <div class="stp-hint">1 = annual &middot; 2 = semi-annual &middot; 4 = quarterly</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Range Days Available / Site / Year <span class="val" id="v-rdays">24</span></div>
-          <div class="sg-hint">Dedicated C-UAS shotgun range days actually available per installation</div>
-          <input type="range" id="s-rdays" min="2" max="52" value="24" oninput="calc()">
-          <div class="sg-range"><span>2</span><span>12</span><span>26</span><span>52</span></div>
+
+        <div class="stp cost">
+          <div class="stp-title">Range Days Available / Site / Year</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-rdays">24</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-rdays',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-rdays" min="2" max="52" step="1" value="24" oninput="calc();syncPresets('s-rdays')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-rdays',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-rdays" data-val="12" onclick="setInputVal('s-rdays',12)">12</button>
+            <button type="button" class="stp-preset active" data-for="s-rdays" data-val="24" onclick="setInputVal('s-rdays',24)">24</button>
+            <button type="button" class="stp-preset" data-for="s-rdays" data-val="52" onclick="setInputVal('s-rdays',52)">52 (weekly)</button>
+          </div>
+          <div class="stp-hint">Dedicated C-UAS shotgun range days actually available per installation</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Airmen / Range Day <span class="val" id="v-tput">25</span></div>
-          <div class="sg-hint">Throughput per dedicated range day (RSO + lane constraints)</div>
-          <input type="range" id="s-tput" min="10" max="50" step="5" value="25" oninput="calc()">
-          <div class="sg-range"><span>10</span><span>25</span><span>50</span></div>
+
+        <div class="stp cost">
+          <div class="stp-title">Airmen / Range Day</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-tput">25</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-tput',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-tput" min="10" max="50" step="5" value="25" oninput="calc();syncPresets('s-tput')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-tput',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-tput" data-val="10" onclick="setInputVal('s-tput',10)">10</button>
+            <button type="button" class="stp-preset active" data-for="s-tput" data-val="25" onclick="setInputVal('s-tput',25)">25</button>
+            <button type="button" class="stp-preset" data-for="s-tput" data-val="50" onclick="setInputVal('s-tput',50)">50</button>
+          </div>
+          <div class="stp-hint">Throughput per dedicated range day (RSO + lane constraints)</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Rounds / Qual Cycle <span class="val" id="v-rounds">25</span></div>
-          <div class="sg-hint">Shotgun shells expended per airman per qualification attempt</div>
-          <input type="range" id="s-rounds" min="10" max="100" step="5" value="25" oninput="calc()">
-          <div class="sg-range"><span>10</span><span>50</span><span>100</span></div>
+
+        <div class="stp cost">
+          <div class="stp-title">Rounds / Qual Cycle</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-rounds">25</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-rounds',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-rounds" min="10" max="100" step="5" value="25" oninput="calc();syncPresets('s-rounds')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-rounds',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset active" data-for="s-rounds" data-val="25" onclick="setInputVal('s-rounds',25)">25</button>
+            <button type="button" class="stp-preset" data-for="s-rounds" data-val="50" onclick="setInputVal('s-rounds',50)">50</button>
+            <button type="button" class="stp-preset" data-for="s-rounds" data-val="100" onclick="setInputVal('s-rounds',100)">100</button>
+          </div>
+          <div class="stp-hint">Shotgun shells expended per airman per qualification attempt</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Cost per Round <span class="val" id="v-cpr">$1.50</span></div>
-          <div class="sg-hint">Per-shell cost including procurement &amp; logistics</div>
-          <input type="range" id="s-cpr" min="50" max="500" step="25" value="150" oninput="calc()">
-          <div class="sg-range"><span>$0.50</span><span>$2.50</span><span>$5.00</span></div>
+
+        <div class="stp cost">
+          <div class="stp-title">Cost per Round</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-cpr">$1.50</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-cpr',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-cpr" min="50" max="500" step="25" value="150" oninput="calc();syncPresets('s-cpr')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-cpr',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-cpr" data-val="50" onclick="setInputVal('s-cpr',50)">$0.50</button>
+            <button type="button" class="stp-preset active" data-for="s-cpr" data-val="150" onclick="setInputVal('s-cpr',150)">$1.50</button>
+            <button type="button" class="stp-preset" data-for="s-cpr" data-val="250" onclick="setInputVal('s-cpr',250)">$2.50</button>
+            <button type="button" class="stp-preset" data-for="s-cpr" data-val="500" onclick="setInputVal('s-cpr',500)">$5.00</button>
+          </div>
+          <div class="stp-hint">Per-shell cost including procurement &amp; logistics. Value stored in cents (150 = $1.50).</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Range Ops Cost / Day <span class="val" id="v-rdcost">$3,000</span></div>
-          <div class="sg-hint">RSO staffing, range scheduling, safety, transport &mdash; excludes ammo</div>
-          <input type="range" id="s-rdcost" min="500" max="10000" step="250" value="3000" oninput="calc()">
-          <div class="sg-range"><span>$500</span><span>$5K</span><span>$10K</span></div>
+
+        <div class="stp cost">
+          <div class="stp-title">Range Ops Cost / Day</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-rdcost">$3,000</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-rdcost',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-rdcost" min="500" max="10000" step="250" value="3000" oninput="calc();syncPresets('s-rdcost')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-rdcost',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-rdcost" data-val="500" onclick="setInputVal('s-rdcost',500)">$500</button>
+            <button type="button" class="stp-preset" data-for="s-rdcost" data-val="1500" onclick="setInputVal('s-rdcost',1500)">$1.5K</button>
+            <button type="button" class="stp-preset active" data-for="s-rdcost" data-val="3000" onclick="setInputVal('s-rdcost',3000)">$3K</button>
+            <button type="button" class="stp-preset" data-for="s-rdcost" data-val="5000" onclick="setInputVal('s-rdcost',5000)">$5K</button>
+            <button type="button" class="stp-preset" data-for="s-rdcost" data-val="10000" onclick="setInputVal('s-rdcost',10000)">$10K</button>
+          </div>
+          <div class="stp-hint">RSO staffing, range scheduling, safety, transport &mdash; excludes ammo</div>
         </div>
       </div>
 
@@ -1791,23 +1890,62 @@ tr:hover .remove-row-btn{opacity:1}
     <div class="calc" style="border:none;padding:0;margin:0">
       <div class="panel" style="margin-bottom:20px">
         <div class="panel-label">Deployment Scale</div>
-        <div class="sg">
-          <div class="sg-label">Installations <span class="val" id="v-inst">50</span></div>
-          <div class="sg-hint">AF installations receiving C-UAS training capability</div>
-          <input type="range" id="s-inst" min="3" max="200" value="50" oninput="calc()">
-          <div class="sg-range"><span>3</span><span>100</span><span>200</span></div>
+
+        <div class="stp">
+          <div class="stp-title">Installations</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-inst">50</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-inst',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-inst" min="3" max="200" step="1" value="50" oninput="calc();syncPresets('s-inst')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-inst',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-inst" data-val="10" onclick="setInputVal('s-inst',10)">10</button>
+            <button type="button" class="stp-preset active" data-for="s-inst" data-val="50" onclick="setInputVal('s-inst',50)">50</button>
+            <button type="button" class="stp-preset" data-for="s-inst" data-val="100" onclick="setInputVal('s-inst',100)">100</button>
+            <button type="button" class="stp-preset" data-for="s-inst" data-val="200" onclick="setInputVal('s-inst',200)">200</button>
+          </div>
+          <div class="stp-hint">AF installations receiving C-UAS training capability</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Lanes / Installation <span class="val" id="v-lanes">1</span></div>
-          <div class="sg-hint">SF only = 1 &middot; IMSC multi-squadron = 2&ndash;4</div>
-          <input type="range" id="s-lanes" min="1" max="4" value="1" oninput="calc()">
-          <div class="sg-range"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+
+        <div class="stp">
+          <div class="stp-title">Lanes / Installation</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-lanes">1</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-lanes',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-lanes" min="1" max="4" step="1" value="1" oninput="calc();syncPresets('s-lanes')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-lanes',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset active" data-for="s-lanes" data-val="1" onclick="setInputVal('s-lanes',1)">1</button>
+            <button type="button" class="stp-preset" data-for="s-lanes" data-val="2" onclick="setInputVal('s-lanes',2)">2</button>
+            <button type="button" class="stp-preset" data-for="s-lanes" data-val="3" onclick="setInputVal('s-lanes',3)">3</button>
+            <button type="button" class="stp-preset" data-for="s-lanes" data-val="4" onclick="setInputVal('s-lanes',4)">4</button>
+          </div>
+          <div class="stp-hint">SF only = 1 &middot; IMSC multi-squadron = 2&ndash;4</div>
         </div>
-        <div class="sg">
-          <div class="sg-label">Airmen / Squadron <span class="val" id="v-airmen">200</span></div>
-          <div class="sg-hint">Varies 100&ndash;400 by installation</div>
-          <input type="range" id="s-airmen" min="100" max="400" step="25" value="200" oninput="calc()">
-          <div class="sg-range"><span>100</span><span>250</span><span>400</span></div>
+
+        <div class="stp">
+          <div class="stp-title">Airmen / Squadron</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-airmen">200</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-airmen',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-airmen" min="100" max="400" step="25" value="200" oninput="calc();syncPresets('s-airmen')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-airmen',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-airmen" data-val="100" onclick="setInputVal('s-airmen',100)">100</button>
+            <button type="button" class="stp-preset active" data-for="s-airmen" data-val="200" onclick="setInputVal('s-airmen',200)">200</button>
+            <button type="button" class="stp-preset" data-for="s-airmen" data-val="300" onclick="setInputVal('s-airmen',300)">300</button>
+            <button type="button" class="stp-preset" data-for="s-airmen" data-val="400" onclick="setInputVal('s-airmen',400)">400</button>
+          </div>
+          <div class="stp-hint">Varies 100&ndash;400 by installation</div>
         </div>
       </div>
 
@@ -2427,6 +2565,41 @@ function revealS5(){
     s5.scrollIntoView({behavior:'smooth',block:'start'});
     save();
   },100);
+}
+
+/* STEPPER INPUT HELPERS (for 4a/4b) */
+function nudgeInput(id,delta){
+  var el=document.getElementById(id);if(!el)return;
+  var step=+el.step||1;
+  var min=el.min!==''?+el.min:-Infinity;
+  var max=el.max!==''?+el.max:Infinity;
+  var v=(+el.value||0)+delta*step;
+  /* round to avoid fp drift with step like 0.05 */
+  v=Math.round(v/step)*step;
+  if(v<min)v=min;
+  if(v>max)v=max;
+  el.value=v;
+  calc();
+  syncPresets(id);
+}
+function setInputVal(id,v){
+  var el=document.getElementById(id);if(!el)return;
+  var min=el.min!==''?+el.min:-Infinity;
+  var max=el.max!==''?+el.max:Infinity;
+  if(v<min)v=min;if(v>max)v=max;
+  el.value=v;
+  calc();
+  syncPresets(id);
+}
+function syncPresets(id){
+  var el=document.getElementById(id);if(!el)return;
+  var cur=+el.value;
+  document.querySelectorAll('.stp-preset[data-for="'+id+'"]').forEach(function(btn){
+    btn.classList.toggle('active',+btn.dataset.val===cur);
+  });
+}
+function syncAllPresets(){
+  ['s-inst','s-lanes','s-airmen','s-freq','s-rdays','s-tput','s-rounds','s-cpr','s-rdcost'].forEach(syncPresets);
 }
 
 /* CALCULATOR */
