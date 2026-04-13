@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adjacent Mandates — Card Options</title>
+<style>
+:root{--bg:#f4f3ee;--surface:#ffffff;--surface2:#edeae0;--border:#ccc9b8;--text:#1a1a10;--muted:#555540;--accent:#2e3d1a;--green:#3a6e18;--amber:#7a5e10;--red:#8a2818;--olive:#5e6e2a;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:18px;line-height:1.5;padding:40px}
+.page-title{font-size:28px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.page-sub{font-size:16px;color:var(--muted);margin-bottom:48px}
+
+/* Option labels */
+.option-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:3px;color:var(--olive);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:12px}
+.option-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.option-wrap{max-width:1200px;margin:0 auto 60px}
+
+/* Shared header */
+.ez-header{margin-bottom:20px}
+.ez-title{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.ez-sub{font-size:16px;color:var(--muted);font-style:italic}
+
+/* Toggle switch */
+.tgl{width:42px;height:23px;border-radius:12px;background:var(--border);position:relative;flex-shrink:0;transition:background 0.2s;cursor:pointer}
+.tgl::after{content:'';position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.12)}
+.tgl.on{background:var(--green)}
+.tgl.on::after{transform:translateX(19px)}
+
+/* ========== OPTION A: Document Card ========== */
+.dcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:14px;transition:border-color 0.12s}
+.dcard:hover{border-color:#a8a490}
+.dcard-top{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.dcard-left{padding:20px 24px;border-right:1px solid var(--border)}
+.dcard-right{padding:20px 24px;background:rgba(46,61,26,0.012)}
+.dcard-name{font-size:19px;font-weight:700;margin-bottom:4px}
+.dcard-cite{font-size:13px;font-family:'Consolas','Courier New',monospace;color:var(--muted);margin-bottom:10px}
+.dcard-body{font-size:16px;color:var(--muted);line-height:1.5}
+.dcard-fl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:3px;margin-top:12px}
+.dcard-fl:first-child{margin-top:0}
+.dcard-field{background:rgba(46,61,26,0.03);border:1px dashed var(--border);border-radius:5px;padding:7px 11px;font-size:15px;color:var(--muted);font-style:italic}
+.dcard-bottom{padding:12px 24px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;background:rgba(46,61,26,0.015)}
+.dcard-bottom-label{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+
+/* ========== OPTION B: Layer Card ========== */
+.lcard{border:1px solid var(--border);border-left:3px solid var(--olive);border-radius:8px;margin-bottom:10px;overflow:hidden;background:var(--surface);transition:border-color 0.12s}
+.lcard:hover{border-color:#a8a490}
+.lcard-header{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;user-select:none;transition:background 0.12s}
+.lcard-header:hover{background:var(--surface2)}
+.lcard-name{font-size:18px;font-weight:600;flex:1}
+.lcard-cite-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:4px;background:rgba(46,61,26,0.06);color:var(--olive);border:1px solid rgba(46,61,26,0.12);font-family:'Consolas','Courier New',monospace;white-space:nowrap}
+.lcard-chevron{font-size:16px;color:var(--muted);transition:transform 0.2s}
+.lcard.expanded .lcard-chevron{transform:rotate(180deg)}
+.lcard-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.lcard.expanded .lcard-body{max-height:400px}
+.lcard-content{padding:0 20px 18px 76px;font-size:16px;color:var(--muted);line-height:1.55;border-top:1px solid var(--border);padding-top:14px}
+
+/* ========== OPTION C: Simple Grid ========== */
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.scard{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--olive);border-radius:8px;padding:22px 24px;position:relative;transition:border-color 0.12s}
+.scard:hover{border-color:#a8a490}
+.scard-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
+.scard-name{font-size:18px;font-weight:700}
+.scard-cite{font-size:13px;font-family:'Consolas','Courier New',monospace;color:var(--muted);margin-bottom:10px}
+.scard-body{font-size:16px;color:var(--muted);line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="page-title">Adjacent Mandates — Card Treatment Options</div>
+<div class="page-sub">Three options for displaying mandate items in Section 01. Same data, different visual treatment. Click the toggles to interact.</div>
+
+<!-- ==================== OPTION A ==================== -->
+<div class="option-wrap">
+<div class="option-label">Option A — Document Card (two-column, structured fields)</div>
+<div class="ez-header">
+  <div class="ez-title">What Else Touches These Same Airmen?</div>
+  <div class="ez-sub">Adjacent mandates that apply to the same personnel — same platform, same evidence pipeline.</div>
+</div>
+
+<div class="dcard">
+  <div class="dcard-top">
+    <div class="dcard-left">
+      <div class="dcard-name">CATM Qualification — Small Arms & Crew-Served</div>
+      <div class="dcard-cite">AFI 36-2654 / DAFMAN 36-2655</div>
+      <div class="dcard-body">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight — scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF.</div>
+    </div>
+    <div class="dcard-right">
+      <div class="dcard-fl">Relevance to C-UAS</div>
+      <div class="dcard-field">Same airmen, same weapons — live range teaches the shot, virtual teaches the fight</div>
+      <div class="dcard-fl">Platform Status</div>
+      <div class="dcard-field">M18, M4A1 qual tables deployed at Navy CNIC</div>
+    </div>
+  </div>
+  <div class="dcard-bottom">
+    <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+    <div class="dcard-bottom-label">Include in alignment statement</div>
+  </div>
+</div>
+
+<div class="dcard">
+  <div class="dcard-top">
+    <div class="dcard-left">
+      <div class="dcard-name">Ready Airman Training (RAT)</div>
+      <div class="dcard-cite">DAFMAN 36-2655 / HAF A3T / RAT Council</div>
+      <div class="dcard-body">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates — same session, no separate event.</div>
+    </div>
+    <div class="dcard-right">
+      <div class="dcard-fl">Relevance to C-UAS</div>
+      <div class="dcard-field">Same rep feeds the AFFORGEN gate</div>
+      <div class="dcard-fl">Platform Status</div>
+      <div class="dcard-field">Task-code alignment in progress via HAF/A3T</div>
+    </div>
+  </div>
+  <div class="dcard-bottom">
+    <div class="tgl" onclick="this.classList.toggle('on')"></div>
+    <div class="dcard-bottom-label">Include in alignment statement</div>
+  </div>
+</div>
+
+<div class="dcard">
+  <div class="dcard-top">
+    <div class="dcard-left">
+      <div class="dcard-name">Deployment Familiarization — Perishable Skills at Home Station</div>
+      <div class="dcard-cite">AFFORGEN / Expeditionary Readiness</div>
+      <div class="dcard-body">AFSFC leadership has identified the core gap: Airmen don't touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills.</div>
+    </div>
+    <div class="dcard-right">
+      <div class="dcard-fl">Relevance to C-UAS</div>
+      <div class="dcard-field">Hands on it before they get there — same platform extends to deployment skills</div>
+      <div class="dcard-fl">Platform Status</div>
+      <div class="dcard-field">Identified as AFSFC priority, config available</div>
+    </div>
+  </div>
+  <div class="dcard-bottom">
+    <div class="tgl" onclick="this.classList.toggle('on')"></div>
+    <div class="dcard-bottom-label">Include in alignment statement</div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== OPTION B ==================== -->
+<div class="option-wrap">
+<div class="option-label">Option B — Layer Card (collapsible, compact headers)</div>
+<div class="ez-header">
+  <div class="ez-title">What Else Touches These Same Airmen?</div>
+  <div class="ez-sub">Adjacent mandates that apply to the same personnel — same platform, same evidence pipeline.</div>
+</div>
+
+<div class="lcard expanded" onclick="this.classList.toggle('expanded')">
+  <div class="lcard-header">
+    <div class="tgl on" onclick="event.stopPropagation();this.classList.toggle('on')"></div>
+    <div class="lcard-name">CATM Qualification — Small Arms & Crew-Served</div>
+    <span class="lcard-cite-pill">AFI 36-2654</span>
+    <span class="lcard-chevron">&#9662;</span>
+  </div>
+  <div class="lcard-body">
+    <div class="lcard-content">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight — scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF.</div>
+  </div>
+</div>
+
+<div class="lcard" onclick="this.classList.toggle('expanded')">
+  <div class="lcard-header">
+    <div class="tgl" onclick="event.stopPropagation();this.classList.toggle('on')"></div>
+    <div class="lcard-name">Ready Airman Training (RAT)</div>
+    <span class="lcard-cite-pill">DAFMAN 36-2655</span>
+    <span class="lcard-chevron">&#9662;</span>
+  </div>
+  <div class="lcard-body">
+    <div class="lcard-content">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates — same session, no separate event.</div>
+  </div>
+</div>
+
+<div class="lcard" onclick="this.classList.toggle('expanded')">
+  <div class="lcard-header">
+    <div class="tgl" onclick="event.stopPropagation();this.classList.toggle('on')"></div>
+    <div class="lcard-name">Deployment Familiarization — Perishable Skills</div>
+    <span class="lcard-cite-pill">AFFORGEN</span>
+    <span class="lcard-chevron">&#9662;</span>
+  </div>
+  <div class="lcard-body">
+    <div class="lcard-content">AFSFC leadership has identified the core gap: Airmen don't touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills.</div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== OPTION C ==================== -->
+<div class="option-wrap">
+<div class="option-label">Option C — Simple Grid Card (all content visible, scannable)</div>
+<div class="ez-header">
+  <div class="ez-title">What Else Touches These Same Airmen?</div>
+  <div class="ez-sub">Adjacent mandates that apply to the same personnel — same platform, same evidence pipeline.</div>
+</div>
+
+<div class="sgrid">
+  <div class="scard">
+    <div class="scard-top">
+      <div class="scard-name">CATM Qualification — Small Arms & Crew-Served</div>
+      <div class="tgl on" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="scard-cite">AFI 36-2654 / DAFMAN 36-2655</div>
+    <div class="scard-body">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight — scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF.</div>
+  </div>
+  <div class="scard">
+    <div class="scard-top">
+      <div class="scard-name">Ready Airman Training (RAT)</div>
+      <div class="tgl" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="scard-cite">DAFMAN 36-2655 / HAF A3T / RAT Council</div>
+    <div class="scard-body">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates — same session, no separate event.</div>
+  </div>
+  <div class="scard">
+    <div class="scard-top">
+      <div class="scard-name">Deployment Familiarization — Perishable Skills</div>
+      <div class="tgl" onclick="this.classList.toggle('on')"></div>
+    </div>
+    <div class="scard-cite">AFFORGEN / Expeditionary Readiness</div>
+    <div class="scard-body">AFSFC leadership has identified the core gap: Airmen don't touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills.</div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>
