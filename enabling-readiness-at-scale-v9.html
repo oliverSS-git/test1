@@ -162,19 +162,22 @@ body.full-suite .full-branch{display:block}
 .expansion-header{background:rgba(94,110,42,0.06);padding:20px 28px;border-bottom:1px solid var(--border)}
 .expansion-title{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:4px}
 .expansion-sub{font-size:16px;color:var(--muted);font-style:italic}
-/* .exp-prompt removed in v9 */
-.exp-row{display:flex;align-items:flex-start;gap:16px;padding:18px 28px;border-bottom:1px solid var(--border);transition:background 0.1s;cursor:pointer;user-select:none}
-.exp-row:last-child{border-bottom:none}
-.exp-row:hover{background:rgba(46,61,26,0.02)}
+/* ===== ADJACENT MANDATES: LAYER CARDS (v9) ===== */
 .tgl{width:42px;height:23px;border-radius:12px;background:var(--border);position:relative;flex-shrink:0;transition:background 0.2s;cursor:pointer;margin-top:2px}
 .tgl::after{content:'';position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:#fff;transition:transform 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.12)}
-.exp-row.on .tgl{background:var(--green)}
-.exp-row.on .tgl::after{transform:translateX(19px)}
-.exp-content{flex:1}
-.exp-name{font-size:18px;font-weight:600;margin-bottom:2px}
-.exp-cite{font-size:14px;color:var(--muted);font-family:'Consolas','Courier New',monospace;margin-bottom:4px}
-.exp-detail{font-size:16px;color:var(--muted);line-height:1.5}
-/* .exp-hook removed in v9 */
+.tgl.on{background:var(--green)}
+.tgl.on::after{transform:translateX(19px)}
+.lcard{border:1px solid var(--border);border-left:3px solid var(--olive);border-radius:8px;margin-bottom:10px;overflow:hidden;background:var(--surface);transition:border-color 0.12s}
+.lcard:hover{border-color:#a8a490}
+.lcard-header{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;user-select:none;transition:background 0.12s}
+.lcard-header:hover{background:var(--surface2)}
+.lcard-name{font-size:18px;font-weight:600;flex:1}
+.lcard-cite-pill{font-size:11px;font-weight:600;padding:3px 10px;border-radius:4px;background:rgba(46,61,26,0.06);color:var(--olive);border:1px solid rgba(46,61,26,0.12);font-family:'Consolas','Courier New',monospace;white-space:nowrap}
+.lcard-chevron{font-size:16px;color:var(--muted);transition:transform 0.2s}
+.lcard.lcard-expanded .lcard-chevron{transform:rotate(180deg)}
+.lcard-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
+.lcard.lcard-expanded .lcard-body{max-height:400px}
+.lcard-content{padding:0 20px 18px 76px;font-size:16px;color:var(--muted);line-height:1.55;border-top:1px solid var(--border);padding-top:14px}
 
 /* ===== ALIGNMENT STATEMENT ===== */
 .stmt-zone{margin-top:36px}
@@ -721,82 +724,90 @@ tr:hover .remove-row-btn{opacity:1}
       <!-- EXPANSION ZONE -->
       <div class="section-divider"><span>Adjacent Mandates</span></div>
 
-      <div class="expansion-zone">
-        <div class="expansion-header">
+      <div class="expansion-zone" style="border:none;background:transparent">
+        <div class="expansion-header" style="background:transparent;border:none;padding:0 0 16px">
           <div class="expansion-title">What Else Touches These Same Airmen?</div>
           <div class="expansion-sub">Adjacent mandates that apply to the same personnel &mdash; same platform, same evidence pipeline.</div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="CATM Qualification (AFI 36-2654)">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">CATM Qualification &mdash; Small Arms &amp; Crew-Served</div>
-            <div class="exp-cite">AFI 36-2654 / DAFMAN 36-2655</div>
-            <div class="exp-detail">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight &mdash; scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF. M320 sustainment is an identified near-term gap.</div>
+        <div class="lcard" data-ix="CATM Qualification (AFI 36-2654)">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">CATM Qualification &mdash; Small Arms &amp; Crew-Served</div>
+            <span class="lcard-cite-pill">AFI 36-2654</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight &mdash; scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF. M320 sustainment is an identified near-term gap.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="Ready Airman Training (DAFMAN 36-2655 / HAF A3T)">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">Ready Airman Training (RAT)</div>
-            <div class="exp-cite">DAFMAN 36-2655 / HAF A3T / RAT Council</div>
-            <div class="exp-detail">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates &mdash; same session, no separate event.</div>
+        <div class="lcard" data-ix="Ready Airman Training (DAFMAN 36-2655 / HAF A3T)">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">Ready Airman Training (RAT)</div>
+            <span class="lcard-cite-pill">DAFMAN 36-2655</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates &mdash; same session, no separate event.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="Deployment Familiarization &mdash; Home Station Reps on Perishable Skills">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">Deployment Familiarization &mdash; Perishable Skills at Home Station</div>
-            <div class="exp-cite">AFFORGEN / Expeditionary Readiness</div>
-            <div class="exp-detail">AFSFC leadership has identified the core gap: Airmen don&rsquo;t touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills &mdash; repeatable proficiency beyond initial familiarization.</div>
+        <div class="lcard" data-ix="Deployment Familiarization &mdash; Home Station Reps on Perishable Skills">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">Deployment Familiarization &mdash; Perishable Skills</div>
+            <span class="lcard-cite-pill">AFFORGEN</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">AFSFC leadership has identified the core gap: Airmen don&rsquo;t touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills &mdash; repeatable proficiency beyond initial familiarization.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="Unit Readiness Reporting (AFI 10-201 / SORTS / DRRS-S)">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">Unit Readiness Reporting</div>
-            <div class="exp-cite">AFI 10-201 / SORTS / DRRS-S</div>
-            <div class="exp-detail">AFI 10-201 requires measurable readiness &mdash; but most C-UAS training today proves attendance, not capability. The Evidence Engine produces structured session records mapped to standards. Output is a readiness proof artifact commanders can defend when asked.</div>
+        <div class="lcard" data-ix="Unit Readiness Reporting (AFI 10-201 / SORTS / DRRS-S)">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">Unit Readiness Reporting</div>
+            <span class="lcard-cite-pill">AFI 10-201</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">AFI 10-201 requires measurable readiness &mdash; but most C-UAS training today proves attendance, not capability. The Evidence Engine produces structured session records mapped to standards. Output is a readiness proof artifact commanders can defend when asked.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="VTS Validation (AFSFC / CADMS)">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">VTS Validation &mdash; Institutional Acceptance Pathway</div>
-            <div class="exp-cite">AFSFC / CADMS &middot; AETC / A3X Credentialing</div>
-            <div class="exp-detail">AFSFC is the requirements owner and VTS validation authority via CADMS. AETC/A3X owns the credentialing and accreditation pathway. The objective isn&rsquo;t just technical performance &mdash; it&rsquo;s institutional acceptance. Training that &ldquo;counts&rdquo; flows through these gates.</div>
+        <div class="lcard" data-ix="VTS Validation (AFSFC / CADMS)">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">VTS Validation &mdash; Institutional Acceptance Pathway</div>
+            <span class="lcard-cite-pill">AFSFC / CADMS</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">AFSFC is the requirements owner and VTS validation authority via CADMS. AETC/A3X owns the credentialing and accreditation pathway. The objective isn&rsquo;t just technical performance &mdash; it&rsquo;s institutional acceptance. Training that &ldquo;counts&rdquo; flows through these gates.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="Use-of-Force / Non-Lethal Weapons (AFI 31-118)">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">Use-of-Force / Non-Lethal Weapons</div>
-            <div class="exp-cite">AFI 31-118 / Force Continuum</div>
-            <div class="exp-detail">SF units with LE missions rarely get consistent force-continuum reps between NLW certification cycles. Baton, OC, CEW measurement architecture fielded across Ontario law enforcement services &mdash; same structural approach applicable to home-station SF missions. No separate procurement.</div>
+        <div class="lcard" data-ix="Use-of-Force / Non-Lethal Weapons (AFI 31-118)">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">Use-of-Force / Non-Lethal Weapons</div>
+            <span class="lcard-cite-pill">AFI 31-118</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">SF units with LE missions rarely get consistent force-continuum reps between NLW certification cycles. Baton, OC, CEW measurement architecture fielded across Ontario law enforcement services &mdash; same structural approach applicable to home-station SF missions. No separate procurement.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="M320 Grenade Launcher Sustainment">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">M320 Grenade Launcher &mdash; Sustainment &amp; Procedural Proficiency</div>
-            <div class="exp-cite">AF Simulator Requirement / AFSFC Priority</div>
-            <div class="exp-detail">M320 is in the AF weapon family and explicitly included in the simulator requirement. Already identified as an AFSFC near-term priority alongside C-UAS. The requirement is repeatable procedural proficiency beyond initial familiarization. Same platform, same evidence pipeline.</div>
+        <div class="lcard" data-ix="M320 Grenade Launcher Sustainment">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">M320 Grenade Launcher &mdash; Sustainment &amp; Procedural Proficiency</div>
+            <span class="lcard-cite-pill">AFSFC Priority</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">M320 is in the AF weapon family and explicitly included in the simulator requirement. Already identified as an AFSFC near-term priority alongside C-UAS. The requirement is repeatable procedural proficiency beyond initial familiarization. Same platform, same evidence pipeline.</div></div>
         </div>
 
-        <div class="exp-row" onclick="toggleExp(this)" data-ix="Tactical Communications Proficiency">
-          <div class="tgl"></div>
-          <div class="exp-content">
-            <div class="exp-name">Tactical Communications &mdash; Radio &amp; SALUTE Reporting</div>
-            <div class="exp-cite">AFSFC Priority / Deployment Readiness</div>
-            <div class="exp-detail">Surfaced repeatedly in AFSFC calls as a priority between C-UAS and M320. Radio procedures, SALUTE reporting, dispatch coordination &mdash; all scored within the same scenario environment. Comms proficiency is already a measured behavior in the C-UAS kill chain; extending it to standalone comms training is configuration, not new development.</div>
+        <div class="lcard" data-ix="Tactical Communications Proficiency">
+          <div class="lcard-header" onclick="toggleLcard(this.parentElement)">
+            <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
+            <div class="lcard-name">Tactical Communications &mdash; Radio &amp; SALUTE Reporting</div>
+            <span class="lcard-cite-pill">Deployment Readiness</span>
+            <span class="lcard-chevron">&#9662;</span>
           </div>
+          <div class="lcard-body"><div class="lcard-content">Surfaced repeatedly in AFSFC calls as a priority between C-UAS and M320. Radio procedures, SALUTE reporting, dispatch coordination &mdash; all scored within the same scenario environment. Comms proficiency is already a measured behavior in the C-UAS kill chain; extending it to standalone comms training is configuration, not new development.</div></div>
         </div>
       </div>
         </div></div>
@@ -2351,8 +2362,9 @@ function renumberCards(){document.querySelectorAll('[data-doccard]').forEach(fun
 var cardCount=5;
 function addDocCard(){cardCount++;var html='<div class="dcard" data-doccard><div class="dcard-top"><div class="dcard-left"><div class="dcard-num"><span>Document '+cardCount+'</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div><div class="ed-doc big ph" contenteditable="true" data-doc oninput="updateStmt()" onfocus="clrPh(this)">Name the document\u2026</div><div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Pub #</div><div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office</div></div><div class="dcard-right"><div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div><div class="fl">Change Authority</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">\u2014</div><div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">\u2014</div></div></div></div><div class="dcard-bottom"><span class="ml">Cadence</span><span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span><span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span></div></div>';var addBtn=document.querySelector('.add-card');addBtn.insertAdjacentHTML('beforebegin',html);save()}
 
-/* EXPANSION ZONE */
-function toggleExp(el){el.classList.toggle('on');updateStmt();save()}
+/* LAYER CARDS (Adjacent Mandates) */
+function toggleLcard(el){el.classList.toggle('lcard-expanded');save()}
+function toggleExp(tgl){tgl.classList.toggle('on');updateStmt();save()}
 
 /* ALIGNMENT STATEMENT */
 function updateStmt(){
@@ -2364,7 +2376,7 @@ function updateStmt(){
   var ds=document.getElementById('slot-docs');
   if(ds){if(docs.length>0){ds.textContent=docs.join(', ');ds.classList.remove('empty')}else{ds.textContent='no governing documents captured yet';ds.classList.add('empty')}}
   var ixs=[];
-  document.querySelectorAll('.exp-row.on').forEach(function(el){ixs.push(el.getAttribute('data-ix'))});
+  document.querySelectorAll('.lcard').forEach(function(el){var t=el.querySelector('.tgl');if(t&&t.classList.contains('on'))ixs.push(el.getAttribute('data-ix'))});
   var ixB=document.getElementById('ix-block'),ixS=document.getElementById('slot-ix');
   if(ixB&&ixS){if(ixs.length>0){ixB.style.display='';ixS.textContent=ixs.join('; ');ixS.classList.remove('empty')}else{ixB.style.display='none'}}
 }
@@ -2529,8 +2541,8 @@ function save(){try{
     var access='';var ac=card.querySelector('.achip');if(ac){access=ac.textContent}
     st.docCards.push({fields:fields,cadence:cadence,access:access});
   });
-  /* Expansion toggles */
-  document.querySelectorAll('.exp-row').forEach(function(r){st.expRows.push(r.classList.contains('on'))});
+  /* Expansion toggles (layer cards) */
+  document.querySelectorAll('.lcard').forEach(function(r){var t=r.querySelector('.tgl');st.expRows.push(t&&t.classList.contains('on'))});
   /* Alignment statement access date */
   var sa=document.getElementById('slot-access');if(sa)st.slotAccess=sa.textContent.trim();
   /* Sub-accordion state */
@@ -2580,8 +2592,8 @@ function load(){try{
       if(dc.access){var ac=cards[i].querySelector('.achip');if(ac){ac.textContent=dc.access;ac.className='achip';var st2=aStates.find(function(s){return s.t===dc.access});if(st2&&st2.c)ac.classList.add(st2.c)}}
     });
   }
-  /* Expansion toggles */
-  if(st.expRows){document.querySelectorAll('.exp-row').forEach(function(r,i){if(st.expRows[i])r.classList.add('on');else r.classList.remove('on')})}
+  /* Expansion toggles (layer cards) */
+  if(st.expRows){document.querySelectorAll('.lcard').forEach(function(r,i){var t=r.querySelector('.tgl');if(t){if(st.expRows[i])t.classList.add('on');else t.classList.remove('on')}})}
   /* Alignment statement access date */
   if(st.slotAccess){var sa=document.getElementById('slot-access');if(sa)sa.textContent=st.slotAccess}
   /* Sub-accordion state */
