@@ -422,6 +422,33 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 .sub-content{padding:20px 24px;border-top:1px solid var(--border)}
 .sub-body .panel{margin-bottom:20px}
 
+/* ===== KANBAN BOARD (Section 03 AFSFC pane) ===== */
+.f-board{display:grid;grid-template-columns:1fr 1fr 1.1fr;gap:18px;align-items:start;margin-top:8px}
+.f-col{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:18px 18px;min-height:520px}
+.f-col-derived{background:linear-gradient(to bottom,rgba(29,158,117,0.05),var(--surface2));border-color:rgba(29,158,117,0.4)}
+.f-col-hdr{display:flex;align-items:center;gap:12px;padding:4px 4px 16px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.f-col-num{font-size:14px;font-weight:700;color:var(--olive);letter-spacing:0.1em;padding:4px 11px;background:var(--surface);border-radius:4px}
+.f-col-derived .f-col-num{color:#1D9E75;background:rgba(29,158,117,0.12)}
+.f-col-title{font-size:18px;font-weight:700}
+.f-col-title em{color:#1D9E75;font-style:normal;font-weight:700}
+.f-col-arrow{margin-left:auto;font-size:16px;color:var(--muted)}
+.f-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:12px;transition:all 0.12s}
+.f-card:hover{border-color:var(--olive);transform:translateY(-1px);box-shadow:0 4px 10px -4px rgba(0,0,0,0.08)}
+.f-col-derived .f-card{border-color:rgba(29,158,117,0.25)}
+.f-col-derived .f-card:hover{border-color:#1D9E75}
+.f-card-lbl{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:6px}
+.f-col-derived .f-card-lbl{color:#1D9E75}
+.f-card-val{font-size:16px;color:var(--text);line-height:1.5;padding:2px 6px;margin:-2px -6px;border-radius:4px;cursor:text;transition:background 0.12s;min-height:24px}
+.f-card-val:hover{background:rgba(46,61,26,0.06)}
+.f-card-val:focus-visible,.f-card-val.editing{background:var(--bg);box-shadow:inset 0 0 0 2px var(--accent);outline:none}
+.f-card-val strong{color:var(--accent);font-weight:700}
+.f-divider{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;padding:10px 4px 8px;border-top:1px dashed var(--border);margin-top:8px}
+.f-col-derived .f-divider{color:#1D9E75}
+.f-card-note{background:transparent;border:1px dashed var(--border)}
+.f-card-note .f-card-val{font-size:14px;color:var(--muted);font-style:italic}
+.f-layer{font-size:13px;color:var(--muted);font-style:italic;margin-top:16px;padding:14px 16px;background:rgba(29,158,117,0.05);border-radius:7px;border-left:3px solid #1D9E75;line-height:1.6}
+.f-layer strong{color:#1D9E75;font-style:normal;font-weight:700}
+
 /* ===== ROW CONTROLS (Section 02 editable tables) ===== */
 .remove-row-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-size:14px;cursor:pointer;transition:all 0.12s;font-family:var(--font);display:flex;align-items:center;justify-content:center;opacity:0}
 tr:hover .remove-row-btn{opacity:1}
@@ -1466,62 +1493,51 @@ tr:hover .remove-row-btn{opacity:1}
     <div class="pane active" data-inst="afsfc">
       <div class="s3-case"><div class="s3-case-title">AFSFC &mdash; ICST C-UAS</div><div class="s3-case-sub">Shotgun configuration scoping &middot; C-UAS entry point</div></div>
 
-      <!-- 3a ENVIRONMENTS & CONDITIONS -->
-      <div class="sub-section" id="sub-3a-afsfc" data-sub="3a-afsfc">
-        <div class="sub-header" onclick="togSub('3a-afsfc')">
-          <span class="sub-num">3a</span><span>Environments &amp; Conditions</span><span class="sub-chevron">&#9662;</span>
+      <!-- KANBAN BOARD: 3a / 3b / 3c -->
+      <div class="f-board">
+
+        <!-- 3a Environments & Conditions -->
+        <div class="f-col">
+          <div class="f-col-hdr"><span class="f-col-num">3a</span><span class="f-col-title">Environments &amp; Conditions</span><span class="f-col-arrow">&rarr;</span></div>
+          <div class="f-card"><div class="f-card-lbl">Environments</div><div class="f-card-val ed" data-key="c-env-sg" tabindex="0">Day/Night &middot; Open/Urban</div></div>
+          <div class="f-card"><div class="f-card-lbl">Lighting</div><div class="f-card-val ed" data-key="c-env-light" tabindex="0">Day &middot; Civil twilight &middot; Night (unaided + NVG)</div></div>
+          <div class="f-card"><div class="f-card-lbl">Weather / Visibility</div><div class="f-card-val ed" data-key="c-env-wx" tabindex="0">Clear &middot; Rain &middot; Fog &middot; Dust &mdash; degraded visibility stresses detection cues</div></div>
+          <div class="f-card"><div class="f-card-lbl">Geography</div><div class="f-card-val ed" data-key="c-env-geo" tabindex="0">CONUS installation perimeter &middot; OCONUS austere &middot; Flight line &middot; ECP / gate &middot; IBD sector</div></div>
         </div>
-        <div class="sub-body"><div class="sub-content">
-          <table class="dtable"><tbody>
-            <tr><td class="rlabel">Environments</td><td class="ed" data-key="c-env-sg" tabindex="0">Day/Night &middot; Open/Urban</td></tr>
-            <tr><td class="rlabel">Lighting</td><td class="ed" data-key="c-env-light" tabindex="0">Day &middot; Civil twilight &middot; Night (unaided + NVG)</td></tr>
-            <tr><td class="rlabel">Weather / visibility</td><td class="ed" data-key="c-env-wx" tabindex="0">Clear &middot; Rain &middot; Fog &middot; Dust &mdash; degraded visibility stresses detection cues</td></tr>
-            <tr><td class="rlabel">Geography</td><td class="ed" data-key="c-env-geo" tabindex="0">CONUS installation perimeter &middot; OCONUS austere &middot; Flight line &middot; ECP / gate &middot; IBD sector</td></tr>
-          </tbody></table>
-        </div></div>
+
+        <!-- 3b Content Pack -->
+        <div class="f-col">
+          <div class="f-col-hdr"><span class="f-col-num">3b</span><span class="f-col-title">Content Pack</span><span class="f-col-arrow">&rarr;</span></div>
+          <div class="f-card"><div class="f-card-lbl">Pack</div><div class="f-card-val ed" data-key="c-pack-name" tabindex="0"><strong>ICST C-UAS Pack v1</strong> &mdash; scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the upstream configuration.</div></div>
+          <div class="f-card"><div class="f-card-lbl">Scenarios Included</div><div class="f-card-val ed" data-key="c-pack-scen" tabindex="0">Six-stage progression &times; day/night &times; single-target and swarm variants</div></div>
+          <div class="f-card"><div class="f-card-lbl">NPC Library</div><div class="f-card-val ed" data-key="c-pack-npc" tabindex="0">Group 1 &amp; Group 2 sUAS behaviors &middot; VACR-profiled targets &middot; civilians / OCP-uniformed friendlies for ROE gate</div></div>
+          <div class="f-divider">Mapping</div>
+          <div class="f-card f-card-note"><div class="f-card-val">Section 01 doctrine &middot; Section 02 tasks &amp; gates &middot; 3a environments &mdash; one pack, end-to-end.</div></div>
+        </div>
+
+        <!-- 3c Hardware Loadout — Derived -->
+        <div class="f-col f-col-derived">
+          <div class="f-col-hdr"><span class="f-col-num">3c</span><span class="f-col-title">Hardware Loadout &mdash; <em>Derived</em></span></div>
+
+          <div class="f-divider">Readiness sensors</div>
+          <div class="f-card"><div class="f-card-lbl">Option 1</div><div class="f-card-val ed" data-key="c-hw-sg1" tabindex="0">Mossberg 590 replica</div></div>
+          <div class="f-card"><div class="f-card-lbl">Option 2</div><div class="f-card-val ed" data-key="c-hw-sg2" tabindex="0">Remington 870 replica</div></div>
+          <div class="f-card"><div class="f-card-lbl">Option 3</div><div class="f-card-val ed" data-key="c-hw-sg3" tabindex="0">Benelli M4 replica</div></div>
+
+          <div class="f-divider">Platform</div>
+          <div class="f-card"><div class="f-card-lbl">Headset Class</div><div class="f-card-val ed" data-key="c-hw-hmd" tabindex="0">Standalone VR &mdash; on-HMD compute, no tethered workstation, no base-network dependency</div></div>
+          <div class="f-card"><div class="f-card-lbl">Compute</div><div class="f-card-val ed" data-key="c-hw-cpu" tabindex="0">On-HMD &mdash; no tethered workstation required</div></div>
+          <div class="f-card"><div class="f-card-lbl">Kit Config</div><div class="f-card-val ed" data-key="c-hw-kit" tabindex="0">Per-installation kit &middot; qty = squadron count &times; airmen per flight (sized in Section 04)</div></div>
+
+          <div class="f-divider">Why this class</div>
+          <div class="f-card"><div class="f-card-val ed" data-key="c-hw-why" tabindex="0">Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding &mdash; the conditions the upstream configuration implies.</div></div>
+
+          <div class="f-layer"><strong>Layering.</strong> When a second capability &mdash; say M18 pistol sustainment &mdash; is added later, lanes 3a and 3b re-configure. This lane doesn&rsquo;t. Same headset, same compute, same kit. New capability, same boxes.</div>
+        </div>
+
       </div>
 
-      <!-- 3b CONTENT PACK -->
-      <div class="sub-section" id="sub-3b-afsfc" data-sub="3b-afsfc">
-        <div class="sub-header" onclick="togSub('3b-afsfc')">
-          <span class="sub-num">3b</span><span>Content Pack</span><span class="sub-chevron">&#9662;</span>
-        </div>
-        <div class="sub-body"><div class="sub-content">
-          <table class="dtable"><tbody>
-            <tr><td class="rlabel">Pack</td><td class="ed" data-key="c-pack-name" tabindex="0"><strong>ICST C-UAS Pack v1</strong> &mdash; scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the doctrine, tasks, environments, and gates configured upstream.</td></tr>
-            <tr><td class="rlabel">Scenarios included</td><td class="ed" data-key="c-pack-scen" tabindex="0">Six-stage progression &times; day/night &times; single-target and swarm variants</td></tr>
-            <tr><td class="rlabel">NPC library</td><td class="ed" data-key="c-pack-npc" tabindex="0">Group 1 &amp; Group 2 sUAS behaviors &middot; VACR-profiled targets &middot; civilians / OCP-uniformed friendlies for ROE gate</td></tr>
-            <tr><td class="rlabel">Maps to</td><td>Section 01 doctrine &middot; Section 02 tasks &amp; gates &middot; 3a environments &mdash; one pack, end-to-end</td></tr>
-          </tbody></table>
-        </div></div>
-      </div>
-
-      <!-- 3c HARDWARE LOADOUT — DERIVED -->
-      <div class="sub-section" id="sub-3c-afsfc" data-sub="3c-afsfc">
-        <div class="sub-header" onclick="togSub('3c-afsfc')" style="border-left:3px solid #1D9E75">
-          <span class="sub-num" style="color:#1D9E75">3c</span><span>Hardware Loadout &mdash; <em style="color:#1D9E75;font-style:normal">Derived</em></span><span class="sub-chevron">&#9662;</span>
-        </div>
-        <div class="sub-body"><div class="sub-content">
-          <div style="background:rgba(29,158,117,0.06);border:1px solid rgba(29,158,117,0.2);border-left:3px solid #1D9E75;border-radius:8px;padding:14px 20px;font-size:15px;line-height:1.65;margin-bottom:16px">
-            <strong style="color:#1D9E75">Hardware is the last thing configured, not the first.</strong><br>
-            Doctrine, tasks, environments, gates, and pack &mdash; configured upstream &mdash; define the constraints. The kit below is what those constraints produce. Deployment-scale assumptions (how many installations, which theaters, what IT posture) get applied in Section 04 and can shift the specific HMD and kit count, but not the class of solution.
-          </div>
-          <table class="dtable"><tbody>
-            <tr><td class="rlabel">Readiness sensor &mdash; option 1</td><td class="ed" data-key="c-hw-sg1" tabindex="0">Mossberg 590 replica</td></tr>
-            <tr><td class="rlabel">Readiness sensor &mdash; option 2</td><td class="ed" data-key="c-hw-sg2" tabindex="0">Remington 870 replica</td></tr>
-            <tr><td class="rlabel">Readiness sensor &mdash; option 3</td><td class="ed" data-key="c-hw-sg3" tabindex="0">Benelli M4 replica</td></tr>
-            <tr><td class="rlabel">Headset class</td><td class="ed" data-key="c-hw-hmd" tabindex="0">Standalone VR &mdash; on-HMD compute, no tethered workstation, no base-network dependency</td></tr>
-            <tr><td class="rlabel">Compute</td><td class="ed" data-key="c-hw-cpu" tabindex="0">On-HMD &mdash; no tethered workstation required</td></tr>
-            <tr><td class="rlabel">Kit config</td><td class="ed" data-key="c-hw-kit" tabindex="0">Per-installation kit &middot; qty driven by squadron count &times; airmen per flight (sized in Section 04)</td></tr>
-            <tr><td class="rlabel">Why this class of kit</td><td class="ed" data-key="c-hw-why" tabindex="0">Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding &mdash; the conditions the upstream configuration implies.</td></tr>
-          </tbody></table>
-          <div class="s3-note" style="border-left-color:#1D9E75">
-            <strong style="color:#1D9E75">The layering moment.</strong> When a second capability &mdash; say M18 pistol sustainment &mdash; is added later, the upstream cascade re-runs: new doctrine, new tasks, new environments, new gates, new pack. The hardware doesn&rsquo;t. Same headset, same compute, same kit. New capability, same boxes.
-          </div>
-        </div></div>
-      </div>
-
-      <div style="font-size:14px;color:var(--muted);font-style:italic;padding:12px 0 0;opacity:0.7">Showing C-UAS shotgun configuration only &mdash; additional weapon systems and NPC environments can run on the same cascade and the same kit.</div>
+      <div style="font-size:14px;color:var(--muted);font-style:italic;padding:20px 0 0;opacity:0.7">Showing C-UAS shotgun configuration only &mdash; additional weapon systems and NPC environments can run on the same cascade and the same kit.</div>
     </div>
 
     <!-- ICST-RC -->
