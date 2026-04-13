@@ -310,63 +310,63 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 .pill-scoping{background:rgba(122,94,16,0.12);color:var(--amber);border:1px solid rgba(122,94,16,0.35);font-size:10px;padding:1px 8px;letter-spacing:0.08em}
 
 /* ===== SECTION 04 CALCULATOR ===== */
-.calc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:24px}
-.calc-title{font-family:'Consolas','Courier New',monospace;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.calc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:28px 32px;margin-bottom:24px}
+.calc-title{font-family:'Consolas','Courier New',monospace;font-size:14px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
 .panels{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px}
-.panel-label{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.sg{margin-bottom:14px}
+.panel-label{font-family:'Consolas','Courier New',monospace;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.sg{margin-bottom:20px}
 .sg:last-child{margin-bottom:0}
-.sg-label{font-size:11px;font-weight:600;margin-bottom:2px;display:flex;justify-content:space-between;align-items:baseline}
-.sg-label .val{font-family:'Consolas','Courier New',monospace;font-size:18px;font-weight:700;color:var(--accent)}
-.sg-hint{font-size:9px;color:var(--muted);margin-bottom:6px;font-weight:300;line-height:1.3}
-.sg-range{display:flex;justify-content:space-between;font-family:'Consolas','Courier New',monospace;font-size:8px;color:var(--muted);margin-top:3px}
-.calc input[type=range]{width:100%;accent-color:var(--accent);height:5px;cursor:pointer;-webkit-appearance:none;background:var(--border);border-radius:3px;outline:none}
-.calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--accent);cursor:pointer}
+.sg-label{font-size:16px;font-weight:600;margin-bottom:4px;display:flex;justify-content:space-between;align-items:baseline;color:var(--text)}
+.sg-label .val{font-family:'Consolas','Courier New',monospace;font-size:24px;font-weight:700;color:var(--accent)}
+.sg-hint{font-size:13px;color:var(--muted);margin-bottom:10px;font-weight:400;line-height:1.45}
+.sg-range{display:flex;justify-content:space-between;font-family:'Consolas','Courier New',monospace;font-size:12px;color:var(--muted);margin-top:5px}
+.calc input[type=range]{width:100%;accent-color:var(--accent);height:6px;cursor:pointer;-webkit-appearance:none;background:var(--border);border-radius:3px;outline:none}
+.calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer}
 .panel.cost .sg-label .val{color:var(--red)}
 .panel.cost input[type=range]{accent-color:var(--red)}
 .panel.cost input[type=range]::-webkit-slider-thumb{background:var(--red)}
 .divider{height:1px;background:var(--border);margin:20px 0}
-.out-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
-.o{padding:14px;border-radius:8px;border:1px solid var(--border);text-align:center}
-.o-label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px}
-.o-val{font-family:'Consolas','Courier New',monospace;font-size:24px;font-weight:700;line-height:1}
-.o-sub{font-size:9px;color:var(--muted);margin-top:3px}
+.out-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px}
+.o{padding:18px 16px;border-radius:8px;border:1px solid var(--border);text-align:center}
+.o-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px}
+.o-val{font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;line-height:1.05}
+.o-sub{font-size:12px;color:var(--muted);margin-top:5px}
 .o.blue .o-val{color:var(--accent)}.o.green .o-val{color:var(--green)}.o.amber .o-val{color:var(--amber)}.o.red .o-val{color:var(--red)}
 .gap-section{margin-bottom:16px}
-.gap-label{font-size:11px;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:baseline}
-.gap-label .gap-val{font-family:'Consolas','Courier New',monospace;font-weight:700}
-.gap-track{height:28px;border-radius:4px;background:var(--border);position:relative;overflow:hidden;display:flex}
-.gap-filled{height:100%;display:flex;align-items:center;padding:0 8px;transition:width .3s}
-.gap-filled.live{background:var(--red);border-radius:4px 0 0 4px}
+.gap-label{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;justify-content:space-between;align-items:baseline}
+.gap-label .gap-val{font-family:'Consolas','Courier New',monospace;font-weight:700;font-size:18px}
+.gap-track{height:36px;border-radius:5px;background:var(--border);position:relative;overflow:hidden;display:flex}
+.gap-filled{height:100%;display:flex;align-items:center;padding:0 12px;transition:width .3s}
+.gap-filled.live{background:var(--red);border-radius:5px 0 0 5px}
 .gap-filled.icst{background:var(--green)}
-.gap-filled-text{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:700;color:#fff;white-space:nowrap}
+.gap-filled-text{font-family:'Consolas','Courier New',monospace;font-size:13px;font-weight:700;color:#fff;white-space:nowrap}
 .gap-empty{flex:1;display:flex;align-items:center;justify-content:center}
-.gap-empty-text{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:600;color:var(--red)}
-.insight{padding:12px 16px;border-radius:8px;font-size:11px;line-height:1.6;color:var(--muted);margin-bottom:0}
+.gap-empty-text{font-family:'Consolas','Courier New',monospace;font-size:13px;font-weight:700;color:var(--red)}
+.insight{padding:16px 20px;border-radius:8px;font-size:15px;line-height:1.6;color:var(--muted);margin-bottom:0}
 .insight b{color:var(--text)}
 .insight.gap-insight{background:rgba(138,40,24,0.06);border:1px solid rgba(138,40,24,0.12);border-left:3px solid var(--red)}
 .insight.cost-insight{background:rgba(58,110,24,0.06);border:1px solid rgba(58,110,24,0.12);border-left:3px solid var(--green)}
 .gantt-section{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:20px}
-.gantt-hint{font-family:'Consolas','Courier New',monospace;font-size:9px;color:var(--muted);margin-bottom:12px;letter-spacing:0.5px}
+.gantt-hint{font-family:'Consolas','Courier New',monospace;font-size:13px;color:var(--muted);margin-bottom:14px;letter-spacing:0.5px}
 .gantt-area{position:relative;min-width:900px;overflow-x:auto}
 .fy-line{position:absolute;top:0;bottom:0;width:2px;background:var(--red);z-index:20;pointer-events:none}
-.fy-lbl{position:absolute;top:-2px;font-family:'Consolas','Courier New',monospace;font-size:8px;font-weight:700;color:var(--red);letter-spacing:1.5px;z-index:21;background:var(--surface);padding:0 4px;pointer-events:none}
+.fy-lbl{position:absolute;top:-2px;font-family:'Consolas','Courier New',monospace;font-size:12px;font-weight:700;color:var(--red);letter-spacing:1.5px;z-index:21;background:var(--surface);padding:0 6px;pointer-events:none}
 .gridlines{position:absolute;top:0;bottom:0;left:0;right:0;pointer-events:none;z-index:0}
 .gridlines div{position:absolute;top:0;bottom:0;width:1px;background:rgba(0,0,0,0.04)}
 .fy-row{display:grid;grid-template-columns:repeat(12,1fr)}
-.fy-cell{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:700;letter-spacing:2px;text-align:center;padding:4px 0;color:var(--muted);border-bottom:1px solid var(--border)}
-.quarters{display:grid;grid-template-columns:repeat(12,1fr);margin-bottom:8px}
-.qtr{font-family:'Consolas','Courier New',monospace;font-size:9px;font-weight:600;text-align:center;color:var(--muted);letter-spacing:1px;padding:6px 0;border-bottom:1px solid var(--border)}
+.fy-cell{font-family:'Consolas','Courier New',monospace;font-size:13px;font-weight:700;letter-spacing:2px;text-align:center;padding:6px 0;color:var(--muted);border-bottom:1px solid var(--border)}
+.quarters{display:grid;grid-template-columns:repeat(12,1fr);margin-bottom:10px}
+.qtr{font-family:'Consolas','Courier New',monospace;font-size:13px;font-weight:600;text-align:center;color:var(--muted);letter-spacing:1px;padding:8px 0;border-bottom:1px solid var(--border)}
 .phase{margin-bottom:8px;position:relative;min-width:900px}
-.p-bar{position:absolute;height:48px;border-radius:5px;padding:10px 14px;cursor:grab;display:flex;flex-direction:column;justify-content:center;user-select:none;z-index:5;transition:box-shadow .15s}
+.p-bar{position:absolute;height:54px;border-radius:5px;padding:10px 14px;cursor:grab;display:flex;flex-direction:column;justify-content:center;user-select:none;z-index:5;transition:box-shadow .15s}
 .p-bar:hover{box-shadow:0 2px 12px rgba(0,0,0,0.12)}
 .p-bar:active{cursor:grabbing;box-shadow:0 4px 20px rgba(0,0,0,0.18)}
-.p-title{font-size:13px;font-weight:700;white-space:nowrap}
-.p-detail{font-size:10px;font-weight:300;opacity:0.8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.p-title{font-size:16px;font-weight:700;white-space:nowrap}
+.p-detail{font-size:13px;font-weight:400;opacity:0.85;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .resize-r{position:absolute;right:0;top:0;bottom:0;width:8px;cursor:ew-resize}
 .resize-l{position:absolute;left:0;top:0;bottom:0;width:8px;cursor:ew-resize}
 .resize-r:hover,.resize-l:hover{background:rgba(255,255,255,0.15)}
-.gantt-accent{position:absolute;height:20px;border-radius:3px;display:flex;align-items:center;padding:0 10px;font-size:9px;font-weight:600;font-style:italic;cursor:grab;user-select:none;z-index:4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:box-shadow .15s}
+.gantt-accent{position:absolute;height:24px;border-radius:3px;display:flex;align-items:center;padding:0 12px;font-size:12px;font-weight:600;font-style:italic;cursor:grab;user-select:none;z-index:4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:box-shadow .15s}
 .gantt-accent:hover{box-shadow:0 1px 8px rgba(0,0,0,0.1)}
 .gantt-accent:active{cursor:grabbing}
 .p1 .p-bar{background:var(--accent);color:#fff}
@@ -379,23 +379,23 @@ body.full-suite .scope-btn .pill::after{transform:translateX(16px);background:#f
 .p4 .gantt-accent{background:rgba(94,110,42,0.06);border:1px solid rgba(94,110,42,0.15);color:var(--olive)}
 .callout{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:24px 28px;margin-bottom:20px;position:relative;overflow:hidden}
 .callout::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--green),var(--amber))}
-.callout-title{font-family:'Consolas','Courier New',monospace;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.callout-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
-.co{padding:18px 16px;border-radius:8px;text-align:center;position:relative}
+.callout-title{font-family:'Consolas','Courier New',monospace;font-size:14px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.callout-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.co{padding:22px 18px;border-radius:8px;text-align:center;position:relative}
 .co.bl{background:rgba(46,61,26,0.06);border:1px solid rgba(46,61,26,0.12)}
 .co.gn{background:rgba(58,110,24,0.06);border:1px solid rgba(58,110,24,0.12)}
 .co.am{background:rgba(122,94,16,0.06);border:1px solid rgba(122,94,16,0.12)}
-.co-when{font-family:'Consolas','Courier New',monospace;font-size:8px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.co-when{font-family:'Consolas','Courier New',monospace;font-size:12px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:10px}
 .co.bl .co-when{color:var(--accent)}
 .co.gn .co-when{color:var(--green)}
 .co.am .co-when{color:var(--amber)}
-.co-val{font-family:'Consolas','Courier New',monospace;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
+.co-val{font-family:'Consolas','Courier New',monospace;font-size:36px;font-weight:700;line-height:1.05;margin-bottom:6px}
 .co.bl .co-val{color:var(--accent)}
 .co.gn .co-val{color:var(--green)}
 .co.am .co-val{color:var(--amber)}
-.co-label{font-size:10px;font-weight:600;color:var(--text);margin-bottom:2px}
-.co-sub{font-size:9px;color:var(--muted);font-weight:300;line-height:1.3}
-.callout-statement{padding:14px 18px;border-radius:6px;background:rgba(46,61,26,0.06);border-left:3px solid var(--accent);font-size:13px;line-height:1.6;color:var(--text);font-weight:400}
+.co-label{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+.co-sub{font-size:13px;color:var(--muted);font-weight:400;line-height:1.4}
+.callout-statement{padding:18px 22px;border-radius:6px;background:rgba(46,61,26,0.06);border-left:3px solid var(--accent);font-size:16px;line-height:1.6;color:var(--text);font-weight:400}
 .callout-statement b{font-weight:700}
 .callout-statement .num{font-family:'Consolas','Courier New',monospace;font-weight:700;color:var(--accent)}
 .savings-hero{margin:16px 0;border-radius:10px;background:linear-gradient(135deg,#1a3a2a 0%,#0f2818 100%);border:1px solid rgba(42,125,63,0.3);overflow:hidden;position:relative}
@@ -1743,40 +1743,40 @@ tr:hover .remove-row-btn{opacity:1}
         </div>
       </div>
 
-      <div id="cost-breakdown" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 22px;margin-bottom:16px">
-        <div style="font-family:'Consolas','Courier New',monospace;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px">Live-Fire Cost Burden &mdash; Annual at Desired Frequency</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px">
-          <div style="padding:14px 16px;border-radius:6px;border:1px solid var(--border);border-left:3px solid var(--red);background:var(--surface)">
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px">Ammunition</div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-              <span style="font-size:13px;color:var(--muted)">Rounds required</span>
-              <span style="font-family:'Consolas','Courier New',monospace;font-size:15px;font-weight:700;color:var(--red)" id="bd-rounds">500,000</span>
+      <div id="cost-breakdown" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:22px 26px;margin-bottom:18px">
+        <div style="font-family:'Consolas','Courier New',monospace;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:18px">Live-Fire Cost Burden &mdash; Annual at Desired Frequency</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px">
+          <div style="padding:18px 20px;border-radius:7px;border:1px solid var(--border);border-left:3px solid var(--red);background:var(--surface)">
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px">Ammunition</div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-size:16px;color:var(--muted)">Rounds required</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:20px;font-weight:700;color:var(--red)" id="bd-rounds">500,000</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:baseline">
-              <span style="font-size:13px;color:var(--muted)">Annual ammo spend</span>
-              <span style="font-family:'Consolas','Courier New',monospace;font-size:18px;font-weight:700;color:var(--red)" id="bd-ammo-cost">$750K</span>
+              <span style="font-size:16px;color:var(--muted)">Annual ammo spend</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:26px;font-weight:700;color:var(--red)" id="bd-ammo-cost">$750K</span>
             </div>
-            <div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic" id="bd-ammo-math">10,000 airmen &times; 25 rds &times; 2 quals &times; $1.50/rd</div>
+            <div style="font-size:14px;color:var(--muted);margin-top:10px;font-style:italic" id="bd-ammo-math">10,000 airmen &times; 25 rds &times; 2 quals &times; $1.50/rd</div>
           </div>
-          <div style="padding:14px 16px;border-radius:6px;border:1px solid var(--border);border-left:3px solid var(--red);background:var(--surface)">
-            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:6px">Range Operations</div>
-            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-              <span style="font-size:13px;color:var(--muted)">Range days required</span>
-              <span style="font-family:'Consolas','Courier New',monospace;font-size:15px;font-weight:700;color:var(--red)" id="bd-rdays-needed">800</span>
+          <div style="padding:18px 20px;border-radius:7px;border:1px solid var(--border);border-left:3px solid var(--red);background:var(--surface)">
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:10px">Range Operations</div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <span style="font-size:16px;color:var(--muted)">Range days required</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:20px;font-weight:700;color:var(--red)" id="bd-rdays-needed">800</span>
             </div>
             <div style="display:flex;justify-content:space-between;align-items:baseline">
-              <span style="font-size:13px;color:var(--muted)">Annual range ops spend</span>
-              <span style="font-family:'Consolas','Courier New',monospace;font-size:18px;font-weight:700;color:var(--red)" id="bd-range-cost">$2.4M</span>
+              <span style="font-size:16px;color:var(--muted)">Annual range ops spend</span>
+              <span style="font-family:'Consolas','Courier New',monospace;font-size:26px;font-weight:700;color:var(--red)" id="bd-range-cost">$2.4M</span>
             </div>
-            <div style="font-size:11px;color:var(--muted);margin-top:6px;font-style:italic" id="bd-range-math">800 days needed &times; $3,000/day &mdash; 1,200 days available</div>
+            <div style="font-size:14px;color:var(--muted);margin-top:10px;font-style:italic" id="bd-range-math">800 days needed &times; $3,000/day &mdash; 1,200 days available</div>
           </div>
         </div>
-        <div style="padding:16px 18px;border-radius:8px;border:1px solid rgba(196,41,28,0.25);border-top:3px solid var(--red);text-align:center;background:rgba(196,41,28,0.04)">
-          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:6px">Total Annual Live-Fire Burden</div>
-          <div style="font-family:'Consolas','Courier New',monospace;font-size:28px;font-weight:700;color:var(--red)" id="bd-total-live">$3.15M</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px" id="bd-total-note">To qualify <span id="bd-total-airmen">10,000</span> airmen at <span id="bd-total-freq">2</span>&times;/yr &mdash; and none of it produces scored data</div>
+        <div style="padding:20px 22px;border-radius:8px;border:1px solid rgba(196,41,28,0.25);border-top:3px solid var(--red);text-align:center;background:rgba(196,41,28,0.04)">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:8px">Total Annual Live-Fire Burden</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:42px;font-weight:700;color:var(--red);line-height:1.05" id="bd-total-live">$3.15M</div>
+          <div style="font-size:15px;color:var(--muted);margin-top:6px" id="bd-total-note">To qualify <span id="bd-total-airmen">10,000</span> airmen at <span id="bd-total-freq">2</span>&times;/yr &mdash; and none of it produces scored data</div>
         </div>
-        <div style="margin-top:12px;font-size:11px;color:var(--muted);font-style:italic;padding:8px 12px;border-left:2px solid var(--amber);background:rgba(122,94,16,0.04);border-radius:0 4px 4px 0" id="bd-freq-warning"></div>
+        <div style="margin-top:14px;font-size:14px;color:var(--muted);font-style:italic;padding:10px 14px;border-left:2px solid var(--amber);background:rgba(122,94,16,0.04);border-radius:0 4px 4px 0" id="bd-freq-warning"></div>
       </div>
     </div>
   </div></div>
