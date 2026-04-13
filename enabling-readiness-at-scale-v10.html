@@ -1133,37 +1133,76 @@ tr:hover .remove-row-btn{opacity:1}
 
     <!-- AFSFC -->
     <div class="pane active" data-inst="afsfc">
+
+      <!-- 2a LIVE QUALIFICATION COURSE OF FIRE -->
       <div class="sub-section" id="sub-2a-afsfc" data-sub="2a-afsfc">
         <div class="sub-header" onclick="togSub('2a-afsfc')">
-          <span class="sub-num">2a</span><span>Measurable Behaviors</span><span class="sub-chevron">&#9662;</span>
+          <span class="sub-num">2a</span><span>Live Qualification Course of Fire</span><span class="sub-chevron">&#9662;</span>
         </div>
         <div class="sub-body"><div class="sub-content">
-      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">All values are tailorable to your mission. Highlighted cells are recommended discussion points.</p>
-      <table class="dtable" id="afsfc-behaviors"><thead><tr><th>Criteria</th><th class="col-accent">Shotgun</th><th class="col-accent">Dronebuster</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th><th style="width:36px"></th></tr></thead><tbody>
-        <tr><td class="cat" colspan="6" data-stage="detect">Detect / Identify</td></tr>
-        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to detect</td><td class="ed" data-key="d-det-sg" tabindex="0">&le;10s</td><td class="ed" data-key="d-det-db" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-lm" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-cy" tabindex="0">&le;10s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to PID</td><td class="ed" data-key="d-pid-sg" tabindex="0">&le;15s</td><td class="ed" data-key="d-pid-db" tabindex="0">&le;15s</td><td class="ed col-fs" data-key="d-pid-lm" tabindex="0">&le;15s</td><td class="ed col-fs" data-key="d-pid-cy" tabindex="0">&le;15s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">VACR accuracy</td><td class="ed" data-key="d-vacr-sg" tabindex="0">&ge;90%</td><td class="ed" data-key="d-vacr-db" tabindex="0">&ge;90%</td><td class="ed col-fs" data-key="d-vacr-lm" tabindex="0">&ge;90%</td><td class="ed col-fs" data-key="d-vacr-cy" tabindex="0">&ge;90%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('detect',this)">+ Add behavior to Detect / Identify</button></td></tr>
-        <tr><td class="cat" colspan="6" data-stage="track">Track / Report</td></tr>
-        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">Track hold</td><td class="ed" data-key="d-trk-sg" tabindex="0">&ge;5s</td><td class="ed" data-key="d-trk-db" tabindex="0">&ge;5s</td><td class="ed col-fs" data-key="d-trk-lm" tabindex="0">&ge;5s</td><td class="ed col-fs" data-key="d-trk-cy" tabindex="0">&ge;5s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">SALUTE time</td><td class="ed" data-key="d-sal-sg" tabindex="0">&le;30s</td><td class="ed" data-key="d-sal-db" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-lm" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-cy" tabindex="0">&le;30s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('track',this)">+ Add behavior to Track / Report</button></td></tr>
-        <tr><td class="cat" colspan="6" data-stage="engage">Engage / Defeat</td></tr>
-        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="ed" data-key="d-t1e-db" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="na">N/A (EW)</td><td class="ed col-fs" data-key="d-hit-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-hit-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('engage',this)">+ Add behavior to Engage / Defeat</button></td></tr>
-        <tr><td class="cat" colspan="6" data-stage="tactical">Tactical</td></tr>
-        <tr data-behavior-row data-stage="tactical"><td class="rlabel ed" tabindex="0">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td class="ed" data-key="d-roe-db" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-lm" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-cy" tabindex="0">100%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="6"><button class="add-stage-btn" onclick="addBehaviorRow('tactical',this)">+ Add behavior to Tactical</button></td></tr>
+      <p style="font-size:16px;color:var(--muted);margin-bottom:18px;line-height:1.6">Before we define what &ldquo;qualified&rdquo; looks like in the simulator, map the live progression. A C-UAS shotgun-qualified Defender walks through four tables of fire. The simulator mirrors the progression &mdash; Tables 2&ndash;4 all have scored sim equivalents that feed the same evidence pipeline. <strong>This is what we&rsquo;ll build in simulation.</strong></p>
+      <table class="dtable"><thead><tr><th style="width:56px">#</th><th>Name &amp; Purpose</th><th>What&rsquo;s Measured</th><th>Medium</th></tr></thead><tbody>
+        <tr>
+          <td style="font-weight:700;color:var(--accent);text-align:center;font-size:22px">1</td>
+          <td><strong class="ed" data-key="t2-1-name" tabindex="0">Weapons Familiarity</strong><br><span class="ed" data-key="t2-1-purp" tabindex="0" style="color:var(--muted);font-size:16px">Establish operator knowledge before any fire.</span></td>
+          <td class="ed" data-key="t2-1-meas" tabindex="0">Handling &middot; disassembly / reassembly &middot; function check &middot; ammunition familiarization &middot; operator-level written check</td>
+          <td class="ed" data-key="t2-1-med" tabindex="0"><strong>Classroom + hands-on</strong><br><span style="font-size:14px;color:var(--amber);font-style:italic">Not in sim</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--accent);text-align:center;font-size:22px">2</td>
+          <td><strong class="ed" data-key="t2-2-name" tabindex="0">Demonstrate Specific Proficiencies</strong><br><span class="ed" data-key="t2-2-purp" tabindex="0" style="color:var(--muted);font-size:16px">Prove the individual skills that compose the graded qual course.</span></td>
+          <td class="ed" data-key="t2-2-meas" tabindex="0">Mount &middot; ready positions &middot; PID sequence &middot; target transitions &middot; reload &middot; malfunction clearance &middot; ROE decision drills</td>
+          <td class="ed" data-key="t2-2-med" tabindex="0"><strong>Live OR sim</strong><br><span style="font-size:14px;color:var(--green);font-style:italic">Both supported &middot; sim enables unlimited reps</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--accent);text-align:center;font-size:22px">3</td>
+          <td><strong class="ed" data-key="t2-3-name" tabindex="0">Qualification Course &mdash; Rehearsal</strong><br><span class="ed" data-key="t2-3-purp" tabindex="0" style="color:var(--muted);font-size:16px">Walk the graded course as a draft / preview / rehearsal. Not scored for record.</span></td>
+          <td class="ed" data-key="t2-3-meas" tabindex="0">Same course of fire as Table 4, run unscored. Coaching allowed. Unlimited reps to lock in execution.</td>
+          <td class="ed" data-key="t2-3-med" tabindex="0"><strong>Sim ideal</strong><br><span style="font-size:14px;color:var(--green);font-style:italic">Zero ammo &middot; zero range time &middot; instant AAR</span></td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:var(--accent);text-align:center;font-size:22px">4</td>
+          <td><strong class="ed" data-key="t2-4-name" tabindex="0">Graded Qualification</strong><br><span class="ed" data-key="t2-4-purp" tabindex="0" style="color:var(--muted);font-size:16px">Score of record against AFJQS SEI 3CS qual standards.</span></td>
+          <td class="ed" data-key="t2-4-meas" tabindex="0">Detect &le;10s &middot; PID &le;15s &middot; VACR &ge;90% &middot; ROE 100% &middot; engagement outcome &middot; two-target sequence</td>
+          <td class="ed" data-key="t2-4-med" tabindex="0"><strong>Live OR sim</strong><br><span style="font-size:14px;color:var(--green);font-style:italic">Both produce scored evidence &rarr; routes per 2c</span></td>
+        </tr>
+      </tbody></table>
+      <p style="font-size:15px;color:var(--muted);font-style:italic;margin-top:18px;line-height:1.6"><strong style="color:var(--accent);font-style:normal">Where the sim earns its keep:</strong> Table 1 stays classroom. Tables 2&ndash;4 are where the airmen-through-the-system throughput lives &mdash; and where Section 04&rsquo;s live-fire cost savings come from. Table 3 in particular collapses from a once-a-year range event into something a Defender can rehearse weekly.</p>
+        </div></div>
+      </div>
+
+      <!-- 2b MEASURABLE BEHAVIORS (was 2a, Dronebuster column removed) -->
+      <div class="sub-section" id="sub-2b-afsfc" data-sub="2b-afsfc">
+        <div class="sub-header" onclick="togSub('2b-afsfc')">
+          <span class="sub-num">2b</span><span>Measurable Behaviors</span><span class="sub-chevron">&#9662;</span>
+        </div>
+        <div class="sub-body"><div class="sub-content">
+      <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Behaviors that feed each table of fire. All values are tailorable to your mission &mdash; highlighted cells are recommended discussion points.</p>
+      <table class="dtable" id="afsfc-behaviors"><thead><tr><th>Criteria</th><th class="col-accent">Shotgun</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th><th style="width:36px"></th></tr></thead><tbody>
+        <tr><td class="cat" colspan="5" data-stage="detect">Detect / Identify</td></tr>
+        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to detect</td><td class="ed" data-key="d-det-sg" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-lm" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-cy" tabindex="0">&le;10s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to PID</td><td class="ed" data-key="d-pid-sg" tabindex="0">&le;15s</td><td class="ed col-fs" data-key="d-pid-lm" tabindex="0">&le;15s</td><td class="ed col-fs" data-key="d-pid-cy" tabindex="0">&le;15s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">VACR accuracy</td><td class="ed" data-key="d-vacr-sg" tabindex="0">&ge;90%</td><td class="ed col-fs" data-key="d-vacr-lm" tabindex="0">&ge;90%</td><td class="ed col-fs" data-key="d-vacr-cy" tabindex="0">&ge;90%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('detect',this)">+ Add behavior to Detect / Identify</button></td></tr>
+        <tr><td class="cat" colspan="5" data-stage="track">Track / Report</td></tr>
+        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">Track hold</td><td class="ed" data-key="d-trk-sg" tabindex="0">&ge;5s</td><td class="ed col-fs" data-key="d-trk-lm" tabindex="0">&ge;5s</td><td class="ed col-fs" data-key="d-trk-cy" tabindex="0">&ge;5s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">SALUTE time</td><td class="ed" data-key="d-sal-sg" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-lm" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-cy" tabindex="0">&le;30s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('track',this)">+ Add behavior to Track / Report</button></td></tr>
+        <tr><td class="cat" colspan="5" data-stage="engage">Engage / Defeat</td></tr>
+        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-hit-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-hit-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('engage',this)">+ Add behavior to Engage / Defeat</button></td></tr>
+        <tr><td class="cat" colspan="5" data-stage="tactical">Tactical</td></tr>
+        <tr data-behavior-row data-stage="tactical"><td class="rlabel ed" tabindex="0">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-lm" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-cy" tabindex="0">100%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('tactical',this)">+ Add behavior to Tactical</button></td></tr>
       </tbody></table>
         </div></div>
       </div>
 
-      <!-- DATA ROUTING -->
-      <div class="sub-section" id="sub-2b-afsfc" data-sub="2b-afsfc">
-        <div class="sub-header" onclick="togSub('2b-afsfc')">
-          <span class="sub-num">2b</span><span>Data Routing</span><span class="sub-chevron">&#9662;</span>
+      <!-- 2c DATA ROUTING (was 2b) -->
+      <div class="sub-section" id="sub-2c-afsfc" data-sub="2c-afsfc">
+        <div class="sub-header" onclick="togSub('2c-afsfc')">
+          <span class="sub-num">2c</span><span>Data Routing</span><span class="sub-chevron">&#9662;</span>
         </div>
         <div class="sub-body"><div class="sub-content">
       <div class="data-routing">
@@ -2471,7 +2510,6 @@ function addBehaviorRow(stage,btn){
   var k='d-dyn'+bhCtr;
   tr.innerHTML='<td class="rlabel ed" data-key="'+k+'-label" tabindex="0">New behavior</td>'
     +'<td class="ed" data-key="'+k+'-sg" tabindex="0">[Edit]</td>'
-    +'<td class="ed" data-key="'+k+'-db" tabindex="0">[Edit]</td>'
     +'<td class="ed col-fs" data-key="'+k+'-lm" tabindex="0">[Edit]</td>'
     +'<td class="ed col-fs" data-key="'+k+'-cy" tabindex="0">[Edit]</td>'
     +'<td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td>';
