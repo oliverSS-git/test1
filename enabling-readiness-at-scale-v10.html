@@ -507,6 +507,9 @@ tr:hover .remove-row-btn{opacity:1}
 .priority-chip.low{background:rgba(106,106,82,0.1);color:var(--muted);border-color:rgba(106,106,82,0.25)}
 .add-consumer-btn{font-size:15px;font-weight:600;color:var(--muted);cursor:pointer;background:none;border:2px dashed var(--border);border-radius:8px;font-family:var(--font);padding:12px;width:100%;margin-top:12px;transition:all 0.12s}
 .add-consumer-btn:hover{color:var(--accent);border-color:var(--olive);background:rgba(46,61,26,0.02)}
+.rt-reorder{display:flex;flex-direction:column;gap:2px}
+.rt-reorder-btn{width:20px;height:16px;border:1px solid var(--border);border-radius:3px;background:var(--surface2);color:var(--muted);font-size:10px;line-height:14px;text-align:center;cursor:pointer;transition:all 0.12s;font-family:var(--font);padding:0}
+.rt-reorder-btn:hover{border-color:var(--olive);color:var(--accent);background:var(--surface)}
 
 
 /* ===== PROJECTOR / RESPONSIVE ===== */
@@ -533,7 +536,7 @@ tr:hover .remove-row-btn{opacity:1}
   body{font-size:12px;padding-bottom:0}
   .page-header{background:#2e3d1a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .section-body,.sub-body{max-height:none!important} .tab-bar,.recompute,.proof-panel{display:none!important}
-  .remove-row-btn,.remove-btn,.add-row-tr,.add-card,.add-consumer-btn,.lcard-actions,.add-mandate{display:none!important}
+  .remove-row-btn,.remove-btn,.add-row-tr,.add-card,.add-consumer-btn,.lcard-actions,.add-mandate,.rt-reorder{display:none!important}
   .dtable thead th,.dtable tbody td{padding:4px 8px;font-size:10px}
   .section{break-inside:avoid;border:1px solid var(--border)}
   .pane{display:block!important}
@@ -1232,23 +1235,23 @@ tr:hover .remove-row-btn{opacity:1}
         </div>
         <div class="sub-body"><div class="sub-content">
       <p style="font-size:16px;color:var(--muted);margin-bottom:18px">Behaviors that feed each table of fire. All values are tailorable to your mission &mdash; highlighted cells are recommended discussion points.</p>
-      <table class="dtable" id="afsfc-behaviors"><thead><tr><th>Criteria</th><th class="col-accent">Shotgun</th><th class="col-green col-fs">LMAMS</th><th class="col-green col-fs">Coyote</th><th style="width:36px"></th></tr></thead><tbody>
-        <tr><td class="cat" colspan="5" data-stage="detect">Detect / Identify</td></tr>
-        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to detect</td><td class="ed" data-key="d-det-sg" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-lm" tabindex="0">&le;10s</td><td class="ed col-fs" data-key="d-det-cy" tabindex="0">&le;10s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to PID</td><td class="ed" data-key="d-pid-sg" tabindex="0">&le;15s</td><td class="ed col-fs" data-key="d-pid-lm" tabindex="0">&le;15s</td><td class="ed col-fs" data-key="d-pid-cy" tabindex="0">&le;15s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">VACR accuracy</td><td class="ed" data-key="d-vacr-sg" tabindex="0">&ge;90%</td><td class="ed col-fs" data-key="d-vacr-lm" tabindex="0">&ge;90%</td><td class="ed col-fs" data-key="d-vacr-cy" tabindex="0">&ge;90%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('detect',this)">+ Add behavior to Detect / Identify</button></td></tr>
-        <tr><td class="cat" colspan="5" data-stage="track">Track / Report</td></tr>
-        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">Track hold</td><td class="ed" data-key="d-trk-sg" tabindex="0">&ge;5s</td><td class="ed col-fs" data-key="d-trk-lm" tabindex="0">&ge;5s</td><td class="ed col-fs" data-key="d-trk-cy" tabindex="0">&ge;5s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">SALUTE time</td><td class="ed" data-key="d-sal-sg" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-lm" tabindex="0">&le;30s</td><td class="ed col-fs" data-key="d-sal-cy" tabindex="0">&le;30s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('track',this)">+ Add behavior to Track / Report</button></td></tr>
-        <tr><td class="cat" colspan="5" data-stage="engage">Engage / Defeat</td></tr>
-        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-t1e-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-hit-lm" tabindex="0"><span class="discuss">Your target</span></td><td class="ed col-fs" data-key="d-hit-cy" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('engage',this)">+ Add behavior to Engage / Defeat</button></td></tr>
-        <tr><td class="cat" colspan="5" data-stage="tactical">Tactical</td></tr>
-        <tr data-behavior-row data-stage="tactical"><td class="rlabel ed" tabindex="0">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-lm" tabindex="0">100%</td><td class="ed col-fs" data-key="d-roe-cy" tabindex="0">100%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-        <tr class="add-row-tr"><td colspan="5"><button class="add-stage-btn" onclick="addBehaviorRow('tactical',this)">+ Add behavior to Tactical</button></td></tr>
+      <table class="dtable" id="afsfc-behaviors"><thead><tr><th>Behavior</th><th class="col-accent">Target</th><th style="width:36px"></th></tr></thead><tbody>
+        <tr><td class="cat" colspan="3" data-stage="detect">Detect / Identify</td></tr>
+        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to detect</td><td class="ed" data-key="d-det-sg" tabindex="0">&le;10s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">Time to PID</td><td class="ed" data-key="d-pid-sg" tabindex="0">&le;15s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="detect"><td class="rlabel ed" tabindex="0">VACR accuracy</td><td class="ed" data-key="d-vacr-sg" tabindex="0">&ge;90%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="3"><button class="add-stage-btn" onclick="addBehaviorRow('detect',this)">+ Add behavior to Detect / Identify</button></td></tr>
+        <tr><td class="cat" colspan="3" data-stage="track">Track / Report</td></tr>
+        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">Track hold</td><td class="ed" data-key="d-trk-sg" tabindex="0">&ge;5s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="track"><td class="rlabel ed" tabindex="0">SALUTE time</td><td class="ed" data-key="d-sal-sg" tabindex="0">&le;30s</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="3"><button class="add-stage-btn" onclick="addBehaviorRow('track',this)">+ Add behavior to Track / Report</button></td></tr>
+        <tr><td class="cat" colspan="3" data-stage="engage">Engage / Defeat</td></tr>
+        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Time to employ</td><td class="ed" data-key="d-t1e-sg" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr data-behavior-row data-stage="engage"><td class="rlabel ed" tabindex="0">Hit rate</td><td class="ed" data-key="d-hit-sg" tabindex="0"><span class="discuss">Your target</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="3"><button class="add-stage-btn" onclick="addBehaviorRow('engage',this)">+ Add behavior to Engage / Defeat</button></td></tr>
+        <tr><td class="cat" colspan="3" data-stage="tactical">Tactical</td></tr>
+        <tr data-behavior-row data-stage="tactical"><td class="rlabel ed" tabindex="0">ROE compliance</td><td class="ed" data-key="d-roe-sg" tabindex="0">100%</td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+        <tr class="add-row-tr"><td colspan="3"><button class="add-stage-btn" onclick="addBehaviorRow('tactical',this)">+ Add behavior to Tactical</button></td></tr>
       </tbody></table>
         </div></div>
       </div>
@@ -1261,12 +1264,12 @@ tr:hover .remove-row-btn{opacity:1}
         <div class="sub-body"><div class="sub-content">
       <div class="data-routing">
         <div class="data-routing-title">Data Routing &mdash; Who&rsquo;s Watching? Who Wants This Data?</div>
-        <table class="dtable" id="afsfc-routing"><thead><tr><th>Consumer</th><th>What They Want to See</th><th>Frequency</th><th>Priority</th><th style="width:36px"></th></tr></thead>
+        <table class="dtable" id="afsfc-routing"><thead><tr><th>Consumer</th><th>What They Want to See</th><th>Frequency</th><th>Priority</th><th style="width:44px"></th><th style="width:36px"></th></tr></thead>
         <tbody id="afsfc-routing-body">
-          <tr data-routing-row><td class="ed" data-key="rt-c1" tabindex="0">Installation Commander</td><td class="ed" data-key="rt-w1" tabindex="0">Unit-level readiness snapshot &mdash; who&rsquo;s current, who&rsquo;s not</td><td><select class="rt-freq"><option>Daily</option><option>Weekly</option><option selected>Monthly</option><option>Quarterly</option><option>Annually</option><option>TBD</option></select></td><td><span class="priority-chip high" onclick="cyclePri(this)">High</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-          <tr data-routing-row><td class="ed" data-key="rt-c2" tabindex="0">MAJCOM / A4S</td><td class="ed" data-key="rt-w2" tabindex="0">Cross-installation comparison &mdash; readiness trends by region</td><td><select class="rt-freq"><option>Daily</option><option>Weekly</option><option>Monthly</option><option selected>Quarterly</option><option>Annually</option><option>TBD</option></select></td><td><span class="priority-chip med" onclick="cyclePri(this)">Medium</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-          <tr data-routing-row><td class="ed" data-key="rt-c3" tabindex="0">AFSFC HQ</td><td class="ed" data-key="rt-w3" tabindex="0">Enterprise C-UAS readiness posture &mdash; AFI 10-201 reporting artifact</td><td><select class="rt-freq"><option>Daily</option><option>Weekly</option><option>Monthly</option><option selected>Quarterly</option><option>Annually</option><option>TBD</option></select></td><td><span class="priority-chip high" onclick="cyclePri(this)">High</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
-          <tr data-routing-row><td class="ed" data-key="rt-c4" tabindex="0">DRRS-S / Readiness Reporting</td><td class="ed" data-key="rt-w4" tabindex="0">Structured evidence for unit readiness assessments</td><td><select class="rt-freq"><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option selected>Annually</option><option>TBD</option></select></td><td><span class="priority-chip med" onclick="cyclePri(this)">Medium</span></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+          <tr data-routing-row><td class="ed" data-key="rt-c1" tabindex="0">Installation Commander</td><td class="ed" data-key="rt-w1" tabindex="0">Unit-level readiness snapshot &mdash; who&rsquo;s current, who&rsquo;s not</td><td><select class="rt-freq"><option>Immediate</option><option>Real-time</option><option>Daily</option><option>Weekly</option><option selected>Monthly</option><option>Quarterly</option><option>Annually</option><option>TBD</option></select></td><td><span class="priority-chip high" onclick="cyclePri(this)">High</span></td><td><div class="rt-reorder"><button class="rt-reorder-btn" onclick="moveRoutingRow(this,-1)" title="Move up">&#9650;</button><button class="rt-reorder-btn" onclick="moveRoutingRow(this,1)" title="Move down">&#9660;</button></div></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+          <tr data-routing-row><td class="ed" data-key="rt-c2" tabindex="0">MAJCOM / A4S</td><td class="ed" data-key="rt-w2" tabindex="0">Cross-installation comparison &mdash; readiness trends by region</td><td><select class="rt-freq"><option>Immediate</option><option>Real-time</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option selected>Quarterly</option><option>Annually</option><option>TBD</option></select></td><td><span class="priority-chip med" onclick="cyclePri(this)">Medium</span></td><td><div class="rt-reorder"><button class="rt-reorder-btn" onclick="moveRoutingRow(this,-1)" title="Move up">&#9650;</button><button class="rt-reorder-btn" onclick="moveRoutingRow(this,1)" title="Move down">&#9660;</button></div></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+          <tr data-routing-row><td class="ed" data-key="rt-c3" tabindex="0">AFSFC HQ</td><td class="ed" data-key="rt-w3" tabindex="0">Enterprise C-UAS readiness posture &mdash; AFI 10-201 reporting artifact</td><td><select class="rt-freq"><option>Immediate</option><option>Real-time</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option selected>Quarterly</option><option>Annually</option><option>TBD</option></select></td><td><span class="priority-chip high" onclick="cyclePri(this)">High</span></td><td><div class="rt-reorder"><button class="rt-reorder-btn" onclick="moveRoutingRow(this,-1)" title="Move up">&#9650;</button><button class="rt-reorder-btn" onclick="moveRoutingRow(this,1)" title="Move down">&#9660;</button></div></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
+          <tr data-routing-row><td class="ed" data-key="rt-c4" tabindex="0">DRRS-S / Readiness Reporting</td><td class="ed" data-key="rt-w4" tabindex="0">Structured evidence for unit readiness assessments</td><td><select class="rt-freq"><option>Immediate</option><option>Real-time</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option selected>Annually</option><option>TBD</option></select></td><td><span class="priority-chip med" onclick="cyclePri(this)">Medium</span></td><td><div class="rt-reorder"><button class="rt-reorder-btn" onclick="moveRoutingRow(this,-1)" title="Move up">&#9650;</button><button class="rt-reorder-btn" onclick="moveRoutingRow(this,1)" title="Move down">&#9660;</button></div></td><td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td></tr>
         </tbody></table>
         <button class="add-consumer-btn" onclick="addRoutingRow()">+ Add data consumer</button>
       </div>
@@ -1586,48 +1589,55 @@ tr:hover .remove-row-btn{opacity:1}
     <div class="pane active" data-inst="afsfc">
       <div class="s3-case"><div class="s3-case-title">AFSFC &mdash; ICST C-UAS</div><div class="s3-case-sub">Shotgun configuration scoping &middot; C-UAS entry point</div></div>
 
-      <!-- KANBAN BOARD: 3a / 3b / 3c -->
-      <div class="f-board">
-
-        <!-- 3a Environments & Conditions -->
-        <div class="f-col">
-          <div class="f-col-hdr"><span class="f-col-num">3a</span><span class="f-col-title">Environments &amp; Conditions</span><span class="f-col-arrow">&rarr;</span></div>
-          <div class="f-card"><div class="f-card-lbl">Environments</div><div class="f-card-val ed" data-key="c-env-sg" tabindex="0">Day/Night &middot; Open/Urban</div></div>
-          <div class="f-card"><div class="f-card-lbl">Lighting</div><div class="f-card-val ed" data-key="c-env-light" tabindex="0">Day &middot; Civil twilight &middot; Night (unaided + NVG)</div></div>
-          <div class="f-card"><div class="f-card-lbl">Weather / Visibility</div><div class="f-card-val ed" data-key="c-env-wx" tabindex="0">Clear &middot; Rain &middot; Fog &middot; Dust &mdash; degraded visibility stresses detection cues</div></div>
-          <div class="f-card"><div class="f-card-lbl">Geography</div><div class="f-card-val ed" data-key="c-env-geo" tabindex="0">CONUS installation perimeter &middot; OCONUS austere &middot; Flight line &middot; ECP / gate &middot; IBD sector</div></div>
+      <!-- 3a Environments & Conditions -->
+      <div class="sub-section" id="sub-3a-afsfc" data-sub="3a-afsfc">
+        <div class="sub-header" onclick="togSub('3a-afsfc')">
+          <span class="sub-num">3a</span><span>Environments &amp; Conditions</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th>Parameter</th><th class="col-accent">Configuration</th></tr></thead><tbody>
+            <tr><td class="rlabel">Environments</td><td class="ed" data-key="c-env-sg" tabindex="0">Day/Night &middot; Open/Urban</td></tr>
+            <tr><td class="rlabel">Lighting</td><td class="ed" data-key="c-env-light" tabindex="0">Day &middot; Civil twilight &middot; Night (unaided + NVG)</td></tr>
+            <tr><td class="rlabel">Weather / Visibility</td><td class="ed" data-key="c-env-wx" tabindex="0">Clear &middot; Rain &middot; Fog &middot; Dust &mdash; degraded visibility stresses detection cues</td></tr>
+            <tr><td class="rlabel">Geography</td><td class="ed" data-key="c-env-geo" tabindex="0">CONUS installation perimeter &middot; OCONUS austere &middot; Flight line &middot; ECP / gate &middot; IBD sector</td></tr>
+          </tbody></table>
+        </div></div>
+      </div>
 
-        <!-- 3b Content Pack -->
-        <div class="f-col">
-          <div class="f-col-hdr"><span class="f-col-num">3b</span><span class="f-col-title">Content Pack</span><span class="f-col-arrow">&rarr;</span></div>
-          <div class="f-card"><div class="f-card-lbl">Pack</div><div class="f-card-val ed" data-key="c-pack-name" tabindex="0"><strong>ICST C-UAS Pack v1</strong> &mdash; scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the upstream configuration.</div></div>
-          <div class="f-card"><div class="f-card-lbl">Scenarios Included</div><div class="f-card-val ed" data-key="c-pack-scen" tabindex="0">Six-stage progression &times; day/night &times; single-target and swarm variants</div></div>
-          <div class="f-card"><div class="f-card-lbl">NPC Library</div><div class="f-card-val ed" data-key="c-pack-npc" tabindex="0">Group 1 &amp; Group 2 sUAS behaviors &middot; VACR-profiled targets &middot; civilians / OCP-uniformed friendlies for ROE gate</div></div>
-          <div class="f-divider">Mapping</div>
-          <div class="f-card f-card-note"><div class="f-card-val">Section 01 doctrine &middot; Section 02 tasks &amp; gates &middot; 3a environments &mdash; one pack, end-to-end.</div></div>
+      <!-- 3b Content Pack -->
+      <div class="sub-section" id="sub-3b-afsfc" data-sub="3b-afsfc">
+        <div class="sub-header" onclick="togSub('3b-afsfc')">
+          <span class="sub-num">3b</span><span>Content Pack</span><span class="sub-chevron">&#9662;</span>
         </div>
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th>Element</th><th class="col-accent">Configuration</th></tr></thead><tbody>
+            <tr><td class="rlabel">Pack</td><td class="ed" data-key="c-pack-name" tabindex="0"><strong>ICST C-UAS Pack v1</strong> &mdash; scenarios, NPC profiles, environmental variants, and scoring rubrics bundled to the upstream configuration.</td></tr>
+            <tr><td class="rlabel">Scenarios Included</td><td class="ed" data-key="c-pack-scen" tabindex="0">Six-stage progression &times; day/night &times; single-target and swarm variants</td></tr>
+            <tr><td class="rlabel">NPC Library</td><td class="ed" data-key="c-pack-npc" tabindex="0">Group 1 &amp; Group 2 sUAS behaviors &middot; VACR-profiled targets &middot; civilians / OCP-uniformed friendlies for ROE gate</td></tr>
+          </tbody></table>
+          <div class="s3-note" style="margin-top:14px"><strong>Mapping.</strong> Section 01 doctrine &middot; Section 02 tasks &amp; gates &middot; 3a environments &mdash; one pack, end-to-end.</div>
+        </div></div>
+      </div>
 
-        <!-- 3c Hardware Loadout — Derived -->
-        <div class="f-col f-col-derived">
-          <div class="f-col-hdr"><span class="f-col-num">3c</span><span class="f-col-title">Hardware Loadout &mdash; <em>Derived</em></span></div>
-
-          <div class="f-divider">Readiness sensors</div>
-          <div class="f-card"><div class="f-card-lbl">Option 1</div><div class="f-card-val ed" data-key="c-hw-sg1" tabindex="0">Mossberg 590 replica</div></div>
-          <div class="f-card"><div class="f-card-lbl">Option 2</div><div class="f-card-val ed" data-key="c-hw-sg2" tabindex="0">Remington 870 replica</div></div>
-          <div class="f-card"><div class="f-card-lbl">Option 3</div><div class="f-card-val ed" data-key="c-hw-sg3" tabindex="0">Benelli M4 replica</div></div>
-
-          <div class="f-divider">Platform</div>
-          <div class="f-card"><div class="f-card-lbl">Headset Class</div><div class="f-card-val ed" data-key="c-hw-hmd" tabindex="0">Standalone VR &mdash; on-HMD compute, no tethered workstation, no base-network dependency</div></div>
-          <div class="f-card"><div class="f-card-lbl">Compute</div><div class="f-card-val ed" data-key="c-hw-cpu" tabindex="0">On-HMD &mdash; no tethered workstation required</div></div>
-          <div class="f-card"><div class="f-card-lbl">Kit Config</div><div class="f-card-val ed" data-key="c-hw-kit" tabindex="0">Per-installation kit &middot; qty = squadron count &times; airmen per flight (sized in Section 04)</div></div>
-
-          <div class="f-divider">Why this class</div>
-          <div class="f-card"><div class="f-card-val ed" data-key="c-hw-why" tabindex="0">Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding &mdash; the conditions the upstream configuration implies.</div></div>
-
-          <div class="f-layer"><strong>Layering.</strong> When a second capability &mdash; say M18 pistol sustainment &mdash; is added later, lanes 3a and 3b re-configure. This lane doesn&rsquo;t. Same headset, same compute, same kit. New capability, same boxes.</div>
+      <!-- 3c Hardware Loadout -->
+      <div class="sub-section" id="sub-3c-afsfc" data-sub="3c-afsfc">
+        <div class="sub-header" onclick="togSub('3c-afsfc')">
+          <span class="sub-num">3c</span><span>Hardware Loadout &mdash; Derived</span><span class="sub-chevron">&#9662;</span>
         </div>
-
+        <div class="sub-body"><div class="sub-content">
+          <table class="dtable"><thead><tr><th>Component</th><th class="col-accent">Configuration</th></tr></thead><tbody>
+            <tr><td class="cat" colspan="2">Readiness Sensors</td></tr>
+            <tr><td class="rlabel">Option 1</td><td class="ed" data-key="c-hw-sg1" tabindex="0">Mossberg 590 replica</td></tr>
+            <tr><td class="rlabel">Option 2</td><td class="ed" data-key="c-hw-sg2" tabindex="0">Remington 870 replica</td></tr>
+            <tr><td class="rlabel">Option 3</td><td class="ed" data-key="c-hw-sg3" tabindex="0">Benelli M4 replica</td></tr>
+            <tr><td class="cat" colspan="2">Platform</td></tr>
+            <tr><td class="rlabel">Headset Class</td><td class="ed" data-key="c-hw-hmd" tabindex="0">Standalone VR &mdash; on-HMD compute, no tethered workstation, no base-network dependency</td></tr>
+            <tr><td class="rlabel">Compute</td><td class="ed" data-key="c-hw-cpu" tabindex="0">On-HMD &mdash; no tethered workstation required</td></tr>
+            <tr><td class="rlabel">Kit Config</td><td class="ed" data-key="c-hw-kit" tabindex="0">Per-installation kit &middot; qty = squadron count &times; airmen per flight (sized in Section 04)</td></tr>
+          </tbody></table>
+          <div class="s3-note" style="margin-top:14px"><strong>Why this class.</strong> Standalone VR is the class that holds up under austere IT, variable bandwidth, and fast fielding &mdash; the conditions the upstream configuration implies.</div>
+          <div class="s3-note" style="margin-top:8px"><strong>Layering.</strong> When a second capability &mdash; say M18 pistol sustainment &mdash; is added later, 3a and 3b re-configure. This lane doesn&rsquo;t. Same headset, same compute, same kit. New capability, same boxes.</div>
+        </div></div>
       </div>
 
       <div style="font-size:14px;color:var(--muted);font-style:italic;padding:20px 0 0;opacity:0.7">Showing C-UAS shotgun configuration only &mdash; additional weapon systems and NPC environments can run on the same cascade and the same kit.</div>
@@ -2874,6 +2884,7 @@ function addBehaviorRow(stage,btn){
     +'<td class="ed" data-key="'+k+'-sg" tabindex="0">[Edit]</td>'
     +'<td class="ed col-fs" data-key="'+k+'-lm" tabindex="0">[Edit]</td>'
     +'<td class="ed col-fs" data-key="'+k+'-cy" tabindex="0">[Edit]</td>'
+    +'<td><div class="rt-reorder"><button class="rt-reorder-btn" onclick="moveRoutingRow(this,-1)" title="Move up">&#9650;</button><button class="rt-reorder-btn" onclick="moveRoutingRow(this,1)" title="Move down">&#9660;</button></div></td>'
     +'<td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td>';
   /* Insert before the add-row button row */
   var addTr=btn.closest('tr');
@@ -2966,6 +2977,20 @@ function updateCoverageSummary(){
 
 /* DATA ROUTING: add row & priority cycling */
 var rtCtr=100;
+
+/* DATA ROUTING REORDER */
+function moveRoutingRow(btn,dir){
+  var row=btn.closest('tr');
+  var tbody=row.parentElement;
+  if(dir===-1){
+    var prev=row.previousElementSibling;
+    if(prev)tbody.insertBefore(row,prev);
+  }else{
+    var next=row.nextElementSibling;
+    if(next)tbody.insertBefore(next,row);
+  }
+  save();
+}
 function addRoutingRow(){
   rtCtr++;
   var tbody=document.getElementById('afsfc-routing-body');if(!tbody)return;
@@ -2974,8 +2999,9 @@ function addRoutingRow(){
   var k='rt-dyn'+rtCtr;
   tr.innerHTML='<td class="ed" data-key="'+k+'-c" tabindex="0">New consumer</td>'
     +'<td class="ed" data-key="'+k+'-w" tabindex="0">What they need</td>'
-    +'<td><select class="rt-freq"><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option>Annually</option><option selected>TBD</option></select></td>'
+    +'<td><select class="rt-freq"><option>Immediate</option><option>Real-time</option><option>Daily</option><option>Weekly</option><option>Monthly</option><option>Quarterly</option><option>Annually</option><option selected>TBD</option></select></td>'
     +'<td><span class="priority-chip" onclick="cyclePri(this)">TBD</span></td>'
+    +'<td><div class="rt-reorder"><button class="rt-reorder-btn" onclick="moveRoutingRow(this,-1)" title="Move up">&#9650;</button><button class="rt-reorder-btn" onclick="moveRoutingRow(this,1)" title="Move down">&#9660;</button></div></td>'
     +'<td><button class="remove-row-btn" onclick="removeRow(this)">&times;</button></td>';
   tbody.appendChild(tr);
   save();
