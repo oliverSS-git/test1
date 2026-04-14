@@ -11,6 +11,10 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.5;min-height:100vh;padding-bottom:68px}
 
 
+
+/* ===== GATED SECTIONS (05/06 hidden until 04 complete) ===== */
+.section.gated{display:none}
+.section.gated.ungated{display:block}
 /* ===== INSTANCE TABS ===== */
 .inst-tabs{display:flex;gap:4px;align-items:center}
 .inst-tab{font-family:var(--font);font-size:12px;font-weight:600;padding:5px 12px;border-radius:4px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(232,234,212,0.5);cursor:pointer;transition:all 0.15s;letter-spacing:0.03em;white-space:nowrap}
@@ -2183,6 +2187,14 @@ tr:hover .remove-row-btn{opacity:1}
       <button onclick="revealS5()" style="padding:10px 24px;background:var(--accent);color:#e8ead4;border:none;border-radius:6px;font-family:var(--font);font-size:16px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background 0.12s" onmouseover="this.style.background='#3a4e22'" onmouseout="this.style.background='var(--accent)'">Expand Coverage &rarr;</button>
     </div>
 
+
+    <!-- GATE: Unlock sections 05 & 06 -->
+    <div id="gate-04" style="background:var(--surface);border:2px solid var(--accent);border-radius:10px;padding:24px 28px;margin-top:20px;text-align:center">
+      <div style="font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px">Section 04 complete &mdash; configuration, cost model, timeline, and impact are captured.</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:16px">Unlock the expansion catalog and next-steps capture.</div>
+      <button onclick="unlockGated()" style="padding:12px 32px;background:var(--accent);color:#e8ead4;border:none;border-radius:6px;font-family:var(--font);font-size:16px;font-weight:600;cursor:pointer;transition:background 0.12s" onmouseover="this.style.background='#3a4e22'" onmouseout="this.style.background='var(--accent)'">Continue to Expand &amp; Next Steps &rarr;</button>
+    </div>
+
     </div>
 
     <!-- CNIC -->
@@ -2271,7 +2283,7 @@ tr:hover .remove-row-btn{opacity:1}
 
 <!-- SECTION 05: THREAT COVERAGE MATRIX -->
 <div class="main">
-<div class="section" id="s5" data-s="5">
+<div class="section gated" id="s5" data-s="5">
   <div class="section-header" tabindex="0" onclick="tog(5)" onkeydown="if(event.key==='Enter')tog(5)">
     <span class="section-num">05</span>
     <span class="section-title"><span class="verb">Expand</span> the System</span>
@@ -2557,7 +2569,7 @@ tr:hover .remove-row-btn{opacity:1}
 
 <!-- ========== SECTION 06: NEXT STEPS ========== -->
 <div class="main">
-<div class="section" id="s6" data-s="6">
+<div class="section gated" id="s6" data-s="6">
   <div class="section-header" tabindex="0" onclick="tog(6)" onkeydown="if(event.key==='Enter')tog(6)">
     <span class="section-num">06</span>
     <span class="section-title"><span class="verb">Decide</span> &mdash; Next Steps</span>
@@ -2699,6 +2711,17 @@ function toggleScope(){
   calc();save();
 }
 
+
+/* GATE: Unlock sections 05 & 06 */
+function unlockGated(){
+  document.querySelectorAll('.section.gated').forEach(function(s){s.classList.add('ungated')});
+  var gate=document.getElementById('gate-04');
+  if(gate){gate.style.display='none'}
+  /* Scroll to section 05 */
+  var s5=document.getElementById('s5');
+  if(s5){s5.classList.add('expanded');setTimeout(function(){s5.scrollIntoView({behavior:'smooth',block:'start'})},100)}
+  save();
+}
 function revealS5(){
   var s5=document.getElementById('s5');
   s5.classList.remove('s5-hidden');
@@ -2947,7 +2970,7 @@ function addMandate(){
   var html='<div class="lcard" data-ix="">'+
     '<div class="lcard-header" onclick="toggleLcard(this.parentElement)">'+
     '<div class="tgl" onclick="event.stopPropagation();toggleExp(this)"><\/div>'+
-    '<div class="lcard-name"><span contenteditable="true" class="ed-doc big ph" style="border:none;padding:0;background:transparent" onfocus="clrPh(this)" onblur="var lc=this.closest('.lcard');if(lc)lc.setAttribute('data-ix',this.textContent);updateStmt();save()">Name the mandate…<\/span><\/div>'+
+    '<div class="lcard-name"><span contenteditable="true" class="ed-doc big ph" style="border:none;padding:0;background:transparent" onfocus="clrPh(this)" onblur="var lc=this.closest(&quot;.lcard&quot;);if(lc)lc.setAttribute(&quot;data-ix&quot;,this.textContent);updateStmt();save()">Name the mandate…<\/span><\/div>'+
     '<span class="lcard-cite-pill"><span contenteditable="true" class="ph" style="min-width:40px;display:inline-block" onfocus="clrPh(this)">Cite<\/span><\/span>'+
     '<span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;<\/button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;<\/button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;<\/button><\/span>'+
     '<span class="lcard-chevron">&#9662;<\/span>'+
@@ -2969,7 +2992,7 @@ function addNextStep(){
     +'<div class="ns-text ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Describe the decision or action&hellip;</div>'
     +'<div class="ns-owner ed-doc ph" contenteditable="true" style="font-size:14px;max-width:160px" onfocus="clrPh(this)">Owner</div>'
     +'<div class="ns-date ed-doc ph" contenteditable="true" style="font-size:14px;max-width:120px" onfocus="clrPh(this)">By when</div>'
-    +'<button class="lcard-btn del" onclick="this.closest(\'.ns-item\').remove();save()" style="opacity:1">&times;</button>'
+    +'<button class="lcard-btn del" onclick="this.closest(&quot;.ns-item&quot;).remove();save()" style="opacity:1">&times;</button>'
     +'</div>';
   list.insertAdjacentHTML('beforeend',html);
   save();
@@ -3162,7 +3185,7 @@ var SK='ers-v9';
 function save(){var _sf=document.getElementById('saveFlash');if(_sf){_sf.classList.add('show');clearTimeout(window._sfT);window._sfT=setTimeout(function(){_sf.classList.remove('show')},1200)}
   try{
   var s5el=document.getElementById('s5');
-  var st={inst:inst,scope:scope,s5Revealed:s5el&&!s5el.classList.contains('s5-hidden'),cells:{},exp:[],docCards:[],expRows:[]};
+  var st={inst:inst,scope:scope,s5Revealed:s5el&&!s5el.classList.contains('s5-hidden'),gateUnlocked:document.querySelector('.section.gated.ungated')!==null,cells:{},exp:[],docCards:[],expRows:[]};
   /* Table cells (Sections 02-04) */
   document.querySelectorAll('.ed').forEach(function(c){if(c.dataset.key)st.cells[c.dataset.key]=c.textContent.trim()});
   /* Expanded sections */
@@ -3209,7 +3232,7 @@ function load(){try{
   /* Scope */
   if(st.scope==='full'){scope='full';document.body.classList.add('full-suite');}
   /* S5 visibility */
-  if(st.s5Revealed){var s5el=document.getElementById('s5');if(s5el){s5el.classList.remove('s5-hidden');var cta=document.getElementById('expand-cta');if(cta)cta.style.display='none';}}
+  if(st.s5Revealed||st.gateUnlocked){document.querySelectorAll('.section.gated').forEach(function(s){s.classList.add('ungated')});var gate=document.getElementById('gate-04');if(gate)gate.style.display='none';}
   /* Instance */
   if(st.inst)switchInst(st.inst);
   /* Expanded sections */
@@ -3247,11 +3270,11 @@ function xport(){
   var mode=confirm('Print summary (OK) or full detail (Cancel)?');
   if(mode){
     /* Summary: show section headers + alignment statements + section 4d + section 6 */
-    document.querySelectorAll('.section').forEach(function(s){s.classList.add('expanded')});
+    document.querySelectorAll('.section').forEach(function(s){s.classList.add('expanded');s.classList.add('ungated')});
     document.body.classList.add('print-summary');
     setTimeout(function(){window.print();document.body.classList.remove('print-summary')},100);
   }else{
-    document.querySelectorAll('.section').forEach(function(s){s.classList.add('expanded')});
+    document.querySelectorAll('.section').forEach(function(s){s.classList.add('expanded');s.classList.add('ungated')});
     document.querySelectorAll('.sub-section').forEach(function(s){s.classList.add('sub-expanded')});
     setTimeout(function(){window.print()},100);
   }
