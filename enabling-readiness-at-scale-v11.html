@@ -255,6 +255,11 @@ body.full-suite .full-branch{display:block}
 .cap-table tbody td{padding:10px 14px;font-size:18px;border-bottom:1px solid var(--border);vertical-align:middle}
 .cap-table tbody tr:last-child td{border-bottom:none}
 .cap-table .cat-row td{background:rgba(94,110,42,0.06);font-size:14px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;border-left:3px solid var(--olive);padding:6px 14px}
+
+.cap-reorder{display:inline-flex;flex-direction:column;gap:1px;vertical-align:middle;margin-right:4px}
+.cap-reorder-btn{width:18px;height:14px;border:1px solid var(--border);border-radius:3px;background:var(--surface2);color:var(--muted);font-size:9px;line-height:12px;text-align:center;cursor:pointer;transition:all 0.12s;font-family:var(--font);padding:0;opacity:0}
+.cap-table tbody tr:hover .cap-reorder-btn{opacity:1}
+.cap-reorder-btn:hover{border-color:var(--olive);color:var(--accent);background:var(--surface)}
 .cap-table .remove-cap{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-size:14px;line-height:22px;text-align:center;cursor:pointer;transition:all 0.12s;opacity:0;font-family:var(--font);display:flex;align-items:center;justify-content:center}
 .cap-table tbody tr:hover .remove-cap{opacity:1}
 .cap-table .remove-cap:hover{background:rgba(138,40,24,0.08);border-color:rgba(138,40,24,0.3);color:var(--red)}
@@ -557,7 +562,7 @@ tr:hover .remove-row-btn{opacity:1}
   body{font-size:12px;padding-bottom:0}
   .page-header{background:#2e3d1a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .section-body,.sub-body{max-height:none!important} .tab-bar,.recompute,.proof-panel{display:none!important}
-  .remove-row-btn,.remove-btn,.add-row-tr,.add-card,.add-consumer-btn,.lcard-actions,.add-mandate,.rt-reorder{display:none!important}
+  .remove-row-btn,.remove-btn,.add-row-tr,.add-card,.add-consumer-btn,.lcard-actions,.add-mandate,.rt-reorder,.cap-reorder{display:none!important}
   .dtable thead th,.dtable tbody td{padding:4px 8px;font-size:10px}
   .section{break-inside:avoid;border:1px solid var(--border)}
   .pane{display:block!important}
@@ -2321,7 +2326,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">V-CSTR EW Protocol</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">SBIR co-dev with AFSFC</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="EW">
                 <td class="ed" tabindex="0">MODI II / Handheld EW</td>
@@ -2329,7 +2334,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">AFSFC TBD</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="EW">
                 <td class="ed" tabindex="0">Additional EW effector</td>
@@ -2337,7 +2342,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">&mdash;</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
 
               <!-- 2. Machineguns (anti-UAS role) -->
@@ -2348,7 +2353,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="MG-CUAS">
                 <td class="ed" tabindex="0">M240 (anti-UAS employment)</td>
@@ -2356,7 +2361,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
                 <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="MG-CUAS">
                 <td class="ed" tabindex="0">M249 (anti-UAS employment)</td>
@@ -2364,7 +2369,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
                 <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
 
               <!-- 3. Radio / Comms / Reporting -->
@@ -2375,7 +2380,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF SF SOP</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">USAF SF units</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="Comms">
                 <td class="ed" tabindex="0">Dispatch / Sector coordination</td>
@@ -2383,7 +2388,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">Installation defense SOP</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">USAF SF units</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="Comms">
                 <td class="ed" tabindex="0">Cross-team command relay</td>
@@ -2391,7 +2396,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">&mdash;</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
 
               <!-- 4. On-Location Training -->
@@ -2402,7 +2407,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">USAF SF units</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="OLT">
                 <td class="ed" tabindex="0">Site-ingested terrain (from survey data)</td>
@@ -2410,7 +2415,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">&mdash;</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="OLT">
                 <td class="ed" tabindex="0">Mobile / expeditionary kit deployment</td>
@@ -2418,7 +2423,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">&mdash;</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
             </tbody>
           </table>
@@ -2448,7 +2453,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">Navy Qualification Standard (transferable to USAF CATM)</td>
                 <td><span class="cred-pill cred-proven" onclick="cycleCredStatus(this)">Commercially Proven</span></td>
                 <td><span class="proof-tag">Navy CNIC (31 installations)</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="SmallArms">
                 <td class="ed" tabindex="0">M4A1 Carbine</td>
@@ -2456,7 +2461,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF Qualification Standard</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">60+ USAF units</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
 
               <!-- 2. M320 GLM -->
@@ -2467,7 +2472,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF CATM standard</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="M320">
                 <td class="ed" tabindex="0">M320 &mdash; area effects (TP / HE variants)</td>
@@ -2475,7 +2480,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF CATM standard</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
 
               <!-- 3. Crew-Served Weapons -->
@@ -2486,7 +2491,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF CATM standard</td>
                 <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="CrewServed">
                 <td class="ed" tabindex="0">M249 SAW (general base defense)</td>
@@ -2494,7 +2499,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF CATM standard</td>
                 <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="CrewServed">
                 <td class="ed" tabindex="0">M2 .50 Cal (general base defense)</td>
@@ -2502,7 +2507,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF CATM standard</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="CrewServed">
                 <td class="ed" tabindex="0">M3 MAAWS</td>
@@ -2510,7 +2515,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">&mdash;</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
 
               <!-- 4. Integrated Base Defense -->
@@ -2521,7 +2526,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">USAF SF units</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="IBD">
                 <td class="ed" tabindex="0">PAR / CBRN &mdash; Post-Attack Recon + chem / bio / rad / nuc</td>
@@ -2529,7 +2534,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF SF / CBRN SOP</td>
                 <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
                 <td><span class="proof-tag">USAF SF units</span></td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="IBD">
                 <td class="ed" tabindex="0">C2 &mdash; Command &amp; Control (sector ownership, decision ladders)</td>
@@ -2537,7 +2542,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF SF SOP</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
               <tr data-cap-row data-cat="IBD">
                 <td class="ed" tabindex="0">RADR &mdash; Rapid Airfield Damage Repair (scenario support)</td>
@@ -2545,7 +2550,7 @@ tr:hover .remove-row-btn{opacity:1}
                 <td class="ed" tabindex="0">USAF contingency-response SOP</td>
                 <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
                 <td>&mdash;</td>
-                <td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
+                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
               </tr>
             </tbody>
           </table>
@@ -3074,6 +3079,23 @@ function cycleCredStatus(el){
   el.className='cred-pill '+next.c;
   updateCoverageSummary();save();
 }
+
+/* CAP TABLE REORDER */
+function moveCapRow(btn,dir){
+  var row=btn.closest('tr');
+  var tbody=row.parentElement;
+  if(dir===-1){
+    var prev=row.previousElementSibling;
+    while(prev&&prev.classList.contains('cat-row'))prev=prev.previousElementSibling;
+    if(prev&&prev.hasAttribute('data-cap-row'))tbody.insertBefore(row,prev);
+  }else{
+    var next=row.nextElementSibling;
+    while(next&&next.classList.contains('cat-row'))next=next.nextElementSibling;
+    if(next&&next.hasAttribute('data-cap-row')){tbody.insertBefore(next,row)}
+  }
+  if(typeof updateCoverageSummary==='function')updateCoverageSummary();
+  save();
+}
 function removeCapRow(btn){
   var tr=btn.closest('[data-cap-row]');if(!tr)return;
   tr.style.opacity='0';tr.style.transition='opacity 0.2s';
@@ -3100,7 +3122,7 @@ function addCapabilityRow(target){
     +'<td class="ed" tabindex="0">&mdash;</td>'
     +'<td><span class="cred-pill cred-needs" onclick="cycleCredStatus(this)">Needs AFSFC Credentialing</span></td>'
     +'<td>&mdash;</td>'
-    +'<td><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>';
+    +'<td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>';
   tbody.appendChild(tr);
   if(typeof updateCoverageSummary==='function')updateCoverageSummary();save();
 }
