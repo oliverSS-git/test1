@@ -1739,10 +1739,89 @@ tr:hover .remove-row-btn{opacity:1}
     <!-- AFSFC -->
     <div class="pane active" data-inst="afsfc">
 
-<!-- ========== SUB-ACCORDION 4a: LIVE-FIRE COST MODEL ========== -->
+<!-- ========== SUB-ACCORDION 4a: DEPLOYMENT & READINESS ========== -->
 <div class="sub-section" id="sub-4a" data-sub="4a">
   <div class="sub-header" onclick="togSub('4a')">
-    <span class="sub-num">4a</span><span>Live-Fire Cost Model</span><span class="sub-chevron">&#9662;</span>
+    <span class="sub-num">4a</span><span>Deployment &amp; Readiness Model</span><span class="sub-chevron">&#9662;</span>
+  </div>
+  <div class="sub-body"><div class="sub-content">
+    <div class="calc" style="border:none;padding:0;margin:0">
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-label">Deployment Scale</div>
+
+        <div class="stp">
+          <div class="stp-title">Installations</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-inst">50</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-inst',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-inst" min="3" max="200" step="1" value="50" oninput="calc();syncPresets('s-inst')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-inst',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-inst" data-val="10" onclick="setInputVal('s-inst',10)">10</button>
+            <button type="button" class="stp-preset active" data-for="s-inst" data-val="50" onclick="setInputVal('s-inst',50)">50</button>
+            <button type="button" class="stp-preset" data-for="s-inst" data-val="100" onclick="setInputVal('s-inst',100)">100</button>
+            <button type="button" class="stp-preset" data-for="s-inst" data-val="200" onclick="setInputVal('s-inst',200)">200</button>
+          </div>
+          <div class="stp-hint">AF installations receiving C-UAS training capability</div>
+        </div>
+
+        <div class="stp">
+          <div class="stp-title">Lanes / Installation</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-lanes">1</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-lanes',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-lanes" min="1" max="4" step="1" value="1" oninput="calc();syncPresets('s-lanes')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-lanes',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset active" data-for="s-lanes" data-val="1" onclick="setInputVal('s-lanes',1)">1</button>
+            <button type="button" class="stp-preset" data-for="s-lanes" data-val="2" onclick="setInputVal('s-lanes',2)">2</button>
+            <button type="button" class="stp-preset" data-for="s-lanes" data-val="3" onclick="setInputVal('s-lanes',3)">3</button>
+            <button type="button" class="stp-preset" data-for="s-lanes" data-val="4" onclick="setInputVal('s-lanes',4)">4</button>
+          </div>
+          <div class="stp-hint">SF only = 1 &middot; IMSC multi-squadron = 2&ndash;4</div>
+        </div>
+
+        <div class="stp">
+          <div class="stp-title">Airmen / Squadron</div>
+          <div class="stp-value-row">
+            <div class="stp-big-val" id="v-airmen">200</div>
+            <div class="stp-ctrls">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-airmen',-1)">&minus;</button>
+              <input type="number" class="stp-num" id="s-airmen" min="100" max="400" step="25" value="200" oninput="calc();syncPresets('s-airmen')">
+              <button type="button" class="stp-btn" onclick="nudgeInput('s-airmen',1)">+</button>
+            </div>
+          </div>
+          <div class="stp-presets">
+            <button type="button" class="stp-preset" data-for="s-airmen" data-val="100" onclick="setInputVal('s-airmen',100)">100</button>
+            <button type="button" class="stp-preset active" data-for="s-airmen" data-val="200" onclick="setInputVal('s-airmen',200)">200</button>
+            <button type="button" class="stp-preset" data-for="s-airmen" data-val="300" onclick="setInputVal('s-airmen',300)">300</button>
+            <button type="button" class="stp-preset" data-for="s-airmen" data-val="400" onclick="setInputVal('s-airmen',400)">400</button>
+          </div>
+          <div class="stp-hint">Varies 100&ndash;400 by installation</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      
+
+      
+
+      <div class="insight gap-insight" id="insight-box"></div>
+    </div>
+  </div></div>
+</div>
+
+<!-- ========== SUB-ACCORDION 4b: LIVE-FIRE COST MODEL ========== -->
+<div class="sub-section" id="sub-4b" data-sub="4b">
+  <div class="sub-header" onclick="togSub('4b')">
+    <span class="sub-num">4b</span><span>Live-Fire Cost Model</span><span class="sub-chevron">&#9662;</span>
   </div>
   <div class="sub-body"><div class="sub-content">
     <div class="calc" style="border:none;padding:0;margin:0">
@@ -1900,117 +1979,16 @@ tr:hover .remove-row-btn{opacity:1}
   </div></div>
 </div>
 
-<!-- ========== SUB-ACCORDION 4b: DEPLOYMENT & READINESS ========== -->
-<div class="sub-section" id="sub-4b" data-sub="4b">
-  <div class="sub-header" onclick="togSub('4b')">
-    <span class="sub-num">4b</span><span>Deployment &amp; Readiness Model</span><span class="sub-chevron">&#9662;</span>
-  </div>
-  <div class="sub-body"><div class="sub-content">
-    <div class="calc" style="border:none;padding:0;margin:0">
-      <div class="panel" style="margin-bottom:20px">
-        <div class="panel-label">Deployment Scale</div>
-
-        <div class="stp">
-          <div class="stp-title">Installations</div>
-          <div class="stp-value-row">
-            <div class="stp-big-val" id="v-inst">50</div>
-            <div class="stp-ctrls">
-              <button type="button" class="stp-btn" onclick="nudgeInput('s-inst',-1)">&minus;</button>
-              <input type="number" class="stp-num" id="s-inst" min="3" max="200" step="1" value="50" oninput="calc();syncPresets('s-inst')">
-              <button type="button" class="stp-btn" onclick="nudgeInput('s-inst',1)">+</button>
-            </div>
-          </div>
-          <div class="stp-presets">
-            <button type="button" class="stp-preset" data-for="s-inst" data-val="10" onclick="setInputVal('s-inst',10)">10</button>
-            <button type="button" class="stp-preset active" data-for="s-inst" data-val="50" onclick="setInputVal('s-inst',50)">50</button>
-            <button type="button" class="stp-preset" data-for="s-inst" data-val="100" onclick="setInputVal('s-inst',100)">100</button>
-            <button type="button" class="stp-preset" data-for="s-inst" data-val="200" onclick="setInputVal('s-inst',200)">200</button>
-          </div>
-          <div class="stp-hint">AF installations receiving C-UAS training capability</div>
-        </div>
-
-        <div class="stp">
-          <div class="stp-title">Lanes / Installation</div>
-          <div class="stp-value-row">
-            <div class="stp-big-val" id="v-lanes">1</div>
-            <div class="stp-ctrls">
-              <button type="button" class="stp-btn" onclick="nudgeInput('s-lanes',-1)">&minus;</button>
-              <input type="number" class="stp-num" id="s-lanes" min="1" max="4" step="1" value="1" oninput="calc();syncPresets('s-lanes')">
-              <button type="button" class="stp-btn" onclick="nudgeInput('s-lanes',1)">+</button>
-            </div>
-          </div>
-          <div class="stp-presets">
-            <button type="button" class="stp-preset active" data-for="s-lanes" data-val="1" onclick="setInputVal('s-lanes',1)">1</button>
-            <button type="button" class="stp-preset" data-for="s-lanes" data-val="2" onclick="setInputVal('s-lanes',2)">2</button>
-            <button type="button" class="stp-preset" data-for="s-lanes" data-val="3" onclick="setInputVal('s-lanes',3)">3</button>
-            <button type="button" class="stp-preset" data-for="s-lanes" data-val="4" onclick="setInputVal('s-lanes',4)">4</button>
-          </div>
-          <div class="stp-hint">SF only = 1 &middot; IMSC multi-squadron = 2&ndash;4</div>
-        </div>
-
-        <div class="stp">
-          <div class="stp-title">Airmen / Squadron</div>
-          <div class="stp-value-row">
-            <div class="stp-big-val" id="v-airmen">200</div>
-            <div class="stp-ctrls">
-              <button type="button" class="stp-btn" onclick="nudgeInput('s-airmen',-1)">&minus;</button>
-              <input type="number" class="stp-num" id="s-airmen" min="100" max="400" step="25" value="200" oninput="calc();syncPresets('s-airmen')">
-              <button type="button" class="stp-btn" onclick="nudgeInput('s-airmen',1)">+</button>
-            </div>
-          </div>
-          <div class="stp-presets">
-            <button type="button" class="stp-preset" data-for="s-airmen" data-val="100" onclick="setInputVal('s-airmen',100)">100</button>
-            <button type="button" class="stp-preset active" data-for="s-airmen" data-val="200" onclick="setInputVal('s-airmen',200)">200</button>
-            <button type="button" class="stp-preset" data-for="s-airmen" data-val="300" onclick="setInputVal('s-airmen',300)">300</button>
-            <button type="button" class="stp-preset" data-for="s-airmen" data-val="400" onclick="setInputVal('s-airmen',400)">400</button>
-          </div>
-          <div class="stp-hint">Varies 100&ndash;400 by installation</div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="gap-section">
-        <div class="gap-label">
-          Readiness Coverage &mdash; Who Can Actually Qualify?
-          <span class="gap-val" id="gap-pct" style="color:var(--red)">70% gap</span>
-        </div>
-        <div class="gap-track">
-          <div class="gap-filled live" id="gap-live" style="width:30%"><span class="gap-filled-text" id="gap-live-text">Live: 600</span></div>
-          <div class="gap-filled icst" id="gap-icst" style="width:70%"><span class="gap-filled-text" id="gap-icst-text">ICST fills: 9,400</span></div>
-        </div>
-      </div>
-
-      <div class="out-grid">
-        <div class="o red">
-          <div class="o-label">Airmen Who Can't Qualify (Live)</div>
-          <div class="o-val" id="o-cant">9,400</div>
-          <div class="o-sub" id="o-cant-sub">Not enough range days to cycle through</div>
-        </div>
-        <div class="o green">
-          <div class="o-label">ICST Coverage</div>
-          <div class="o-val" id="o-icst">100%</div>
-          <div class="o-sub">Always available, no range required</div>
-        </div>
-        <div class="o blue">
-          <div class="o-label">Scored Quals / Year (ICST)</div>
-          <div class="o-val" id="o-quals">120K</div>
-          <div class="o-sub">Every rep generates reportable evidence</div>
-        </div>
-      </div>
-
-      <div class="insight gap-insight" id="insight-box"></div>
-    </div>
-  </div></div>
-</div>
-
 <!-- ========== SUB-ACCORDION 4c: FIELDING ROADMAP ========== -->
 <div class="sub-section" id="sub-4c" data-sub="4c">
   <div class="sub-header" onclick="togSub('4c')">
     <span class="sub-num">4c</span><span>Fielding Roadmap</span><span class="sub-chevron">&#9662;</span>
   </div>
   <div class="sub-body"><div class="sub-content">
-    <div class="gantt-section" style="border:none;padding:0;margin:0">
+
+    <!-- BASELINE TIMELINE -->
+    <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--muted);margin-bottom:10px">Baseline Timeline</div>
+    <div class="gantt-section" style="border:none;padding:0;margin:0 0 28px">
       <div class="gantt-hint">&harr; Drag bars to adjust timing &middot; Drag edges to resize</div>
       <div class="gantt-area" id="gantt-grid">
         <div class="fy-lbl" style="left:calc(2/12*100% - 8px)">FY26 &#9660;</div><div class="fy-line" style="left:calc(2/12*100%)"></div>
@@ -2029,24 +2007,57 @@ tr:hover .remove-row-btn{opacity:1}
           <div class="qtr">Q1</div><div class="qtr">Q2</div><div class="qtr">Q3</div><div class="qtr">Q4</div>
           <div class="qtr">Q1</div><div class="qtr">Q2</div>
         </div>
-        <div class="phase p1" style="height:76px">
+        <div class="phase p1" style="height:44px">
           <div class="p-bar" data-bar style="left:0%;width:calc(1.5/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Configuring</div><div class="p-detail">Qual tables &middot; IDIQ &middot; Sites selected &middot; Evidence Engine setup</div><div class="resize-r" data-resize="r"></div></div>
-          <div class="gantt-accent" data-bar style="left:0%;width:calc(1.8/12*100%);top:52px"><div class="resize-l" data-resize="l"></div>TO-1 awarded &middot; Confirmation sites identified &middot; Cadre curriculum built<div class="resize-r" data-resize="r"></div></div>
         </div>
-        <div class="phase p2" style="height:76px">
+        <div class="phase p2" style="height:44px">
           <div class="p-bar" data-bar style="left:calc(1.2/12*100%);width:calc(1.3/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Validating</div><div class="p-detail">3&ndash;5 sites fielded &middot; Cadre trained &middot; Scored quals before FY26 close</div><div class="resize-r" data-resize="r"></div></div>
-          <div class="gantt-accent" data-bar style="left:calc(1.2/12*100%);width:calc(1.5/12*100%);top:52px"><div class="resize-l" data-resize="l"></div>Evidence Engine live &middot; First qualification data reportable to AFSFC HQ<div class="resize-r" data-resize="r"></div></div>
         </div>
-        <div class="phase p3" style="height:76px">
+        <div class="phase p3" style="height:44px">
           <div class="p-bar" data-bar style="left:calc(2/12*100%);width:calc(3/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Fielding</div><div class="p-detail">Wave 2: 10&ndash;15 installations &middot; Dashboard &middot; AFI 10-201 &middot; MAJCOM brief</div><div class="resize-r" data-resize="r"></div></div>
-          <div class="gantt-accent" data-bar style="left:calc(2.5/12*100%);width:calc(2.5/12*100%);top:52px"><div class="resize-l" data-resize="l"></div>Commander readiness visibility live &middot; Multi-site data aggregation<div class="resize-r" data-resize="r"></div></div>
         </div>
-        <div class="phase p4" style="height:76px">
+        <div class="phase p4" style="height:44px">
           <div class="p-bar" data-bar style="left:calc(5/12*100%);width:calc(7/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Full Scale &amp; Updating</div><div class="p-detail">50+ installations &middot; Catalog expansion &middot; Annual TTP update cadence &middot; POR path</div><div class="resize-r" data-resize="r"></div></div>
-          <div class="gantt-accent" data-bar style="left:calc(5.5/12*100%);width:calc(5/12*100%);top:52px"><div class="resize-l" data-resize="l"></div>Readiness Sensing Network &middot; M18 + Non-Lethal + UoF layers &middot; Cross-service interest<div class="resize-r" data-resize="r"></div></div>
         </div>
       </div>
     </div>
+
+    <!-- ACCELERATED TIMELINE -->
+    <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--green);margin-bottom:10px">Accelerated Timeline</div>
+    <div class="gantt-section" style="border:none;padding:0;margin:0">
+      <div class="gantt-hint">&harr; Drag bars to adjust timing &middot; Drag edges to resize</div>
+      <div class="gantt-area" id="gantt-grid-accel">
+        <div class="fy-lbl" style="left:calc(2/12*100% - 8px)">FY26 &#9660;</div><div class="fy-line" style="left:calc(2/12*100%)"></div>
+        <div class="fy-lbl" style="left:calc(6/12*100% - 8px)">FY27 &#9660;</div><div class="fy-line" style="left:calc(6/12*100%)"></div>
+        <div class="fy-lbl" style="left:calc(10/12*100% - 8px)">FY28 &#9660;</div><div class="fy-line" style="left:calc(10/12*100%)"></div>
+        <div class="gridlines" id="gantt-gridlines-accel"></div>
+        <div class="fy-row">
+          <div class="fy-cell" style="grid-column:span 2">FY26</div>
+          <div class="fy-cell" style="grid-column:span 4">FY27</div>
+          <div class="fy-cell" style="grid-column:span 4">FY28</div>
+          <div class="fy-cell" style="grid-column:span 2">FY29</div>
+        </div>
+        <div class="quarters">
+          <div class="qtr">Q3</div><div class="qtr">Q4</div>
+          <div class="qtr">Q1</div><div class="qtr">Q2</div><div class="qtr">Q3</div><div class="qtr">Q4</div>
+          <div class="qtr">Q1</div><div class="qtr">Q2</div><div class="qtr">Q3</div><div class="qtr">Q4</div>
+          <div class="qtr">Q1</div><div class="qtr">Q2</div>
+        </div>
+        <div class="phase p1" style="height:44px">
+          <div class="p-bar" data-bar style="left:0%;width:calc(1/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Configuring</div><div class="p-detail">Fast-track: parallel config &middot; pre-identified sites</div><div class="resize-r" data-resize="r"></div></div>
+        </div>
+        <div class="phase p2" style="height:44px">
+          <div class="p-bar" data-bar style="left:calc(0.8/12*100%);width:calc(1/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Validating</div><div class="p-detail">5 sites fielded &middot; Cadre trained &middot; FY26 Q4 close</div><div class="resize-r" data-resize="r"></div></div>
+        </div>
+        <div class="phase p3" style="height:44px">
+          <div class="p-bar" data-bar style="left:calc(1.5/12*100%);width:calc(2.5/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Fielding</div><div class="p-detail">20&ndash;30 installations &middot; Concurrent waves</div><div class="resize-r" data-resize="r"></div></div>
+        </div>
+        <div class="phase p4" style="height:44px">
+          <div class="p-bar" data-bar style="left:calc(3.5/12*100%);width:calc(4.5/12*100%);top:0"><div class="resize-l" data-resize="l"></div><div class="p-title">Full Scale &amp; Updating</div><div class="p-detail">50+ installations by mid-FY28 &middot; 12&ndash;18 months ahead of baseline</div><div class="resize-r" data-resize="r"></div></div>
+        </div>
+      </div>
+    </div>
+
   </div></div>
 </div>
 
@@ -2057,33 +2068,37 @@ tr:hover .remove-row-btn{opacity:1}
   </div>
   <div class="sub-body"><div class="sub-content">
     <div class="callout" style="margin-bottom:20px">
-      <div class="callout-title">At Full Scale &mdash; What This Means for the Enterprise</div>
-      <div class="callout-grid">
-        <div class="co bl">
-          <div class="co-when">By Sep 2026</div>
-          <div class="co-val" id="co-fy26-airmen">&mdash;</div>
-          <div class="co-label">Airmen with C-UAS Qual Access</div>
-          <div class="co-sub">Confirmation wave &middot; 3&ndash;5 sites</div>
+      <div class="callout-title">Enterprise Impact &mdash; Derived from 4a Deployment, 4b Cost Model, 4c Timeline</div>
+
+      <!-- ROW 1: Timeline milestones -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:20px">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:8px;padding:20px 22px">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:10px">By Sep 2026</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;color:var(--accent);line-height:1.1;margin-bottom:8px" id="co-fy26-airmen">&mdash;</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Airmen with C-UAS Qual Access</div>
+          <div style="font-size:14px;color:var(--muted)">Confirmation wave &middot; 3&ndash;5 sites</div>
         </div>
-        <div class="co gn">
-          <div class="co-when">By Sep 2027</div>
-          <div class="co-val" id="co-fy27-airmen">&mdash;</div>
-          <div class="co-label">Airmen with C-UAS Qual Access</div>
-          <div class="co-sub" id="co-fy27-sub">Validated + first wave fielding</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--green);border-radius:8px;padding:20px 22px">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:10px">By Sep 2027</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;color:var(--green);line-height:1.1;margin-bottom:8px" id="co-fy27-airmen">&mdash;</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Airmen with C-UAS Qual Access</div>
+          <div style="font-size:14px;color:var(--muted)" id="co-fy27-sub">Validated + first wave fielding</div>
         </div>
-        <div class="co gn">
-          <div class="co-when">By Sep 2028</div>
-          <div class="co-val" id="co-fy28-airmen">&mdash;</div>
-          <div class="co-label">Airmen with C-UAS Qual Access</div>
-          <div class="co-sub">Full-scale fielding complete</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--green);border-radius:8px;padding:20px 22px">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:10px">By Sep 2028</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;color:var(--green);line-height:1.1;margin-bottom:8px" id="co-fy28-airmen">&mdash;</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Airmen with C-UAS Qual Access</div>
+          <div style="font-size:14px;color:var(--muted)">Full-scale fielding complete</div>
         </div>
       </div>
+
+      <!-- ROW 2: Live-fire burden (from 4b) -->
       <div class="savings-hero">
         <div class="savings-hero-inner">
           <div class="sh-left">
             <div class="sh-label">Cumulative Live-Fire Burden by FY28</div>
             <div class="sh-val" id="co-savings">&mdash;</div>
-            <div class="sh-sub">What it costs to sustain live-fire C-UAS qualification across <span id="sh-inst">50</span> installations &mdash; at your desired cadence</div>
+            <div class="sh-sub">What it costs to sustain live-fire C-UAS qualification across <span id="sh-inst">50</span> installations &mdash; at your desired cadence (from 4b)</div>
           </div>
           <div class="sh-right">
             <div class="sh-detail">
@@ -2095,31 +2110,35 @@ tr:hover .remove-row-btn{opacity:1}
           </div>
         </div>
       </div>
-      <div class="callout-grid" style="grid-template-columns:repeat(3,1fr)">
-        <div class="co bl">
-          <div class="co-when">Cumulative by FY28</div>
-          <div class="co-val" id="co-quals">&mdash;</div>
-          <div class="co-label">Scored Qualifications</div>
-          <div class="co-sub">Every rep evidence-generating</div>
+
+      <!-- ROW 3: Readiness outputs -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin:20px 0">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--accent);border-radius:8px;padding:20px 22px">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:10px">Cumulative by FY28</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;color:var(--accent);line-height:1.1;margin-bottom:8px" id="co-quals">&mdash;</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Scored Qualifications</div>
+          <div style="font-size:14px;color:var(--muted)">Every rep evidence-generating</div>
         </div>
-        <div class="co gn">
-          <div class="co-when">At Full Scale</div>
-          <div class="co-val" id="co-lanes-total">&mdash;</div>
-          <div class="co-label">Training Lanes Deployed</div>
-          <div class="co-sub">Always available &middot; No range scheduling</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--green);border-radius:8px;padding:20px 22px">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--green);margin-bottom:10px">At Full Scale</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;color:var(--green);line-height:1.1;margin-bottom:8px" id="co-lanes-total">&mdash;</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Training Lanes Deployed</div>
+          <div style="font-size:14px;color:var(--muted)">Always available &middot; No range scheduling</div>
         </div>
-        <div class="co am">
-          <div class="co-when">Dronebuster EW</div>
-          <div class="co-val">&infin; &rarr; 0</div>
-          <div class="co-label">Readiness Gap Closed</div>
-          <div class="co-sub">No live alternative exists today &mdash; gap goes from total to zero</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-top:3px solid var(--amber);border-radius:8px;padding:20px 22px">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--amber);margin-bottom:10px">Dronebuster EW</div>
+          <div style="font-family:'Consolas','Courier New',monospace;font-size:32px;font-weight:700;color:var(--amber);line-height:1.1;margin-bottom:8px">&infin; &rarr; 0</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px">Readiness Gap Closed</div>
+          <div style="font-size:14px;color:var(--muted)">No live alternative exists today &mdash; gap goes from total to zero</div>
         </div>
       </div>
-      <div class="callout-statement" id="co-statement">
-        By the end of FY28, <span class="num" id="cs-airmen">10,000</span> airmen across <span class="num" id="cs-inst">50</span> installations have access to scored, qualification-grade C-UAS training &mdash; generating <span class="num" id="cs-quals">240K+</span> evidence records. The current live-fire model carries a <span class="num" id="cs-savings">$9.6M</span> cumulative burden to achieve the same coverage &mdash; and produces zero scored data. <b>And that&rsquo;s C-UAS alone</b> &mdash; before M18, non-lethal, and use-of-force layers activate across the installed base.
+
+      <!-- CLOSING STATEMENT -->
+      <div style="padding:20px 24px;border-radius:8px;background:rgba(46,61,26,0.06);border-left:3px solid var(--accent);font-size:18px;line-height:1.65;color:var(--text)">
+        By the end of FY28, <span style="font-family:'Consolas','Courier New',monospace;font-weight:700;color:var(--accent)" id="cs-airmen">10,000</span> airmen across <span style="font-family:'Consolas','Courier New',monospace;font-weight:700;color:var(--accent)" id="cs-inst">50</span> installations have access to scored, qualification-grade C-UAS training &mdash; generating <span style="font-family:'Consolas','Courier New',monospace;font-weight:700;color:var(--accent)" id="cs-quals">240K+</span> evidence records. The current live-fire model carries a <span style="font-family:'Consolas','Courier New',monospace;font-weight:700;color:var(--accent)" id="cs-savings">$9.6M</span> cumulative burden to achieve the same coverage &mdash; and produces zero scored data. <b>And that&rsquo;s C-UAS alone</b> &mdash; before M18, non-lethal, and use-of-force layers activate across the installed base.
       </div>
     </div>
-    <div class="bottom-note">The cost model quantifies the readiness gap. The timeline shows how ICST closes it. The callout shows what it adds up to.</div>
+    <div class="bottom-note" style="font-size:15px;padding:14px 20px">The deployment model (4a) sizes the force. The cost model (4b) quantifies the live-fire burden. The timeline (4c) shows how ICST closes the gap. This section shows what it adds up to.</div>
   </div></div>
 </div>
 
@@ -2673,18 +2692,10 @@ function calc(){
   var totalQuals=totalAirmen*12*freq;
 
   // === Readiness gap bar ===
-  document.getElementById('gap-live').style.width=livePct+'%';
-  document.getElementById('gap-live-text').textContent='Live: '+fmtN(liveCapped);
-  document.getElementById('gap-icst').style.width=(100-livePct)+'%';
-  document.getElementById('gap-icst-text').textContent='ICST fills: '+fmtN(cantQual);
-  document.getElementById('gap-pct').textContent=gapPct+'% gap';
-  document.getElementById('gap-pct').style.color=gapPct>50?'var(--red)':gapPct>20?'var(--amber)':'var(--green)';
+  var _gl=document.getElementById('gap-live');if(_gl){_gl.style.width=livePct+'%';document.getElementById('gap-live-text').textContent='Live: '+fmtN(liveCapped);document.getElementById('gap-icst').style.width=(100-livePct)+'%';document.getElementById('gap-icst-text').textContent='ICST fills: '+fmtN(cantQual);document.getElementById('gap-pct').textContent=gapPct+'% gap';document.getElementById('gap-pct').style.color=gapPct>50?'var(--red)':gapPct>20?'var(--amber)':'var(--green)'}
 
   // === Output cards ===
-  document.getElementById('o-cant').textContent=fmtN(cantQual);
-  document.getElementById('o-cant-sub').textContent=rdays+' range days \u00d7 '+tput+' airmen = '+fmtN(liveCapped)+' max (1 qual)';
-  document.getElementById('o-quals').textContent=fmtS(totalQuals);
-  document.getElementById('o-icst').textContent='100%';
+  var _oc=document.getElementById('o-cant');if(_oc){_oc.textContent=fmtN(cantQual);document.getElementById('o-cant-sub').textContent=rdays+' range days \u00d7 '+tput+' airmen = '+fmtN(liveCapped)+' max (1 qual)';document.getElementById('o-quals').textContent=fmtS(totalQuals);document.getElementById('o-icst').textContent='100%'}
 
   // === Cost burden breakdown ===
   document.getElementById('bd-rounds').textContent=fmtN(totalRoundsNeeded);
@@ -2755,21 +2766,23 @@ function calc(){
 
 /* GANTT GRIDLINES */
 (function(){
-  var gl=document.getElementById('gantt-gridlines');
-  if(!gl)return;
-  for(var i=1;i<12;i++){var d=document.createElement('div');d.style.left=(i/12*100)+'%';gl.appendChild(d)}
+  ['gantt-gridlines','gantt-gridlines-accel'].forEach(function(id){
+    var gl=document.getElementById(id);
+    if(!gl)return;
+    for(var i=1;i<12;i++){var d=document.createElement('div');d.style.left=(i/12*100)+'%';gl.appendChild(d)}
+  });
 })();
 
 /* GANTT DRAG */
 (function(){
-  var grid=document.getElementById('gantt-grid');if(!grid)return;
+  var grids=[document.getElementById('gantt-grid'),document.getElementById('gantt-grid-accel')].filter(Boolean);if(!grids.length)return;var grid=grids[0];
   var active=null,mode=null,startX=0,startLeft=0,startWidth=0,gridW=0;
   function pct(px){return px/gridW*100}
   function snap(p){var q=100/12;return Math.round(p/q*4)/4*q}
-  document.addEventListener('mousedown',function(e){var r=e.target.closest('[data-resize]'),b=e.target.closest('[data-bar]');if(!b||!grid.contains(b))return;e.preventDefault();gridW=grid.offsetWidth;active=b;startX=e.clientX;startLeft=parseFloat(b.style.left)||0;startWidth=parseFloat(b.style.width)||8;mode=r?r.dataset.resize:'move';document.body.style.cursor=mode==='move'?'grabbing':'ew-resize'});
+  document.addEventListener('mousedown',function(e){var r=e.target.closest('[data-resize]'),b=e.target.closest('[data-bar]');if(!b||!grids.some(function(g){return g.contains(b)}))return;e.preventDefault();gridW=grid.offsetWidth;active=b;startX=e.clientX;startLeft=parseFloat(b.style.left)||0;startWidth=parseFloat(b.style.width)||8;mode=r?r.dataset.resize:'move';document.body.style.cursor=mode==='move'?'grabbing':'ew-resize'});
   document.addEventListener('mousemove',function(e){if(!active)return;var dx=pct(e.clientX-startX);if(mode==='move'){var nl=Math.max(0,Math.min(startLeft+dx,100-startWidth));active.style.left=nl+'%'}else if(mode==='r'){var nw=Math.max(pct(40),Math.min(startWidth+dx,100-startLeft));active.style.width=nw+'%'}else{var nl2=startLeft+dx,nw2=startWidth-dx;if(nw2<pct(40))return;if(nl2<0){nl2=0;nw2=startLeft+startWidth}active.style.left=nl2+'%';active.style.width=nw2+'%'}});
   document.addEventListener('mouseup',function(){if(!active)return;active.style.left=snap(parseFloat(active.style.left))+'%';active.style.width=snap(parseFloat(active.style.width))+'%';active=null;mode=null;document.body.style.cursor=''});
-  document.addEventListener('touchstart',function(e){var r=e.target.closest('[data-resize]'),b=e.target.closest('[data-bar]');if(!b||!grid.contains(b))return;gridW=grid.offsetWidth;active=b;startX=e.touches[0].clientX;startLeft=parseFloat(b.style.left)||0;startWidth=parseFloat(b.style.width)||8;mode=r?r.dataset.resize:'move'},{passive:true});
+  document.addEventListener('touchstart',function(e){var r=e.target.closest('[data-resize]'),b=e.target.closest('[data-bar]');if(!b||!grids.some(function(g){return g.contains(b)}))return;gridW=grid.offsetWidth;active=b;startX=e.touches[0].clientX;startLeft=parseFloat(b.style.left)||0;startWidth=parseFloat(b.style.width)||8;mode=r?r.dataset.resize:'move'},{passive:true});
   document.addEventListener('touchmove',function(e){if(!active)return;var dx=pct(e.touches[0].clientX-startX);if(mode==='move'){active.style.left=Math.max(0,Math.min(startLeft+dx,100-startWidth))+'%'}else if(mode==='r'){active.style.width=Math.max(pct(40),Math.min(startWidth+dx,100-startLeft))+'%'}else{var nl2=startLeft+dx,nw2=startWidth-dx;if(nw2<pct(40))return;if(nl2<0){nl2=0;nw2=startLeft+startWidth}active.style.left=nl2+'%';active.style.width=nw2+'%'}},{passive:true});
   document.addEventListener('touchend',function(){if(!active)return;active.style.left=snap(parseFloat(active.style.left))+'%';active.style.width=snap(parseFloat(active.style.width))+'%';active=null;mode=null});
 })();
