@@ -185,6 +185,14 @@ body.full-suite .full-branch{display:block}
 .lcard-body{max-height:0;overflow:hidden;transition:max-height 0.3s ease}
 .lcard.lcard-expanded .lcard-body{max-height:400px}
 .lcard-content{padding:0 20px 18px 76px;font-size:16px;color:var(--muted);line-height:1.55;border-top:1px solid var(--border);padding-top:14px}
+.lcard-actions{display:flex;gap:4px;align-items:center;opacity:0;transition:opacity 0.12s}
+.lcard:hover .lcard-actions{opacity:1}
+.lcard-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-size:13px;line-height:22px;text-align:center;cursor:pointer;transition:all 0.12s;font-family:var(--font);display:flex;align-items:center;justify-content:center;padding:0}
+.lcard-btn:hover{border-color:var(--olive);color:var(--accent);background:var(--surface)}
+.lcard-btn.del:hover{background:rgba(138,40,24,0.08);border-color:rgba(138,40,24,0.3);color:var(--red)}
+.lcard.lcard-removing{opacity:0;transform:scale(0.96);max-height:0;margin:0;padding:0;border:0;overflow:hidden;transition:all 0.3s}
+.add-mandate{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;color:var(--muted);font-size:16px;font-weight:600;cursor:pointer;transition:all 0.12s;margin-top:10px}
+.add-mandate:hover{border-color:var(--olive);color:var(--accent);background:rgba(46,61,26,0.02)}
 
 /* ===== ALIGNMENT STATEMENT ===== */
 .stmt-zone{margin-top:36px}
@@ -525,7 +533,7 @@ tr:hover .remove-row-btn{opacity:1}
   body{font-size:12px;padding-bottom:0}
   .page-header{background:#2e3d1a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .section-body,.sub-body{max-height:none!important} .tab-bar,.recompute,.proof-panel{display:none!important}
-  .remove-row-btn,.remove-btn,.add-row-tr,.add-card,.add-consumer-btn{display:none!important}
+  .remove-row-btn,.remove-btn,.add-row-tr,.add-card,.add-consumer-btn,.lcard-actions,.add-mandate{display:none!important}
   .dtable thead th,.dtable tbody td{padding:4px 8px;font-size:10px}
   .section{break-inside:avoid;border:1px solid var(--border)}
   .pane{display:block!important}
@@ -677,7 +685,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="lcard-name"><span data-doc>AFI 31-101 &mdash; Integrated Defense</span></div>
             <span class="lcard-cite-pill">AFI 31-101</span>
             <span class="achip" onclick="event.stopPropagation();cycleA(this)">TBD</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -707,7 +715,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="lcard-name"><span data-doc>DAFI 31-131 Vol 2</span></div>
             <span class="lcard-cite-pill">DAFI 31-131v2</span>
             <span class="achip a" onclick="event.stopPropagation();cycleA(this)">Pending</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -737,7 +745,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="lcard-name"><span data-doc>AFJQS SEI 3CS</span></div>
             <span class="lcard-cite-pill">AFJQS 3CS</span>
             <span class="achip r" onclick="event.stopPropagation();cycleA(this)">Restricted</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -767,7 +775,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="lcard-name"><span data-doc>SFTRG C-sUAS TTPs</span></div>
             <span class="lcard-cite-pill">TTPs (Draft)</span>
             <span class="achip" onclick="event.stopPropagation();cycleA(this)">In Draft</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -797,7 +805,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="lcard-name"><span data-doc class="ph" contenteditable="true" onfocus="clrPh(this)" oninput="updateStmt()">Name the document&hellip;</span></div>
             <span class="lcard-cite-pill">&mdash;</span>
             <span class="achip" onclick="event.stopPropagation();cycleA(this)">TBD</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content" style="padding-left:20px">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
@@ -843,7 +851,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">CATM Qualification &mdash; Small Arms &amp; Crew-Served</div>
             <span class="lcard-cite-pill">AFI 36-2654</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">CATM is building the live kinetic C-UAS range. The virtual side teaches the fight &mdash; scenarios, mixed engagement, judgment. M18, M4A1 qual tables are already deployed at Navy CNIC and available for AF. M320 sustainment is an identified near-term gap.</div></div>
         </div>
@@ -853,7 +861,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">Ready Airman Training (RAT)</div>
             <span class="lcard-cite-pill">DAFMAN 36-2655</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">RAT task-code alignment is already being pursued through HAF/A3T. V-CSTR modules are mapped to RAT-relevant tasks. Training reps on ICST generate evidence that can feed RAT readiness gates &mdash; same session, no separate event.</div></div>
         </div>
@@ -863,7 +871,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">Deployment Familiarization &mdash; Perishable Skills</div>
             <span class="lcard-cite-pill">AFFORGEN</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">AFSFC leadership has identified the core gap: Airmen don&rsquo;t touch deployment-relevant equipment until they arrive downrange. Radios, tactical comms, LOGDET equipment, land nav, buddy care. The platform provides home-station reps on low-density, perishable skills &mdash; repeatable proficiency beyond initial familiarization.</div></div>
         </div>
@@ -873,7 +881,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">Unit Readiness Reporting</div>
             <span class="lcard-cite-pill">AFI 10-201</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">AFI 10-201 requires measurable readiness &mdash; but most C-UAS training today proves attendance, not capability. The Evidence Engine produces structured session records mapped to standards. Output is a readiness proof artifact commanders can defend when asked.</div></div>
         </div>
@@ -883,7 +891,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">VTS Validation &mdash; Institutional Acceptance Pathway</div>
             <span class="lcard-cite-pill">AFSFC / CADMS</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">AFSFC is the requirements owner and VTS validation authority via CADMS. AETC/A3X owns the credentialing and accreditation pathway. The objective isn&rsquo;t just technical performance &mdash; it&rsquo;s institutional acceptance. Training that &ldquo;counts&rdquo; flows through these gates.</div></div>
         </div>
@@ -893,7 +901,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">Use-of-Force / Non-Lethal Weapons</div>
             <span class="lcard-cite-pill">AFI 31-118</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">SF units with LE missions rarely get consistent force-continuum reps between NLW certification cycles. Baton, OC, CEW measurement architecture fielded across Ontario law enforcement services &mdash; same structural approach applicable to home-station SF missions. No separate procurement.</div></div>
         </div>
@@ -903,7 +911,7 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">M320 Grenade Launcher &mdash; Sustainment &amp; Procedural Proficiency</div>
             <span class="lcard-cite-pill">AFSFC Priority</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">M320 is in the AF weapon family and explicitly included in the simulator requirement. Already identified as an AFSFC near-term priority alongside C-UAS. The requirement is repeatable procedural proficiency beyond initial familiarization. Same platform, same evidence pipeline.</div></div>
         </div>
@@ -913,10 +921,11 @@ tr:hover .remove-row-btn{opacity:1}
             <div class="tgl" onclick="event.stopPropagation();toggleExp(this)"></div>
             <div class="lcard-name">Tactical Communications &mdash; Radio &amp; SALUTE Reporting</div>
             <span class="lcard-cite-pill">Deployment Readiness</span>
-            <span class="lcard-chevron">&#9662;</span>
+            <span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;</button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;</button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;</button></span><span class="lcard-chevron">&#9662;</span>
           </div>
           <div class="lcard-body"><div class="lcard-content">Surfaced repeatedly in AFSFC calls as a priority between C-UAS and M320. Radio procedures, SALUTE reporting, dispatch coordination &mdash; all scored within the same scenario environment. Comms proficiency is already a measured behavior in the C-UAS kill chain; extending it to standalone comms training is configuration, not new development.</div></div>
         </div>
+        <div class="add-mandate" id="addMandate" onclick="addMandate()">+ Add Adjacent Mandate</div>
       </div>
         </div></div>
       </div>
@@ -2778,6 +2787,45 @@ function renumberCards(){document.querySelectorAll('[data-doccard]').forEach(fun
 var cardCount=5;
 function addDocCard(){cardCount++;var html='<div class="dcard" data-doccard><div class="dcard-top"><div class="dcard-left"><div class="dcard-num"><span>Document '+cardCount+'</span><button class="remove-btn" onclick="removeCard(this)" title="Remove document">&times;</button></div><div class="ed-doc big ph" contenteditable="true" data-doc oninput="updateStmt()" onfocus="clrPh(this)">Name the document\u2026</div><div class="fl">Publication</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Pub #</div><div class="fl">Owning Office</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">Office</div></div><div class="dcard-right"><div class="fl">Owning Stakeholder</div><div class="stakeholder-row"><div class="stakeholder-icon">&#128100;</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">TBD</div></div><div class="fl">Change Authority</div><div class="ed-doc ph" contenteditable="true" onfocus="clrPh(this)">\u2014</div><div class="signal-box"><div class="signal-label">Context / Notes</div><div class="ed-doc ph" contenteditable="true" style="font-size:15px" onfocus="clrPh(this)">\u2014</div></div></div></div><div class="dcard-bottom"><span class="ml">Cadence</span><span class="copt" onclick="pickC(this)">Annual</span><span class="copt" onclick="pickC(this)">18mo</span><span class="copt" onclick="pickC(this)">Event</span><span class="copt" onclick="pickC(this)">TBD</span><span style="flex:1"></span><span class="ml">Access</span><span class="achip" onclick="cycleA(this)">TBD</span></div></div>';var addBtn=document.querySelector('.add-card');addBtn.insertAdjacentHTML('beforebegin',html);save()}
 
+
+/* LCARD REORDER & DELETE (1a + 1b) */
+function removeLcard(btn){
+  var card=btn.closest('.lcard');
+  card.classList.add('lcard-removing');
+  setTimeout(function(){card.remove();updateStmt();save()},300);
+}
+function moveLcard(btn,dir){
+  var card=btn.closest('.lcard');
+  var parent=card.parentElement;
+  if(dir===-1){
+    var prev=card.previousElementSibling;
+    while(prev&&!prev.classList.contains('lcard'))prev=prev.previousElementSibling;
+    if(prev)parent.insertBefore(card,prev);
+  }else{
+    var next=card.nextElementSibling;
+    while(next&&!next.classList.contains('lcard'))next=next.nextElementSibling;
+    if(next)parent.insertBefore(next,card);
+  }
+  updateStmt();save();
+}
+function addMandate(){
+  var container=document.getElementById('addMandate');
+  var html='<div class="lcard" data-ix="">'+
+    '<div class="lcard-header" onclick="toggleLcard(this.parentElement)">'+
+    '<div class="tgl" onclick="event.stopPropagation();toggleExp(this)"><\/div>'+
+    '<div class="lcard-name"><span contenteditable="true" class="ed-doc big ph" style="border:none;padding:0;background:transparent" onfocus="clrPh(this)">Name the mandate…<\/span><\/div>'+
+    '<span class="lcard-cite-pill"><span contenteditable="true" class="ph" style="min-width:40px;display:inline-block" onfocus="clrPh(this)">Cite<\/span><\/span>'+
+    '<span class="lcard-actions"><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,-1)" title="Move up">&#9650;<\/button><button class="lcard-btn" onclick="event.stopPropagation();moveLcard(this,1)" title="Move down">&#9660;<\/button><button class="lcard-btn del" onclick="event.stopPropagation();removeLcard(this)" title="Remove">&#215;<\/button><\/span>'+
+    '<span class="lcard-chevron">&#9662;<\/span>'+
+    '<\/div>'+
+    '<div class="lcard-body"><div class="lcard-content"><span contenteditable="true" class="ed-doc ph" style="display:block;border:none;padding:0;background:transparent;font-size:16px" onfocus="clrPh(this)">Describe the mandate and how it intersects…<\/span><\/div><\/div>'+
+    '<\/div>';
+  container.insertAdjacentHTML('beforebegin',html);
+  var newCard=container.previousElementSibling;
+  var nameEl=newCard.querySelector('.lcard-name span');
+  if(nameEl){nameEl.focus()}
+  save();
+}
 /* LAYER CARDS (Adjacent Mandates) */
 function toggleLcard(el){el.classList.toggle('lcard-expanded');save()}
 function toggleExp(tgl){tgl.classList.toggle('on');updateStmt();save()}
