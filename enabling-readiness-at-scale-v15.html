@@ -752,6 +752,28 @@ tr:hover .remove-row-btn{opacity:1}
 .vcell.vgreen { background:var(--vgreenbg); color:var(--vgreen); border:1px solid var(--vgreenbrd); }
 .vcell.ut  { background:var(--utbg);  color:var(--ut);  border:1px solid var(--utbrd); }
 .vcell.dim { background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.28); border:1px solid rgba(255,255,255,0.09); font-style:italic; }
+
+/* ── 5a WORKSHOP LIST ── */
+.ws5a-list{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.ws5a-item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 14px;transition:border-color 0.15s,box-shadow 0.15s}
+.ws5a-item:hover{border-color:#a8a490}
+.ws5a-item.ws5a-dragging{opacity:0.4;border-style:dashed}
+.ws5a-item.ws5a-over{border-color:var(--olive);box-shadow:0 0 0 2px rgba(94,110,42,0.2)}
+.ws5a-handle{color:#ccc9b8;font-size:16px;cursor:grab;padding:0 2px;flex-shrink:0;line-height:1;user-select:none;letter-spacing:-1px}
+.ws5a-handle:active{cursor:grabbing}
+.ws5a-move-btns{display:flex;flex-direction:column;gap:2px;flex-shrink:0}
+.ws5a-mbtn{background:none;border:1px solid var(--border);border-radius:3px;color:var(--muted);font-size:10px;width:20px;height:18px;line-height:1;cursor:pointer;padding:0;font-family:var(--font);transition:all 0.1s}
+.ws5a-mbtn:hover{background:var(--surface2);border-color:var(--olive);color:var(--accent)}
+.ws5a-name{flex:1;font-size:15px;color:var(--text);border:none;outline:none;background:transparent;font-family:var(--font);border-bottom:1px solid transparent;transition:border-color 0.12s}
+.ws5a-name:focus{border-bottom-color:var(--olive)}
+.ws5a-del{background:none;border:none;color:#ccc;font-size:18px;line-height:1;cursor:pointer;padding:0 2px;flex-shrink:0;transition:color 0.12s;font-family:var(--font)}
+.ws5a-del:hover{color:var(--red)}
+.ws5a-add-row{display:flex;gap:10px;margin-top:8px}
+.ws5a-input{flex:1;border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-size:14px;font-family:var(--font);background:var(--surface);color:var(--text);outline:none;transition:border-color 0.12s}
+.ws5a-input:focus{border-color:var(--olive)}
+.ws5a-addbtn{background:var(--accent);color:#e8ead4;border:none;border-radius:7px;padding:9px 20px;font-size:13px;font-weight:700;font-family:var(--font);cursor:pointer;white-space:nowrap;transition:background 0.12s}
+.ws5a-addbtn:hover{background:#3a5020}
+@media print{.ws5a-handle,.ws5a-move-btns,.ws5a-del,.ws5a-add-row{display:none!important}}
 </style>
 </head>
 <body>
@@ -2359,120 +2381,24 @@ tr:hover .remove-row-btn{opacity:1}
         </div>
         <div class="sub-body"><div class="sub-content">
 
-          <table class="cap-table" id="cap-table-5a">
-            <thead><tr><th>Capability</th><th>Category</th><th>Credential / Standard</th><th>Credentialing Status</th><th>Fielded At</th><th style="width:36px"></th></tr></thead>
-            <tbody>
-              <!-- 1. Electronic Warfare Devices -->
-              <tr class="cat-row"><td colspan="6"><span class="cat-row-label">1. Electronic Warfare Devices</span><span class="cat-row-movers"><button class="cat-row-mover" onclick="moveCatSection(this,-1)" title="Move section up">&#9650;</button><button class="cat-row-mover" onclick="moveCatSection(this,1)" title="Move section down">&#9660;</button></span></td></tr>
-              <tr data-cap-row data-cat="EW">
-                <td class="ed" tabindex="0">Dronebuster EW</td>
-                <td>Electronic Warfare</td>
-                <td class="ed" tabindex="0">V-CSTR EW Protocol</td>
-                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-                <td><span class="proof-tag">SBIR co-dev with AFSFC</span></td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="EW">
-                <td class="ed" tabindex="0">MODI II / Handheld EW</td>
-                <td>Electronic Warfare</td>
-                <td class="ed" tabindex="0">AFSFC TBD</td>
-                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="EW">
-                <td class="ed" tabindex="0">Additional EW effector</td>
-                <td>Electronic Warfare</td>
-                <td class="ed" tabindex="0">&mdash;</td>
-                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-
-              <!-- 2. Machineguns (anti-UAS role) -->
-              <tr class="cat-row"><td colspan="6"><span class="cat-row-label">2. Machineguns (anti-UAS role)</span><span class="cat-row-movers"><button class="cat-row-mover" onclick="moveCatSection(this,-1)" title="Move section up">&#9650;</button><button class="cat-row-mover" onclick="moveCatSection(this,1)" title="Move section down">&#9660;</button></span></td></tr>
-              <tr data-cap-row data-cat="MG-CUAS">
-                <td class="ed" tabindex="0">M2 .50 Cal (anti-air)</td>
-                <td>Machineguns</td>
-                <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
-                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">On Request</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="MG-CUAS">
-                <td class="ed" tabindex="0">M240 (anti-UAS employment)</td>
-                <td>Machineguns</td>
-                <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
-                <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="MG-CUAS">
-                <td class="ed" tabindex="0">M249 (anti-UAS employment)</td>
-                <td>Machineguns</td>
-                <td class="ed" tabindex="0">AFJQS / C-UAS kinetic defeat</td>
-                <td><span class="cred-pill cred-inconfig" onclick="cycleCredStatus(this)">In Configuration</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-
-              <!-- 3. Radio / Comms / Reporting -->
-              <tr class="cat-row"><td colspan="6"><span class="cat-row-label">3. Radio / Comms / Reporting</span><span class="cat-row-movers"><button class="cat-row-mover" onclick="moveCatSection(this,-1)" title="Move section up">&#9650;</button><button class="cat-row-mover" onclick="moveCatSection(this,1)" title="Move section down">&#9660;</button></span></td></tr>
-              <tr data-cap-row data-cat="Comms">
-                <td class="ed" tabindex="0">SALUTE reporting (timed, scored)</td>
-                <td>Comms</td>
-                <td class="ed" tabindex="0">USAF SF SOP</td>
-                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-                <td><span class="proof-tag">USAF SF units</span></td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="Comms">
-                <td class="ed" tabindex="0">Dispatch / Sector coordination</td>
-                <td>Comms</td>
-                <td class="ed" tabindex="0">Installation defense SOP</td>
-                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-                <td><span class="proof-tag">USAF SF units</span></td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="Comms">
-                <td class="ed" tabindex="0">Cross-team command relay</td>
-                <td>Comms</td>
-                <td class="ed" tabindex="0">&mdash;</td>
-                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-
-              <!-- 4. On-Location Training -->
-              <tr class="cat-row"><td colspan="6"><span class="cat-row-label">4. On-Location Training</span><span class="cat-row-movers"><button class="cat-row-mover" onclick="moveCatSection(this,-1)" title="Move section up">&#9650;</button><button class="cat-row-mover" onclick="moveCatSection(this,1)" title="Move section down">&#9660;</button></span></td></tr>
-              <tr data-cap-row data-cat="OLT">
-                <td class="ed" tabindex="0">Installation-specific environments (flight line, perimeter, ECP)</td>
-                <td>On-Location</td>
-                <td class="ed" tabindex="0">V-CSTR NPC Protocol</td>
-                <td><span class="cred-pill cred-vcstr" onclick="cycleCredStatus(this)">V-CSTR Credentialed</span></td>
-                <td><span class="proof-tag">USAF SF units</span></td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="OLT">
-                <td class="ed" tabindex="0">Site-ingested terrain (from survey data)</td>
-                <td>On-Location</td>
-                <td class="ed" tabindex="0">&mdash;</td>
-                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-              <tr data-cap-row data-cat="OLT">
-                <td class="ed" tabindex="0">Mobile / expeditionary kit deployment</td>
-                <td>On-Location</td>
-                <td class="ed" tabindex="0">&mdash;</td>
-                <td><span class="cred-pill cred-onrequest" onclick="cycleCredStatus(this)">Available</span></td>
-                <td>&mdash;</td>
-                <td><span class="cap-reorder"><button class="cap-reorder-btn" onclick="moveCapRow(this,-1)" title="Move up">&#9650;</button><button class="cap-reorder-btn" onclick="moveCapRow(this,1)" title="Move down">&#9660;</button></span><button class="remove-cap" onclick="removeCapRow(this)">&times;</button></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="add-cap-btn" onclick="addCapabilityRow('5a')">+ Add C-UAS capability</div>
+          <ul class="ws5a-list" id="ws5a-list">
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Dronebuster EW" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="MODI II / Handheld EW" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Additional EW effector" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="M2 .50 Cal (anti-air)" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="M240 (anti-UAS employment)" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="M249 (anti-UAS employment)" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="SALUTE reporting (timed, scored)" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Dispatch / Sector coordination" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Cross-team command relay" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Installation-specific environments (flight line, perimeter, ECP)" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Site-ingested terrain (from survey data)" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+            <li class="ws5a-item" draggable="true"><span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="Mobile / expeditionary kit deployment" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button></li>
+          </ul>
+          <div class="ws5a-add-row">
+            <input class="ws5a-input" id="ws5a-new" placeholder="Add capability…" onkeydown="if(event.key==='Enter')ws5aAdd()" />
+            <button class="ws5a-addbtn" onclick="ws5aAdd()">+ Add</button>
+          </div>
         </div></div>
       </div>
 
@@ -3676,6 +3602,47 @@ function switchView(view){
   if(el4)el4.textContent=majcoms.size+' MAJCOMs \u00b7 '+angCount+' ANG \u00b7 '+(afsfc4dData.length-angCount)+' active duty & theater';
   switchView('today');
 })();
+
+/* ── 5a WORKSHOP LIST ── */
+(function(){
+  var dragSrc=null;
+  function ws5aWire(el){
+    el.addEventListener('dragstart',function(e){dragSrc=el;el.classList.add('ws5a-dragging');e.dataTransfer.effectAllowed='move';});
+    el.addEventListener('dragend',function(){el.classList.remove('ws5a-dragging');document.querySelectorAll('.ws5a-item').forEach(function(i){i.classList.remove('ws5a-over');});});
+    el.addEventListener('dragover',function(e){e.preventDefault();if(dragSrc&&dragSrc!==el)el.classList.add('ws5a-over');});
+    el.addEventListener('dragleave',function(){el.classList.remove('ws5a-over');});
+    el.addEventListener('drop',function(e){
+      e.preventDefault();el.classList.remove('ws5a-over');
+      if(dragSrc&&dragSrc!==el){
+        var list=el.parentElement;
+        var items=Array.from(list.querySelectorAll('.ws5a-item'));
+        if(items.indexOf(dragSrc)<items.indexOf(el))list.insertBefore(dragSrc,el.nextSibling);
+        else list.insertBefore(dragSrc,el);
+      }
+    });
+  }
+  document.querySelectorAll('.ws5a-item').forEach(ws5aWire);
+  window.ws5aMove=function(btn,dir){
+    var list=document.getElementById('ws5a-list');
+    var item=btn.closest('.ws5a-item');
+    var items=Array.from(list.querySelectorAll('.ws5a-item'));
+    var idx=items.indexOf(item);
+    if(dir===-1&&idx>0)list.insertBefore(item,items[idx-1]);
+    else if(dir===1&&idx<items.length-1&&items[idx+1].nextSibling)list.insertBefore(item,items[idx+1].nextSibling);
+    else if(dir===1&&idx<items.length-1)list.appendChild(item);
+  };
+  window.ws5aDel=function(btn){btn.closest('.ws5a-item').remove();};
+  window.ws5aAdd=function(){
+    var inp=document.getElementById('ws5a-new');
+    var val=inp.value.trim();if(!val)return;
+    var li=document.createElement('li');
+    li.className='ws5a-item';li.draggable=true;
+    li.innerHTML='<span class="ws5a-handle">⠿</span><div class="ws5a-move-btns"><button class="ws5a-mbtn" onclick="ws5aMove(this,-1)">▲</button><button class="ws5a-mbtn" onclick="ws5aMove(this,1)">▼</button></div><input class="ws5a-name" value="'+val.replace(/"/g,'&quot;')+'" /><button class="ws5a-del" onclick="ws5aDel(this)">×</button>';
+    ws5aWire(li);
+    document.getElementById('ws5a-list').appendChild(li);
+    inp.value='';inp.focus();
+  };
+}());
 </script>
 </body>
 </html>
