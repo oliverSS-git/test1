@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICST — Layering Model Mockup</title>
+<style>
+:root{--bg:#f4f3ee;--surface:#ffffff;--surface2:#edeae0;--border:#ccc9b8;--text:#1a1a10;--muted:#555540;--accent:#2e3d1a;--green:#3a6e18;--amber:#7a5e10;--red:#8a2818;--olive:#5e6e2a;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:20px;line-height:1.5;min-height:100vh}
+
+/* HEADER */
+.header{background:#2e3d1a;padding:20px 48px;display:flex;align-items:center;gap:20px}
+.header-title{font-size:26px;font-weight:700;color:#e8ead4;flex:1}
+.header-badge{font-size:14px;font-weight:700;padding:6px 14px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;background:rgba(201,184,122,0.15);border:1px solid rgba(201,184,122,0.35);color:#c9b87a}
+
+/* PROOF BAR */
+.proof-bar{background:var(--surface2);border-bottom:1px solid var(--border);padding:12px 48px;display:flex;align-items:center;gap:32px}
+.proof-item{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+.proof-num{font-size:18px;font-weight:700;color:var(--green)}
+.proof-sep{color:var(--border);font-size:18px}
+
+/* MAIN */
+.main{max-width:1400px;margin:0 auto;padding:32px 48px}
+
+/* PROGRAM HEADER */
+.program-header{margin-bottom:32px}
+.program-title{font-size:28px;font-weight:700;color:var(--accent);margin-bottom:4px}
+.program-sub{font-size:17px;color:var(--muted);line-height:1.6;max-width:900px}
+
+/* PROGRESS OVERVIEW */
+.progress-overview{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-bottom:32px}
+.progress-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--olive);margin-bottom:16px}
+.progress-bar-container{display:flex;align-items:center;gap:16px;margin-bottom:12px}
+.progress-bar{flex:1;height:28px;background:var(--surface2);border-radius:14px;overflow:hidden;border:1px solid var(--border);position:relative}
+.progress-fill{height:100%;border-radius:14px;transition:width 0.6s ease}
+.progress-fill.green{background:linear-gradient(90deg,#4a8a22,#3a6e18)}
+.progress-fill.amber{background:linear-gradient(90deg,#9a7e20,#7a5e10)}
+.progress-pct{font-size:22px;font-weight:700;color:var(--green);min-width:60px;text-align:right}
+.progress-legend{display:flex;gap:24px;font-size:14px;color:var(--muted)}
+.legend-item{display:flex;align-items:center;gap:6px}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.legend-dot.deployed{background:var(--green)}
+.legend-dot.config{background:var(--amber)}
+.legend-dot.available{background:var(--olive)}
+.legend-dot.request{background:var(--border)}
+
+/* LAYERS */
+.layer{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;overflow:hidden;transition:all 0.2s}
+.layer:hover{border-color:#a8a490}
+.layer-header{display:flex;align-items:center;gap:16px;padding:20px 28px;cursor:pointer;user-select:none;transition:background 0.12s}
+.layer-header:hover{background:rgba(46,61,26,0.02)}
+.layer-num{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--olive);min-width:70px}
+.layer-title{font-size:21px;font-weight:700;flex:1}
+.layer-status{display:flex;gap:8px;align-items:center}
+.pill{font-size:12px;font-weight:700;padding:4px 12px;border-radius:4px;text-transform:uppercase;letter-spacing:0.5px}
+.pill-deployed{background:rgba(58,110,24,0.12);color:var(--green);border:1px solid rgba(58,110,24,0.25)}
+.pill-config{background:rgba(122,94,16,0.1);color:var(--amber);border:1px solid rgba(122,94,16,0.2)}
+.pill-available{background:rgba(94,110,42,0.1);color:var(--olive);border:1px solid rgba(94,110,42,0.2)}
+.pill-request{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.layer-chevron{font-size:16px;color:var(--muted);transition:transform 0.2s}
+.layer.open .layer-chevron{transform:rotate(180deg)}
+.layer-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.layer.open .layer-body{max-height:2000px}
+.layer-content{padding:0 28px 28px;border-top:1px solid var(--border)}
+
+/* CAPABILITY ROWS */
+.cap-table{width:100%;border-collapse:separate;border-spacing:0;margin-top:20px}
+.cap-table th{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);text-align:left;padding:10px 16px;border-bottom:2px solid var(--border)}
+.cap-table td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:17px;vertical-align:middle}
+.cap-table tr:last-child td{border-bottom:none}
+.cap-name{font-weight:600}
+.cap-credential{font-size:15px;color:var(--muted);font-family:'Consolas','Courier New',monospace}
+.fielded-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--green);background:rgba(58,110,24,0.06);padding:4px 10px;border-radius:4px;border:1px solid rgba(58,110,24,0.12)}
+.fielded-tag .ft-icon{font-size:11px}
+.config-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--amber);background:rgba(122,94,16,0.06);padding:4px 10px;border-radius:4px;border:1px solid rgba(122,94,16,0.12)}
+.request-tag{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);background:var(--surface2);padding:4px 10px;border-radius:4px;border:1px solid var(--border)}
+
+/* LAYER INSIGHT */
+.layer-insight{background:rgba(46,61,26,0.03);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-top:16px;font-size:16px;color:var(--muted);line-height:1.6}
+.layer-insight strong{color:var(--accent)}
+
+/* CREDENTIAL PROGRESS */
+.cred-progress{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.cred-chip{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:6px;font-size:14px;font-weight:600;border:1px solid var(--border);background:var(--surface2)}
+.cred-chip .check{color:var(--green);font-size:16px}
+.cred-chip .pending{color:var(--amber);font-size:16px}
+.cred-chip .tbd{color:var(--muted);font-size:16px}
+
+/* ENTERPRISE SUMMARY */
+.enterprise{background:var(--surface);border:2px solid var(--accent);border-radius:12px;padding:28px 32px;margin-top:32px}
+.enterprise-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--olive);margin-bottom:16px}
+.enterprise-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.e-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.e-card-num{font-size:28px;font-weight:700;color:var(--green)}
+.e-card-label{font-size:14px;color:var(--muted);margin-top:2px}
+.e-card-detail{font-size:13px;color:var(--muted);margin-top:6px;font-style:italic}
+
+/* FOOTER NOTE */
+.footer-note{margin-top:24px;padding:16px 20px;font-size:15px;color:var(--muted);line-height:1.6;border-left:3px solid var(--olive)}
+
+@media print{body{font-size:16px}.header{position:static}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">ICST Configuration</div>
+  <div class="header-badge">AFSFC</div>
+</div>
+
+<!-- PROOF BAR — ambient credibility, not clickable tabs -->
+<div class="proof-bar">
+  <div class="proof-item"><span class="proof-num">60+</span> USAF units on ICST</div>
+  <span class="proof-sep">|</span>
+  <div class="proof-item"><span class="proof-num">7</span> Navy carriers deployed</div>
+  <span class="proof-sep">|</span>
+  <div class="proof-item"><span class="proof-num">31</span> shore installations contracted</div>
+  <span class="proof-sep">|</span>
+  <div class="proof-item"><span class="proof-num">1,600+</span> officers in certification</div>
+</div>
+
+<div class="main">
+
+  <!-- PROGRAM HEADER -->
+  <div class="program-header">
+    <div class="program-title">Integrated Combat Skills Trainer &mdash; AFSFC Configuration</div>
+    <div class="program-sub">ICST is already deployed at 60+ USAF units with credential-aligned training across multiple domains. This view shows your configuration status &mdash; what&rsquo;s ready, what&rsquo;s in progress, and what&rsquo;s available to activate.</div>
+  </div>
+
+  <!-- PROGRESS OVERVIEW -->
+  <div class="progress-overview">
+    <div class="progress-title">ICST Capability Coverage &mdash; AFSFC</div>
+    <div class="progress-bar-container">
+      <div class="progress-bar">
+        <div class="progress-fill green" style="width:45%"></div>
+      </div>
+      <div class="progress-pct">45%</div>
+    </div>
+    <div class="progress-legend">
+      <div class="legend-item"><div class="legend-dot deployed"></div> Deployed / Credentialed</div>
+      <div class="legend-item"><div class="legend-dot config"></div> In Configuration</div>
+      <div class="legend-item"><div class="legend-dot available"></div> Available &mdash; Needs Credentialing</div>
+      <div class="legend-item"><div class="legend-dot request"></div> On Request</div>
+    </div>
+  </div>
+
+  <!-- LAYER 1: C-UAS SHOTGUN -->
+  <div class="layer open" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 1</div>
+      <div class="layer-title">C-UAS &mdash; Shotgun</div>
+      <div class="layer-status"><span class="pill pill-config">In Configuration</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>Capability</th><th>Credential / Standard</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">6-stage progression &mdash; Detect through Defeat</td><td class="cap-credential">AFJQS SEI 3CS &middot; ATP 3-01.81</td><td><span class="pill pill-config">In Config</span></td><td><span class="config-tag">Scoping with AFSFC</span></td></tr>
+            <tr><td class="cap-name">VACR accuracy &amp; PID timing</td><td class="cap-credential">AFJQS SEI 3CS</td><td><span class="pill pill-config">In Config</span></td><td><span class="config-tag">Scoping with AFSFC</span></td></tr>
+            <tr><td class="cap-name">ROE decision gates</td><td class="cap-credential">ATP 3-01.81 &middot; CNGBI 7500.00</td><td><span class="pill pill-config">In Config</span></td><td><span class="config-tag">Scoping with AFSFC</span></td></tr>
+            <tr><td class="cap-name">Evidence Engine &rarr; AFSFC HQ pipeline</td><td class="cap-credential">AFI 10-201 readiness reporting</td><td><span class="pill pill-available">Available</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Navy &middot; Ontario</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight"><strong>This is the scoping session target.</strong> Qual tables, scoring rubric, and evidence pipeline are being configured to your requirements. The measurement architecture underneath is the same one running on Navy carriers today.</div>
+        <div class="cred-progress">
+          <div class="cred-chip"><span class="pending">&#9679;</span> Qual tables &mdash; drafting</div>
+          <div class="cred-chip"><span class="pending">&#9679;</span> Scoring rubric &mdash; scoping</div>
+          <div class="cred-chip"><span class="check">&#10003;</span> Evidence Engine &mdash; proven</div>
+          <div class="cred-chip"><span class="check">&#10003;</span> Sensor hardware &mdash; ready</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 2: C-UAS FULL SUITE -->
+  <div class="layer" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 2</div>
+      <div class="layer-title">C-UAS &mdash; Full Suite</div>
+      <div class="layer-status"><span class="pill pill-available">Available</span><span class="pill pill-deployed">1 Deployed</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>System</th><th>Credential / Standard</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">Dronebuster (EW)</td><td class="cap-credential">AFJQS SEI 3CS</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> SBIR &middot; AFSFC co-dev</span></td></tr>
+            <tr><td class="cap-name">LMAMS</td><td class="cap-credential">ATP 3-01.81</td><td><span class="pill pill-available">Available</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Full scope ready</span></td></tr>
+            <tr><td class="cap-name">Coyote</td><td class="cap-credential">ATP 3-01.81</td><td><span class="pill pill-available">Available</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Full scope ready</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight">Dronebuster EW training is already deployed &mdash; built through SBIR co-development with AFSFC. LMAMS and Coyote are available at full contract scope. <strong>Same airmen, same scenarios, same evidence pipeline as Layer 1.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 3: SMALL ARMS -->
+  <div class="layer" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 3</div>
+      <div class="layer-title">Small Arms &mdash; Pistol &amp; Rifle Sustainment</div>
+      <div class="layer-status"><span class="pill pill-deployed">Deployed</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>System</th><th>Credential / Standard</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">M18 Pistol</td><td class="cap-credential">AFI 36-2654 (CATM) &middot; OPNAVINST 3591.1F</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> 31 Navy installations</span></td></tr>
+            <tr><td class="cap-name">M4A1 Carbine</td><td class="cap-credential">AFI 36-2654 (CATM)</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> ICST baseline (60+ units)</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight"><strong>Already deployed and generating evidence.</strong> M18 qual tables are running at 31 Navy shore installations. M4A1 is in the ICST baseline catalog. Both map to AFI 36-2654 (CATM) &mdash; configuration to AFSFC standards is a credentialing decision, not new development.</div>
+        <div class="cred-progress">
+          <div class="cred-chip"><span class="check">&#10003;</span> Qual tables &mdash; proven</div>
+          <div class="cred-chip"><span class="check">&#10003;</span> Scoring rubric &mdash; proven</div>
+          <div class="cred-chip"><span class="check">&#10003;</span> Sensor hardware &mdash; UniTrack</div>
+          <div class="cred-chip"><span class="tbd">&#9675;</span> AFSFC credentialing &mdash; TBD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 4: NON-LETHAL & USE-OF-FORCE -->
+  <div class="layer" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 4</div>
+      <div class="layer-title">Non-Lethal &amp; Use-of-Force</div>
+      <div class="layer-status"><span class="pill pill-deployed">Deployed</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>System</th><th>Credential / Standard</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">Baton</td><td class="cap-credential">AFI 31-118 &middot; Force Continuum</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Ontario LE (1,600+ officers)</span></td></tr>
+            <tr><td class="cap-name">OC / Pepper Spray</td><td class="cap-credential">AFI 31-118 &middot; Force Continuum</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Ontario LE</span></td></tr>
+            <tr><td class="cap-name">CEW (TASER)</td><td class="cap-credential">AFI 31-118 &middot; Force Continuum</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Ontario LE</span></td></tr>
+            <tr><td class="cap-name">Verbal de-escalation scoring</td><td class="cap-credential">DePICT&trade; 14-item framework</td><td><span class="pill pill-deployed">Deployed</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> Ontario LE</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight"><strong>Proven at province-scale.</strong> The entire non-lethal and use-of-force measurement architecture is fielded across Ontario law enforcement &mdash; same structural approach applicable to SF units with LE missions. No separate procurement. Activate as a credentialing decision.</div>
+        <div class="cred-progress">
+          <div class="cred-chip"><span class="check">&#10003;</span> Scoring architecture &mdash; proven</div>
+          <div class="cred-chip"><span class="check">&#10003;</span> Sensor hardware &mdash; proven</div>
+          <div class="cred-chip"><span class="tbd">&#9675;</span> AFSFC credentialing &mdash; TBD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 5: CREW-SERVED -->
+  <div class="layer" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 5</div>
+      <div class="layer-title">Crew-Served Weapons</div>
+      <div class="layer-status"><span class="pill pill-config">In Configuration</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>System</th><th>Credential / Standard</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">M240 Machine Gun</td><td class="cap-credential">AFI 36-2654 (CATM)</td><td><span class="pill pill-config">In Config</span></td><td><span class="config-tag">In build</span></td></tr>
+            <tr><td class="cap-name">M249 SAW</td><td class="cap-credential">AFI 36-2654 (CATM)</td><td><span class="pill pill-config">In Config</span></td><td><span class="config-tag">In build</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight">Crew-served weapon systems are in active configuration. Team qualification, sector coverage, burst control, and crew drills &mdash; same evidence pipeline, same dashboard.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 6: EXTENDED RANGE -->
+  <div class="layer" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 6</div>
+      <div class="layer-title">Extended Range &amp; Specialty</div>
+      <div class="layer-status"><span class="pill pill-request">On Request</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>System</th><th>Credential / Standard</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">M3 MAAWS</td><td class="cap-credential">AF simulator requirement</td><td><span class="pill pill-request">On Request</span></td><td><span class="request-tag">Available on request</span></td></tr>
+            <tr><td class="cap-name">M2 .50 Cal</td><td class="cap-credential">AFI 36-2654 (CATM)</td><td><span class="pill pill-request">On Request</span></td><td><span class="request-tag">Available on request</span></td></tr>
+            <tr><td class="cap-name">M320 GLM</td><td class="cap-credential">AFSFC priority &middot; AF simulator req</td><td><span class="pill pill-request">On Request</span></td><td><span class="request-tag">Available on request</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight">Extended range systems are available on request. M320 has been identified as an AFSFC near-term priority alongside C-UAS. <strong>Unit request to deployed qual tables in &lt;30 days.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYER 7: NPC ENVIRONMENTS -->
+  <div class="layer" onclick="toggleLayer(this)">
+    <div class="layer-header">
+      <div class="layer-num">Layer 7</div>
+      <div class="layer-title">USAF NPC Scenario Environments</div>
+      <div class="layer-status"><span class="pill pill-deployed">Available Now</span></div>
+      <div class="layer-chevron">&#9660;</div>
+    </div>
+    <div class="layer-body">
+      <div class="layer-content">
+        <table class="cap-table">
+          <thead><tr><th>Environment</th><th>Scenarios</th><th>Status</th><th>Fielded At</th></tr></thead>
+          <tbody>
+            <tr><td class="cap-name">Access Control &mdash; Gate &amp; ECP</td><td class="cap-credential">DBIDS-style ID &middot; gate runner &middot; vehicle challenge &middot; protest</td><td><span class="pill pill-deployed">Available</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> ICST baseline</span></td></tr>
+            <tr><td class="cap-name">Base Defense &mdash; IBD &amp; Post-Attack</td><td class="cap-credential">Defensive sectors &middot; NVG night defense &middot; post-attack sweep</td><td><span class="pill pill-deployed">Available</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> ICST baseline</span></td></tr>
+            <tr><td class="cap-name">Patrol &amp; Critical Incident</td><td class="cap-credential">Housing disturbance &middot; EDP &middot; active threat &middot; OCP environments</td><td><span class="pill pill-deployed">Available</span></td><td><span class="fielded-tag"><span class="ft-icon">&#10003;</span> ICST baseline</span></td></tr>
+          </tbody>
+        </table>
+        <div class="layer-insight">USAF-specific NPC environments with OCP uniforms and base infrastructure. <strong>These run alongside any weapon system layer</strong> &mdash; the same scenario can score C-UAS, small arms, non-lethal, and communications simultaneously.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ENTERPRISE SUMMARY -->
+  <div class="enterprise">
+    <div class="enterprise-title">ICST Enterprise Summary &mdash; AFSFC</div>
+    <div class="enterprise-grid">
+      <div class="e-card">
+        <div class="e-card-num">17</div>
+        <div class="e-card-label">Total systems in ICST catalog</div>
+        <div class="e-card-detail">7 kinetic &middot; 3 non-lethal &middot; 4 C-UAS &middot; 3 NPC environments</div>
+      </div>
+      <div class="e-card">
+        <div class="e-card-num">10</div>
+        <div class="e-card-label">Already deployed or proven</div>
+        <div class="e-card-detail">Across Navy, Ontario LE, and 60+ USAF units</div>
+      </div>
+      <div class="e-card">
+        <div class="e-card-num">&lt;30 days</div>
+        <div class="e-card-label">Request to deployed qual tables</div>
+        <div class="e-card-detail">No instructor re-certification &middot; No new procurement</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Every layer feeds the same Evidence Engine and appears on the same commander readiness dashboard. Credentialing a new capability is a configuration decision &mdash; the platform, pipeline, and proof already exist.
+  </div>
+
+</div>
+
+<script>
+function toggleLayer(el){
+  // Don't toggle if clicking inside the body content
+  if(event.target.closest('.layer-body')) return;
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
