@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AFSFC — What they said, how we frame it, what they're buying</title>
+<style>
+  :root {
+    --ink: #1a1d21;
+    --ink-soft: #3d4248;
+    --ink-mute: #6b7078;
+    --line: #d8d3c8;
+    --line-soft: #ece7db;
+    --paper: #fbf8f2;
+    --accent-1: #3C3489;
+    --accent-1-mid: #CECBF6;
+    --accent-2: #085041;
+    --accent-2-mid: #9FE1CB;
+    --accent-3: #712B13;
+    --accent-3-mid: #F5C4B3;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #efeae0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", sans-serif;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    max-width: 1080px;
+    margin: 24px auto;
+    background: var(--paper);
+    padding: 40px 48px 36px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .title { font-size: 22px; font-weight: 500; letter-spacing: -0.01em; margin: 0 0 4px; }
+  .subtitle { font-size: 13px; color: var(--ink-mute); margin: 0; max-width: 720px; }
+  .meta { font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+
+  .controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 20px;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .open-frame {
+    background: #f3ede0;
+    border-left: 3px solid var(--ink-soft);
+    padding: 12px 16px;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 13px;
+    line-height: 1.55;
+    flex: 1;
+    min-width: 280px;
+  }
+  .open-frame strong {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .btn-expand {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    font: inherit;
+    font-size: 12px;
+    padding: 8px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.12s;
+    align-self: center;
+  }
+  .btn-expand:hover { background: var(--line-soft); }
+
+  .tier-block { margin-bottom: 24px; }
+  .tier-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tier-num { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); }
+  .tier-name { font-size: 16px; font-weight: 500; }
+  .tier-hint { font-size: 12px; color: var(--ink-mute); margin-left: auto; font-style: italic; }
+
+  .row { border-bottom: 1px solid var(--line-soft); }
+  .row:last-child { border-bottom: none; }
+
+  .row-summary {
+    display: grid;
+    grid-template-columns: 22px 1fr 1.2fr;
+    gap: 20px;
+    padding: 14px 8px;
+    cursor: pointer;
+    align-items: baseline;
+    transition: background 0.12s;
+  }
+  .row-summary:hover { background: rgba(0,0,0,0.015); }
+  .row-summary:focus-visible {
+    outline: 2px solid var(--ink-soft);
+    outline-offset: -2px;
+  }
+  .caret {
+    width: 9px; height: 9px;
+    border-right: 1.5px solid var(--ink-mute);
+    border-bottom: 1.5px solid var(--ink-mute);
+    transform: rotate(-45deg);
+    transition: transform 0.18s ease;
+    margin-top: 4px;
+    justify-self: start;
+  }
+  .row.open .caret { transform: rotate(45deg); }
+
+  .summary-pain { font-weight: 500; color: var(--ink); font-size: 14px; }
+  .summary-buying { color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+  .summary-buying .arrow { color: var(--ink-mute); margin-right: 8px; font-weight: 500; }
+
+  .row-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.28s ease;
+  }
+  .row.open .row-detail { max-height: 900px; }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+    padding: 4px 8px 20px 30px;
+  }
+  .detail-col h4 {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin: 0 0 6px;
+  }
+  .detail-col p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--ink-soft); }
+  .detail-col .lead { font-weight: 500; color: var(--ink); display: block; margin-bottom: 4px; font-size: 13px; }
+  .detail-col.buying { border-left: 2px solid var(--line); padding-left: 14px; }
+
+  .tier-1 .detail-col.buying { border-left-color: var(--accent-1-mid); }
+  .tier-1 .detail-col.buying .lead { color: var(--accent-1); }
+  .tier-1 .tier-num { color: var(--accent-1); }
+  .tier-2 .detail-col.buying { border-left-color: var(--accent-2-mid); }
+  .tier-2 .detail-col.buying .lead { color: var(--accent-2); }
+  .tier-2 .tier-num { color: var(--accent-2); }
+  .tier-3 .detail-col.buying { border-left-color: var(--accent-3-mid); }
+  .tier-3 .detail-col.buying .lead { color: var(--accent-3); }
+  .tier-3 .tier-num { color: var(--accent-3); }
+
+  footer {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  footer h4 {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-mute);
+    margin: 0 0 6px;
+  }
+  footer p { margin: 0; font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; max-width: none; padding: 24px 32px; }
+    .btn-expand, .caret { display: none; }
+    .row-detail { max-height: none !important; }
+    .row-summary { grid-template-columns: 1fr 1.2fr; padding-left: 0; }
+    .detail-grid { padding-left: 0; }
+  }
+  @media (max-width: 820px) {
+    .page { padding: 28px 20px; }
+    .row-summary { grid-template-columns: 18px 1fr; gap: 14px; }
+    .summary-buying { grid-column: 2; padding-top: 4px; }
+    .detail-grid { grid-template-columns: 1fr; padding-left: 30px; }
+    footer { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <div>
+    <h1 class="title">What we heard, how we frame it, what they're buying</h1>
+    <p class="subtitle">Internal walk-in reference for the AFSFC scoping engagement. Click any row to see the full framing and talk track.</p>
+  </div>
+  <div class="meta">SSVR · internal · AFSFC</div>
+</header>
+
+<div class="controls">
+  <div class="open-frame">
+    <strong>The open</strong>
+    "In our scoping conversations, you told us what you actually need — and what you don't. You told us you're not trying to buy simulators. Here's what we heard, and what we think you're actually buying when we talk about the contract."
+  </div>
+  <button class="btn-expand" id="toggle-all">Expand all</button>
+</div>
+
+<section class="tier-block tier-1">
+  <div class="tier-head">
+    <span class="tier-num">Tier 1</span>
+    <span class="tier-name">Fleet pains — what the squadron feels</span>
+    <span class="tier-hint">visible, physical, day-to-day</span>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">Disparate point solutions, accumulated over years</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>A consolidated fleet, fielded and managed as one</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">Disparate point solutions, accumulated over years.</span>Squadrons have a drawer of vendor-specific kit from a decade of one-off procurements. Nothing talks to anything else. Fifty squadrons, fifty microclimates.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>We don't add another box. We consolidate the training posture onto a single device-agnostic platform already fielded at 80+ installations. One managed network, not one more vendor.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">A consolidated fleet, fielded and managed as one.</span>Not fifty procurements of fifty boxes. One action, one network, one vendor accountable for kit across every squadron. The hardware is ours &mdash; squadrons don't carry it, AFSFC doesn't refresh it. You're buying the consolidation, not the components.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">Uneven baseline across the fleet</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>A single Day One baseline, held current for you</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">Uneven baseline across the fleet.</span>Some sites have current kit, some are two refresh cycles behind. Whatever a squadron got in 2019 is still what they have in 2026. Procurement cycles can't level this.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Hardware-as-a-Service. We own it, we refresh it, we retire it. Squadrons don't carry it on their asset register, AFSFC doesn't run fifty hardware actions. Currency is our problem.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">A single Day One baseline across every squadron, held current for you.</span>You're not buying equipment &mdash; you're buying the guarantee that every squadron starts on the same footing and stays there. Refresh cycles stop being a procurement headache because they stop being yours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tier-block tier-2">
+  <div class="tier-head">
+    <span class="tier-num">Tier 2</span>
+    <span class="tier-name">Signal pains — what the enterprise can't see or act on</span>
+    <span class="tier-hint">systemic, hidden, cumulative</span>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">No visibility into what's actually happening in training</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>A continuous readiness signal from every squadron back to you</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">No visibility into what's actually happening in training.</span>Events occur at the squadron and stay there. AFSFC can't answer "is the force ready against a Group 2 UAS at a given installation right now?" &mdash; not for C-UAS, not for most mission sets.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Every lane is a sensor. Scored reps produce structured evidence that flows back to HQ as it occurs, mapped to task, doctrine, standard, airman. Readiness becomes a signal you consume, not a report someone builds.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">A continuous readiness signal from every squadron back to you.</span>Not a quarterly report someone assembles &mdash; a live picture of who's qualified, on what task, to what standard, with the evidence behind every record. You stop asking squadrons to tell you about readiness. You see it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">Inconsistency between units in what's trained and how it's measured</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>Force-wide standardization without running a force-wide program</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">Inconsistency between units in what's trained and how it's measured.</span>Two squadrons with "the same" capability run different scenarios and produce incomparable outputs. No one can say whether defenders at Lackland perform the same as defenders at Minot.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Common platform, common doctrine-aligned mission content, common scoring logic. Same task, same standard, same signal &mdash; everywhere. Standardization is a feature of the subscription, not a program to go run.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">Force-wide standardization without running a force-wide program.</span>Same task, same scoring, same signal at every squadron &mdash; guaranteed by construction, not enforced by policy. You're buying the comparability that makes cross-site readiness judgments defensible.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">No mechanism to update the fleet universally when doctrine or threat changes</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>A standing update pipe from doctrine to every squadron</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">No mechanism to update the fleet universally when doctrine or threat changes.</span>When AFJQS shifts, when a new UAS surfaces, when a TTP evolves &mdash; there's no pipe that gets the update into every squadron's training at the same time. Drift is the default.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Two-way connectivity. We push content and standards updates from our side, compliant, versioned, and consistent across all 50 squadrons in one motion. The recurring subscription is the update pipe.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">A standing update pipe from doctrine to every squadron.</span>When the threat changes or the standard moves, the force moves with it &mdash; in weeks, not years, without a new procurement action. You're buying the mechanism that keeps the force current, not a snapshot of today's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tier-block tier-3">
+  <div class="tier-head">
+    <span class="tier-num">Tier 3</span>
+    <span class="tier-name">Institutional pains — what AFSFC can't do as the requirements owner</span>
+    <span class="tier-hint">authority-level, only Nelson sees these clearly</span>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">No bridge from training rep to live-fire qualification</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>Range time protected for airmen who've already proven they're ready</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">No bridge from training rep to live-fire qualification.</span>Live range time is scarce, oversubscribed, and expensive. Today there's no quality gate &mdash; airmen go to the range whether they're prepared or not, and the range gets burned on reps that shouldn't have been taken.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Virtual readiness as the gate to live fire. Scored sim reps produce the evidence that an airman is ready for the range. Live fire is reserved for the final validation, not skill acquisition. Cable's "gate to live fire" made institutional.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">Range time protected for airmen who've already proven they're ready.</span>You're buying the gate that turns scarce live fire from a training resource into a qualification event. Every trip to the range is a validation, not a first attempt. The math on range utilization changes in your favor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">No credential at the end of the rep</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>Credentialed readiness, backed by evidence, at the airman level</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">No credential at the end of the rep.</span>Training today produces "participation" &mdash; someone sat through it &mdash; not "readiness." AFJQS and CADMS exist to close this gap; nothing fielded today actually feeds them credentialed evidence.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Every scored rep produces an auditable, standards-mapped artifact that can feed a credential. AFSFC becomes the credentialing authority it's already supposed to be, with evidence backing every record.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">Credentialed readiness, backed by evidence, at the airman level.</span>Not participation records &mdash; qualifications. AFSFC becomes the institutional authority that actually credentials the force, because for the first time there's evidence behind every record. You're buying the authority structure you were always supposed to have.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">No AFSFC input into the content and direction of training experiences</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>A seat at the design table for every mission pack the force receives</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">No AFSFC input into the content and direction of training experiences the force receives.</span>AFSFC is the institutional requirements owner but has no seat at the table when training content gets built. Vendors build what they build; units take what they're given.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>AFSFC as co-author, not recipient. The partnership model puts Nelson's team in the design loop for every mission pack on a defined cadence. Equities are in the product, not adjacent to it.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">A seat at the design table for every mission pack the force receives.</span>Your doctrine, your priorities, your sign-off &mdash; built into the governance cadence, not bolted on at the end. You're buying authorship of what the force trains on, not just the right to review it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" data-row>
+    <div class="row-summary" role="button" tabindex="0" aria-expanded="false">
+      <span class="caret" aria-hidden="true"></span>
+      <span class="summary-pain">Every vendor needs a fresh ATO, so the enterprise data layer never materializes</span>
+      <span class="summary-buying"><span class="arrow">&rarr;</span>The network authorization that unlocks everything else on this sheet</span>
+    </div>
+    <div class="row-detail">
+      <div class="detail-grid">
+        <div class="detail-col said">
+          <h4>What they told us is broken</h4>
+          <p><span class="lead">Every vendor needs a fresh ATO, so the enterprise data layer never materializes.</span>Fielded systems don't touch the AF network. Without that, no evidence flows, no enterprise dashboard, no cross-site comparison. This is the hidden reason every other pain on this list persists.</p>
+        </div>
+        <div class="detail-col frame">
+          <h4>Why our positioning is the right answer</h4>
+          <p>Authority to Operate, achieved once, inherited by every task order. The network authorization is the unlock for every signal-layer benefit above it &mdash; without it, the rest is marketing.</p>
+        </div>
+        <div class="detail-col buying">
+          <h4>What they're buying</h4>
+          <p><span class="lead">The network authorization that unlocks everything else on this sheet.</span>Done once, inherited by every task order after. Without it, none of the signal flows, none of the visibility materializes, none of the credentialing scales. You're buying the foundation that makes the rest real &mdash; and you're buying it once.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <h4>The reframe in one line</h4>
+    <p>They walked in thinking about hardware and simulators. We want them walking out thinking about consolidation, signal, and institutional authority &mdash; so the CLIN structure and pricing that follow land as answers to problems they already named, not line items on a bill.</p>
+  </div>
+  <div>
+    <h4>What Kelli holds back</h4>
+    <p>Sustainment tail (who pays for content currency in Year 2+) isn't on this sheet. It's our pain, not theirs &mdash; surfacing unprompted invites scrutiny. Hybrid answer is ready if Nelson or Mostowski asks "what happens after Year 1."</p>
+  </div>
+</footer>
+
+</div>
+
+<script>
+  (function() {
+    var rows = document.querySelectorAll('[data-row]');
+    var btn = document.getElementById('toggle-all');
+
+    function updateToggleAllLabel() {
+      var allOpen = Array.prototype.every.call(rows, function(r) {
+        return r.classList.contains('open');
+      });
+      btn.textContent = allOpen ? 'Collapse all' : 'Expand all';
+    }
+
+    rows.forEach(function(row) {
+      var summary = row.querySelector('.row-summary');
+      function toggle() {
+        var isOpen = row.classList.toggle('open');
+        summary.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        updateToggleAllLabel();
+      }
+      summary.addEventListener('click', toggle);
+      summary.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    });
+
+    btn.addEventListener('click', function() {
+      var allOpen = Array.prototype.every.call(rows, function(r) {
+        return r.classList.contains('open');
+      });
+      rows.forEach(function(row) {
+        if (allOpen) {
+          row.classList.remove('open');
+          row.querySelector('.row-summary').setAttribute('aria-expanded', 'false');
+        } else {
+          row.classList.add('open');
+          row.querySelector('.row-summary').setAttribute('aria-expanded', 'true');
+        }
+      });
+      updateToggleAllLabel();
+    });
+  })();
+</script>
+</body>
+</html>
