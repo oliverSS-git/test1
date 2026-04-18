@@ -25,6 +25,15 @@
   --red: #E74C3C;
   --blue: #3498DB;
   --success: #27AE60;
+  --purple: #8E44AD;
+  --cost-bg: #F3EEF8;
+  --cost-border: #C39BD3;
+  --marg-good: #D4EDDA;
+  --marg-good-text: #276749;
+  --marg-mid: #FFF3CD;
+  --marg-mid-text: #856404;
+  --marg-low: #FDECEA;
+  --marg-low-text: #C0392B;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,6 +46,10 @@ body {
   min-height: 100vh;
 }
 
+/* ─── COST/MARGIN COLUMN VISIBILITY ─── */
+.cost-col { display: none; }
+body.show-costs .cost-col { display: table-cell; }
+
 /* ─── HEADER ─── */
 .app-header {
   background: var(--navy);
@@ -48,21 +61,20 @@ body {
   box-shadow: 0 2px 10px rgba(0,0,0,0.35);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   height: 52px;
+  flex-wrap: wrap;
 }
 
 .app-logo {
   font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  margin-right: 4px;
   white-space: nowrap;
 }
-
 .app-logo span { color: #7EC8E3; }
 
-.app-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.2); }
+.app-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
 
 .case-label { font-size: 11px; color: rgba(255,255,255,0.65); white-space: nowrap; }
 
@@ -73,7 +85,7 @@ body {
   color: white;
   border-radius: 5px;
   font-size: 12px;
-  min-width: 160px;
+  min-width: 140px;
   cursor: pointer;
 }
 .case-select option { color: #222; background: white; }
@@ -85,13 +97,13 @@ body {
   color: white;
   border-radius: 5px;
   font-size: 12px;
-  width: 150px;
+  width: 140px;
 }
 .case-name-input::placeholder { color: rgba(255,255,255,0.4); }
 .case-name-input:focus { outline: none; border-color: #7EC8E3; }
 
 .btn {
-  padding: 5px 13px;
+  padding: 5px 12px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -103,22 +115,22 @@ body {
 }
 .btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
-.btn-save { background: var(--success); color: white; }
-.btn-new  { background: #6C63FF; color: white; }
-.btn-del  { background: var(--red); color: white; }
-.btn-cmp  { background: #E67E22; color: white; }
-.btn-exp  { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
-
-.header-spacer { flex: 1; }
+.btn-save   { background: var(--success); color: white; }
+.btn-new    { background: #6C63FF; color: white; }
+.btn-del    { background: var(--red); color: white; }
+.btn-cmp    { background: #E67E22; color: white; }
+.btn-exp    { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
+.btn-costs  { background: var(--purple); color: white; }
+body.show-costs .btn-costs { background: var(--success); }
 
 /* ─── MAIN ─── */
 .main {
-  max-width: 1020px;
+  max-width: 1100px;
   margin: 20px auto 60px;
   padding: 0 16px;
 }
 
-/* ─── HERO BANNER ─── */
+/* ─── HERO ─── */
 .hero {
   background: white;
   border-left: 5px solid var(--navy);
@@ -131,9 +143,9 @@ body {
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 .hero-text h2 { font-size: 14px; color: var(--navy); font-weight: 700; }
-.hero-text p { font-size: 11px; color: #666; margin-top: 3px; }
+.hero-text p  { font-size: 11px; color: #666; margin-top: 3px; }
 .hero-case { margin-left: auto; text-align: right; }
-.hero-case-name { font-size: 18px; font-weight: 800; color: var(--navy); }
+.hero-case-name  { font-size: 18px; font-weight: 800; color: var(--navy); }
 .hero-case-label { font-size: 10px; color: #999; text-transform: uppercase; letter-spacing: 0.5px; }
 
 /* ─── SECTION BLOCKS ─── */
@@ -150,14 +162,12 @@ body {
   align-items: center;
   gap: 8px;
 }
-
 .section-tag {
   background: rgba(255,255,255,0.2);
   padding: 1px 7px;
   border-radius: 10px;
   font-size: 10px;
 }
-
 .section-note {
   background: var(--note);
   border-bottom: 1px solid var(--border);
@@ -174,7 +184,7 @@ th {
   background: var(--slate);
   color: var(--navy);
   font-weight: 700;
-  padding: 7px 10px;
+  padding: 7px 8px;
   text-align: center;
   border: 1px solid var(--border);
   font-size: 11px;
@@ -182,10 +192,12 @@ th {
 }
 th.th-left { text-align: left; }
 
-td { border: 1px solid var(--border); padding: 5px 10px; vertical-align: middle; }
+/* Cost/margin column headers get purple tint */
+th.cost-col { background: #EDE3F5; color: var(--purple); border-color: var(--cost-border); }
+
+td { border: 1px solid var(--border); padding: 5px 8px; vertical-align: middle; }
 
 .cat-row td { background: var(--slate); color: var(--navy); font-weight: 700; font-size: 11px; padding: 5px 10px; }
-
 .rollup-row td { background: var(--rollup); font-weight: 700; }
 
 .row-label { font-size: 12px; }
@@ -196,9 +208,8 @@ td { border: 1px solid var(--border); padding: 5px 10px; vertical-align: middle;
 .cell-dash  { background: var(--gray); color: #bbb; text-align: center; font-size: 14px; }
 .cell-sla   { background: var(--rollup); text-align: center; font-weight: 700; font-size: 11px; color: var(--navy-light); }
 
-/* Input cells */
+/* Price input cells (yellow) */
 .cell-input { background: var(--yellow); padding: 3px 5px; }
-
 input.price-in {
   width: 100%;
   padding: 4px 7px;
@@ -210,11 +221,24 @@ input.price-in {
   text-align: right;
   color: #222;
 }
-input.price-in:focus {
-  outline: 2px solid var(--blue);
-  background: #FFFDE7;
-}
+input.price-in:focus { outline: 2px solid var(--blue); background: #FFFDE7; }
 input.price-in::placeholder { color: #C8A000; }
+
+/* Cost input cells (purple-tint) */
+.cell-cost { background: var(--cost-bg); padding: 3px 5px; }
+input.cost-in {
+  width: 100%;
+  padding: 4px 7px;
+  border: 1px solid var(--cost-border);
+  border-radius: 3px;
+  background: var(--cost-bg);
+  font-size: 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-align: right;
+  color: #5B2C6F;
+}
+input.cost-in:focus { outline: 2px solid var(--purple); }
+input.cost-in::placeholder { color: #C39BD3; }
 
 /* Calculated cells */
 .cell-calc {
@@ -226,16 +250,39 @@ input.price-in::placeholder { color: #C8A000; }
   padding-right: 10px;
   font-size: 12px;
 }
-
 .cell-neutral { background: var(--gray); text-align: center; font-style: italic; color: #999; font-size: 11px; }
+.cell-amber   { background: var(--amber); color: var(--amber-text); text-align: center; font-weight: 700; font-size: 11px; }
 
-.cell-amber { background: var(--amber); color: var(--amber-text); text-align: center; font-weight: 700; font-size: 11px; }
+/* Margin cells — color-coded */
+.cell-marg {
+  text-align: right;
+  font-weight: 700;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 12px;
+  padding-right: 8px;
+}
+.marg-good { background: var(--marg-good); color: var(--marg-good-text); }
+.marg-mid  { background: var(--marg-mid);  color: var(--marg-mid-text); }
+.marg-low  { background: var(--marg-low);  color: var(--marg-low-text); }
+.marg-na   { background: var(--gray); color: #bbb; text-align: center; font-weight: normal; font-style: italic; }
+
+/* Margin legend pill */
+.marg-legend {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 16px;
+  background: #F9F4FD;
+  border-bottom: 1px solid var(--cost-border);
+  font-size: 10px;
+}
+body.show-costs .marg-legend { display: flex; }
+.marg-pill { padding: 2px 8px; border-radius: 10px; font-weight: 700; font-size: 10px; }
 
 /* Discount inputs */
 .disc-row td { background: white; }
-
 input.pct-in {
-  width: 80px;
+  width: 70px;
   padding: 4px 7px;
   border: 1px solid var(--yellow-border);
   border-radius: 3px;
@@ -247,7 +294,7 @@ input.pct-in {
 input.pct-in:focus { outline: 2px solid var(--blue); }
 
 /* CLIN */
-.clin-name { font-weight: 700; font-size: 12px; color: var(--navy); }
+.clin-name  { font-weight: 700; font-size: 12px; color: var(--navy); }
 .clin-scope { font-size: 11px; color: #555; margin-top: 2px; }
 
 /* Amber flag */
@@ -257,10 +304,27 @@ input.pct-in:focus { outline: 2px solid var(--blue); }
   padding: 7px 16px;
   font-size: 10px;
   color: var(--amber-text);
+}
+
+/* Summary bar */
+.sum-bar {
+  background: var(--navy);
+  color: white;
   display: flex;
   align-items: center;
-  gap: 6px;
+  padding: 8px 16px;
+  font-size: 11px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
+.sum-item  { display: flex; align-items: center; gap: 6px; }
+.sum-label { color: rgba(255,255,255,0.7); }
+.sum-val   { font-weight: 800; font-family: 'Consolas', monospace; font-size: 13px; }
+.t1-col { color: #7EC8E3; }
+.t2-col { color: #90EE90; }
+.t3-col { color: #FFD700; }
+.cost-sum-item { display: none; align-items: center; gap: 6px; }
+body.show-costs .cost-sum-item { display: flex; }
 
 /* ─── COMPARE MODAL ─── */
 .modal-overlay {
@@ -274,7 +338,7 @@ input.pct-in:focus { outline: 2px solid var(--blue); }
 }
 .modal {
   background: white;
-  max-width: 1000px;
+  max-width: 1060px;
   margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
@@ -290,16 +354,16 @@ input.pct-in:focus { outline: 2px solid var(--blue); }
   font-weight: 700;
   font-size: 14px;
 }
-.modal-body { padding: 20px; overflow-x: auto; }
+.modal-body   { padding: 20px; overflow-x: auto; }
 .modal-footer { padding: 12px 20px; background: var(--gray); border-top: 1px solid var(--border); display: flex; gap: 8px; }
 
 .cmp-table { font-size: 11px; }
 .cmp-table th { min-width: 110px; font-size: 11px; }
 .cmp-table .cmp-section { background: var(--navy); color: white; font-weight: 700; text-align: left; padding: 5px 10px; }
-.cmp-table .cmp-label { font-weight: 600; text-align: left; background: var(--note); color: #444; }
-.cmp-table .cmp-val { text-align: right; font-family: 'Consolas', monospace; }
-.cmp-table .cmp-best { background: #D4EDDA !important; color: var(--green-text) !important; font-weight: 800; }
-.cmp-table .cmp-high { background: #FDECEA !important; color: #C0392B !important; }
+.cmp-table .cmp-label   { font-weight: 600; text-align: left; background: var(--note); color: #444; }
+.cmp-table .cmp-val     { text-align: right; font-family: 'Consolas', monospace; }
+.cmp-table .cmp-best    { background: #D4EDDA !important; color: var(--green-text) !important; font-weight: 800; }
+.cmp-table .cmp-high    { background: #FDECEA !important; color: #C0392B !important; }
 
 /* ─── TOAST ─── */
 .toast {
@@ -317,29 +381,10 @@ input.pct-in:focus { outline: 2px solid var(--blue); }
 }
 .toast-success { background: var(--success); color: white; }
 .toast-info    { background: var(--blue); color: white; }
-
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-/* Summary bar at bottom of sections */
-.sum-bar {
-  background: var(--navy);
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  font-size: 11px;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-.sum-item { display: flex; align-items: center; gap: 6px; }
-.sum-label { color: rgba(255,255,255,0.7); }
-.sum-val { font-weight: 800; font-family: 'Consolas', monospace; font-size: 13px; }
-.t1-col { color: #7EC8E3; }
-.t2-col { color: #90EE90; }
-.t3-col { color: #FFD700; }
 
 input[type=text].text-in {
   width: 100%;
@@ -360,14 +405,15 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <span class="case-label">Active Case:</span>
   <select class="case-select" id="caseSelect" onchange="loadCase()"></select>
   <div class="app-divider"></div>
-  <span class="case-label">Case Name:</span>
+  <span class="case-label">Name:</span>
   <input class="case-name-input" type="text" id="caseName" placeholder="e.g. Conservative">
   <button class="btn btn-save" onclick="saveCase()">💾 Save</button>
-  <button class="btn btn-new"  onclick="newCase()">＋ New Case</button>
-  <button class="btn btn-del"  onclick="deleteCase()">🗑 Delete</button>
+  <button class="btn btn-new"  onclick="newCase()">＋ New</button>
+  <button class="btn btn-del"  onclick="deleteCase()">🗑</button>
   <div class="app-divider"></div>
-  <button class="btn btn-cmp" onclick="openCompare()">⚖ Compare</button>
-  <button class="btn btn-exp" onclick="exportCSV()">↓ CSV</button>
+  <button class="btn btn-costs" id="costToggleBtn" onclick="toggleCosts()">👁 Cost / Margin</button>
+  <button class="btn btn-cmp"   onclick="openCompare()">⚖ Compare</button>
+  <button class="btn btn-exp"   onclick="exportCSV()">↓ CSV</button>
 </div>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
@@ -377,7 +423,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <div class="hero">
     <div class="hero-text">
       <h2>AFSFC Pricing Input — SSVR Internal Working Tool</h2>
-      <p>Fill in unit costs → auto-calculated rollups. Save multiple scenarios as named Cases. Compare side-by-side. Wednesday 4/22 deadline.</p>
+      <p>Fill in unit costs → auto-calculated rollups. Toggle <strong>Cost / Margin</strong> columns to see internal cost build and per-component margin. Save named Cases. Compare side-by-side.</p>
     </div>
     <div class="hero-case">
       <div class="hero-case-label">Current Case</div>
@@ -391,268 +437,394 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       SECTION 1 — BOTTOM-UP COMPONENT COSTS
       <span class="section-tag">per lane / per year</span>
     </div>
-    <div class="section-note">Enter unit cost for each included component. ✓ = included in that tier. Auto-sum appears below each category.</div>
-    <table>
+    <div class="section-note">Enter unit cost (price) per component. Toggle Cost/Margin columns to show internal cost and margin. ✓ = included in tier.</div>
+
+    <!-- Margin legend — visible only when costs shown -->
+    <div class="marg-legend">
+      <strong style="color:var(--purple);">Margin color guide:</strong>
+      <span class="marg-pill" style="background:var(--marg-good);color:var(--marg-good-text);">≥ 50% Good</span>
+      <span class="marg-pill" style="background:var(--marg-mid);color:var(--marg-mid-text);">30–49% Watch</span>
+      <span class="marg-pill" style="background:var(--marg-low);color:var(--marg-low-text);">&lt; 30% Low</span>
+      <span style="color:#999;margin-left:4px;">Margin % = (Price − Cost) ÷ Price</span>
+    </div>
+
+    <table id="s1table">
       <thead>
         <tr>
-          <th class="th-left" style="width:40%">Component</th>
-          <th style="width:14%">Unit Cost ($/lane/yr)</th>
-          <th style="width:11%">Tier 1<br><small>Entry / C-UAS</small></th>
-          <th style="width:11%">Tier 2<br><small>Standard</small></th>
-          <th style="width:11%">Tier 3<br><small>Full Managed</small></th>
+          <th class="th-left" style="width:36%">Component</th>
+          <th style="width:12%">Price ($/lane/yr)</th>
+          <th style="width:9%">Tier 1<br><small>Entry</small></th>
+          <th style="width:9%">Tier 2<br><small>Standard</small></th>
+          <th style="width:9%">Tier 3<br><small>Full Mgd</small></th>
+          <th class="cost-col" style="width:10%">Est. Cost to Us<br><small>($/lane/yr)</small></th>
+          <th class="cost-col" style="width:8%">Margin $</th>
+          <th class="cost-col" style="width:7%">Margin %</th>
           <th>Notes</th>
         </tr>
       </thead>
       <tbody>
 
         <!-- PLATFORM -->
-        <tr class="cat-row"><td colspan="6">PLATFORM</td></tr>
+        <tr class="cat-row"><td colspan="5" data-base="5">PLATFORM</td><td class="cost-col" colspan="3" style="background:var(--slate);color:var(--navy);font-weight:700;"></td><td style="display:none"></td><td style="display:none"></td></tr>
+
         <tr>
           <td class="row-label">Platform License <small class="row-note">(Sim Execution + Ground Truth Evidence Engine)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_plat_license" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_license" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_plat_license">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_plat_license">—</td>
           <td class="row-note">Baseline — all tiers</td>
         </tr>
         <tr>
           <td class="row-label">Readiness Sensing Endpoint <small class="row-note">(managed terminal: PC + HMD, SSVR-owned)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_plat_endpoint" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_endpoint" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_plat_endpoint">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_plat_endpoint">—</td>
           <td class="row-note">SSVR owns &amp; refreshes hardware</td>
         </tr>
         <tr>
           <td class="row-label">Readiness Sensing Network <small class="row-note">(data routing + AFSFC enterprise view)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_plat_network" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_network" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_plat_network">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_plat_network">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">ATO / RMF / Cyber Compliance</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_plat_ato" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_ato" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_plat_ato">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_plat_ato">—</td>
           <td class="row-note"></td>
         </tr>
 
         <!-- IMPL & SUSTAINMENT -->
-        <tr class="cat-row"><td colspan="6">IMPLEMENTATION &amp; SUSTAINMENT</td></tr>
+        <tr class="cat-row"><td colspan="5" data-base="5">IMPLEMENTATION &amp; SUSTAINMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label">Implementation &amp; Site Activation</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_sust_impl" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_sust_impl" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_sust_impl">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_sust_impl">—</td>
           <td class="row-note">One-time per site — amortized</td>
         </tr>
         <tr>
           <td class="row-label">Platform Sustainment (ongoing)</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_sust_ongoing" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_sust_ongoing" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_sust_ongoing">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_sust_ongoing">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Hardware Warranty / Endpoint Availability SLA</td>
           <td class="cell-neutral">—</td>
           <td class="cell-sla">Standard</td><td class="cell-sla">Enhanced</td><td class="cell-sla">Priority</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-neutral">—</td>
           <td class="row-note">Tier-differentiated SLA</td>
         </tr>
 
         <!-- WTS -->
-        <tr class="cat-row"><td colspan="6">WEAPON TRAINING SYSTEMS</td></tr>
+        <tr class="cat-row"><td colspan="5" data-base="5">WEAPON TRAINING SYSTEMS</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label">Shotgun WTS — Instrumented M870 <small class="row-note">(drop-in kit + surrogate)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_wts_shotgun" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_shotgun" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_shotgun">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_shotgun">—</td>
           <td class="row-note">Kit + surrogate per site</td>
         </tr>
         <tr>
           <td class="row-label">Rifle WTS — Instrumented M4</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_wts_rifle" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_rifle" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_rifle">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_rifle">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Pistol WTS — Instrumented M18</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_wts_pistol" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_pistol" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_pistol">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_pistol">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Non-Lethal Bundle <small class="row-note">(baton, OC, ECD)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_wts_nonlethal" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_nonlethal" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_nonlethal">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_nonlethal">—</td>
           <td class="row-note"></td>
         </tr>
 
         <!-- MISSION PACKS -->
-        <tr class="cat-row"><td colspan="6">MISSION PACKS</td></tr>
+        <tr class="cat-row"><td colspan="5" data-base="5">MISSION PACKS</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
         <tr>
-          <td class="row-label">C-UAS Defender Pack <small class="row-note">(shotgun vs. drone — AFJQS SEI 3CS)</small></td>
+          <td class="row-label">C-UAS Defender Pack <small class="row-note">(AFJQS SEI 3CS)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_pack_cuas" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pack_cuas" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_pack_cuas">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_pack_cuas">—</td>
           <td class="row-note">AFSFC-specific config via NRE</td>
         </tr>
         <tr>
           <td class="row-label">Base Defense Pack <small class="row-note">(DAFI 31-131 / AFI 31-101)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_pack_base" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pack_base" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_pack_base">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_pack_base">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">On-Base Operations Pack <small class="row-note">[NAME TBD] (AFI 31-207 — LE/UoF)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_pack_onbase" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
-          <td class="row-note">Law enforcement / use-of-force objectives</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pack_onbase" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_pack_onbase">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_pack_onbase">—</td>
+          <td class="row-note">LE / use-of-force objectives</td>
         </tr>
 
         <!-- READINESS REPORTING -->
-        <tr class="cat-row"><td colspan="6">READINESS REPORTING</td></tr>
+        <tr class="cat-row"><td colspan="5" data-base="5">READINESS REPORTING</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label">Local Session Reporting</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_rep_local" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-dash">—</td><td class="cell-dash">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_rep_local" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_rep_local">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_rep_local">—</td>
           <td class="row-note">Tier 1 only</td>
         </tr>
         <tr>
           <td class="row-label">Commander's Readiness Evidence View (dashboard)</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_rep_cmd" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_rep_cmd" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_rep_cmd">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_rep_cmd">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Full Readiness Intelligence Layer <small class="row-note">(MAJCOM / AFSFC HQ rollup)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_rep_full" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_rep_full" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_rep_full">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_rep_full">—</td>
           <td class="row-note"></td>
         </tr>
 
-        <!-- PROGRAM MANAGEMENT -->
-        <tr class="cat-row"><td colspan="6">PROGRAM MANAGEMENT</td></tr>
+        <!-- PM -->
+        <tr class="cat-row"><td colspan="5" data-base="5">PROGRAM MANAGEMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label">Basic Support</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_pm_basic" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-dash">—</td><td class="cell-dash">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pm_basic" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_pm_basic">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_pm_basic">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Account Management</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_pm_account" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-dash">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pm_account" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_pm_account">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_pm_account">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Embedded Readiness Partnership <small class="row-note">(SSVR seat at AFSFC HQ)</small></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_pm_embedded" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pm_embedded" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_pm_embedded">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_pm_embedded">—</td>
           <td class="row-note"></td>
         </tr>
 
         <!-- ROLLUP -->
-        <tr class="cat-row"><td colspan="6">TIER ROLLUP — À LA CARTE SUM</td></tr>
+        <tr class="cat-row"><td colspan="5" data-base="5">TIER ROLLUP — À LA CARTE SUM</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
         <tr class="rollup-row">
           <td><strong>Calculated Sum — All Included Components</strong></td>
           <td class="cell-neutral" style="font-size:10px;">auto</td>
           <td class="cell-calc" id="sum_t1">$0</td>
           <td class="cell-calc" id="sum_t2">$0</td>
           <td class="cell-calc" id="sum_t3">$0</td>
-          <td class="row-note">Sum of ✓ items at entered unit costs</td>
+          <td class="cost-col cell-calc" id="csum_t1" style="background:#EDE3F5;color:var(--purple);">$0</td>
+          <td class="cost-col cell-calc" id="csum_t2" style="background:#EDE3F5;color:var(--purple);">$0</td>
+          <td class="cost-col cell-calc" id="csum_t3" style="background:#EDE3F5;color:var(--purple);">$0</td>
+          <td class="row-note">Sum of ✓ items at entered costs</td>
+        </tr>
+        <tr class="rollup-row">
+          <td><strong>Blended Tier Margin</strong> <small style="font-weight:normal;">(cost sum vs. à la carte price)</small></td>
+          <td class="cell-neutral" style="font-size:10px;">auto</td>
+          <td class="cell-neutral" id="bm_t1_label">—</td>
+          <td class="cell-neutral" id="bm_t2_label">—</td>
+          <td class="cell-neutral" id="bm_t3_label">—</td>
+          <td class="cost-col cell-marg marg-na" id="bmd_t1">—</td>
+          <td class="cost-col cell-marg marg-na" id="bmd_t2">—</td>
+          <td class="cost-col cell-marg marg-na" id="bmd_t3">—</td>
+          <td class="cost-col cell-marg marg-na" id="bmp_t1" style="display:none">—</td>
+          <td class="row-note cost-col">Margin on bundled cost vs. à la carte price</td>
         </tr>
 
       </tbody>
     </table>
+
     <!-- Sum bar -->
     <div class="sum-bar">
-      <div class="sum-item"><span class="sum-label">Tier 1 à la carte:</span><span class="sum-val t1-col" id="sb_t1">$0</span></div>
-      <div class="sum-item"><span class="sum-label">Tier 2 à la carte:</span><span class="sum-val t2-col" id="sb_t2">$0</span></div>
-      <div class="sum-item"><span class="sum-label">Tier 3 à la carte:</span><span class="sum-val t3-col" id="sb_t3">$0</span></div>
+      <div class="sum-item"><span class="sum-label">T1 à la carte:</span><span class="sum-val t1-col" id="sb_t1">$0</span></div>
+      <div class="sum-item"><span class="sum-label">T2 à la carte:</span><span class="sum-val t2-col" id="sb_t2">$0</span></div>
+      <div class="sum-item"><span class="sum-label">T3 à la carte:</span><span class="sum-val t3-col" id="sb_t3">$0</span></div>
+      <div class="cost-sum-item"><span class="sum-label" style="color:#C39BD3;">T1 cost:</span><span class="sum-val" style="color:#E8DAEF;" id="sb_c1">$0</span></div>
+      <div class="cost-sum-item"><span class="sum-label" style="color:#C39BD3;">T2 cost:</span><span class="sum-val" style="color:#E8DAEF;" id="sb_c2">$0</span></div>
+      <div class="cost-sum-item"><span class="sum-label" style="color:#C39BD3;">T3 cost:</span><span class="sum-val" style="color:#E8DAEF;" id="sb_c3">$0</span></div>
+      <div class="cost-sum-item"><span class="sum-label" style="color:#aaa;">T1 margin:</span><span class="sum-val" id="sb_m1">—</span></div>
+      <div class="cost-sum-item"><span class="sum-label" style="color:#aaa;">T2 margin:</span><span class="sum-val" id="sb_m2">—</span></div>
+      <div class="cost-sum-item"><span class="sum-label" style="color:#aaa;">T3 margin:</span><span class="sum-val" id="sb_m3">—</span></div>
     </div>
   </div>
 
   <!-- ─── SECTION 2: Tier Prices ─── -->
   <div class="section-block">
     <div class="section-header">
-      SECTION 2 — TIER FINAL PRICES
+      SECTION 2 — TIER FINAL PRICES &amp; MARGIN
       <span class="section-tag">customer-facing per lane / per year</span>
     </div>
-    <div class="section-note">Enter your 1-year price per tier. Fill in discount % to auto-calculate 2- and 3-year commitment prices. Or override manually.</div>
+    <div class="section-note">Enter your 1-year tier prices. Discounts auto-calculate 2/3-year. Cost/Margin columns show margin on the committed tier price vs. the blended cost sum.</div>
 
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:30%">Commitment</th>
-          <th style="width:18%">Tier 1<br><small>Entry / C-UAS</small></th>
-          <th style="width:18%">Tier 2<br><small>Standard Readiness</small></th>
-          <th style="width:18%">Tier 3<br><small>Full Managed</small></th>
+          <th class="th-left" style="width:28%">Commitment</th>
+          <th style="width:14%">Tier 1<br><small>Entry / C-UAS</small></th>
+          <th style="width:14%">Tier 2<br><small>Standard</small></th>
+          <th style="width:14%">Tier 3<br><small>Full Managed</small></th>
+          <th class="cost-col" style="width:9%">T1 Margin $</th>
+          <th class="cost-col" style="width:7%">T1 Mgn%</th>
+          <th class="cost-col" style="width:9%">T2 Margin $</th>
+          <th class="cost-col" style="width:7%">T2 Mgn%</th>
+          <th class="cost-col" style="width:9%">T3 Margin $</th>
+          <th class="cost-col" style="width:7%">T3 Mgn%</th>
           <th>Notes</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="cat-row"><td colspan="5">SET DISCOUNT STRUCTURE FIRST</td></tr>
+        <tr class="cat-row"><td colspan="4" data-base="4">SET DISCOUNT STRUCTURE FIRST</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr class="disc-row">
           <td class="row-label">2-Year Commitment Discount</td>
           <td colspan="3" class="cell-input" style="text-align:center;">
-            <input class="pct-in" type="number" id="f_disc2" placeholder="0" min="0" max="50" oninput="recalc()"> % off 1-year baseline
+            <input class="pct-in" type="number" id="f_disc2" placeholder="0" min="0" max="50" oninput="recalc()"> % off 1-year
           </td>
+          <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note">Applied to all tiers</td>
         </tr>
         <tr class="disc-row">
           <td class="row-label">3-Year Commitment Discount</td>
           <td colspan="3" class="cell-input" style="text-align:center;">
-            <input class="pct-in" type="number" id="f_disc3" placeholder="0" min="0" max="50" oninput="recalc()"> % off 1-year baseline
+            <input class="pct-in" type="number" id="f_disc3" placeholder="0" min="0" max="50" oninput="recalc()"> % off 1-year
           </td>
+          <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note">Applied to all tiers</td>
         </tr>
         <tr class="disc-row">
           <td class="row-label">Volume Discount (50+ sites)</td>
           <td colspan="3" class="cell-input" style="text-align:center;">
-            <input class="text-in" type="text" id="f_vol_disc" placeholder="Y / N — describe if yes" style="max-width:320px;">
+            <input class="text-in" type="text" id="f_vol_disc" placeholder="Y / N — describe if yes" style="max-width:280px;">
           </td>
+          <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note">50-site commitment</td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">1-YEAR COMMITMENT PRICES</td></tr>
+        <tr class="cat-row"><td colspan="4" data-base="4">1-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr>
-          <td class="row-label"><strong>Tier Price — 1-Year Commitment</strong></td>
+          <td class="row-label"><strong>Tier Price — 1-Year</strong></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t1_1yr" placeholder="0" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t2_1yr" placeholder="0" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t3_1yr" placeholder="0" oninput="recalc()"></td>
-          <td class="row-note">Anchor price — basis for discounts</td>
+          <td class="cost-col cell-marg marg-na" id="tm1d_1yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm1p_1yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm2d_1yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm2p_1yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm3d_1yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm3p_1yr">—</td>
+          <td class="row-note">Anchor price</td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">2-YEAR COMMITMENT PRICES</td></tr>
+        <tr class="cat-row"><td colspan="4" data-base="4">2-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr>
-          <td class="row-label">Auto-calculated from 1-yr × (1 − discount)</td>
+          <td class="row-label">Auto from 1-yr × (1−discount)</td>
           <td class="cell-calc" id="calc_t1_2yr">—</td>
           <td class="cell-calc" id="calc_t2_2yr">—</td>
           <td class="cell-calc" id="calc_t3_2yr">—</td>
-          <td class="row-note">Or enter override below</td>
+          <td class="cost-col cell-marg marg-na" id="tm1d_2yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm1p_2yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm2d_2yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm2p_2yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm3d_2yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm3p_2yr">—</td>
+          <td class="row-note">Or override below</td>
         </tr>
         <tr>
           <td class="row-label">Override (leave blank to use auto)</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t1_2yr" placeholder="auto" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t2_2yr" placeholder="auto" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t3_2yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note"></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">3-YEAR COMMITMENT PRICES</td></tr>
+        <tr class="cat-row"><td colspan="4" data-base="4">3-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr>
-          <td class="row-label">Auto-calculated from 1-yr × (1 − discount)</td>
+          <td class="row-label">Auto from 1-yr × (1−discount)</td>
           <td class="cell-calc" id="calc_t1_3yr">—</td>
           <td class="cell-calc" id="calc_t2_3yr">—</td>
           <td class="cell-calc" id="calc_t3_3yr">—</td>
-          <td class="row-note">Or enter override below</td>
+          <td class="cost-col cell-marg marg-na" id="tm1d_3yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm1p_3yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm2d_3yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm2p_3yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm3d_3yr">—</td>
+          <td class="cost-col cell-marg marg-na" id="tm3p_3yr">—</td>
+          <td class="row-note">Or override below</td>
         </tr>
         <tr>
           <td class="row-label">Override (leave blank to use auto)</td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t1_3yr" placeholder="auto" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t2_3yr" placeholder="auto" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="number" id="f_t3_3yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note"></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">BUNDLE SAVINGS (À LA CARTE vs. TIER PRICE)</td></tr>
+        <tr class="cat-row"><td colspan="4" data-base="4">BUNDLE SAVINGS &amp; ROLLUP</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr class="rollup-row">
-          <td><strong>Savings vs. À La Carte</strong> <small style="font-weight:normal;">(à la carte sum − 1-yr tier price)</small></td>
+          <td><strong>Bundle Savings</strong> <small style="font-weight:normal;">(à la carte − 1-yr tier price)</small></td>
           <td class="cell-calc" id="save_t1">—</td>
           <td class="cell-calc" id="save_t2">—</td>
           <td class="cell-calc" id="save_t3">—</td>
+          <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note">Show this to the customer</td>
         </tr>
       </tbody>
@@ -665,15 +837,17 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       SECTION 3 — INVESTMENT LINE PRICING
       <span class="section-tag">50 squadrons</span>
     </div>
-    <div class="section-note">Enter per-site cost. Total for 50 sites auto-calculates. Site count override available.</div>
-
+    <div class="section-note">Enter per-site price. Total auto-calculates. Cost/Margin columns show margin on the total investment lines.</div>
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:38%">Investment Line</th>
-          <th style="width:20%">Per-Site Cost</th>
-          <th style="width:10%">Sites</th>
-          <th style="width:20%">Total (auto)</th>
+          <th class="th-left" style="width:34%">Investment Line</th>
+          <th style="width:13%">Per-Site Price</th>
+          <th style="width:7%">Sites</th>
+          <th style="width:13%">Total (auto)</th>
+          <th class="cost-col" style="width:10%">Per-Site Cost</th>
+          <th class="cost-col" style="width:10%">Total Margin $</th>
+          <th class="cost-col" style="width:7%">Margin %</th>
           <th>Notes</th>
         </tr>
       </thead>
@@ -684,8 +858,11 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
             <div class="clin-scope">Course of fire, scoring logic, evidence engine routing, ARIS integration, commander dashboard config</div>
           </td>
           <td class="cell-input"><input class="price-in" type="number" id="f_clin001" placeholder="0" oninput="recalcClins()"></td>
-          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_001" value="50" oninput="recalcClins()" style="width:60px;"></td>
+          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_001" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin001">$0</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin001" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cost-col cell-marg marg-na" id="cm_clin001">—</td>
+          <td class="cost-col cell-marg marg-na" id="cp_clin001">—</td>
           <td class="row-note">Enter range if scope not locked</td>
         </tr>
         <tr>
@@ -694,8 +871,11 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
             <div class="clin-scope">Hardware refresh, peripheral + tracking at every site, onboarding, activation</div>
           </td>
           <td class="cell-input"><input class="price-in" type="number" id="f_clin002" placeholder="0" oninput="recalcClins()"></td>
-          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_002" value="50" oninput="recalcClins()" style="width:60px;"></td>
+          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_002" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin002">$0</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin002" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cost-col cell-marg marg-na" id="cm_clin002">—</td>
+          <td class="cost-col cell-marg marg-na" id="cp_clin002">—</td>
           <td class="row-note"></td>
         </tr>
         <tr>
@@ -704,8 +884,11 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
             <div class="clin-scope">Tier 2 per-lane/per-year × 50 sites — Standard Readiness subscription</div>
           </td>
           <td class="cell-input"><input class="price-in" type="number" id="f_clin003" placeholder="0" oninput="recalcClins()"></td>
-          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_003" value="50" oninput="recalcClins()" style="width:60px;"></td>
+          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_003" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin003">$0</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin003" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cost-col cell-marg marg-na" id="cm_clin003">—</td>
+          <td class="cost-col cell-marg marg-na" id="cp_clin003">—</td>
           <td class="row-note">Recurring annual</td>
         </tr>
         <tr>
@@ -714,8 +897,11 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
             <div class="clin-scope">Ongoing hardware refresh, mission pack additions, content currency</div>
           </td>
           <td class="cell-input"><input class="price-in" type="number" id="f_clin004" placeholder="0" oninput="recalcClins()"></td>
-          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_004" value="50" oninput="recalcClins()" style="width:60px;"></td>
+          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_004" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin004">$0</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin004" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cost-col cell-marg marg-na" id="cm_clin004">—</td>
+          <td class="cost-col cell-marg marg-na" id="cp_clin004">—</td>
           <td class="row-note">Option C: AFSFC funds Y1; Y2+ renewal</td>
         </tr>
         <tr class="rollup-row">
@@ -723,50 +909,60 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cell-neutral">—</td>
           <td class="cell-neutral">—</td>
           <td class="cell-calc" id="tot_all"><strong>$0</strong></td>
-          <td class="row-note">NRE + Fielding + Year 1 Service + Y1 Sust.</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-calc" id="tot_margin_d" style="color:var(--purple);">—</td>
+          <td class="cost-col cell-calc" id="tot_margin_p" style="color:var(--purple);">—</td>
+          <td class="row-note">NRE + Fielding + Y1 Service + Y1 Sust.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- ─── SECTION 4: À La Carte Add-Ons ─── -->
+  <!-- ─── SECTION 4: Add-Ons ─── -->
   <div class="section-block">
-    <div class="section-header">
-      SECTION 4 — À LA CARTE ADD-ONS
-      <span class="section-tag">exceptions / upsells</span>
-    </div>
+    <div class="section-header">SECTION 4 — À LA CARTE ADD-ONS <span class="section-tag">exceptions / upsells</span></div>
     <div class="section-note">For Paul White's equipment list ask — reference as exceptions, not the default offer.</div>
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:40%">Item</th>
-          <th style="width:20%">Price</th>
-          <th style="width:20%">Unit</th>
+          <th class="th-left" style="width:38%">Item</th>
+          <th style="width:15%">Price</th>
+          <th class="cost-col" style="width:12%">Est. Cost</th>
+          <th class="cost-col" style="width:8%">Margin %</th>
+          <th style="width:15%">Unit</th>
           <th>Notes</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="row-label">DroneBuster EW WTS add-on</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_db" placeholder="0"></td>
+          <td class="cell-input"><input class="price-in" type="number" id="f_addon_db" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_db" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_db">—</td>
           <td style="text-align:center;color:#666;">/lane/year</td>
-          <td class="row-note">TBD — confirm DroneBuster scope for Wednesday</td>
+          <td class="row-note">Confirm DroneBuster scope for Wednesday</td>
         </tr>
         <tr>
           <td class="row-label">Additional Mission Packs</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_packs" placeholder="0"></td>
+          <td class="cell-input"><input class="price-in" type="number" id="f_addon_packs" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_packs" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_packs">—</td>
           <td style="text-align:center;color:#666;">/pack/year</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Enterprise Readiness Intelligence (above Tier 3)</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_eri" placeholder="0"></td>
+          <td class="cell-input"><input class="price-in" type="number" id="f_addon_eri" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_eri" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_eri">—</td>
           <td style="text-align:center;color:#666;">/year</td>
           <td class="row-note"></td>
         </tr>
         <tr>
           <td class="row-label">Other</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_other" placeholder="0"></td>
+          <td class="cell-input"><input class="price-in" type="number" id="f_addon_other" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_other" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_other">—</td>
           <td class="cell-input"><input type="text" class="text-in" id="f_addon_other_unit" placeholder="/unit"></td>
           <td class="row-note"></td>
         </tr>
@@ -778,15 +974,13 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <div class="section-block">
     <div class="section-header">SECTION 5 — CASE NOTES</div>
     <div style="background:white;padding:12px 16px;">
-      <textarea id="f_notes" rows="5" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:10px;font-size:12px;font-family:'Segoe UI',Arial,sans-serif;resize:vertical;" placeholder="Assumptions, flags, rationale for this pricing case…"></textarea>
+      <textarea id="f_notes" rows="4" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:10px;font-size:12px;font-family:'Segoe UI',Arial,sans-serif;resize:vertical;" placeholder="Assumptions, flags, margin targets, rationale for this pricing case…"></textarea>
     </div>
   </div>
 
-  <div class="amber-flag">
-    ⚠ <strong>Pack name TBD:</strong> "On-Base Operations Pack" (AFI 31-207) — finalize name before Wednesday deliverable is built. Options: "On-Base Operations Pack" / "Security Forces LE Pack" / "Installation Response Pack."
-  </div>
+  <div class="amber-flag">⚠ <strong>Pack name TBD:</strong> "On-Base Operations Pack" (AFI 31-207) — finalize before Wednesday. Options: "On-Base Operations Pack" / "Security Forces LE Pack" / "Installation Response Pack."</div>
 
-</div><!-- end .main -->
+</div>
 
 <!-- ═══════════════ COMPARE MODAL ═══════════════ -->
 <div class="modal-overlay" id="compareModal" onclick="if(event.target===this)closeCompare()">
@@ -796,28 +990,27 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       <button class="btn btn-exp" onclick="closeCompare()">✕ Close</button>
     </div>
     <div class="modal-body">
-      <p style="font-size:11px;color:#666;margin-bottom:12px;">Green = lowest cost. Red = highest cost for that row (across cases with data).</p>
+      <p style="font-size:11px;color:#666;margin-bottom:12px;">Green = lowest cost. Red = highest (across cases with data).</p>
       <div id="compareContent"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-exp" onclick="exportComparePrint()">🖨 Print</button>
+      <button class="btn btn-exp" onclick="window.print()">🖨 Print</button>
       <button class="btn btn-exp" onclick="closeCompare()">Close</button>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
 <script>
 // ═══════════════════════════════════════════════════
-//  DATA MODEL
+//  CONFIG
 // ═══════════════════════════════════════════════════
 
-const STORAGE_KEY = 'afsfc_cases_v2';
+const STORAGE_KEY = 'afsfc_cases_v3';
 
-// All field IDs to persist
-const FIELD_IDS = [
+// Price field IDs
+const PRICE_FIELDS = [
   'f_plat_license','f_plat_endpoint','f_plat_network','f_plat_ato',
   'f_sust_impl','f_sust_ongoing',
   'f_wts_shotgun','f_wts_rifle','f_wts_pistol','f_wts_nonlethal',
@@ -834,30 +1027,45 @@ const FIELD_IDS = [
   'f_notes'
 ];
 
-// Tier inclusion matrix: [T1, T2, T3]
+// Cost field IDs (mirror of component price fields)
+const COST_FIELDS = [
+  'c_plat_license','c_plat_endpoint','c_plat_network','c_plat_ato',
+  'c_sust_impl','c_sust_ongoing',
+  'c_wts_shotgun','c_wts_rifle','c_wts_pistol','c_wts_nonlethal',
+  'c_pack_cuas','c_pack_base','c_pack_onbase',
+  'c_rep_local','c_rep_cmd','c_rep_full',
+  'c_pm_basic','c_pm_account','c_pm_embedded',
+  'cc_clin001','cc_clin002','cc_clin003','cc_clin004',
+  'c_addon_db','c_addon_packs','c_addon_eri','c_addon_other'
+];
+
+const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS];
+
+// Tier inclusion matrix [T1, T2, T3]
 const TIER_MAP = {
-  f_plat_license:  [1,1,1],
-  f_plat_endpoint: [1,1,1],
-  f_plat_network:  [1,1,1],
-  f_plat_ato:      [1,1,1],
-  f_sust_impl:     [1,1,1],
-  f_sust_ongoing:  [1,1,1],
-  f_wts_shotgun:   [1,1,1],
-  f_wts_rifle:     [0,1,1],
-  f_wts_pistol:    [0,1,1],
-  f_wts_nonlethal: [0,0,1],
-  f_pack_cuas:     [1,1,1],
-  f_pack_base:     [0,1,1],
-  f_pack_onbase:   [0,0,1],
-  f_rep_local:     [1,0,0],
-  f_rep_cmd:       [0,1,1],
-  f_rep_full:      [0,0,1],
-  f_pm_basic:      [1,0,0],
-  f_pm_account:    [0,1,0],
+  f_plat_license:  [1,1,1], f_plat_endpoint: [1,1,1],
+  f_plat_network:  [1,1,1], f_plat_ato:      [1,1,1],
+  f_sust_impl:     [1,1,1], f_sust_ongoing:  [1,1,1],
+  f_wts_shotgun:   [1,1,1], f_wts_rifle:     [0,1,1],
+  f_wts_pistol:    [0,1,1], f_wts_nonlethal: [0,0,1],
+  f_pack_cuas:     [1,1,1], f_pack_base:     [0,1,1],
+  f_pack_onbase:   [0,0,1], f_rep_local:     [1,0,0],
+  f_rep_cmd:       [0,1,1], f_rep_full:      [0,0,1],
+  f_pm_basic:      [1,0,0], f_pm_account:    [0,1,0],
   f_pm_embedded:   [0,0,1],
 };
 
-let cases = {}; // { caseId: { name, fields:{} } }
+// Map price field → cost field
+const COST_MAP = {};
+Object.keys(TIER_MAP).forEach(f => {
+  COST_MAP[f] = f.replace('f_', 'c_');
+});
+
+// ═══════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════
+
+let cases = {};
 let currentCaseId = null;
 
 // ═══════════════════════════════════════════════════
@@ -865,18 +1073,11 @@ let currentCaseId = null;
 // ═══════════════════════════════════════════════════
 
 function loadStorage() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) cases = JSON.parse(raw);
-  } catch(e) { cases = {}; }
-  if (Object.keys(cases).length === 0) {
-    createDefaultCase();
-  }
+  try { const r = localStorage.getItem(STORAGE_KEY); if (r) cases = JSON.parse(r); } catch(e) { cases = {}; }
+  if (!Object.keys(cases).length) createDefaultCase();
 }
 
-function saveStorage() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(cases));
-}
+function saveStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(cases)); }
 
 function createDefaultCase() {
   const id = 'case_' + Date.now();
@@ -889,18 +1090,17 @@ function createDefaultCase() {
 // ═══════════════════════════════════════════════════
 
 function getFieldValues() {
-  const fields = {};
-  FIELD_IDS.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) fields[id] = el.value;
-  });
-  return fields;
+  const f = {};
+  FIELD_IDS.forEach(id => { const el = document.getElementById(id); if (el) f[id] = el.value; });
+  return f;
 }
 
 function setFieldValues(fields) {
-  FIELD_IDS.forEach(id => {
+  FIELD_IDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = (fields && fields[id]) || ''; });
+  // Restore site counts default
+  ['sites_001','sites_002','sites_003','sites_004'].forEach(id => {
     const el = document.getElementById(id);
-    if (el && fields) el.value = fields[id] || '';
+    if (el && !el.value) el.value = '50';
   });
 }
 
@@ -909,8 +1109,7 @@ function populateCaseSelect() {
   sel.innerHTML = '';
   Object.entries(cases).forEach(([id, c]) => {
     const opt = document.createElement('option');
-    opt.value = id;
-    opt.textContent = c.name;
+    opt.value = id; opt.textContent = c.name;
     if (id === currentCaseId) opt.selected = true;
     sel.appendChild(opt);
   });
@@ -924,124 +1123,221 @@ function loadCase() {
   document.getElementById('caseName').value = c.name;
   document.getElementById('heroName').textContent = c.name;
   setFieldValues(c.fields);
-  recalc();
-  recalcClins();
+  recalc(); recalcClins(); recalcAddons();
 }
 
 function saveCase() {
   if (!currentCaseId) return;
-  const name = document.getElementById('caseName').value.trim() || 'Unnamed Case';
+  const name = document.getElementById('caseName').value.trim() || 'Unnamed';
   cases[currentCaseId].name = name;
   cases[currentCaseId].fields = getFieldValues();
-  saveStorage();
-  populateCaseSelect();
+  saveStorage(); populateCaseSelect();
   document.getElementById('heroName').textContent = name;
-  showToast('✅ Case saved: ' + name, 'success');
+  showToast('✅ Saved: ' + name, 'success');
 }
 
 function newCase() {
   const id = 'case_' + Date.now();
   const n = Object.keys(cases).length + 1;
   cases[id] = { name: 'Case ' + n, fields: {} };
-  currentCaseId = id;
-  saveStorage();
-  populateCaseSelect();
+  currentCaseId = id; saveStorage(); populateCaseSelect();
   document.getElementById('caseName').value = cases[id].name;
   document.getElementById('heroName').textContent = cases[id].name;
-  // Clear form
   setFieldValues({});
-  // Set default site counts
-  ['sites_001','sites_002','sites_003','sites_004'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '50';
-  });
-  recalc();
-  recalcClins();
+  recalc(); recalcClins(); recalcAddons();
   showToast('➕ New case created', 'info');
 }
 
 function deleteCase() {
-  const keys = Object.keys(cases);
-  if (keys.length <= 1) { showToast('⚠ Cannot delete the only case', 'info'); return; }
-  if (!confirm('Delete case "' + cases[currentCaseId].name + '"?')) return;
+  if (Object.keys(cases).length <= 1) { showToast('⚠ Cannot delete only case', 'info'); return; }
+  if (!confirm('Delete "' + cases[currentCaseId].name + '"?')) return;
   delete cases[currentCaseId];
   currentCaseId = Object.keys(cases)[0];
-  saveStorage();
-  populateCaseSelect();
-  loadCase();
-  showToast('🗑 Case deleted', 'info');
+  saveStorage(); populateCaseSelect(); loadCase();
+  showToast('🗑 Deleted', 'info');
+}
+
+// ═══════════════════════════════════════════════════
+//  TOGGLE COST/MARGIN COLUMNS
+// ═══════════════════════════════════════════════════
+
+function toggleCosts() {
+  const showing = document.body.classList.toggle('show-costs');
+  document.getElementById('costToggleBtn').textContent = showing ? '✕ Hide Cost/Margin' : '👁 Cost / Margin';
+  showToast(showing ? '📊 Cost/Margin columns visible' : 'Cost columns hidden', 'info');
 }
 
 // ═══════════════════════════════════════════════════
 //  CALCULATIONS
 // ═══════════════════════════════════════════════════
 
-function val(id) {
-  const el = document.getElementById(id);
-  return el ? (parseFloat(el.value) || 0) : 0;
+function val(id)  { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+function fmt(n)   { return n === null || n === undefined ? '—' : '$' + Math.round(n).toLocaleString(); }
+function fmtP(n)  { return (n === null || n === undefined) ? '—' : n.toFixed(1) + '%'; }
+function setText(id, txt) { const el = document.getElementById(id); if (el) el.textContent = txt; }
+
+function margClass(pct) {
+  if (pct >= 50) return 'marg-good';
+  if (pct >= 30) return 'marg-mid';
+  return 'marg-low';
 }
 
-function fmt(n) {
-  if (!n && n !== 0) return '—';
-  return '$' + Math.round(n).toLocaleString();
+// Set a margin cell pair (dollar + pct)
+function setMarg(dId, pId, price, cost) {
+  const dEl = document.getElementById(dId);
+  const pEl = document.getElementById(pId);
+  if (!dEl || !pEl) return;
+
+  if (!price || !cost) {
+    // No data — show neutral
+    [dEl, pEl].forEach(el => { el.textContent = '—'; el.className = 'cost-col cell-marg marg-na'; });
+    return;
+  }
+  const d = price - cost;
+  const p = (d / price) * 100;
+  const cls = 'cost-col cell-marg ' + margClass(p);
+  dEl.textContent = fmt(d); dEl.className = cls;
+  pEl.textContent = fmtP(p); pEl.className = cls;
 }
 
 function recalc() {
-  // Tier à la carte sums
   let t1=0, t2=0, t3=0;
+  let c1=0, c2=0, c3=0;
+
   Object.entries(TIER_MAP).forEach(([fid, tiers]) => {
-    const v = val(fid);
-    if (tiers[0]) t1 += v;
-    if (tiers[1]) t2 += v;
-    if (tiers[2]) t3 += v;
+    const price = val(fid);
+    const costId = COST_MAP[fid];
+    const cost  = costId ? val(costId) : 0;
+
+    if (tiers[0]) { t1 += price; c1 += cost; }
+    if (tiers[1]) { t2 += price; c2 += cost; }
+    if (tiers[2]) { t3 += price; c3 += cost; }
+
+    // Per-component margin
+    const sfx = fid.replace('f_', '');
+    setMarg('md_' + sfx, 'mp_' + sfx, price || 0, cost || 0);
   });
 
-  // Update rollup cells
-  setText('sum_t1', fmt(t1));
-  setText('sum_t2', fmt(t2));
-  setText('sum_t3', fmt(t3));
-  setText('sb_t1', fmt(t1));
-  setText('sb_t2', fmt(t2));
-  setText('sb_t3', fmt(t3));
+  // Price sums
+  setText('sum_t1', fmt(t1)); setText('sum_t2', fmt(t2)); setText('sum_t3', fmt(t3));
+  setText('sb_t1',  fmt(t1)); setText('sb_t2',  fmt(t2)); setText('sb_t3',  fmt(t3));
 
-  // Tier 1/2/3 1-yr prices
+  // Cost sums
+  setText('csum_t1', fmt(c1)); setText('csum_t2', fmt(c2)); setText('csum_t3', fmt(c3));
+  setText('sb_c1', fmt(c1));   setText('sb_c2', fmt(c2));   setText('sb_c3', fmt(c3));
+
+  // Blended tier margins (à la carte price vs cost sum)
+  const blendMarg = (price, cost, dId, pId) => {
+    if (price > 0 && cost > 0) {
+      const d = price - cost, p = (d/price)*100;
+      const el_d = document.getElementById(dId), el_p = document.getElementById(pId);
+      if (el_d) { el_d.textContent = fmt(d);  el_d.className = 'cost-col cell-marg ' + margClass(p); }
+      if (el_p) { el_p.textContent = fmtP(p); el_p.className = 'cost-col cell-marg ' + margClass(p); }
+    }
+  };
+  blendMarg(t1, c1, 'bmd_t1', 'bmp_t1');
+  blendMarg(t2, c2, 'bmd_t2', 'bmp_t2');
+  blendMarg(t3, c3, 'bmd_t3', 'bmp_t3');
+
+  // Summary bar margins
+  const summMarg = (price, cost, id) => {
+    if (price > 0 && cost > 0) {
+      const p = ((price-cost)/price*100);
+      const el = document.getElementById(id);
+      if (el) { el.textContent = fmtP(p); el.style.color = p >= 50 ? '#90EE90' : p >= 30 ? '#FFD700' : '#FF6B6B'; }
+    }
+  };
+  summMarg(t1, c1, 'sb_m1'); summMarg(t2, c2, 'sb_m2'); summMarg(t3, c3, 'sb_m3');
+
+  // Tier final prices
   const p1 = val('f_t1_1yr'), p2 = val('f_t2_1yr'), p3 = val('f_t3_1yr');
-  const d2 = val('f_disc2') / 100;
-  const d3 = val('f_disc3') / 100;
+  const d2 = val('f_disc2')/100, d3 = val('f_disc3')/100;
+  const a1_2 = p1*(1-d2), a2_2 = p2*(1-d2), a3_2 = p3*(1-d2);
+  const a1_3 = p1*(1-d3), a2_3 = p2*(1-d3), a3_3 = p3*(1-d3);
 
-  // 2-yr auto calc
-  const a1_2 = p1 * (1 - d2), a2_2 = p2 * (1 - d2), a3_2 = p3 * (1 - d2);
-  const a1_3 = p1 * (1 - d3), a2_3 = p2 * (1 - d3), a3_3 = p3 * (1 - d3);
+  setText('calc_t1_2yr', p1>0 ? fmt(a1_2) : '—');
+  setText('calc_t2_2yr', p2>0 ? fmt(a2_2) : '—');
+  setText('calc_t3_2yr', p3>0 ? fmt(a3_2) : '—');
+  setText('calc_t1_3yr', p1>0 ? fmt(a1_3) : '—');
+  setText('calc_t2_3yr', p2>0 ? fmt(a2_3) : '—');
+  setText('calc_t3_3yr', p3>0 ? fmt(a3_3) : '—');
 
-  setText('calc_t1_2yr', p1 > 0 ? fmt(a1_2) : '—');
-  setText('calc_t2_2yr', p2 > 0 ? fmt(a2_2) : '—');
-  setText('calc_t3_2yr', p3 > 0 ? fmt(a3_2) : '—');
-  setText('calc_t1_3yr', p1 > 0 ? fmt(a1_3) : '—');
-  setText('calc_t2_3yr', p2 > 0 ? fmt(a2_3) : '—');
-  setText('calc_t3_3yr', p3 > 0 ? fmt(a3_3) : '—');
+  // Tier margin on committed price vs cost sum
+  const tierMarg = (price, cost, dId, pId) => setMarg(dId, pId, price||0, cost||0);
+  tierMarg(p1, c1, 'tm1d_1yr', 'tm1p_1yr');
+  tierMarg(p2, c2, 'tm2d_1yr', 'tm2p_1yr');
+  tierMarg(p3, c3, 'tm3d_1yr', 'tm3p_1yr');
+  // 2yr overrides or auto
+  const eff1_2 = val('f_t1_2yr') || a1_2;
+  const eff2_2 = val('f_t2_2yr') || a2_2;
+  const eff3_2 = val('f_t3_2yr') || a3_2;
+  tierMarg(eff1_2, c1, 'tm1d_2yr', 'tm1p_2yr');
+  tierMarg(eff2_2, c2, 'tm2d_2yr', 'tm2p_2yr');
+  tierMarg(eff3_2, c3, 'tm3d_2yr', 'tm3p_2yr');
+  const eff1_3 = val('f_t1_3yr') || a1_3;
+  const eff2_3 = val('f_t2_3yr') || a2_3;
+  const eff3_3 = val('f_t3_3yr') || a3_3;
+  tierMarg(eff1_3, c1, 'tm1d_3yr', 'tm1p_3yr');
+  tierMarg(eff2_3, c2, 'tm2d_3yr', 'tm2p_3yr');
+  tierMarg(eff3_3, c3, 'tm3d_3yr', 'tm3p_3yr');
 
-  // Bundle savings (à la carte − 1yr price)
-  setText('save_t1', t1 > 0 && p1 > 0 ? fmt(t1 - p1) : '—');
-  setText('save_t2', t2 > 0 && p2 > 0 ? fmt(t2 - p2) : '—');
-  setText('save_t3', t3 > 0 && p3 > 0 ? fmt(t3 - p3) : '—');
+  // Bundle savings
+  setText('save_t1', t1>0&&p1>0 ? fmt(t1-p1) : '—');
+  setText('save_t2', t2>0&&p2>0 ? fmt(t2-p2) : '—');
+  setText('save_t3', t3>0&&p3>0 ? fmt(t3-p3) : '—');
 }
 
 function recalcClins() {
   const ids = ['001','002','003','004'];
-  let total = 0;
+  let totRev = 0, totCost = 0;
   ids.forEach(n => {
-    const cost = val('f_clin' + n);
-    const sites = val('sites_' + n) || 50;
-    const t = cost * sites;
-    total += t;
-    setText('tot_clin' + n, fmt(t));
+    const price = val('f_clin'+n), sites = val('sites_'+n)||50, cost = val('cc_clin'+n);
+    const totalRev  = price * sites;
+    const totalCost = cost  * sites;
+    const margD = totalRev - totalCost;
+    const margP = totalRev > 0 && totalCost > 0 ? (margD/totalRev*100) : null;
+    totRev  += totalRev;
+    totCost += totalCost;
+    setText('tot_clin'+n, fmt(totalRev));
+    // margin cells
+    const dEl = document.getElementById('cm_clin'+n);
+    const pEl = document.getElementById('cp_clin'+n);
+    if (dEl && pEl) {
+      if (totalRev>0 && totalCost>0) {
+        const cls = 'cost-col cell-marg ' + margClass(margP);
+        dEl.textContent = fmt(margD); dEl.className = cls;
+        pEl.textContent = fmtP(margP); pEl.className = cls;
+      } else {
+        [dEl,pEl].forEach(el=>{ el.textContent='—'; el.className='cost-col cell-marg marg-na'; });
+      }
+    }
   });
-  setText('tot_all', fmt(total));
+  setText('tot_all', fmt(totRev));
+  const totMargD = totRev - totCost;
+  const totMargP = totRev>0&&totCost>0 ? totMargD/totRev*100 : null;
+  setText('tot_margin_d', totCost>0 ? fmt(totMargD) : '—');
+  setText('tot_margin_p', totMargP!==null ? fmtP(totMargP) : '—');
+  const tm_d = document.getElementById('tot_margin_d');
+  const tm_p = document.getElementById('tot_margin_p');
+  if (tm_d && totMargP!==null) {
+    const cls = 'cost-col cell-calc ' + margClass(totMargP).replace('cell-marg ','');
+    tm_d.className = cls; tm_p.className = cls;
+  }
 }
 
-function setText(id, text) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = text;
+function recalcAddons() {
+  ['db','packs','eri','other'].forEach(sfx => {
+    const price = val('f_addon_'+sfx), cost = val('c_addon_'+sfx);
+    const pEl = document.getElementById('ap_addon_'+sfx);
+    if (!pEl) return;
+    if (price>0 && cost>0) {
+      const p = (price-cost)/price*100;
+      pEl.textContent = fmtP(p);
+      pEl.className = 'cost-col cell-marg ' + margClass(p);
+    } else {
+      pEl.textContent = '—'; pEl.className = 'cost-col cell-marg marg-na';
+    }
+  });
 }
 
 // ═══════════════════════════════════════════════════
@@ -1049,100 +1345,76 @@ function setText(id, text) {
 // ═══════════════════════════════════════════════════
 
 function openCompare() {
-  // Save current state first
   saveCase();
-
   const caseList = Object.entries(cases);
-  if (caseList.length < 1) { showToast('No cases to compare', 'info'); return; }
-
-  // Build comparison data
   const rows = [
-    { section: 'COMPONENT SUMS (à la carte)' },
-    { label: 'Tier 1 à la carte',  fn: (f) => calcT1(f) },
-    { label: 'Tier 2 à la carte',  fn: (f) => calcT2(f) },
-    { label: 'Tier 3 à la carte',  fn: (f) => calcT3(f) },
+    { section: 'À LA CARTE SUMS' },
+    { label: 'T1 à la carte price', fn: f => sumTier(f,0) },
+    { label: 'T2 à la carte price', fn: f => sumTier(f,1) },
+    { label: 'T3 à la carte price', fn: f => sumTier(f,2) },
+    { label: 'T1 cost sum',         fn: f => costTier(f,0), dimmer: true },
+    { label: 'T2 cost sum',         fn: f => costTier(f,1), dimmer: true },
+    { label: 'T3 cost sum',         fn: f => costTier(f,2), dimmer: true },
+    { label: 'T1 blended margin %', fn: f => marginPct(sumTier(f,0), costTier(f,0)), raw: true },
+    { label: 'T2 blended margin %', fn: f => marginPct(sumTier(f,1), costTier(f,1)), raw: true },
+    { label: 'T3 blended margin %', fn: f => marginPct(sumTier(f,2), costTier(f,2)), raw: true },
     { section: 'TIER PRICES — 1-YEAR' },
-    { label: 'Tier 1 — 1-Year',    fn: (f) => num(f,'f_t1_1yr') },
-    { label: 'Tier 2 — 1-Year',    fn: (f) => num(f,'f_t2_1yr') },
-    { label: 'Tier 3 — 1-Year',    fn: (f) => num(f,'f_t3_1yr') },
-    { section: 'TIER PRICES — 2-YEAR (auto-calculated)' },
-    { label: 'Tier 1 — 2-Year',    fn: (f) => calcDisc(f,'f_t1_1yr','f_t1_2yr','f_disc2') },
-    { label: 'Tier 2 — 2-Year',    fn: (f) => calcDisc(f,'f_t2_1yr','f_t2_2yr','f_disc2') },
-    { label: 'Tier 3 — 2-Year',    fn: (f) => calcDisc(f,'f_t3_1yr','f_t3_2yr','f_disc2') },
-    { section: 'TIER PRICES — 3-YEAR (auto-calculated)' },
-    { label: 'Tier 1 — 3-Year',    fn: (f) => calcDisc(f,'f_t1_1yr','f_t1_3yr','f_disc3') },
-    { label: 'Tier 2 — 3-Year',    fn: (f) => calcDisc(f,'f_t2_1yr','f_t2_3yr','f_disc3') },
-    { label: 'Tier 3 — 3-Year',    fn: (f) => calcDisc(f,'f_t3_1yr','f_t3_3yr','f_disc3') },
+    { label: 'T1 — 1yr price', fn: f => n(f,'f_t1_1yr') },
+    { label: 'T2 — 1yr price', fn: f => n(f,'f_t2_1yr') },
+    { label: 'T3 — 1yr price', fn: f => n(f,'f_t3_1yr') },
+    { label: 'T1 1yr margin %', fn: f => marginPct(n(f,'f_t1_1yr'), costTier(f,0)), raw: true },
+    { label: 'T2 1yr margin %', fn: f => marginPct(n(f,'f_t2_1yr'), costTier(f,1)), raw: true },
+    { label: 'T3 1yr margin %', fn: f => marginPct(n(f,'f_t3_1yr'), costTier(f,2)), raw: true },
     { section: 'DISCOUNTS' },
-    { label: '2-Year Discount',     fn: (f) => num(f,'f_disc2') + '%' , raw: true },
-    { label: '3-Year Discount',     fn: (f) => num(f,'f_disc3') + '%' , raw: true },
-    { section: 'INVESTMENT LINES (total, 50 sites)' },
-    { label: 'Config Build (NRE)',   fn: (f) => num(f,'f_clin001') * (num(f,'sites_001')||50) },
-    { label: 'Fielding',             fn: (f) => num(f,'f_clin002') * (num(f,'sites_002')||50) },
-    { label: 'Annual Service',       fn: (f) => num(f,'f_clin003') * (num(f,'sites_003')||50) },
-    { label: 'Sustainment',          fn: (f) => num(f,'f_clin004') * (num(f,'sites_004')||50) },
-    { label: '⚡ TOTAL',              fn: (f) => ['001','002','003','004'].reduce((s,n) => s + num(f,'f_clin'+n)*(num(f,'sites_'+n)||50), 0) },
+    { label: '2-Year discount', fn: f => n(f,'f_disc2')+'%', raw: true },
+    { label: '3-Year discount', fn: f => n(f,'f_disc3')+'%', raw: true },
+    { section: 'INVESTMENT LINES (50-site totals)' },
+    { label: 'Config Build (NRE)',  fn: f => n(f,'f_clin001')*(n(f,'sites_001')||50) },
+    { label: 'Fielding',            fn: f => n(f,'f_clin002')*(n(f,'sites_002')||50) },
+    { label: 'Annual Service',      fn: f => n(f,'f_clin003')*(n(f,'sites_003')||50) },
+    { label: 'Sustainment',         fn: f => n(f,'f_clin004')*(n(f,'sites_004')||50) },
+    { label: '⚡ TOTAL',             fn: f => ['001','002','003','004'].reduce((s,i)=>s+n(f,'f_clin'+i)*(n(f,'sites_'+i)||50),0) },
     { section: 'NOTES' },
-    { label: 'Case Notes',           fn: (f) => f['f_notes'] || '—', raw: true },
+    { label: 'Case Notes', fn: f => f['f_notes']||'—', raw: true },
   ];
 
-  function num(f, id) { return parseFloat(f[id]) || 0; }
-  function calcT1(f) { return Object.entries(TIER_MAP).reduce((s,[id,t]) => t[0]?s+num(f,id):s, 0); }
-  function calcT2(f) { return Object.entries(TIER_MAP).reduce((s,[id,t]) => t[1]?s+num(f,id):s, 0); }
-  function calcT3(f) { return Object.entries(TIER_MAP).reduce((s,[id,t]) => t[2]?s+num(f,id):s, 0); }
-  function calcDisc(f, base, override, disc) {
-    const b = num(f, base), o = num(f, override), d = num(f, disc);
-    return o > 0 ? o : b * (1 - d/100);
-  }
+  function n(f, id)  { return parseFloat(f[id])||0; }
+  function sumTier(f, t)  { return Object.entries(TIER_MAP).reduce((s,[id,ts])=>ts[t]?s+n(f,id):s,0); }
+  function costTier(f, t) { return Object.entries(TIER_MAP).reduce((s,[id,ts])=>ts[t]?s+n(f,id.replace('f_','c_')):s,0); }
+  function marginPct(price, cost) { return (price>0&&cost>0) ? ((price-cost)/price*100).toFixed(1)+'%' : '—'; }
 
-  // Build HTML table
   let html = '<table class="cmp-table" style="width:100%;border-collapse:collapse;">';
   html += '<thead><tr><th class="th-left" style="min-width:160px;">Metric</th>';
-  caseList.forEach(([id, c]) => {
-    html += '<th>' + escHtml(c.name) + (id === currentCaseId ? ' <span style="color:#7EC8E3;">●</span>' : '') + '</th>';
+  caseList.forEach(([id,c]) => {
+    html += `<th>${esc(c.name)}${id===currentCaseId?' <span style="color:#7EC8E3;">●</span>':''}</th>`;
   });
   html += '</tr></thead><tbody>';
 
   rows.forEach(row => {
-    if (row.section) {
-      html += '<tr><td class="cmp-section" colspan="' + (caseList.length + 1) + '">' + row.section + '</td></tr>';
-      return;
-    }
-    // Gather values
-    const vals = caseList.map(([id, c]) => row.fn(c.fields || {}));
-    const numericVals = vals.map(v => typeof v === 'number' ? v : null).filter(v => v !== null && v > 0);
-    const minV = numericVals.length > 1 ? Math.min(...numericVals) : null;
-    const maxV = numericVals.length > 1 ? Math.max(...numericVals) : null;
-
-    html += '<tr><td class="cmp-label">' + escHtml(row.label) + '</td>';
-    vals.forEach((v, i) => {
+    if (row.section) { html += `<tr><td class="cmp-section" colspan="${caseList.length+1}">${row.section}</td></tr>`; return; }
+    const vals = caseList.map(([,c]) => row.fn(c.fields||{}));
+    const nums = vals.map(v=>typeof v==='number'?v:null).filter(v=>v!==null&&v>0);
+    const minV = nums.length>1?Math.min(...nums):null;
+    const maxV = nums.length>1?Math.max(...nums):null;
+    html += `<tr><td class="cmp-label">${esc(row.label)}</td>`;
+    vals.forEach(v => {
+      const display = row.raw ? v : (typeof v==='number'?fmt(v):v);
       let cls = 'cmp-val';
-      let display = row.raw ? v : (typeof v === 'number' ? fmt(v) : v);
-      if (!row.raw && typeof v === 'number' && numericVals.length > 1) {
-        if (v === minV && v > 0) cls += ' cmp-best';
-        else if (v === maxV && v > 0) cls += ' cmp-high';
+      if (!row.raw && typeof v==='number' && nums.length>1) {
+        if (v===minV&&v>0) cls+=' cmp-best';
+        else if (v===maxV&&v>0) cls+=' cmp-high';
       }
-      html += '<td class="' + cls + '">' + escHtml(String(display)) + '</td>';
+      html += `<td class="${cls}">${esc(String(display))}</td>`;
     });
     html += '</tr>';
   });
-
   html += '</tbody></table>';
   document.getElementById('compareContent').innerHTML = html;
   document.getElementById('compareModal').style.display = 'block';
 }
 
-function closeCompare() {
-  document.getElementById('compareModal').style.display = 'none';
-}
-
-function exportComparePrint() {
-  window.print();
-}
-
-function escHtml(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
+function closeCompare() { document.getElementById('compareModal').style.display='none'; }
+function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 // ═══════════════════════════════════════════════════
 //  CSV EXPORT
@@ -1151,24 +1423,14 @@ function escHtml(s) {
 function exportCSV() {
   saveCase();
   const caseList = Object.entries(cases);
-  const fields = FIELD_IDS;
-
-  let csv = 'Field,' + caseList.map(([,c]) => '"' + c.name + '"').join(',') + '\n';
-  fields.forEach(fid => {
-    const row = ['"' + fid + '"'];
-    caseList.forEach(([, c]) => {
-      row.push('"' + ((c.fields || {})[fid] || '') + '"');
-    });
-    csv += row.join(',') + '\n';
+  let csv = 'Field,' + caseList.map(([,c])=>'"'+c.name+'"').join(',') + '\n';
+  FIELD_IDS.forEach(fid => {
+    csv += '"'+fid+'",' + caseList.map(([,c])=>'"'+((c.fields||{})[fid]||'')+'"').join(',') + '\n';
   });
-
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
+  const blob = new Blob([csv],{type:'text/csv'});
   const a = document.createElement('a');
-  a.href = url;
-  a.download = 'afsfc_pricing_cases.csv';
-  a.click();
-  URL.revokeObjectURL(url);
+  a.href = URL.createObjectURL(blob); a.download = 'afsfc_pricing_cases.csv'; a.click();
+  URL.revokeObjectURL(a.href);
   showToast('↓ CSV exported', 'success');
 }
 
@@ -1178,10 +1440,8 @@ function exportCSV() {
 
 function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast toast-' + type;
-  t.style.display = 'block';
-  setTimeout(() => { t.style.display = 'none'; }, 2200);
+  t.textContent = msg; t.className = 'toast toast-'+type; t.style.display = 'block';
+  setTimeout(()=>{ t.style.display='none'; }, 2200);
 }
 
 // ═══════════════════════════════════════════════════
@@ -1191,25 +1451,22 @@ function showToast(msg, type='success') {
 window.addEventListener('DOMContentLoaded', () => {
   loadStorage();
   const keys = Object.keys(cases);
-  currentCaseId = keys[keys.length - 1];
+  currentCaseId = keys[keys.length-1];
   populateCaseSelect();
   loadCase();
 
-  // Auto-save on any input change
+  // Auto-save on change
   FIELD_IDS.forEach(id => {
     const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('change', () => {
-        if (currentCaseId && cases[currentCaseId]) {
-          cases[currentCaseId].fields = getFieldValues();
-          saveStorage();
-        }
-      });
-    }
+    if (el) el.addEventListener('change', () => {
+      if (currentCaseId && cases[currentCaseId]) {
+        cases[currentCaseId].fields = getFieldValues();
+        saveStorage();
+      }
+    });
   });
 
-  // Also update caseName hero on input
-  document.getElementById('caseName').addEventListener('input', (e) => {
+  document.getElementById('caseName').addEventListener('input', e => {
     document.getElementById('heroName').textContent = e.target.value || '—';
   });
 });
