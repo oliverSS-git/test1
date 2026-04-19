@@ -815,11 +815,11 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
         <!-- 1-yr price -->
         <tr class="rollup-row" style="background:#EAF4FF;">
-          <td><strong>1-Year</strong> <small style="font-weight:normal;color:#5B9BD5;">per lane / per year</small></td>
+          <td><strong>1-Year</strong> <small style="font-weight:normal;color:#5B9BD5;">per lane / per year &nbsp;·&nbsp; <a href="#" style="color:#5B9BD5;" onclick="resetTierPrices();return false;">↺ reset to sum</a></small></td>
           <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">1-yr</td>
-          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t1_1yr" placeholder="—" oninput="recalc()"></td>
-          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t2_1yr" placeholder="—" oninput="recalc()"></td>
-          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t3_1yr" placeholder="—" oninput="recalc()"></td>
+          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t1_1yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"></td>
+          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t2_1yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"></td>
+          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t3_1yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="tm1p_1yr">—<span id="tm1d_1yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm2p_1yr">—<span id="tm2d_1yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm3p_1yr">—<span id="tm3d_1yr" style="display:none"></span></td>
@@ -845,9 +845,9 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <tr class="rollup-row">
           <td><strong>2-Year</strong> <small style="font-weight:normal;color:#888;">per lane / per year</small></td>
           <td class="cell-neutral" style="font-size:10px;color:#888;">2-yr</td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t1_2yr" placeholder="—" oninput="recalc()"><span id="calc_t1_2yr" style="display:none"></span></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t2_2yr" placeholder="—" oninput="recalc()"><span id="calc_t2_2yr" style="display:none"></span></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t3_2yr" placeholder="—" oninput="recalc()"><span id="calc_t3_2yr" style="display:none"></span></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t1_2yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"><span id="calc_t1_2yr" style="display:none"></span></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t2_2yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"><span id="calc_t2_2yr" style="display:none"></span></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t3_2yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"><span id="calc_t3_2yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm1p_2yr">—<span id="tm1d_2yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm2p_2yr">—<span id="tm2d_2yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm3p_2yr">—<span id="tm3d_2yr" style="display:none"></span></td>
@@ -858,9 +858,9 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <tr class="rollup-row">
           <td><strong>3-Year</strong> <small style="font-weight:normal;color:#888;">per lane / per year</small></td>
           <td class="cell-neutral" style="font-size:10px;color:#888;">3-yr</td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t1_3yr" placeholder="—" oninput="recalc()"><span id="calc_t1_3yr" style="display:none"></span></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t2_3yr" placeholder="—" oninput="recalc()"><span id="calc_t2_3yr" style="display:none"></span></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t3_3yr" placeholder="—" oninput="recalc()"><span id="calc_t3_3yr" style="display:none"></span></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t1_3yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"><span id="calc_t1_3yr" style="display:none"></span></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t2_3yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"><span id="calc_t2_3yr" style="display:none"></span></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t3_3yr" placeholder="—" oninput="this.dataset.manual='1';recalc()"><span id="calc_t3_3yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm1p_3yr">—<span id="tm1d_3yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm2p_3yr">—<span id="tm2d_3yr" style="display:none"></span></td>
           <td class="cost-col cell-marg marg-na" id="tm3p_3yr">—<span id="tm3d_3yr" style="display:none"></span></td>
@@ -1451,7 +1451,12 @@ function saveStorage() { localStorage.setItem(STORAGE_KEY, JSON.stringify(cases)
 
 function createDefaultCase() {
   const id = 'case_' + Date.now();
-  cases[id] = { name: 'Base Case', fields: {} };
+  cases[id] = { name: 'Base Case', fields: {
+    // Tier prices from initial pricing model (screenshot 2026-04-19)
+    f_t1_1yr: '29650', f_t2_1yr: '39150', f_t3_1yr: '46650',
+    airmen_per_sqdn: '200',
+    sites_003: '50', sites_004: '50'
+  }};
   currentCaseId = id;
 }
 
@@ -1475,6 +1480,10 @@ function getFieldValues() {
 }
 
 function setFieldValues(fields) {
+  // Clear manual-override flags so auto-fill works cleanly on case load
+  ['f_t1_1yr','f_t2_1yr','f_t3_1yr','f_t1_2yr','f_t2_2yr','f_t3_2yr','f_t1_3yr','f_t2_3yr','f_t3_3yr'].forEach(id => {
+    const el = document.getElementById(id); if (el) delete el.dataset.manual;
+  });
   FIELD_IDS.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1558,6 +1567,16 @@ function toggleCosts() {
   showToast(showing ? '🔓 Internal cost/margin visible' : '🔒 Internal columns hidden', 'info');
 }
 
+function resetTierPrices() {
+  // Clear manual flags so auto-fill from component sums takes over
+  ['f_t1_1yr','f_t2_1yr','f_t3_1yr','f_t1_2yr','f_t2_2yr','f_t3_2yr','f_t1_3yr','f_t2_3yr','f_t3_3yr'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { delete el.dataset.manual; el.value = ''; }
+  });
+  recalc();
+  showToast('↺ Tier prices reset to component sums', 'info');
+}
+
 function togglePresent() {
   const presenting = document.body.classList.toggle('present-mode');
   if (presenting) {
@@ -1627,12 +1646,12 @@ function recalc() {
   setText('sum_t1', fmt(t1)); setText('sum_t2', fmt(t2)); setText('sum_t3', fmt(t3));
   setText('sb_t1',  fmt(t1)); setText('sb_t2',  fmt(t2)); setText('sb_t3',  fmt(t3));
 
-  // Auto-fill 1-yr tier prices from à la carte sums (editable override still works)
+  // Auto-fill 1-yr tier prices from component sums — ONLY if user has not manually set a value
   const autoFill1yr = (id, sum) => {
     const el = document.getElementById(id);
-    if (!el || el === document.activeElement) return; // don't overwrite while user is editing
+    if (!el || el.dataset.manual === '1') return; // respect manual overrides
     if (sum > 0) { el.value = Math.round(sum); formatMoney(el); }
-    else if (!el.value || el.value === '$0') { el.value = ''; }
+    else { el.value = ''; }
   };
   autoFill1yr('f_t1_1yr', t1);
   autoFill1yr('f_t2_1yr', t2);
