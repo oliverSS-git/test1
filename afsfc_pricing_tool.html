@@ -105,6 +105,52 @@ body.present-mode .btn-present { background: #27AE60; }
 /* Hide internal tags in present mode */
 body.present-mode .tag-internal,
 body.present-mode .tag-mixed { display: none; }
+
+/* ─── PROPOSAL SUMMARY SECTION ─── */
+/* NC (new-customer benchmark) column — disappears in present mode */
+.nc-col { }
+body.present-mode .nc-col { display: none !important; }
+body.present-mode .nc-col-th { display: none !important; }
+
+.prop-narrative {
+  background: #F8F9FB;
+  border-left: 3px solid var(--slate-dark);
+  padding: 10px 18px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: #444;
+  font-style: italic;
+}
+.subsec-label {
+  background: var(--rollup);
+  border-top: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 16px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+.prop-absorbed-line {
+  background: #EAF4FF;
+  border-left: 3px solid var(--blue);
+  padding: 8px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1A5276;
+  line-height: 1.5;
+}
+.nc-input-cell {
+  background: #FEFAF0;
+  border-left: 2px solid var(--yellow-border);
+}
+.nc-header {
+  background: #FFF9E6;
+  color: #856404;
+  font-size: 10px;
+}
+
 .present-banner {
   display: none; background: #2C7BE5; color: white;
   text-align: center; padding: 5px; font-size: 11px; font-weight: 600;
@@ -1283,6 +1329,152 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     </table>
   </div>
 
+  <!-- ─── PROPOSAL SUMMARY ─── -->
+  <div class="section-block">
+    <div class="section-header">
+      PROPOSAL SUMMARY — ICST / C-UAS MISSION PACK
+      <span class="section-tag">FA8003-25-D-SSVR · auto-linked from CLIN pricing</span>
+      <span class="tag-customer">Customer Facing</span>
+    </div>
+    <div class="section-note present-hide">Numbers auto-calculate from Section 3 CLIN inputs. <strong style="color:#856404;">New-Customer Benchmark</strong> column (yellow) is internal reference only — hidden in Presentation Mode.</div>
+
+    <div class="prop-narrative">
+      The Street Smarts training platform baseline — the commercial deployment serving 80+ Security Forces squadrons, the V-CSTR infrastructure fielded to AFIMSC under AFWERX, and the SBIR-funded technical foundations — is already deployed and licensed. AFSFC is not paying for the platform, the content library, or the integration work that would normally be required to stand it up. AFSFC is paying only the delta required to instantiate it as ICST and field the C-UAS Mission Pack.
+    </div>
+
+    <!-- ── Cost Delta ── -->
+    <div class="subsec-label">Cost Delta — New-Customer Stand-Up vs. AFSFC Under This Proposal</div>
+    <table>
+      <thead>
+        <tr>
+          <th class="th-left" style="width:34%">Cost Component</th>
+          <th class="nc-col-th nc-header" style="width:17%">New-Customer<br><small>Benchmark (internal ▼)</small></th>
+          <th style="width:22%">AFSFC Under This Proposal</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Absorbed rows -->
+        <tr>
+          <td class="row-label">Platform License <small class="row-note">(80+ sqdn commercial deploy + V-CSTR / AFWERX)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_platform" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-neutral" style="color:var(--green-text);font-weight:700;">$0 — Absorbed</td>
+          <td class="row-note">Built under AFWERX / SBIR Phase II</td>
+        </tr>
+        <tr>
+          <td class="row-label">Content Library Access <small class="row-note">(C-UAS, base defense, LE/UoF scenario library)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_content" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-neutral" style="color:var(--green-text);font-weight:700;">$0 — Absorbed</td>
+          <td class="row-note">Absorbed by prior investment</td>
+        </tr>
+        <tr>
+          <td class="row-label">Platform Integration &amp; Setup <small class="row-note">(enterprise arch, ARIS routing, SSO, ATO/RMF)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_integ" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-neutral" style="color:var(--green-text);font-weight:700;">$0 — Absorbed</td>
+          <td class="row-note">Absorbed by prior deployment</td>
+        </tr>
+        <!-- CLIN rows — AFSFC column pulls live from Section 3 -->
+        <tr>
+          <td class="row-label">C-UAS Mission Pack — NRE <small class="row-note">(CLIN 0001 · qty 1, gov-wide)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_nre" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-calc" id="sum_af_clin001">—</td>
+          <td class="row-note">← CLIN 0001 total</td>
+        </tr>
+        <tr>
+          <td class="row-label">Initial Fielding — <span id="sum_sites002_label">50</span> installations <small class="row-note">(CLIN 0002)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_fielding" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-calc" id="sum_af_clin002">—</td>
+          <td class="row-note">← CLIN 0002 total</td>
+        </tr>
+        <tr>
+          <td class="row-label">Annual Managed Service <small class="row-note">(CLIN 0003 · per installation / yr)</small></td>
+          <td class="nc-col nc-input-cell cell-input" style="white-space:nowrap;">
+            <input class="price-in" type="text" id="nc_annual" placeholder="0" oninput="recalcSummary()" style="width:90px;">
+            <span style="font-size:9px;color:#999;">/site/yr</span>
+          </td>
+          <td class="cell-calc" id="sum_af_clin003">—</td>
+          <td class="row-note">← CLIN 0003 rate · /site/yr</td>
+        </tr>
+        <tr>
+          <td class="row-label">Hardware Refresh / Expansion <small class="row-note">(CLIN 0004 — Option · per site)</small></td>
+          <td class="nc-col nc-input-cell cell-input" style="white-space:nowrap;">
+            <input class="price-in" type="text" id="nc_hw" placeholder="0" oninput="recalcSummary()" style="width:90px;">
+            <span style="font-size:9px;color:#999;">/site</span>
+          </td>
+          <td class="cell-calc" id="sum_af_clin004">—</td>
+          <td class="row-note">← CLIN 0004 option rate</td>
+        </tr>
+        <!-- 5-Year TCO rollup -->
+        <tr class="rollup-row">
+          <td><strong>Estimated 5-Year Total Cost of Ownership</strong></td>
+          <td class="nc-col cell-calc" id="sum_nc_5yr" style="background:#FFF9E6;color:#856404;font-weight:700;">—</td>
+          <td class="cell-calc" id="sum_af_5yr">—</td>
+          <td class="row-note" id="sum_savings_note">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Net absorbed callout -->
+    <div class="prop-absorbed-line" id="sum_absorbed_callout">
+      Net value absorbed by prior deployment: enter New-Customer benchmarks above to calculate.
+    </div>
+
+    <!-- ── Contract Package ── -->
+    <div class="subsec-label">Proposed Contract Package — FA8003-25-D-SSVR Task Order 1</div>
+    <div class="section-note" style="padding:6px 16px;font-size:10px;color:#555;">Executable under existing SBIR Phase III IDIQ via task order — no new procurement action required. (15 U.S.C. § 638(r))</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:7%">CLIN</th>
+          <th class="th-left" style="width:35%">Title</th>
+          <th style="width:24%">Structure</th>
+          <th style="width:16%">Amount</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0001</td>
+          <td class="row-label">C-UAS Mission Pack — NRE</td>
+          <td style="font-size:11px;color:#666;">One-time · qty 1 (government-wide license)</td>
+          <td class="cell-calc" id="pkg_clin001">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_001" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0002</td>
+          <td class="row-label">Initial Fielding — <span id="pkg_sites002">50</span> installations</td>
+          <td style="font-size:11px;color:#666;">One-time</td>
+          <td class="cell-calc" id="pkg_clin002">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_002" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0003</td>
+          <td class="row-label">Annual Managed Service — per installation</td>
+          <td style="font-size:11px;color:#666;">Recurring · /site/yr × <span id="pkg_sites003">50</span> sites</td>
+          <td class="cell-calc" id="pkg_clin003">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_003" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0004</td>
+          <td class="row-label">Hardware Refresh / Expansion</td>
+          <td style="font-size:11px;color:#666;">Option · /site × <span id="pkg_sites004">50</span> sites</td>
+          <td class="cell-calc" id="pkg_clin004">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_004" placeholder="notes…"></td>
+        </tr>
+        <tr class="rollup-row" style="background:#EAF4FF;">
+          <td colspan="3"><strong>Year 1 Task Order Total</strong> <small style="font-weight:normal;color:#5B9BD5;">(CLIN 0001 + 0002 + 0003 × 1 yr)</small></td>
+          <td class="cell-calc" id="pkg_yr1_total">—</td>
+          <td></td>
+        </tr>
+        <tr class="rollup-row" style="background:#EAF0F6;">
+          <td colspan="3"><strong>5-Year Period of Performance Total</strong> <small style="font-weight:normal;color:var(--navy);">(0001 + 0002 once · 0003 × 5 yrs · 0004 option exercised once)</small></td>
+          <td class="cell-calc" id="pkg_5yr_total">—</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- ─── SECTION 4: Add-Ons ─── -->
   <div class="section-block">
     <div class="section-header">SECTION 4 — OPTIONAL CAPABILITIES <span class="section-tag">exercisable options</span><span class="tag-customer">Customer Facing</span></div>
@@ -1425,6 +1617,7 @@ const PRICE_FIELDS = [
   'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
   'f_addon_db','f_addon_packs','f_addon_eri','f_addon_lane','f_addon_scen','f_addon_t3','f_addon_oconus','f_addon_other','f_addon_other_unit',
   'f_extra_y1_cost',
+  'nc_platform','nc_content','nc_integ','nc_nre','nc_fielding','nc_annual','nc_hw',
   'f_notes'
 ];
 
@@ -1452,7 +1645,8 @@ const NOTE_FIELDS = [
   'nt_pm_basic','nt_pm_account','nt_pm_embedded',
   'nt_clin001','nt_clin002','nt_clin003','nt_clin004',
   'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_lane','nt_addon_scen','nt_addon_t3','nt_addon_oconus','nt_addon_other',
-  'nt_mix_t1','nt_mix_t2','nt_mix_t3'
+  'nt_mix_t1','nt_mix_t2','nt_mix_t3',
+  'nt_pkg_001','nt_pkg_002','nt_pkg_003','nt_pkg_004'
 ];
 
 const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS, ...NOTE_FIELDS];
@@ -1527,7 +1721,10 @@ function createDefaultCase() {
     // Tier prices from initial pricing model (screenshot 2026-04-19)
     f_t1_1yr: '29650', f_t2_1yr: '39150', f_t3_1yr: '46650',
     airmen_per_sqdn: '200',
-    sites_003: '50', sites_004: '50'
+    sites_003: '50', sites_004: '50',
+    // New-customer benchmark column (internal reference — market analysis)
+    nc_platform: '850000', nc_content: '400000', nc_integ: '575000',
+    nc_nre: '275000', nc_fielding: '250000', nc_annual: '52000', nc_hw: '9500'
   }};
   currentCaseId = id;
 }
@@ -1865,6 +2062,7 @@ function recalcClins() {
   }
 
   recalcMultiYear();
+  if (typeof recalcSummary === 'function') recalcSummary();
 }
 
 function recalcImpl() {
@@ -2103,6 +2301,91 @@ function recalcMultiYear() {
       pbEl.style.color = color;
     }
   }
+}
+
+// ═══════════════════════════════════════════════════
+//  PROPOSAL SUMMARY  (links to Section 3 CLINs)
+// ═══════════════════════════════════════════════════
+function recalcSummary() {
+  // ── Pull CLIN values from Section 3 ──────────────────────
+  const c001_price = val('f_clin001');
+  const c001_qty   = val('sites_001') || 1;           // always 1 (gov-wide NRE)
+  const c001_total = c001_price * c001_qty;
+
+  const c002_price = val('f_clin002');
+  const c002_qty   = val('sites_002') || 50;
+  const c002_total = c002_price * c002_qty;
+
+  const c003_per   = val('f_clin003');                // per-site price
+  const c003_qty   = val('sites_003') || 50;
+  const c003_annual= c003_per * c003_qty;             // annual total
+
+  const c004_per   = val('f_clin004');
+  const c004_qty   = val('sites_004') || 50;
+  const c004_total = c004_per * c004_qty;
+
+  // ── AFSFC 5-year TCO ─────────────────────────────────────
+  const af_5yr = c001_total + c002_total + (c003_annual * 5) + c004_total;
+  const af_yr1 = c001_total + c002_total + c003_annual;
+
+  // ── New-customer benchmarks (internal) ───────────────────
+  const nc_plat   = val('nc_platform');
+  const nc_cont   = val('nc_content');
+  const nc_intg   = val('nc_integ');
+  const nc_nre    = val('nc_nre');
+  const nc_field  = val('nc_fielding');
+  const nc_ann    = val('nc_annual');
+  const nc_hw     = val('nc_hw');
+  const nc_5yr = nc_plat + nc_cont + nc_intg + nc_nre + nc_field
+               + (nc_ann * c003_qty * 5) + (nc_hw * c004_qty);
+
+  // ── Format helpers ───────────────────────────────────────
+  const fmtM = n => {
+    if (!n) return '—';
+    if (n >= 1_000_000) return '$' + (n / 1_000_000).toFixed(1) + 'M';
+    if (n >= 1_000)     return '$' + Math.round(n / 1000) + 'K';
+    return fmt(n);
+  };
+  const st = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+
+  // ── Cost delta table — AFSFC column ──────────────────────
+  st('sum_af_clin001', c001_total > 0 ? fmt(c001_total) : '—');
+  st('sum_af_clin002', c002_total > 0 ? fmt(c002_total) : '—');
+  st('sum_af_clin003', c003_per   > 0 ? fmt(c003_per) + '/site/yr' : '—');
+  st('sum_af_clin004', c004_per   > 0 ? fmt(c004_per) + '/site' : '—');
+  st('sum_nc_5yr',     nc_5yr     > 0 ? fmtM(nc_5yr)   : '—');
+  st('sum_af_5yr',     af_5yr     > 0 ? fmtM(af_5yr)   : '—');
+  st('sum_sites002_label', c002_qty);
+
+  // 5yr savings note
+  if (nc_5yr > 0 && af_5yr > 0) {
+    const savings = nc_5yr - af_5yr;
+    st('sum_savings_note', savings > 0 ? fmtM(savings) + ' total savings vs. new-customer TCO' : '—');
+  } else {
+    st('sum_savings_note', '—');
+  }
+
+  // Absorbed callout
+  const calloutEl = document.getElementById('sum_absorbed_callout');
+  if (calloutEl) {
+    const absorbed = nc_plat + nc_cont + nc_intg;
+    calloutEl.textContent = absorbed > 0
+      ? 'Net value absorbed by prior deployment:  approximately ' + fmtM(absorbed) + ' over the 5-year period of performance.'
+      : 'Net value absorbed by prior deployment: enter New-Customer benchmarks above to calculate.';
+  }
+
+  // ── Contract Package table ────────────────────────────────
+  st('pkg_clin001',   c001_total   > 0 ? fmt(c001_total)   : '—');
+  st('pkg_clin002',   c002_total   > 0 ? fmt(c002_total)   : '—');
+  st('pkg_clin003',   c003_annual  > 0 ? fmtM(c003_annual) + ' / yr' : '—');
+  st('pkg_clin004',   c004_per     > 0 ? fmt(c004_per) + '/site' : '—');
+  st('pkg_yr1_total', af_yr1       > 0 ? fmtM(af_yr1)     : '—');
+  st('pkg_5yr_total', af_5yr       > 0 ? fmtM(af_5yr)     : '—');
+
+  // Site counts in structure column
+  st('pkg_sites002', c002_qty);
+  st('pkg_sites003', c003_qty);
+  st('pkg_sites004', c004_qty);
 }
 
 function recalcAddons() {
