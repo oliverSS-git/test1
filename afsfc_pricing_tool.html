@@ -523,7 +523,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <!-- ─── SECTION 1: Component Costs ─── -->
   <div class="section-block">
     <div class="section-header">
-      SECTION 1 — BOTTOM-UP COMPONENT COSTS
+      SECTION 1 — COMPONENT COSTS &amp; TIER PRICING
       <span class="section-tag">per lane / per year</span>
     </div>
     <div class="section-note">Enter unit cost (price) per component. Toggle Cost/Margin columns to show internal cost and margin. ✓ = included in tier.</div>
@@ -803,20 +803,12 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       <div class="cost-sum-item"><span class="sum-label" style="color:#aaa;">T2 margin:</span><span class="sum-val" id="sb_m2">—</span></div>
       <div class="cost-sum-item"><span class="sum-label" style="color:#aaa;">T3 margin:</span><span class="sum-val" id="sb_m3">—</span></div>
     </div>
-  </div>
 
-  <!-- ─── SECTION 2: Tier Prices ─── -->
-  <div class="section-block">
-    <div class="section-header">
-      SECTION 2 — TIER FINAL PRICES &amp; MARGIN
-      <span class="section-tag">customer-facing per lane / per year</span>
-    </div>
-    <div class="section-note">Enter your 1-year tier prices. Discounts auto-calculate 2/3-year. Cost/Margin columns show margin on the committed tier price vs. the blended cost sum.</div>
-
+    <!-- ─── COMMITMENT PRICING (merged from S2) ─── -->
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:28%">Commitment</th>
+          <th class="th-left" style="width:28%">Commitment Pricing</th>
           <th style="width:14%">Tier 1<br><small>Entry / C-UAS</small></th>
           <th style="width:14%">Tier 2<br><small>Standard</small></th>
           <th style="width:14%">Tier 3<br><small>Full Managed</small></th>
@@ -830,7 +822,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         </tr>
       </thead>
       <tbody>
-        <tr class="cat-row"><td colspan="4">SET DISCOUNT STRUCTURE FIRST</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="4">SET DISCOUNT STRUCTURE</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr class="disc-row">
           <td class="row-label">2-Year Commitment Discount</td>
           <td colspan="3" class="cell-input" style="text-align:center;">
@@ -857,8 +849,8 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         </tr>
 
         <tr class="cat-row"><td colspan="4">1-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
-        <tr>
-          <td class="row-label"><strong>Tier Price — 1-Year</strong></td>
+        <tr class="rollup-row">
+          <td><strong>Tier Price — 1-Year</strong> <small style="font-weight:normal;color:#7EC8E3;">⟳ auto from à la carte sum · editable</small></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_t1_1yr" placeholder="0" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_t2_1yr" placeholder="0" oninput="recalc()"></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_t3_1yr" placeholder="0" oninput="recalc()"></td>
@@ -868,7 +860,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-marg marg-na" id="tm2p_1yr">—</td>
           <td class="cost-col cell-marg marg-na" id="tm3d_1yr">—</td>
           <td class="cost-col cell-marg marg-na" id="tm3p_1yr">—</td>
-          <td class="row-note">Anchor price</td>
+          <td class="row-note">Override to round/adjust</td>
         </tr>
 
         <tr class="cat-row"><td colspan="4">2-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
@@ -1651,6 +1643,17 @@ function recalc() {
   // Price sums
   setText('sum_t1', fmt(t1)); setText('sum_t2', fmt(t2)); setText('sum_t3', fmt(t3));
   setText('sb_t1',  fmt(t1)); setText('sb_t2',  fmt(t2)); setText('sb_t3',  fmt(t3));
+
+  // Auto-fill 1-yr tier prices from à la carte sums (editable override still works)
+  const autoFill1yr = (id, sum) => {
+    const el = document.getElementById(id);
+    if (!el || el === document.activeElement) return; // don't overwrite while user is editing
+    if (sum > 0) { el.value = Math.round(sum); formatMoney(el); }
+    else if (!el.value || el.value === '$0') { el.value = ''; }
+  };
+  autoFill1yr('f_t1_1yr', t1);
+  autoFill1yr('f_t2_1yr', t2);
+  autoFill1yr('f_t3_1yr', t3);
 
   // Cost sums
   setText('csum_t1', fmt(c1)); setText('csum_t2', fmt(c2)); setText('csum_t3', fmt(c3));
