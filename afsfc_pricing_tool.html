@@ -614,7 +614,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td><input class="note-in" type="text" id="nt_sust_impl_oconus" placeholder="notes…"></td>
         </tr>
         <tr>
-          <td class="row-label">Platform Sustainment (ongoing)</td>
+          <td class="row-label">Continuous Operations <small class="row-note">(ongoing hardware + software + helpdesk)</small></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_sust_ongoing" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_ongoing" placeholder="0" oninput="recalc()"></td>
@@ -1045,6 +1045,129 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     </table>
   </div>
 
+  <!-- ─── MULTI-YEAR ECONOMICS ─── -->
+  <div class="section-block">
+    <div class="section-header">
+      MULTI-YEAR ECONOMICS — 3-YEAR CONTRACT VIEW
+      <span class="section-tag">based on Section 3 CLINs</span>
+    </div>
+    <div class="section-note" style="flex-direction:column;align-items:flex-start;gap:4px;padding:8px 16px;">
+      <span>CLINs 001 + 002 are <strong>one-time</strong> (Year 1 only) — NRE, fielding, hardware. CLINs 003 + 004 are <strong>recurring</strong> (Years 1–3) — managed service + sustainment.</span>
+      <span>Fill in CLIN costs in Section 3 first. Add any Y1 capital cost below that isn't already captured in CLIN 002 (e.g., HMD hardware pool, pre-contract NRE).</span>
+    </div>
+
+    <!-- Extra Y1 capital input -->
+    <div style="background:#FEF9E7;padding:9px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <span style="font-size:11px;font-weight:700;color:var(--navy);">Additional Y1 Capital Cost</span>
+      <span style="font-size:10px;color:#888;">(hardware, pre-contract NRE, or anything in Y1 not captured in CLIN 002)</span>
+      <div style="background:var(--yellow);padding:3px 5px;border-radius:3px;border:1px solid var(--yellow-border);">
+        <input class="price-in" type="text" id="f_extra_y1_cost" placeholder="$0" oninput="recalcMultiYear()" style="width:120px;background:var(--yellow);border:none;text-align:right;font-family:'Consolas',monospace;font-size:12px;color:#222;">
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="th-left" style="width:30%">Metric</th>
+          <th style="width:14%">Year 1<br><small>All CLINs</small></th>
+          <th style="width:14%;background:#E8F5E9;color:#276749;">Year 2<br><small>Recurring only</small></th>
+          <th style="width:14%;background:#E8F5E9;color:#276749;">Year 3<br><small>Recurring only</small></th>
+          <th style="width:14%;background:#EAF0F6;color:var(--navy);">3-Yr Total</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="cat-row"><td colspan="5">REVENUE</td><td style="background:var(--slate);"></td></tr>
+        <tr>
+          <td class="row-label">One-Time (NRE + Fielding)</td>
+          <td class="cell-calc" id="my_rev_ot">—</td>
+          <td class="cell-neutral" style="background:#F1F8F2;">—</td>
+          <td class="cell-neutral" style="background:#F1F8F2;">—</td>
+          <td class="cell-calc" id="my_rev_ot_tot">—</td>
+          <td class="row-note">CLIN 001 + 002</td>
+        </tr>
+        <tr>
+          <td class="row-label">Annual Recurring Service</td>
+          <td class="cell-calc" id="my_rev_rec_y1">—</td>
+          <td class="cell-calc" style="background:#E8F5E9;" id="my_rev_rec_y2">—</td>
+          <td class="cell-calc" style="background:#E8F5E9;" id="my_rev_rec_y3">—</td>
+          <td class="cell-calc" id="my_rev_rec_tot">—</td>
+          <td class="row-note">CLIN 003 + 004 (×3 yrs in total)</td>
+        </tr>
+        <tr class="rollup-row">
+          <td><strong>Total Revenue</strong></td>
+          <td class="cell-calc" id="my_rev_y1">—</td>
+          <td class="cell-calc" style="background:#D4EDDA;color:var(--green-text);" id="my_rev_y2">—</td>
+          <td class="cell-calc" style="background:#D4EDDA;color:var(--green-text);" id="my_rev_y3">—</td>
+          <td class="cell-calc" id="my_rev_tot">—</td>
+          <td></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="5">SSVR COST</td><td style="background:var(--slate);"></td></tr>
+        <tr>
+          <td class="row-label">One-Time COGS <small class="row-note">(NRE + Fielding + extra Y1 capital)</small></td>
+          <td class="cell-calc" style="color:var(--red);" id="my_cost_ot">—</td>
+          <td class="cell-neutral" style="background:#F1F8F2;">—</td>
+          <td class="cell-neutral" style="background:#F1F8F2;">—</td>
+          <td class="cell-calc" style="color:var(--red);" id="my_cost_ot_tot">—</td>
+          <td class="row-note">cc_clin001 + 002 + extra</td>
+        </tr>
+        <tr>
+          <td class="row-label">Annual Recurring COGS</td>
+          <td class="cell-calc" id="my_cost_rec_y1">—</td>
+          <td class="cell-calc" style="background:#E8F5E9;" id="my_cost_rec_y2">—</td>
+          <td class="cell-calc" style="background:#E8F5E9;" id="my_cost_rec_y3">—</td>
+          <td class="cell-calc" id="my_cost_rec_tot">—</td>
+          <td class="row-note">cc_clin003 + 004 (×3 yrs in total)</td>
+        </tr>
+        <tr class="rollup-row">
+          <td><strong>Total SSVR Cost</strong></td>
+          <td class="cell-calc" id="my_cost_y1">—</td>
+          <td class="cell-calc" style="background:#E8F5E9;" id="my_cost_y2">—</td>
+          <td class="cell-calc" style="background:#E8F5E9;" id="my_cost_y3">—</td>
+          <td class="cell-calc" id="my_cost_tot">—</td>
+          <td></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="5">GROSS MARGIN</td><td style="background:var(--slate);"></td></tr>
+        <tr class="rollup-row">
+          <td><strong>Gross Margin $</strong></td>
+          <td class="cell-marg marg-na" id="my_gm_d_y1">—</td>
+          <td class="cell-marg marg-na" id="my_gm_d_y2">—</td>
+          <td class="cell-marg marg-na" id="my_gm_d_y3">—</td>
+          <td class="cell-marg marg-na" id="my_gm_d_tot">—</td>
+          <td></td>
+        </tr>
+        <tr class="rollup-row">
+          <td><strong>Gross Margin %</strong></td>
+          <td class="cell-marg marg-na" id="my_gm_p_y1">—</td>
+          <td class="cell-marg marg-na" id="my_gm_p_y2">—</td>
+          <td class="cell-marg marg-na" id="my_gm_p_y3">—</td>
+          <td class="cell-marg marg-na" id="my_gm_p_tot">—</td>
+          <td></td>
+        </tr>
+
+        <tr class="cat-row"><td colspan="5">CUMULATIVE PICTURE</td><td style="background:var(--slate);"></td></tr>
+        <tr>
+          <td class="row-label">Cumulative Gross Margin $</td>
+          <td class="cell-calc" id="my_cum_y1">—</td>
+          <td class="cell-calc" id="my_cum_y2">—</td>
+          <td class="cell-calc" id="my_cum_y3">—</td>
+          <td class="cell-neutral">—</td>
+          <td class="row-note">Running total from Y1 start</td>
+        </tr>
+        <tr class="rollup-row" style="background:#F3F0FA;">
+          <td><strong>NRC Payback Period</strong> <small style="font-weight:normal;">(one-time COGS ÷ annual recurring margin)</small></td>
+          <td colspan="3" class="cell-calc" id="my_payback" style="text-align:center;font-size:12px;background:#F3F0FA;color:var(--purple);">—</td>
+          <td class="cell-neutral">—</td>
+          <td class="row-note">When Y1 capital investment is recovered by recurring margin</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
   <!-- ─── SECTION 4: Add-Ons ─── -->
   <div class="section-block">
     <div class="section-header">SECTION 4 — À LA CARTE ADD-ONS <span class="section-tag">exceptions / upsells</span></div>
@@ -1152,6 +1275,7 @@ const PRICE_FIELDS = [
   'sites_001','sites_002','sites_003','sites_004',
   'airmen_per_sqdn',
   'f_addon_db','f_addon_packs','f_addon_eri','f_addon_other','f_addon_other_unit',
+  'f_extra_y1_cost',
   'f_notes'
 ];
 
@@ -1539,6 +1663,112 @@ function recalcClins() {
     const cls = 'cost-col cell-calc ' + margClass(totMargP).replace('cell-marg ','');
     tm_d.className = cls; tm_p.className = cls;
   }
+
+  recalcMultiYear();
+}
+
+function recalcMultiYear() {
+  const s = n => val('sites_' + n) || 50;
+
+  // Revenue buckets
+  const rev_ot  = val('f_clin001')*s('001') + val('f_clin002')*s('002'); // one-time
+  const rev_rec  = val('f_clin003')*s('003') + val('f_clin004')*s('004'); // annual recurring
+  const rev_y1   = rev_ot + rev_rec;
+  const rev_y2   = rev_rec;
+  const rev_y3   = rev_rec;
+  const rev_tot  = rev_y1 + rev_y2 + rev_y3;
+
+  // Cost buckets
+  const extra_y1 = val('f_extra_y1_cost');
+  const cost_ot  = val('cc_clin001')*s('001') + val('cc_clin002')*s('002') + extra_y1;
+  const cost_rec = val('cc_clin003')*s('003') + val('cc_clin004')*s('004');
+  const cost_y1  = cost_ot + cost_rec;
+  const cost_y2  = cost_rec;
+  const cost_y3  = cost_rec;
+  const cost_tot = cost_y1 + cost_y2 + cost_y3;
+
+  // Helper: set a revenue calc cell
+  const setR = (id, v, style) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.textContent = v > 0 ? fmt(v) : '—';
+    if (style) Object.assign(el.style, style);
+  };
+
+  // Revenue rows
+  setR('my_rev_ot',      rev_ot);
+  setR('my_rev_ot_tot',  rev_ot);
+  setR('my_rev_rec_y1',  rev_rec);
+  setR('my_rev_rec_y2',  rev_rec);
+  setR('my_rev_rec_y3',  rev_rec);
+  setR('my_rev_rec_tot', rev_rec > 0 ? rev_rec * 3 : 0);
+  setR('my_rev_y1',  rev_y1);
+  setR('my_rev_y2',  rev_y2);
+  setR('my_rev_y3',  rev_y3);
+  setR('my_rev_tot', rev_tot);
+
+  // Cost rows
+  setR('my_cost_ot',      cost_ot);
+  setR('my_cost_ot_tot',  cost_ot);
+  setR('my_cost_rec_y1',  cost_rec);
+  setR('my_cost_rec_y2',  cost_rec);
+  setR('my_cost_rec_y3',  cost_rec);
+  setR('my_cost_rec_tot', cost_rec > 0 ? cost_rec * 3 : 0);
+  setR('my_cost_y1',  cost_y1);
+  setR('my_cost_y2',  cost_y2);
+  setR('my_cost_y3',  cost_y3);
+  setR('my_cost_tot', cost_tot);
+
+  // Margin helper
+  const setGM = (dId, pId, rev, cost) => {
+    const dEl = document.getElementById(dId), pEl = document.getElementById(pId);
+    if (!dEl || !pEl) return;
+    if (rev <= 0 || cost <= 0) {
+      [dEl,pEl].forEach(el=>{ el.textContent='—'; el.className='cell-marg marg-na'; });
+      return;
+    }
+    const d = rev - cost, p = d/rev*100;
+    const cls = 'cell-marg ' + margClass(p);
+    dEl.textContent = fmt(d); dEl.className = cls;
+    pEl.textContent = fmtP(p); pEl.className = cls;
+  };
+  setGM('my_gm_d_y1',  'my_gm_p_y1',  rev_y1,  cost_y1);
+  setGM('my_gm_d_y2',  'my_gm_p_y2',  rev_y2,  cost_y2);
+  setGM('my_gm_d_y3',  'my_gm_p_y3',  rev_y3,  cost_y3);
+  setGM('my_gm_d_tot', 'my_gm_p_tot', rev_tot, cost_tot);
+
+  // Cumulative GM
+  const gm_y1 = rev_y1 - cost_y1, gm_y2 = rev_y2 - cost_y2, gm_y3 = rev_y3 - cost_y3;
+  const cum1 = gm_y1, cum2 = cum1 + gm_y2, cum3 = cum2 + gm_y3;
+  const setCum = (id, v) => {
+    const el = document.getElementById(id); if (!el) return;
+    if (rev_y1 === 0 && cost_y1 === 0) { el.textContent = '—'; el.style.color=''; return; }
+    el.textContent = fmt(v);
+    el.style.color = v >= 0 ? 'var(--success)' : 'var(--red)';
+    el.style.fontWeight = '800';
+  };
+  setCum('my_cum_y1', cum1);
+  setCum('my_cum_y2', cum2);
+  setCum('my_cum_y3', cum3);
+
+  // NRC Payback: one-time COGS ÷ annual recurring margin
+  const pbEl = document.getElementById('my_payback');
+  if (pbEl) {
+    const ann_rec_margin = rev_rec - cost_rec;
+    if (cost_ot <= 0 || ann_rec_margin <= 0) {
+      pbEl.innerHTML = '—';
+      pbEl.style.color = '';
+    } else {
+      const mo = cost_ot / ann_rec_margin * 12;
+      const yrs = mo / 12;
+      let label, color;
+      if (mo <= 12)      { label = `${mo.toFixed(1)} months — recovered within Year 1 ✓`;         color = 'var(--success)'; }
+      else if (mo <= 24) { label = `${mo.toFixed(1)} months (${yrs.toFixed(1)} yrs) — recovered in Year 2`; color = '#E67E22'; }
+      else if (mo <= 36) { label = `${mo.toFixed(1)} months (${yrs.toFixed(1)} yrs) — recovered in Year 3`; color = '#C0392B'; }
+      else               { label = `${mo.toFixed(1)} months (${yrs.toFixed(1)} yrs) — beyond 3-yr contract ⚠`;  color = '#C0392B'; }
+      pbEl.textContent = label;
+      pbEl.style.color = color;
+    }
+  }
 }
 
 function recalcAddons() {
@@ -1727,9 +1957,9 @@ window.addEventListener('DOMContentLoaded', () => {
       'Includes the same recurring retraining and instructor recertification cadence as CONUS sites.'
     ],
     f_sust_ongoing: [
-      'Ongoing hardware maintenance, software patch management, and helpdesk support keeping every installation at full operational readiness.',
-      'Includes remote diagnostics, depot-level repair coordination, and proactive replacement of at-risk components before they cause training interruptions.',
-      'SLA-backed availability commitments ensure installations can count on the system being ready when training is scheduled.'
+      'The always-on operational layer keeping every installation at full readiness — hardware maintenance, software patch management, and SLA-backed helpdesk support.',
+      'Includes remote diagnostics, depot-level repair coordination, and proactive component replacement before failures interrupt training schedules.',
+      'Not a break/fix contract — this is continuous operations management so the installation never has to think about whether the system is ready.'
     ],
     f_wts_shotgun: [
       'Instrumented drop-in kit for the M870 — converts the standard duty shotgun into a fully tracked training weapon with zero permanent modification.',
@@ -1762,19 +1992,19 @@ window.addEventListener('DOMContentLoaded', () => {
       'Enables repetition that live ECD training can\'t provide safely — Airmen build muscle memory without the liability of live deployments.'
     ],
     f_pack_cuas: [
-      'AFSFC-configured scenario library mapped directly to AFJQS SEI 3CS qualification task requirements for counter-UAS operations.',
-      'Covers the full engagement cycle: threat identification, rules of engagement decision-making, kinetic engagement, and evidence collection.',
-      'Built in partnership with AFSFC — this isn\'t an off-the-shelf VR experience, it\'s purpose-built for the Security Forces C-UAS mission.'
+      'The C-UAS Defender Pack content was built with U.S. Air Force government funding — the Air Force already owns the IP. This line item is not an access fee.',
+      'What this covers: ongoing doctrinal currency. As AFJQS SEI 3CS requirements evolve, threat profiles change, and TTPs are updated, SSVR keeps the scenario library aligned — so the qualification content never goes stale.',
+      'Think of it as a content assurance contract: the scenarios stay mission-relevant, legally defensible, and doctrine-current for the life of the agreement.'
     ],
     f_pack_base: [
-      'Scenario library for base perimeter defense, entry control, and installation protection missions aligned to DAFI 31-131 and AFI 31-101.',
-      'Enables qualification rep for base defense tasks that are difficult and expensive to replicate at scale on live ranges.',
-      'Scenarios are updatable as doctrine evolves — the pack stays current without requiring new hardware or a new contract.'
+      'Base Defense Pack content was funded through government channels — the Air Force owns the IP. This is not a license fee for access.',
+      'This line covers the ongoing work of keeping the scenario library aligned to DAFI 31-131 and AFI 31-101 as those documents evolve — doctrine patches, new threat scenarios, and annual currency reviews.',
+      'Without this, the content risks becoming a snapshot of 2025 doctrine. With it, the scenarios stay current through every inspection cycle and doctrine update.'
     ],
     f_pack_onbase: [
-      'Law enforcement and use-of-force scenario library for on-installation LE response, aligned to AFI 31-207 force continuum standards.',
-      'Covers traffic stops, disturbance response, building searches, and force escalation/de-escalation decision-making.',
-      'Fills a critical training gap: LE UoF scenarios that are legally and logistically difficult to run in live training environments.'
+      'On-Base Operations Pack content was built with government funding. The Air Force is not paying for access — the content is already theirs.',
+      'This line covers sustained doctrinal relevance under AFI 31-207: keeping use-of-force scenarios current as legal standards, case law, and force continuum policy evolve.',
+      'LE training content goes stale faster than most — policy changes, court decisions, and commander guidance all affect what\'s legally and doctrinally defensible. This ensures the content keeps pace.'
     ],
     f_rep_local: [
       'Per-session performance summaries at the installation level — scores, completion rates, deficiency flags, and trend data.',
