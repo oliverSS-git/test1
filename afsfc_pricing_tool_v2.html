@@ -53,6 +53,39 @@ body {
 .cost-col { display: none; }
 body.show-costs .cost-col { display: table-cell; }
 
+/* ─── INTERNAL-ONLY ROWS (hidden unless cost view active) ─── */
+tr.internal-only { display: none; }
+body.show-costs tr.internal-only { display: table-row; }
+
+/* ─── PRESENTATION MODE ─── */
+body.present-mode .hero p { display: none; }
+body.present-mode .section-note { display: none; }
+body.present-mode .marg-legend { display: none !important; }
+body.present-mode .sum-bar { display: none; }
+body.present-mode .row-note { display: none; }
+body.present-mode td:has(> input.note-in) { display: none; }
+body.present-mode th:last-child { display: none; }
+body.present-mode input.price-in,
+body.present-mode input.pct-in,
+body.present-mode input.text-in {
+  pointer-events: none; border: none; background: transparent;
+  cursor: default; color: inherit; font-weight: 600;
+}
+body.present-mode input.note-in { display: none; }
+body.present-mode .btn-save, body.present-mode .btn-new,
+body.present-mode .btn-del, body.present-mode .btn-exp,
+body.present-mode .btn-cmp, body.present-mode .btn-costs { display: none; }
+body.present-mode #costToggleBtn { display: none; }
+body.present-mode .present-hide { display: none !important; }
+.btn-present { background: #2C7BE5; color: white; font-weight: 700; }
+body.present-mode .btn-present { background: #27AE60; }
+.present-banner {
+  display: none; background: #2C7BE5; color: white;
+  text-align: center; padding: 5px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.5px;
+}
+body.present-mode .present-banner { display: block; }
+
 /* ─── HEADER ─── */
 .app-header {
   background: var(--navy);
@@ -500,19 +533,21 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <button class="btn btn-new"  onclick="newCase()">＋ New</button>
   <button class="btn btn-del"  onclick="deleteCase()">🗑</button>
   <div class="app-divider"></div>
-  <button class="btn btn-costs" id="costToggleBtn" onclick="toggleCosts()">👁 Cost / Margin</button>
+  <button class="btn btn-costs" id="costToggleBtn" onclick="toggleCosts()">🔒 Internal View</button>
+  <button class="btn btn-present" id="presentBtn" onclick="togglePresent()">▶ Present</button>
   <button class="btn btn-cmp"   onclick="openCompare()">⚖ Compare</button>
   <button class="btn btn-exp"   onclick="exportCSV()">↓ CSV</button>
 </div>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
+<div class="present-banner">▶ PRESENTATION MODE — Internal costs and margins hidden &nbsp;|&nbsp; Click <strong>■ Exit Present</strong> to return to edit view</div>
 <div class="main">
 
   <!-- Hero -->
   <div class="hero">
     <div class="hero-text">
-      <h2>AFSFC Pricing Input — SSVR Internal Working Tool</h2>
-      <p>Fill in unit costs → auto-calculated rollups. Toggle <strong>Cost / Margin</strong> columns to see internal cost build and per-component margin. Save named Cases. Compare side-by-side.</p>
+      <h2>AFSFC C-UAS Training Platform — FA8003-25-D-SSVR</h2>
+      <p class="present-hide">Internal pricing tool · Toggle <strong>🔒 Internal View</strong> for cost/margin columns · <strong>▶ Present</strong> to enter customer-facing mode</p>
     </div>
     <div class="hero-case">
       <div class="hero-case-label">Current Case</div>
@@ -693,7 +728,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td><input class="note-in" type="text" id="nt_pack_base" placeholder="notes…"></td>
         </tr>
         <tr>
-          <td class="row-label">On-Base Operations Pack <small class="row-note">[NAME TBD] (AFI 31-207 — LE/UoF)</small></td>
+          <td class="row-label">On-Base Operations Pack <small class="row-note">(AFI 31-207 — LE/UoF)</small></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_pack_onbase" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pack_onbase" placeholder="0" oninput="recalc()"></td>
@@ -765,10 +800,10 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <!-- ROLLUP + PRICING -->
         <tr class="cat-row"><td colspan="5">TIER ROLLUP &amp; COMMITMENT PRICING</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
 
-        <!-- À la carte sum -->
+        <!-- Unbundled rate sum -->
         <tr class="rollup-row">
-          <td><strong>À La Carte Sum</strong></td>
-          <td class="cell-neutral" style="font-size:10px;color:#888;">à la carte</td>
+          <td><strong>Unbundled Rate Sum</strong></td>
+          <td class="cell-neutral" style="font-size:10px;color:#888;">list price</td>
           <td class="cell-calc" id="sum_t1">$0</td>
           <td class="cell-calc" id="sum_t2">$0</td>
           <td class="cell-calc" id="sum_t3">$0</td>
@@ -832,9 +867,9 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="row-note"></td>
         </tr>
 
-        <!-- Bundle savings -->
+        <!-- Cost avoidance -->
         <tr class="rollup-row" style="border-top:2px solid var(--border);">
-          <td><strong>Bundle Savings</strong> <small style="font-weight:normal;color:#888;">vs. à la carte</small></td>
+          <td><strong>Cost Avoidance</strong> <small style="font-weight:normal;color:#888;">vs. unbundled rate</small></td>
           <td class="cell-neutral" style="font-size:10px;color:#888;">auto</td>
           <td class="cell-calc" id="save_t1">—</td>
           <td class="cell-calc" id="save_t2">—</td>
@@ -848,9 +883,9 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
     <!-- Sum bar -->
     <div class="sum-bar">
-      <div class="sum-item"><span class="sum-label">T1 à la carte:</span><span class="sum-val t1-col" id="sb_t1">$0</span></div>
-      <div class="sum-item"><span class="sum-label">T2 à la carte:</span><span class="sum-val t2-col" id="sb_t2">$0</span></div>
-      <div class="sum-item"><span class="sum-label">T3 à la carte:</span><span class="sum-val t3-col" id="sb_t3">$0</span></div>
+      <div class="sum-item"><span class="sum-label">T1 list price:</span><span class="sum-val t1-col" id="sb_t1">$0</span></div>
+      <div class="sum-item"><span class="sum-label">T2 list price:</span><span class="sum-val t2-col" id="sb_t2">$0</span></div>
+      <div class="sum-item"><span class="sum-label">T3 list price:</span><span class="sum-val t3-col" id="sb_t3">$0</span></div>
       <div class="cost-sum-item"><span class="sum-label" style="color:#C39BD3;">T1 cost:</span><span class="sum-val" style="color:#E8DAEF;" id="sb_c1">$0</span></div>
       <div class="cost-sum-item"><span class="sum-label" style="color:#C39BD3;">T2 cost:</span><span class="sum-val" style="color:#E8DAEF;" id="sb_c2">$0</span></div>
       <div class="cost-sum-item"><span class="sum-label" style="color:#C39BD3;">T3 cost:</span><span class="sum-val" style="color:#E8DAEF;" id="sb_c3">$0</span></div>
@@ -988,7 +1023,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <!-- ─── SECTION 3: CLIN Pricing ─── -->
   <div class="section-block">
     <div class="section-header">
-      SECTION 3 — INVESTMENT LINE PRICING
+      SECTION 3 — CLIN PRICING SUMMARY
       <span class="section-tag">50 squadrons</span>
     </div>
     <div class="section-note">
@@ -1000,7 +1035,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:30%">Investment Line</th>
+          <th class="th-left" style="width:30%">CLIN Description</th>
           <th style="width:11%">Per-Site Price</th>
           <th style="width:6%">Sites</th>
           <th style="width:11%">Total (auto)</th>
@@ -1044,7 +1079,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <tr>
           <td>
             <div class="clin-name">Annual Managed Service <small style="font-weight:normal;">(recurring)</small></div>
-            <div class="clin-scope">Tier 2 per-lane/per-year × 50 sites — Standard Readiness subscription</div>
+            <div class="clin-scope">Per-lane/per-year recurring managed services — all active sites</div>
             <div id="clin003_auto_note" style="display:none;margin-top:4px;font-size:9px;color:#7EC8E3;font-style:italic;">⟳ auto from Deployment Mix</div>
           </td>
           <td class="cell-input"><input class="price-in" type="text" id="f_clin003" placeholder="0" oninput="recalcClins()"></td>
@@ -1144,8 +1179,8 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">SSVR COST</td><td style="background:var(--slate);"></td></tr>
-        <tr>
+        <tr class="cat-row internal-only"><td colspan="5">SSVR COST</td><td style="background:var(--slate);"></td></tr>
+        <tr class="internal-only">
           <td class="row-label">One-Time COGS <small class="row-note">(NRE + Fielding + extra Y1 capital)</small></td>
           <td class="cell-calc" style="color:var(--red);" id="my_cost_ot">—</td>
           <td class="cell-neutral" style="background:#F1F8F2;">—</td>
@@ -1153,7 +1188,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cell-calc" style="color:var(--red);" id="my_cost_ot_tot">—</td>
           <td class="row-note">cc_clin001 + 002 + extra</td>
         </tr>
-        <tr>
+        <tr class="internal-only">
           <td class="row-label">Annual Recurring COGS</td>
           <td class="cell-calc" id="my_cost_rec_y1">—</td>
           <td class="cell-calc" style="background:#E8F5E9;" id="my_cost_rec_y2">—</td>
@@ -1161,7 +1196,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cell-calc" id="my_cost_rec_tot">—</td>
           <td class="row-note">cc_clin003 + 004 (×3 yrs in total)</td>
         </tr>
-        <tr class="rollup-row">
+        <tr class="rollup-row internal-only">
           <td><strong>Total SSVR Cost</strong></td>
           <td class="cell-calc" id="my_cost_y1">—</td>
           <td class="cell-calc" style="background:#E8F5E9;" id="my_cost_y2">—</td>
@@ -1170,8 +1205,8 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">GROSS MARGIN</td><td style="background:var(--slate);"></td></tr>
-        <tr class="rollup-row">
+        <tr class="cat-row internal-only"><td colspan="5">GROSS MARGIN</td><td style="background:var(--slate);"></td></tr>
+        <tr class="rollup-row internal-only">
           <td><strong>Gross Margin $</strong></td>
           <td class="cell-marg marg-na" id="my_gm_d_y1">—</td>
           <td class="cell-marg marg-na" id="my_gm_d_y2">—</td>
@@ -1179,7 +1214,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cell-marg marg-na" id="my_gm_d_tot">—</td>
           <td></td>
         </tr>
-        <tr class="rollup-row">
+        <tr class="rollup-row internal-only">
           <td><strong>Gross Margin %</strong></td>
           <td class="cell-marg marg-na" id="my_gm_p_y1">—</td>
           <td class="cell-marg marg-na" id="my_gm_p_y2">—</td>
@@ -1188,8 +1223,8 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="5">CUMULATIVE PICTURE</td><td style="background:var(--slate);"></td></tr>
-        <tr>
+        <tr class="cat-row internal-only"><td colspan="5">CUMULATIVE PICTURE</td><td style="background:var(--slate);"></td></tr>
+        <tr class="internal-only">
           <td class="row-label">Cumulative Gross Margin $</td>
           <td class="cell-calc" id="my_cum_y1">—</td>
           <td class="cell-calc" id="my_cum_y2">—</td>
@@ -1197,7 +1232,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cell-neutral">—</td>
           <td class="row-note">Running total from Y1 start</td>
         </tr>
-        <tr class="rollup-row" style="background:#F3F0FA;">
+        <tr class="rollup-row internal-only" style="background:#F3F0FA;">
           <td><strong>NRC Payback Period</strong> <small style="font-weight:normal;">(one-time COGS ÷ annual recurring margin)</small></td>
           <td colspan="3" class="cell-calc" id="my_payback" style="text-align:center;font-size:12px;background:#F3F0FA;color:var(--purple);">—</td>
           <td class="cell-neutral">—</td>
@@ -1210,8 +1245,8 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
   <!-- ─── SECTION 4: Add-Ons ─── -->
   <div class="section-block">
-    <div class="section-header">SECTION 4 — À LA CARTE ADD-ONS <span class="section-tag">exceptions / upsells</span></div>
-    <div class="section-note">For Paul White's equipment list ask — reference as exceptions, not the default offer.</div>
+    <div class="section-header">SECTION 4 — OPTIONAL CAPABILITIES <span class="section-tag">exercisable options</span></div>
+    <div class="section-note present-hide">Pre-priced optional capabilities — exercisable via task order modification. Not included in base tier pricing.</div>
     <table>
       <thead>
         <tr>
@@ -1268,7 +1303,6 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     </div>
   </div>
 
-  <div class="amber-flag">⚠ <strong>Pack name TBD:</strong> "On-Base Operations Pack" (AFI 31-207) — finalize before Wednesday. Options: "On-Base Operations Pack" / "Security Forces LE Pack" / "Installation Response Pack."</div>
 
 </div>
 
@@ -1520,8 +1554,18 @@ function deleteCase() {
 
 function toggleCosts() {
   const showing = document.body.classList.toggle('show-costs');
-  document.getElementById('costToggleBtn').textContent = showing ? '✕ Hide Cost/Margin' : '👁 Cost / Margin';
-  showToast(showing ? '📊 Cost/Margin columns visible' : 'Cost columns hidden', 'info');
+  document.getElementById('costToggleBtn').textContent = showing ? '🔓 Hide Internal' : '🔒 Internal View';
+  showToast(showing ? '🔓 Internal cost/margin visible' : '🔒 Internal columns hidden', 'info');
+}
+
+function togglePresent() {
+  const presenting = document.body.classList.toggle('present-mode');
+  if (presenting) {
+    document.body.classList.remove('show-costs');
+    document.getElementById('costToggleBtn').textContent = '🔒 Internal View';
+  }
+  document.getElementById('presentBtn').textContent = presenting ? '■ Exit Present' : '▶ Present';
+  showToast(presenting ? '▶ Presentation mode — internal data hidden' : '■ Returned to edit mode', 'info');
 }
 
 // ═══════════════════════════════════════════════════
