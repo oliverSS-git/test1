@@ -775,6 +775,17 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-calc" id="csum_t3" style="background:#EDE3F5;color:var(--purple);">$0</td>
           <td class="row-note">Sum of ✓ items at entered costs</td>
         </tr>
+        <tr class="rollup-row" style="background:#EAF4FF;">
+          <td><strong>1-Year Bundle Price</strong> <small style="font-weight:normal;color:#5B9BD5;">enter your quoted price per lane</small></td>
+          <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">↑ auto</td>
+          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t1_1yr" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t2_1yr" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input" style="background:#EAF4FF;"><input class="price-in" type="text" id="f_t3_1yr" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="tm1p_1yr">—<span id="tm1d_1yr" style="display:none"></span></td>
+          <td class="cost-col cell-marg marg-na" id="tm2p_1yr">—<span id="tm2d_1yr" style="display:none"></span></td>
+          <td class="cost-col cell-marg marg-na" id="tm3p_1yr">—<span id="tm3d_1yr" style="display:none"></span></td>
+          <td class="row-note">Override to round / adjust bundle</td>
+        </tr>
         <tr class="rollup-row">
           <td><strong>Blended Tier Margin</strong> <small style="font-weight:normal;">(cost sum vs. à la carte price)</small></td>
           <td class="cell-neutral" style="font-size:10px;">auto</td>
@@ -846,21 +857,6 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           </td>
           <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note">50-site commitment</td>
-        </tr>
-
-        <tr class="cat-row"><td colspan="4">1-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
-        <tr class="rollup-row">
-          <td><strong>Tier Price — 1-Year</strong> <small style="font-weight:normal;color:#7EC8E3;">⟳ auto from à la carte sum · editable</small></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t1_1yr" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t2_1yr" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_t3_1yr" placeholder="0" oninput="recalc()"></td>
-          <td class="cost-col cell-marg marg-na" id="tm1d_1yr">—</td>
-          <td class="cost-col cell-marg marg-na" id="tm1p_1yr">—</td>
-          <td class="cost-col cell-marg marg-na" id="tm2d_1yr">—</td>
-          <td class="cost-col cell-marg marg-na" id="tm2p_1yr">—</td>
-          <td class="cost-col cell-marg marg-na" id="tm3d_1yr">—</td>
-          <td class="cost-col cell-marg marg-na" id="tm3p_1yr">—</td>
-          <td class="row-note">Override to round/adjust</td>
         </tr>
 
         <tr class="cat-row"><td colspan="4">2-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
