@@ -598,20 +598,31 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <tr>
           <td class="row-label">Site Activation &amp; Ongoing Enablement — CONUS <small class="row-note">(activation + retraining + instructor recert)</small></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl_conus" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cell-neutral" colspan="3" style="font-size:10px;color:#aaa;font-style:italic;">ref only</td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl_conus" placeholder="0" oninput="recalc()"></td>
-          <td class="cost-col cell-marg marg-na" id="md_sust_impl_conus">—</td>
-          <td class="cost-col cell-marg marg-na" id="mp_sust_impl_conus">—</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-neutral">—</td>
           <td><input class="note-in" type="text" id="nt_sust_impl_conus" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Site Activation &amp; Ongoing Enablement — OCONUS <small class="row-note">(activation + retraining + travel/logistics)</small></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl_oconus" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cell-neutral" colspan="3" style="font-size:10px;color:#aaa;font-style:italic;">ref only</td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl_oconus" placeholder="0" oninput="recalc()"></td>
-          <td class="cost-col cell-marg marg-na" id="md_sust_impl_oconus">—</td>
-          <td class="cost-col cell-marg marg-na" id="mp_sust_impl_oconus">—</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-neutral">—</td>
           <td><input class="note-in" type="text" id="nt_sust_impl_oconus" placeholder="notes…"></td>
+        </tr>
+        <tr style="background:#F5F7FA;">
+          <td class="row-label" style="padding-left:20px;color:#555;">
+            <em>↳ Blended Rate</em> <small class="row-note">(midpoint used in tier rollup)</small>
+          </td>
+          <td class="cell-calc" id="impl_blend_price" style="font-style:italic;color:var(--navy-light);">—</td>
+          <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-calc" id="impl_blend_cost" style="background:#EDE3F5;color:var(--purple);font-style:italic;">—</td>
+          <td class="cost-col cell-marg marg-na" id="md_sust_impl">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_sust_impl">—</td>
+          <td class="row-note">Auto: (CONUS + OCONUS) ÷ 2</td>
         </tr>
         <tr>
           <td class="row-label">Continuous Operations <small class="row-note">(ongoing hardware + software + helpdesk)</small></td>
@@ -1311,7 +1322,8 @@ const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS, ...NOTE_FIELDS];
 const TIER_MAP = {
   f_plat_license:       [1,1,1], f_plat_endpoint:      [1,1,1],
   f_plat_network:       [1,1,1], f_plat_ato:           [1,1,1],
-  f_sust_impl_conus:    [1,1,1], f_sust_impl_oconus:   [1,1,1],
+  // f_sust_impl_conus and f_sust_impl_oconus are NOT in TIER_MAP —
+  // their midpoint is computed manually in recalc() as a single blended rate.
   f_sust_ongoing:       [1,1,1],
   f_wts_shotgun:        [1,1,1], f_wts_rifle:          [0,1,1],
   f_wts_pistol:         [0,1,1],
@@ -1530,6 +1542,17 @@ function recalc() {
     const sfx = fid.replace('f_', '');
     setMarg('md_' + sfx, 'mp_' + sfx, price || 0, cost || 0);
   });
+
+  // Implementation blended rate (midpoint of CONUS + OCONUS, or whichever is filled)
+  const implC = val('f_sust_impl_conus'), implO = val('f_sust_impl_oconus');
+  const implBlend = (implC > 0 && implO > 0) ? (implC + implO) / 2 : (implC || implO);
+  const cImplC = val('c_sust_impl_conus'), cImplO = val('c_sust_impl_oconus');
+  const implCostBlend = (cImplC > 0 && cImplO > 0) ? (cImplC + cImplO) / 2 : (cImplC || cImplO);
+  t1 += implBlend; t2 += implBlend; t3 += implBlend;
+  c1 += implCostBlend; c2 += implCostBlend; c3 += implCostBlend;
+  setText('impl_blend_price', implBlend > 0 ? fmt(implBlend) : '—');
+  setText('impl_blend_cost',  implCostBlend > 0 ? fmt(implCostBlend) : '—');
+  setMarg('md_sust_impl', 'mp_sust_impl', implBlend, implCostBlend);
 
   // Price sums
   setText('sum_t1', fmt(t1)); setText('sum_t2', fmt(t2)); setText('sum_t3', fmt(t3));
