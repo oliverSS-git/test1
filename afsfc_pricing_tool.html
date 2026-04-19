@@ -79,6 +79,32 @@ body.present-mode #costToggleBtn { display: none; }
 body.present-mode .present-hide { display: none !important; }
 .btn-present { background: #2C7BE5; color: white; font-weight: 700; }
 body.present-mode .btn-present { background: #27AE60; }
+
+/* ─── SECTION AUDIENCE TAGS ─── */
+.tag-customer {
+  display: inline-block; margin-left: 10px;
+  background: #27AE60; color: white;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 10px; vertical-align: middle;
+  text-transform: uppercase;
+}
+.tag-internal {
+  display: inline-block; margin-left: 10px;
+  background: var(--purple); color: white;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 10px; vertical-align: middle;
+  text-transform: uppercase;
+}
+.tag-mixed {
+  display: inline-block; margin-left: 10px;
+  background: #E67E22; color: white;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 10px; vertical-align: middle;
+  text-transform: uppercase;
+}
+/* Hide internal tags in present mode */
+body.present-mode .tag-internal,
+body.present-mode .tag-mixed { display: none; }
 .present-banner {
   display: none; background: #2C7BE5; color: white;
   text-align: center; padding: 5px; font-size: 11px; font-weight: 600;
@@ -560,6 +586,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       SECTION 1 — COMPONENT COSTS &amp; TIER PRICING
       <span class="section-tag">per lane / per year</span>
+      <span class="tag-internal">Internal</span>
     </div>
     <div class="section-note">Enter unit cost (price) per component. Toggle Cost/Margin columns to show internal cost and margin. ✓ = included in tier.</div>
 
@@ -901,6 +928,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       SITE SETUP — ONE-TIME IMPLEMENTATION
       <span class="section-tag">one-time per site · auto-fills CLIN 002</span>
+      <span class="tag-internal">Internal</span>
     </div>
     <div class="section-note">
       Enter per-site rate and site count for each deployment type. Combined total auto-populates CLIN 002 (Fielding &amp; Stand-Up) in Section 3 below.
@@ -956,11 +984,12 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <!-- ─── TIER DEPLOYMENT MIX ─── -->
   <div class="section-block">
     <div class="section-header">
-      TIER DEPLOYMENT MIX — RECURRING REVENUE FORECAST
+      TIER DEPLOYMENT MIX — ANNUAL INVESTMENT FORECAST
       <span class="section-tag">per-tier site counts · auto-fills CLIN 003</span>
+      <span class="tag-customer">Customer Facing</span>
     </div>
     <div class="section-note">
-      Enter site counts per tier. Uses the 1-yr per-lane prices from Section 2. Grand total auto-populates CLIN 003 (Annual Managed Service) in Section 3 below.
+      Enter site counts per tier. Uses the 1-yr per-lane prices from Section 1. Grand total auto-populates CLIN 003 (Annual Managed Service) in the CLIN Pricing Summary below.
     </div>
     <table>
       <thead>
@@ -968,7 +997,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <th class="th-left" style="width:20%">Tier</th>
           <th style="width:14%">1-Yr Price/Lane</th>
           <th style="width:8%"># Sites</th>
-          <th style="width:14%">Annual Revenue</th>
+          <th style="width:14%">Annual Investment</th>
           <th class="cost-col" style="width:12%">Cost/Lane</th>
           <th class="cost-col" style="width:12%">Annual Cost</th>
           <th class="cost-col" style="width:8%">Margin %</th>
@@ -1007,7 +1036,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td><input class="note-in" type="text" id="nt_mix_t3" placeholder="notes…"></td>
         </tr>
         <tr class="rollup-row">
-          <td><strong>Total Annual Recurring</strong> <small style="font-weight:normal;color:#7EC8E3;">→ auto-fills CLIN 003</small></td>
+          <td><strong>Total Annual Investment</strong> <small style="font-weight:normal;color:#7EC8E3;">→ auto-fills CLIN 003</small></td>
           <td class="cell-neutral">—</td>
           <td class="cell-calc" id="mix_total_sites" style="text-align:center;">—</td>
           <td class="cell-calc" id="mix_grand_rev">—</td>
@@ -1034,6 +1063,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       SECTION 3 — CLIN PRICING SUMMARY
       <span class="section-tag">50 squadrons</span>
+      <span class="tag-customer">Customer Facing</span>
     </div>
     <div class="section-note">
       Enter per-site price. Total auto-calculates. Cost/Margin columns show margin on the total investment lines.
@@ -1059,10 +1089,10 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <tr>
           <td>
             <div class="clin-name">Configuration Build <small style="font-weight:normal;">(NRE — one-time)</small></div>
-            <div class="clin-scope">Course of fire, scoring logic, evidence engine routing, ARIS integration, commander dashboard config</div>
+            <div class="clin-scope">Government-wide platform license — course of fire, scoring logic, evidence engine routing, ARIS integration, commander dashboard config. Usable across any/all deployed bases.</div>
           </td>
           <td class="cell-input"><input class="price-in" type="text" id="f_clin001" placeholder="0" oninput="recalcClins()"></td>
-          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_001" value="50" oninput="recalcClins()" style="width:55px;"></td>
+          <td class="cell-input" style="padding:3px 5px;text-align:center;"><input class="price-in" type="number" id="sites_001" value="1" readonly style="width:55px;background:#F2F2F2;border:1px solid #ccc;cursor:not-allowed;text-align:center;" title="Qty 1 — government-wide license"></td>
           <td class="cell-calc" id="tot_clin001">$0</td>
           <td class="cell-ppa" id="ppa_clin001">—</td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="cc_clin001" placeholder="0" oninput="recalcClins()"></td>
@@ -1134,6 +1164,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       MULTI-YEAR ECONOMICS — 3-YEAR CONTRACT VIEW
       <span class="section-tag">based on Section 3 CLINs</span>
+      <span class="tag-internal">Internal</span>
     </div>
     <div class="section-note" style="flex-direction:column;align-items:flex-start;gap:4px;padding:8px 16px;">
       <span>CLINs 001 + 002 are <strong>one-time</strong> (Year 1 only) — NRE, fielding, hardware. CLINs 003 + 004 are <strong>recurring</strong> (Years 1–3) — managed service + sustainment.</span>
@@ -1254,7 +1285,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
   <!-- ─── SECTION 4: Add-Ons ─── -->
   <div class="section-block">
-    <div class="section-header">SECTION 4 — OPTIONAL CAPABILITIES <span class="section-tag">exercisable options</span></div>
+    <div class="section-header">SECTION 4 — OPTIONAL CAPABILITIES <span class="section-tag">exercisable options</span><span class="tag-customer">Customer Facing</span></div>
     <div class="section-note present-hide">Pre-priced optional capabilities — exercisable via task order modification. Not included in base tier pricing.</div>
     <table>
       <thead>
@@ -1306,7 +1337,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
   <!-- ─── SECTION 5: Notes ─── -->
   <div class="section-block">
-    <div class="section-header">SECTION 5 — CASE NOTES</div>
+    <div class="section-header">SECTION 5 — CASE NOTES <span class="tag-internal">Internal</span></div>
     <div style="background:white;padding:12px 16px;">
       <textarea id="f_notes" rows="4" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:10px;font-size:12px;font-family:'Segoe UI',Arial,sans-serif;resize:vertical;" placeholder="Assumptions, flags, margin targets, rationale for this pricing case…"></textarea>
     </div>
@@ -1498,10 +1529,11 @@ function setFieldValues(fields) {
     if (!el) return;
     el.value = (fields && fields[id] !== undefined) ? fields[id] : '';
   });
-  // Restore site counts default
-  ['sites_001','sites_002','sites_003','sites_004'].forEach(id => {
+  // Restore site counts default (sites_001 is always qty 1 — gov-wide license)
+  const siteDefaults = { sites_001: '1', sites_002: '50', sites_003: '50', sites_004: '50' };
+  Object.entries(siteDefaults).forEach(([id, def]) => {
     const el = document.getElementById(id);
-    if (el && !el.value) el.value = '50';
+    if (el && !el.value) el.value = def;
   });
   // Restore airmen default
   const airmenEl = document.getElementById('airmen_per_sqdn');
@@ -2082,7 +2114,7 @@ function openCompare() {
     { label: '2-Year discount', fn: f => n(f,'f_disc2')+'%', raw: true },
     { label: '3-Year discount', fn: f => n(f,'f_disc3')+'%', raw: true },
     { section: 'INVESTMENT LINES (50-site totals)' },
-    { label: 'Config Build (NRE)',  fn: f => n(f,'f_clin001')*(n(f,'sites_001')||50) },
+    { label: 'Config Build (NRE)',  fn: f => n(f,'f_clin001')*(n(f,'sites_001')||1) },
     { label: 'Fielding',            fn: f => n(f,'f_clin002')*(n(f,'sites_002')||50) },
     { label: 'Annual Service',      fn: f => n(f,'f_clin003')*(n(f,'sites_003')||50) },
     { label: 'Sustainment',         fn: f => n(f,'f_clin004')*(n(f,'sites_004')||50) },
