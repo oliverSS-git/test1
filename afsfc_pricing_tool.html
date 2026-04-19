@@ -987,6 +987,73 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     </table>
   </div>
 
+  <!-- ─── TIER DEPLOYMENT MIX ─── -->
+  <div class="section-block">
+    <div class="section-header">
+      TIER DEPLOYMENT MIX — RECURRING REVENUE FORECAST
+      <span class="section-tag">per-tier site counts · auto-fills CLIN 003</span>
+    </div>
+    <div class="section-note">
+      Enter site counts per tier. Uses the 1-yr per-lane prices from Section 2. Grand total auto-populates CLIN 003 (Annual Managed Service) in Section 3 below.
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="th-left" style="width:20%">Tier</th>
+          <th style="width:14%">1-Yr Price/Lane</th>
+          <th style="width:8%"># Sites</th>
+          <th style="width:14%">Annual Revenue</th>
+          <th class="cost-col" style="width:12%">Cost/Lane</th>
+          <th class="cost-col" style="width:12%">Annual Cost</th>
+          <th class="cost-col" style="width:8%">Margin %</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">Tier 1 — Entry <small class="row-note">(C-UAS Defender)</small></td>
+          <td class="cell-neutral" id="mix_p1_display">—</td>
+          <td class="cell-input" style="padding:3px 5px;"><input type="number" id="f_mix_t1_sites" class="price-in" placeholder="0" oninput="recalcMix()" style="width:55px;"></td>
+          <td class="cell-calc" id="mix_rev_t1">—</td>
+          <td class="cost-col cell-neutral" id="mix_c1_display">—</td>
+          <td class="cost-col cell-calc" id="mix_cost_t1">—</td>
+          <td class="cost-col cell-marg marg-na" id="mix_marg_t1">—</td>
+          <td><input class="note-in" type="text" id="nt_mix_t1" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">Tier 2 — Standard <small class="row-note">(Base Defense)</small></td>
+          <td class="cell-neutral" id="mix_p2_display">—</td>
+          <td class="cell-input" style="padding:3px 5px;"><input type="number" id="f_mix_t2_sites" class="price-in" placeholder="0" oninput="recalcMix()" style="width:55px;"></td>
+          <td class="cell-calc" id="mix_rev_t2">—</td>
+          <td class="cost-col cell-neutral" id="mix_c2_display">—</td>
+          <td class="cost-col cell-calc" id="mix_cost_t2">—</td>
+          <td class="cost-col cell-marg marg-na" id="mix_marg_t2">—</td>
+          <td><input class="note-in" type="text" id="nt_mix_t2" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">Tier 3 — Full Managed <small class="row-note">(On-Base Ops)</small></td>
+          <td class="cell-neutral" id="mix_p3_display">—</td>
+          <td class="cell-input" style="padding:3px 5px;"><input type="number" id="f_mix_t3_sites" class="price-in" placeholder="0" oninput="recalcMix()" style="width:55px;"></td>
+          <td class="cell-calc" id="mix_rev_t3">—</td>
+          <td class="cost-col cell-neutral" id="mix_c3_display">—</td>
+          <td class="cost-col cell-calc" id="mix_cost_t3">—</td>
+          <td class="cost-col cell-marg marg-na" id="mix_marg_t3">—</td>
+          <td><input class="note-in" type="text" id="nt_mix_t3" placeholder="notes…"></td>
+        </tr>
+        <tr class="rollup-row">
+          <td><strong>Total Annual Recurring</strong> <small style="font-weight:normal;color:#7EC8E3;">→ auto-fills CLIN 003</small></td>
+          <td class="cell-neutral">—</td>
+          <td class="cell-calc" id="mix_total_sites" style="text-align:center;">—</td>
+          <td class="cell-calc" id="mix_grand_rev">—</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-calc" id="mix_grand_cost">—</td>
+          <td class="cost-col cell-marg marg-na" id="mix_grand_marg">—</td>
+          <td class="row-note">Weighted avg/site → CLIN 003</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- ─── SECTION 3: CLIN Pricing ─── -->
   <div class="section-block">
     <div class="section-header">
@@ -1047,6 +1114,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td>
             <div class="clin-name">Annual Managed Service <small style="font-weight:normal;">(recurring)</small></div>
             <div class="clin-scope">Tier 2 per-lane/per-year × 50 sites — Standard Readiness subscription</div>
+            <div id="clin003_auto_note" style="display:none;margin-top:4px;font-size:9px;color:#7EC8E3;font-style:italic;">⟳ auto from Deployment Mix</div>
           </td>
           <td class="cell-input"><input class="price-in" type="text" id="f_clin003" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_003" value="50" oninput="recalcClins()" style="width:55px;"></td>
@@ -1317,6 +1385,7 @@ const PRICE_FIELDS = [
   'f_clin001','f_clin002','f_clin003','f_clin004',
   'sites_001','sites_002','sites_003','sites_004',
   'airmen_per_sqdn',
+  'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
   'f_addon_db','f_addon_packs','f_addon_eri','f_addon_other','f_addon_other_unit',
   'f_extra_y1_cost',
   'f_notes'
@@ -1345,7 +1414,8 @@ const NOTE_FIELDS = [
   'nt_rep_local','nt_rep_cmd','nt_rep_full',
   'nt_pm_basic','nt_pm_account','nt_pm_embedded',
   'nt_clin001','nt_clin002','nt_clin003','nt_clin004',
-  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_other'
+  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_other',
+  'nt_mix_t1','nt_mix_t2','nt_mix_t3'
 ];
 
 const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS, ...NOTE_FIELDS];
@@ -1376,7 +1446,9 @@ Object.keys(TIER_MAP).forEach(f => {
 
 // IDs that should never be money-formatted
 const SKIP_FORMAT_IDS = new Set([
-  'sites_001','sites_002','sites_003','sites_004','airmen_per_sqdn'
+  'sites_001','sites_002','sites_003','sites_004','airmen_per_sqdn',
+  'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
+  'f_impl_conus_sites','f_impl_oconus_sites'
 ]);
 
 // ═══════════════════════════════════════════════════
@@ -1385,6 +1457,7 @@ const SKIP_FORMAT_IDS = new Set([
 
 let cases = {};
 let currentCaseId = null;
+let _c1=0, _c2=0, _c3=0; // tier cost totals from recalc(), consumed by recalcMix()
 
 // ═══════════════════════════════════════════════════
 //  MONEY FORMATTING
@@ -1476,7 +1549,7 @@ function loadCase() {
   document.getElementById('caseName').value = c.name;
   document.getElementById('heroName').textContent = c.name;
   setFieldValues(c.fields);
-  recalc(); recalcImpl(); recalcClins(); recalcAddons();
+  recalc(); recalcImpl(); recalcMix(); recalcClins(); recalcAddons();
 }
 
 function saveCase() {
@@ -1497,7 +1570,7 @@ function newCase() {
   document.getElementById('caseName').value = cases[id].name;
   document.getElementById('heroName').textContent = cases[id].name;
   setFieldValues({});
-  recalc(); recalcImpl(); recalcClins(); recalcAddons();
+  recalc(); recalcImpl(); recalcMix(); recalcClins(); recalcAddons();
   showToast('➕ New case created', 'info');
 }
 
@@ -1582,6 +1655,8 @@ function recalc() {
   // Cost sums
   setText('csum_t1', fmt(c1)); setText('csum_t2', fmt(c2)); setText('csum_t3', fmt(c3));
   setText('sb_c1', fmt(c1));   setText('sb_c2', fmt(c2));   setText('sb_c3', fmt(c3));
+  // Expose to recalcMix()
+  _c1=c1; _c2=c2; _c3=c3;
 
   // Blended tier margins
   const blendMarg = (price, cost, dId, pId) => {
@@ -1641,6 +1716,9 @@ function recalc() {
   setText('save_t1', t1>0&&p1>0 ? fmt(t1-p1) : '—');
   setText('save_t2', t2>0&&p2>0 ? fmt(t2-p2) : '—');
   setText('save_t3', t3>0&&p3>0 ? fmt(t3-p3) : '—');
+
+  // Refresh Deployment Mix displays whenever tier prices or costs change
+  if (typeof recalcMix === 'function') recalcMix();
 }
 
 function recalcClins() {
@@ -1760,6 +1838,68 @@ function recalcImpl() {
     recalcClins();
   } else {
     if (noteEl) noteEl.style.display = 'none';
+  }
+}
+
+function recalcMix() {
+  // Pull 1-yr prices from Section 2 inputs
+  const p1 = val('f_t1_1yr'), p2 = val('f_t2_1yr'), p3 = val('f_t3_1yr');
+  // Pull site counts
+  const n1 = val('f_mix_t1_sites'), n2 = val('f_mix_t2_sites'), n3 = val('f_mix_t3_sites');
+  // Tier costs from recalc() globals
+  const cst1 = _c1, cst2 = _c2, cst3 = _c3;
+
+  // Per-tier revenue & cost
+  const rev1 = p1 * n1, rev2 = p2 * n2, rev3 = p3 * n3;
+  const cost1 = cst1 * n1, cost2 = cst2 * n2, cost3 = cst3 * n3;
+
+  const grandRev  = rev1 + rev2 + rev3;
+  const grandCost = cost1 + cost2 + cost3;
+  const totalSites = n1 + n2 + n3;
+
+  // Update price/cost display cells (read-only mirrors of S2)
+  const setD = (id, v) => { const el=document.getElementById(id); if(el) el.textContent = v>0?fmt(v):'—'; };
+  setD('mix_p1_display', p1); setD('mix_p2_display', p2); setD('mix_p3_display', p3);
+  setD('mix_c1_display', cst1); setD('mix_c2_display', cst2); setD('mix_c3_display', cst3);
+
+  // Revenue subtotals
+  setD('mix_rev_t1', rev1); setD('mix_rev_t2', rev2); setD('mix_rev_t3', rev3);
+  setD('mix_cost_t1', cost1); setD('mix_cost_t2', cost2); setD('mix_cost_t3', cost3);
+
+  // Grand totals
+  const el_gs = document.getElementById('mix_total_sites');
+  if (el_gs) el_gs.textContent = totalSites > 0 ? totalSites : '—';
+  setD('mix_grand_rev', grandRev);
+  setD('mix_grand_cost', grandCost);
+
+  // Margin per tier row
+  const setMM = (id, rev, cost) => {
+    const el = document.getElementById(id); if (!el) return;
+    if (rev > 0 && cost > 0) {
+      const p = (rev - cost) / rev * 100;
+      el.textContent = fmtP(p);
+      el.className = 'cost-col cell-marg ' + margClass(p);
+    } else { el.textContent = '—'; el.className = 'cost-col cell-marg marg-na'; }
+  };
+  setMM('mix_marg_t1', rev1, cost1);
+  setMM('mix_marg_t2', rev2, cost2);
+  setMM('mix_marg_t3', rev3, cost3);
+  setMM('mix_grand_marg', grandRev, grandCost);
+
+  // Auto-populate CLIN 003: weighted per-site avg revenue + total sites + cost/site
+  const noteEl003 = document.getElementById('clin003_auto_note');
+  if (totalSites > 0 && grandRev > 0) {
+    const perSiteAvg = grandRev / totalSites;
+    const el003  = document.getElementById('f_clin003');
+    const s003   = document.getElementById('sites_003');
+    const cc003  = document.getElementById('cc_clin003');
+    if (el003)  { el003.value = Math.round(perSiteAvg); formatMoney(el003); }
+    if (s003)   { s003.value  = totalSites; }
+    if (cc003 && grandCost > 0) { cc003.value = Math.round(grandCost / totalSites); formatMoney(cc003); }
+    if (noteEl003) noteEl003.style.display = 'block';
+    recalcClins();
+  } else {
+    if (noteEl003) noteEl003.style.display = 'none';
   }
 }
 
