@@ -145,6 +145,38 @@ body.present-mode .nc-col-th { display: none !important; }
   background: #FEFAF0;
   border-left: 2px solid var(--yellow-border);
 }
+
+/* ─── CLIN 003 COMPONENT BREAKDOWN ─── */
+.brkdn-wrap { padding:10px 18px 14px 36px; background:#F8FAFC; border-top:1px solid var(--border); }
+.brkdn-controls { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+.brkdn-tier-btn {
+  padding:2px 9px; border:1px solid var(--border); border-radius:4px;
+  background:white; cursor:pointer; font-size:10px; font-weight:700;
+  color:var(--navy); transition:all 0.1s;
+}
+.brkdn-tier-btn.active { background:var(--navy); color:white; border-color:var(--navy); }
+.brkdn-table { width:100%; border-collapse:collapse; font-size:11px; }
+.brkdn-table th {
+  background:var(--slate); color:var(--navy); padding:4px 8px;
+  font-weight:700; font-size:10px; text-align:center;
+}
+.brkdn-table th.th-left { text-align:left; }
+.brkdn-table td { padding:3px 8px; border-bottom:1px solid #EEF0F3; vertical-align:middle; }
+.brkdn-cat td {
+  background:var(--rollup); font-weight:700; font-size:10px;
+  letter-spacing:0.5px; color:var(--navy); text-transform:uppercase; padding:4px 8px;
+}
+.brkdn-item td { background:white; }
+.brkdn-item.is-covered td { background:#F0FBF5; }
+.brkdn-item.is-covered .brkdn-label { text-decoration:line-through; color:#aaa; }
+.brkdn-item.is-covered .brkdn-price { color:var(--green-text); font-style:italic; }
+.brkdn-status-covered { color:var(--green-text); font-weight:700; font-size:10px; }
+.brkdn-status-pays { color:#888; font-size:10px; }
+.brkdn-total-row td { background:var(--rollup); font-weight:700; border-top:2px solid var(--border); }
+.brkdn-covered-row td { background:#EBF8F0; color:var(--green-text); font-weight:700; }
+.brkdn-net-row td { background:#EAF4FF; color:#1A5276; font-weight:700; font-size:12px; }
+body.present-mode .brkdn-wrap { display:none; }
+
 .nc-header {
   background: #FFF9E6;
   color: #856404;
@@ -1176,6 +1208,203 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-marg marg-na" id="cp_clin003">—</td>
           <td><input class="note-in" type="text" id="nt_clin003" placeholder="notes…"></td>
         </tr>
+        <tr id="clin003_brkdn_row">
+          <td colspan="9" style="padding:0;">
+            <div class="brkdn-wrap">
+              <input type="hidden" id="f_c003_covered" value="f_plat_license">
+              <input type="hidden" id="f_c003_tier" value="2">
+              <div class="brkdn-controls">
+                <span style="font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">Component Build-Up · Tier:</span>
+                <button class="brkdn-tier-btn" id="btn_brkdn_t1" onclick="setBrkdnTier(1)">T1 — Entry</button>
+                <button class="brkdn-tier-btn active" id="btn_brkdn_t2" onclick="setBrkdnTier(2)">T2 — Standard</button>
+                <button class="brkdn-tier-btn" id="btn_brkdn_t3" onclick="setBrkdnTier(3)">T3 — Full Mgd</button>
+                <span style="font-size:9px;color:#999;margin-left:6px;">Check <strong>Covered</strong> on items funded by prior AFWERX / SBIR investment — reduces AFSFC net</span>
+              </div>
+              <table class="brkdn-table">
+                <thead>
+                  <tr>
+                    <th class="th-left" style="width:36%">Component</th>
+                    <th style="width:14%">$/site/yr</th>
+                    <th style="width:8%">Covered?</th>
+                    <th style="width:14%">Status</th>
+                    <th style="width:28%">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- PLATFORM -->
+                  <tr class="brkdn-cat"><td colspan="5">Platform</td></tr>
+                  <tr class="brkdn-item" data-field="f_plat_license" data-tiers="123">
+                    <td class="brkdn-label">Platform License <small style="color:#aaa;">(Sim Execution + Ground Truth Engine)</small></td>
+                    <td class="brkdn-price" id="bv_plat_license">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_plat_license" data-field="f_plat_license" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();" checked></td>
+                    <td><span class="brkdn-status-covered" id="bs_plat_license">✓ Covered</span></td>
+                    <td style="font-size:9px;color:#666;">Absorbed by V-CSTR / AFWERX deployment</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_plat_endpoint" data-tiers="123">
+                    <td class="brkdn-label">Readiness Sensing Endpoint <small style="color:#aaa;">(managed terminal: PC + HMD)</small></td>
+                    <td class="brkdn-price" id="bv_plat_endpoint">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_plat_endpoint" data-field="f_plat_endpoint" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_plat_endpoint">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_plat_network" data-tiers="123">
+                    <td class="brkdn-label">Readiness Sensing Network <small style="color:#aaa;">(data routing + enterprise view)</small></td>
+                    <td class="brkdn-price" id="bv_plat_network">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_plat_network" data-field="f_plat_network" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_plat_network">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_plat_ato" data-tiers="123">
+                    <td class="brkdn-label">ATO / RMF / Cyber Compliance</td>
+                    <td class="brkdn-price" id="bv_plat_ato">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_plat_ato" data-field="f_plat_ato" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_plat_ato">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <!-- SUSTAINMENT -->
+                  <tr class="brkdn-cat"><td colspan="5">Sustainment &amp; Operations</td></tr>
+                  <tr class="brkdn-item" data-field="f_sust_ongoing" data-tiers="123">
+                    <td class="brkdn-label">Continuous Operations <small style="color:#aaa;">(hardware + software + helpdesk)</small></td>
+                    <td class="brkdn-price" id="bv_sust_ongoing">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_sust_ongoing" data-field="f_sust_ongoing" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_sust_ongoing">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <!-- WTS -->
+                  <tr class="brkdn-cat"><td colspan="5">Weapon Training System</td></tr>
+                  <tr class="brkdn-item" data-field="f_wts_shotgun" data-tiers="123">
+                    <td class="brkdn-label">WTS — Shotgun (M870 / M26)</td>
+                    <td class="brkdn-price" id="bv_wts_shotgun">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_wts_shotgun" data-field="f_wts_shotgun" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_shotgun">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_rifle" data-tiers="23">
+                    <td class="brkdn-label">WTS — Rifle (M4 / M16)</td>
+                    <td class="brkdn-price" id="bv_wts_rifle">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_wts_rifle" data-field="f_wts_rifle" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_rifle">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_pistol" data-tiers="23">
+                    <td class="brkdn-label">WTS — Pistol (M18 / M17)</td>
+                    <td class="brkdn-price" id="bv_wts_pistol">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_wts_pistol" data-field="f_wts_pistol" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_pistol">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_baton" data-tiers="3">
+                    <td class="brkdn-label">WTS — Baton (non-lethal)</td>
+                    <td class="brkdn-price" id="bv_wts_baton">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_wts_baton" data-field="f_wts_baton" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_baton">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_oc" data-tiers="3">
+                    <td class="brkdn-label">WTS — OC Spray (non-lethal)</td>
+                    <td class="brkdn-price" id="bv_wts_oc">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_wts_oc" data-field="f_wts_oc" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_oc">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_ecd" data-tiers="3">
+                    <td class="brkdn-label">WTS — ECD / Taser (non-lethal)</td>
+                    <td class="brkdn-price" id="bv_wts_ecd">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_wts_ecd" data-field="f_wts_ecd" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_ecd">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- MISSION PACKS -->
+                  <tr class="brkdn-cat"><td colspan="5">Mission Packs</td></tr>
+                  <tr class="brkdn-item" data-field="f_pack_cuas" data-tiers="123">
+                    <td class="brkdn-label">C-UAS Defender Pack <small style="color:#aaa;">(AFJQS SEI 3CS)</small></td>
+                    <td class="brkdn-price" id="bv_pack_cuas">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_pack_cuas" data-field="f_pack_cuas" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_pack_cuas">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pack_base" data-tiers="23">
+                    <td class="brkdn-label">Base Defense Pack <small style="color:#aaa;">(DAFI 31-131)</small></td>
+                    <td class="brkdn-price" id="bv_pack_base">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_pack_base" data-field="f_pack_base" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_pack_base">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pack_onbase" data-tiers="3">
+                    <td class="brkdn-label">On-Base Ops Pack <small style="color:#aaa;">(AFI 31-207)</small></td>
+                    <td class="brkdn-price" id="bv_pack_onbase">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_pack_onbase" data-field="f_pack_onbase" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_pack_onbase">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- REPORTING -->
+                  <tr class="brkdn-cat"><td colspan="5">Reporting</td></tr>
+                  <tr class="brkdn-item" data-field="f_rep_local" data-tiers="123">
+                    <td class="brkdn-label">Reporting — Local Dashboard</td>
+                    <td class="brkdn-price" id="bv_rep_local">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_rep_local" data-field="f_rep_local" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_rep_local">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_rep_cmd" data-tiers="23">
+                    <td class="brkdn-label">Reporting — Command Dashboard</td>
+                    <td class="brkdn-price" id="bv_rep_cmd">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_rep_cmd" data-field="f_rep_cmd" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_rep_cmd">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_rep_full" data-tiers="3">
+                    <td class="brkdn-label">Reporting — Enterprise BI</td>
+                    <td class="brkdn-price" id="bv_rep_full">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_rep_full" data-field="f_rep_full" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_rep_full">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- PROGRAM MANAGEMENT -->
+                  <tr class="brkdn-cat"><td colspan="5">Program Management</td></tr>
+                  <tr class="brkdn-item" data-field="f_pm_basic" data-tiers="1">
+                    <td class="brkdn-label">PM — Basic</td>
+                    <td class="brkdn-price" id="bv_pm_basic">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_pm_basic" data-field="f_pm_basic" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_pm_basic">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pm_account" data-tiers="2">
+                    <td class="brkdn-label">PM — Account Manager</td>
+                    <td class="brkdn-price" id="bv_pm_account">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_pm_account" data-field="f_pm_account" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_pm_account">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pm_embedded" data-tiers="3">
+                    <td class="brkdn-label">PM — Embedded Program Manager</td>
+                    <td class="brkdn-price" id="bv_pm_embedded">—</td>
+                    <td style="text-align:center;"><input type="checkbox" id="cv_pm_embedded" data-field="f_pm_embedded" class="brkdn-chk" onchange="updateCoveredField();recalcBrkdn();"></td>
+                    <td><span class="brkdn-status-pays" id="bs_pm_embedded">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- SUBTOTALS -->
+                  <tr class="brkdn-total-row">
+                    <td>Total Value Delivered / site / yr</td>
+                    <td id="brkdn_total_val" style="font-family:monospace;">—</td>
+                    <td colspan="3"></td>
+                  </tr>
+                  <tr class="brkdn-covered-row" id="brkdn_covered_row">
+                    <td>Covered by AFWERX / Prior SBIR Investment</td>
+                    <td id="brkdn_covered_val" style="font-family:monospace;">—</td>
+                    <td colspan="3" style="font-size:9px;color:var(--green-text);">Not charged to AFSFC</td>
+                  </tr>
+                  <tr class="brkdn-net-row">
+                    <td><strong>AFSFC Net / site / yr</strong> <small style="font-weight:normal;color:#5B9BD5;">(should equal CLIN 003 price)</small></td>
+                    <td id="brkdn_net_val" style="font-family:monospace;font-size:13px;">—</td>
+                    <td colspan="2" style="font-size:9px;" id="brkdn_reconcile"></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
         <tr>
           <td>
             <div class="clin-name">Sustainment &amp; Evolution <small style="font-weight:normal;">(recurring)</small></div>
@@ -1617,6 +1846,7 @@ const PRICE_FIELDS = [
   'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
   'f_addon_db','f_addon_packs','f_addon_eri','f_addon_lane','f_addon_scen','f_addon_t3','f_addon_oconus','f_addon_other','f_addon_other_unit',
   'f_extra_y1_cost',
+  'f_c003_covered','f_c003_tier',
   'nc_platform','nc_content','nc_integ','nc_nre','nc_fielding','nc_annual','nc_hw',
   'f_notes'
 ];
@@ -1679,7 +1909,8 @@ Object.keys(TIER_MAP).forEach(f => {
 const SKIP_FORMAT_IDS = new Set([
   'sites_001','sites_002','sites_003','sites_004','airmen_per_sqdn',
   'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
-  'f_impl_conus_sites','f_impl_oconus_sites'
+  'f_impl_conus_sites','f_impl_oconus_sites',
+  'f_c003_covered','f_c003_tier'
 ]);
 
 // ═══════════════════════════════════════════════════
@@ -1689,6 +1920,7 @@ const SKIP_FORMAT_IDS = new Set([
 let cases = {};
 let currentCaseId = null;
 let _c1=0, _c2=0, _c3=0; // tier cost totals from recalc(), consumed by recalcMix()
+let _brkdnTier = 2; // active tier for CLIN 003 breakdown
 
 // ═══════════════════════════════════════════════════
 //  MONEY FORMATTING
@@ -1796,6 +2028,7 @@ function loadCase() {
   document.getElementById('caseName').value = c.name;
   document.getElementById('heroName').textContent = c.name;
   setFieldValues(c.fields);
+  restoreBrkdnState();
   recalc(); recalcImpl(); recalcMix(); recalcClins(); recalcAddons();
 }
 
@@ -1817,6 +2050,7 @@ function newCase() {
   document.getElementById('caseName').value = cases[id].name;
   document.getElementById('heroName').textContent = cases[id].name;
   setFieldValues({});
+  restoreBrkdnState();
   recalc(); recalcImpl(); recalcMix(); recalcClins(); recalcAddons();
   showToast('➕ New case created', 'info');
 }
@@ -1994,6 +2228,7 @@ function recalc() {
 
   // Refresh Deployment Mix displays whenever tier prices or costs change
   if (typeof recalcMix === 'function') recalcMix();
+  if (typeof recalcBrkdn === 'function') recalcBrkdn();
 }
 
 function recalcClins() {
@@ -2386,6 +2621,114 @@ function recalcSummary() {
   st('pkg_sites002', c002_qty);
   st('pkg_sites003', c003_qty);
   st('pkg_sites004', c004_qty);
+}
+
+// ═══════════════════════════════════════════════════
+//  CLIN 003 COMPONENT BREAKDOWN
+// ═══════════════════════════════════════════════════
+function setBrkdnTier(t) {
+  _brkdnTier = t;
+  [1,2,3].forEach(i => {
+    const btn = document.getElementById('btn_brkdn_t' + i);
+    if (btn) btn.classList.toggle('active', i === t);
+  });
+  // Update hidden field so it persists with case save
+  const tierEl = document.getElementById('f_c003_tier');
+  if (tierEl) tierEl.value = String(t);
+  recalcBrkdn();
+}
+
+function updateCoveredField() {
+  const ids = [];
+  document.querySelectorAll('.brkdn-chk:checked').forEach(chk => {
+    if (chk.dataset.field) ids.push(chk.dataset.field);
+  });
+  const el = document.getElementById('f_c003_covered');
+  if (el) el.value = ids.join(',');
+}
+
+function recalcBrkdn() {
+  const tier = _brkdnTier || 2;
+  let totalDelivered = 0, totalCovered = 0;
+
+  document.querySelectorAll('.brkdn-item').forEach(row => {
+    const field = row.dataset.field;
+    const tiers  = row.dataset.tiers || '';
+    const inTier = tiers.includes(String(tier));
+
+    row.style.display = inTier ? '' : 'none';
+    if (!inTier) return;
+
+    const price = val(field) || 0;
+    const sfx   = field.replace('f_', '');
+
+    // Update price cell
+    const priceEl = document.getElementById('bv_' + sfx);
+    if (priceEl) priceEl.textContent = price > 0 ? fmt(price) : '—';
+
+    // Covered state
+    const chk       = document.getElementById('cv_' + sfx);
+    const isCovered = chk ? chk.checked : false;
+    row.classList.toggle('is-covered', isCovered);
+
+    // Status label
+    const statusEl = document.getElementById('bs_' + sfx);
+    if (statusEl) {
+      statusEl.textContent    = isCovered ? '✓ Covered' : 'AFSFC pays';
+      statusEl.className      = isCovered ? 'brkdn-status-covered' : 'brkdn-status-pays';
+    }
+
+    totalDelivered += price;
+    if (isCovered) totalCovered += price;
+  });
+
+  const net = totalDelivered - totalCovered;
+
+  // Subtotal rows
+  setText('brkdn_total_val',   totalDelivered > 0 ? fmt(totalDelivered) : '—');
+  const coveredRow = document.getElementById('brkdn_covered_row');
+  if (coveredRow) coveredRow.style.display = totalCovered > 0 ? '' : 'none';
+  setText('brkdn_covered_val', totalCovered > 0 ? '− ' + fmt(totalCovered) : '—');
+  setText('brkdn_net_val',     net >= 0 && totalDelivered > 0 ? fmt(net) : '—');
+
+  // Reconcile vs CLIN 003 price
+  const c003 = val('f_clin003');
+  const reconcileEl = document.getElementById('brkdn_reconcile');
+  if (reconcileEl) {
+    if (c003 > 0 && net > 0) {
+      const diff = Math.abs(c003 - net);
+      if (diff < 2) {
+        reconcileEl.textContent = '✓ Matches CLIN 003';
+        reconcileEl.style.color = 'var(--success)';
+      } else {
+        reconcileEl.textContent = 'CLIN 003 set to ' + fmt(c003) + ' (Δ ' + fmt(diff) + ')';
+        reconcileEl.style.color = 'var(--amber-text)';
+      }
+    } else {
+      reconcileEl.textContent = '';
+    }
+  }
+}
+
+function restoreBrkdnState() {
+  // Restore tier selection
+  const tierEl = document.getElementById('f_c003_tier');
+  const tier   = tierEl ? (parseInt(tierEl.value) || 2) : 2;
+  _brkdnTier   = tier;
+  [1,2,3].forEach(i => {
+    const btn = document.getElementById('btn_brkdn_t' + i);
+    if (btn) btn.classList.toggle('active', i === tier);
+  });
+
+  // Restore covered checkboxes
+  const covEl    = document.getElementById('f_c003_covered');
+  const covValue = covEl ? covEl.value : 'f_plat_license';
+  const coveredIds = covValue ? covValue.split(',').map(s => s.trim()).filter(Boolean) : ['f_plat_license'];
+  document.querySelectorAll('.brkdn-chk').forEach(chk => {
+    chk.checked = coveredIds.includes(chk.dataset.field || '');
+  });
+
+  recalcBrkdn();
 }
 
 function recalcAddons() {
