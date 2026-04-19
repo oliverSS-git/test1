@@ -1324,6 +1324,38 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td><input class="note-in" type="text" id="nt_addon_eri" placeholder="notes…"></td>
         </tr>
         <tr>
+          <td class="row-label">Additional Terminal / Extra Lane <small class="row-note">(surge or OCONUS second-terminal)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_lane" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_lane" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_lane">—</td>
+          <td style="text-align:center;color:#666;">/lane/year</td>
+          <td><input class="note-in" type="text" id="nt_addon_lane" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">Custom Scenario Development <small class="row-note">(bespoke course-of-fire beyond standard library)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_scen" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_scen" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_scen">—</td>
+          <td style="text-align:center;color:#666;">/engagement</td>
+          <td><input class="note-in" type="text" id="nt_addon_scen" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">Training-the-Trainer Cohort <small class="row-note">(certify unit Range OIC/NCOs as SSVR operators)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_t3" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_t3" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_t3">—</td>
+          <td style="text-align:center;color:#666;">/cohort</td>
+          <td><input class="note-in" type="text" id="nt_addon_t3" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">OCONUS Field Support Visit <small class="row-note">(on-site sustainment during deployment workup)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_oconus" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_oconus" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_oconus">—</td>
+          <td style="text-align:center;color:#666;">/event</td>
+          <td><input class="note-in" type="text" id="nt_addon_oconus" placeholder="notes…"></td>
+        </tr>
+        <tr>
           <td class="row-label">Other</td>
           <td class="cell-input"><input class="price-in" type="text" id="f_addon_other" placeholder="0" oninput="recalcAddons()"></td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_other" placeholder="0" oninput="recalcAddons()"></td>
@@ -1391,7 +1423,7 @@ const PRICE_FIELDS = [
   'sites_001','sites_002','sites_003','sites_004',
   'airmen_per_sqdn',
   'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
-  'f_addon_db','f_addon_packs','f_addon_eri','f_addon_other','f_addon_other_unit',
+  'f_addon_db','f_addon_packs','f_addon_eri','f_addon_lane','f_addon_scen','f_addon_t3','f_addon_oconus','f_addon_other','f_addon_other_unit',
   'f_extra_y1_cost',
   'f_notes'
 ];
@@ -1406,7 +1438,7 @@ const COST_FIELDS = [
   'c_rep_local','c_rep_cmd','c_rep_full',
   'c_pm_basic','c_pm_account','c_pm_embedded',
   'cc_clin001','cc_clin002','cc_clin003','cc_clin004',
-  'c_addon_db','c_addon_packs','c_addon_eri','c_addon_other'
+  'c_addon_db','c_addon_packs','c_addon_eri','c_addon_lane','c_addon_scen','c_addon_t3','c_addon_oconus','c_addon_other'
 ];
 
 // Note field IDs
@@ -1419,7 +1451,7 @@ const NOTE_FIELDS = [
   'nt_rep_local','nt_rep_cmd','nt_rep_full',
   'nt_pm_basic','nt_pm_account','nt_pm_embedded',
   'nt_clin001','nt_clin002','nt_clin003','nt_clin004',
-  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_other',
+  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_lane','nt_addon_scen','nt_addon_t3','nt_addon_oconus','nt_addon_other',
   'nt_mix_t1','nt_mix_t2','nt_mix_t3'
 ];
 
@@ -1535,6 +1567,9 @@ function setFieldValues(fields) {
     const el = document.getElementById(id);
     if (el && !el.value) el.value = def;
   });
+  // Always force sites_001 to 1 — readonly gov-wide license, never per-base
+  const s001 = document.getElementById('sites_001');
+  if (s001) s001.value = '1';
   // Restore airmen default
   const airmenEl = document.getElementById('airmen_per_sqdn');
   if (airmenEl && !airmenEl.value) airmenEl.value = '200';
@@ -2071,7 +2106,7 @@ function recalcMultiYear() {
 }
 
 function recalcAddons() {
-  ['db','packs','eri','other'].forEach(sfx => {
+  ['db','packs','eri','lane','scen','t3','oconus','other'].forEach(sfx => {
     const price = val('f_addon_'+sfx), cost = val('c_addon_'+sfx);
     const pEl = document.getElementById('ap_addon_'+sfx);
     if (!pEl) return;
