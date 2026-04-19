@@ -34,6 +34,9 @@
   --marg-mid-text: #856404;
   --marg-low: #FDECEA;
   --marg-low-text: #C0392B;
+  --ppa-bg: #EAF4FF;
+  --ppa-border: #7EC8E3;
+  --ppa-text: #1A5276;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -125,7 +128,7 @@ body.show-costs .btn-costs { background: var(--success); }
 
 /* ─── MAIN ─── */
 .main {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 20px auto 60px;
   padding: 0 16px;
 }
@@ -175,7 +178,26 @@ body.show-costs .btn-costs { background: var(--success); }
   font-size: 10px;
   color: #777;
   font-style: italic;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
+
+/* Airmen input in section-note bar */
+input.airmen-in {
+  width: 65px;
+  padding: 3px 6px;
+  border: 1px solid var(--yellow-border);
+  border-radius: 3px;
+  background: var(--yellow);
+  font-size: 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-align: right;
+  color: #222;
+  font-style: normal;
+}
+input.airmen-in:focus { outline: 2px solid var(--blue); }
 
 /* ─── TABLES ─── */
 table { width: 100%; border-collapse: collapse; background: white; }
@@ -194,6 +216,9 @@ th.th-left { text-align: left; }
 
 /* Cost/margin column headers get purple tint */
 th.cost-col { background: #EDE3F5; color: var(--purple); border-color: var(--cost-border); }
+
+/* $/Airman/Yr column — blue tint, always visible */
+th.th-ppa { background: var(--ppa-bg); color: var(--ppa-text); border-color: var(--ppa-border); font-size: 10px; }
 
 td { border: 1px solid var(--border); padding: 5px 8px; vertical-align: middle; }
 
@@ -252,6 +277,18 @@ input.cost-in::placeholder { color: #C39BD3; }
 }
 .cell-neutral { background: var(--gray); text-align: center; font-style: italic; color: #999; font-size: 11px; }
 .cell-amber   { background: var(--amber); color: var(--amber-text); text-align: center; font-weight: 700; font-size: 11px; }
+
+/* $/Airman/Yr data cells */
+.cell-ppa {
+  background: var(--ppa-bg);
+  text-align: right;
+  font-weight: 700;
+  font-family: 'Consolas', 'Courier New', monospace;
+  color: var(--ppa-text);
+  padding-right: 8px;
+  font-size: 11px;
+  border-color: var(--ppa-border);
+}
 
 /* Margin cells — color-coded */
 .cell-marg {
@@ -325,6 +362,27 @@ input.pct-in:focus { outline: 2px solid var(--blue); }
 .t3-col { color: #FFD700; }
 .cost-sum-item { display: none; align-items: center; gap: 6px; }
 body.show-costs .cost-sum-item { display: flex; }
+
+/* Note inputs */
+input.note-in {
+  width: 100%;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  font-size: 11px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #888;
+  font-style: italic;
+}
+input.note-in:focus {
+  outline: 2px solid var(--blue);
+  background: white;
+  border-color: var(--border);
+  color: #333;
+  font-style: normal;
+}
+input.note-in::placeholder { color: #ccc; }
 
 /* ─── COMPARE MODAL ─── */
 .modal-overlay {
@@ -451,11 +509,11 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <table id="s1table">
       <thead>
         <tr>
-          <th class="th-left" style="width:36%">Component</th>
+          <th class="th-left" style="width:34%">Component</th>
           <th style="width:12%">Price ($/lane/yr)</th>
-          <th style="width:9%">Tier 1<br><small>Entry</small></th>
-          <th style="width:9%">Tier 2<br><small>Standard</small></th>
-          <th style="width:9%">Tier 3<br><small>Full Mgd</small></th>
+          <th style="width:8%">Tier 1<br><small>Entry</small></th>
+          <th style="width:8%">Tier 2<br><small>Standard</small></th>
+          <th style="width:8%">Tier 3<br><small>Full Mgd</small></th>
           <th class="cost-col" style="width:10%">Est. Cost to Us<br><small>($/lane/yr)</small></th>
           <th class="cost-col" style="width:8%">Margin $</th>
           <th class="cost-col" style="width:7%">Margin %</th>
@@ -465,64 +523,64 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       <tbody>
 
         <!-- PLATFORM -->
-        <tr class="cat-row"><td colspan="5" data-base="5">PLATFORM</td><td class="cost-col" colspan="3" style="background:var(--slate);color:var(--navy);font-weight:700;"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">PLATFORM</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
 
         <tr>
           <td class="row-label">Platform License <small class="row-note">(Sim Execution + Ground Truth Evidence Engine)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_plat_license" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_plat_license" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_license" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_plat_license" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_plat_license">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_plat_license">—</td>
-          <td class="row-note">Baseline — all tiers</td>
+          <td><input class="note-in" type="text" id="nt_plat_license" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Readiness Sensing Endpoint <small class="row-note">(managed terminal: PC + HMD, SSVR-owned)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_plat_endpoint" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_plat_endpoint" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_endpoint" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_plat_endpoint" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_plat_endpoint">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_plat_endpoint">—</td>
-          <td class="row-note">SSVR owns &amp; refreshes hardware</td>
+          <td><input class="note-in" type="text" id="nt_plat_endpoint" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Readiness Sensing Network <small class="row-note">(data routing + AFSFC enterprise view)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_plat_network" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_plat_network" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_network" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_plat_network" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_plat_network">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_plat_network">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_plat_network" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">ATO / RMF / Cyber Compliance</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_plat_ato" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_plat_ato" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_plat_ato" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_plat_ato" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_plat_ato">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_plat_ato">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_plat_ato" placeholder="notes…"></td>
         </tr>
 
         <!-- IMPL & SUSTAINMENT -->
-        <tr class="cat-row"><td colspan="5" data-base="5">IMPLEMENTATION &amp; SUSTAINMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">IMPLEMENTATION &amp; SUSTAINMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
         <tr>
           <td class="row-label">Implementation &amp; Site Activation</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_sust_impl" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_sust_impl" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_sust_impl">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_sust_impl">—</td>
-          <td class="row-note">One-time per site — amortized</td>
+          <td><input class="note-in" type="text" id="nt_sust_impl" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Platform Sustainment (ongoing)</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_sust_ongoing" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_sust_ongoing" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_sust_ongoing" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_ongoing" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_sust_ongoing">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_sust_ongoing">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_sust_ongoing" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Hardware Warranty / Endpoint Availability SLA</td>
@@ -531,140 +589,158 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-neutral">—</td>
           <td class="cost-col cell-neutral">—</td>
           <td class="cost-col cell-neutral">—</td>
-          <td class="row-note">Tier-differentiated SLA</td>
+          <td><input class="note-in" type="text" id="nt_sust_sla" placeholder="notes…"></td>
         </tr>
 
         <!-- WTS -->
-        <tr class="cat-row"><td colspan="5" data-base="5">WEAPON TRAINING SYSTEMS</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">WEAPON TRAINING SYSTEMS</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
         <tr>
           <td class="row-label">Shotgun WTS — Instrumented M870 <small class="row-note">(drop-in kit + surrogate)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_wts_shotgun" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_wts_shotgun" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_shotgun" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_wts_shotgun" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_wts_shotgun">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_wts_shotgun">—</td>
-          <td class="row-note">Kit + surrogate per site</td>
+          <td><input class="note-in" type="text" id="nt_wts_shotgun" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Rifle WTS — Instrumented M4</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_wts_rifle" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_wts_rifle" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_rifle" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_wts_rifle" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_wts_rifle">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_wts_rifle">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_wts_rifle" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Pistol WTS — Instrumented M18</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_wts_pistol" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_wts_pistol" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_pistol" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_wts_pistol" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_wts_pistol">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_wts_pistol">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_wts_pistol" placeholder="notes…"></td>
         </tr>
         <tr>
-          <td class="row-label">Non-Lethal Bundle <small class="row-note">(baton, OC, ECD)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_wts_nonlethal" placeholder="0" oninput="recalc()"></td>
+          <td class="row-label">Baton / PR-24 WTS</td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_wts_baton" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_wts_nonlethal" placeholder="0" oninput="recalc()"></td>
-          <td class="cost-col cell-marg marg-na" id="md_wts_nonlethal">—</td>
-          <td class="cost-col cell-marg marg-na" id="mp_wts_nonlethal">—</td>
-          <td class="row-note"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_wts_baton" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_baton">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_baton">—</td>
+          <td><input class="note-in" type="text" id="nt_wts_baton" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">OC Spray WTS</td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_wts_oc" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_wts_oc" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_oc">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_oc">—</td>
+          <td><input class="note-in" type="text" id="nt_wts_oc" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">ECD / Taser WTS</td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_wts_ecd" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_wts_ecd" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-marg marg-na" id="md_wts_ecd">—</td>
+          <td class="cost-col cell-marg marg-na" id="mp_wts_ecd">—</td>
+          <td><input class="note-in" type="text" id="nt_wts_ecd" placeholder="notes…"></td>
         </tr>
 
         <!-- MISSION PACKS -->
-        <tr class="cat-row"><td colspan="5" data-base="5">MISSION PACKS</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">MISSION PACKS</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
         <tr>
           <td class="row-label">C-UAS Defender Pack <small class="row-note">(AFJQS SEI 3CS)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_pack_cuas" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_pack_cuas" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pack_cuas" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pack_cuas" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_pack_cuas">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_pack_cuas">—</td>
-          <td class="row-note">AFSFC-specific config via NRE</td>
+          <td><input class="note-in" type="text" id="nt_pack_cuas" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Base Defense Pack <small class="row-note">(DAFI 31-131 / AFI 31-101)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_pack_base" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_pack_base" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pack_base" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pack_base" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_pack_base">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_pack_base">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_pack_base" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">On-Base Operations Pack <small class="row-note">[NAME TBD] (AFI 31-207 — LE/UoF)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_pack_onbase" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_pack_onbase" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pack_onbase" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pack_onbase" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_pack_onbase">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_pack_onbase">—</td>
-          <td class="row-note">LE / use-of-force objectives</td>
+          <td><input class="note-in" type="text" id="nt_pack_onbase" placeholder="notes…"></td>
         </tr>
 
         <!-- READINESS REPORTING -->
-        <tr class="cat-row"><td colspan="5" data-base="5">READINESS REPORTING</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">READINESS REPORTING</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
         <tr>
           <td class="row-label">Local Session Reporting</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_rep_local" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_rep_local" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-dash">—</td><td class="cell-dash">—</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_rep_local" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_rep_local" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_rep_local">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_rep_local">—</td>
-          <td class="row-note">Tier 1 only</td>
+          <td><input class="note-in" type="text" id="nt_rep_local" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Commander's Readiness Evidence View (dashboard)</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_rep_cmd" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_rep_cmd" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_rep_cmd" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_rep_cmd" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_rep_cmd">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_rep_cmd">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_rep_cmd" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Full Readiness Intelligence Layer <small class="row-note">(MAJCOM / AFSFC HQ rollup)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_rep_full" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_rep_full" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_rep_full" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_rep_full" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_rep_full">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_rep_full">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_rep_full" placeholder="notes…"></td>
         </tr>
 
         <!-- PM -->
-        <tr class="cat-row"><td colspan="5" data-base="5">PROGRAM MANAGEMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">PROGRAM MANAGEMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
         <tr>
           <td class="row-label">Basic Support</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_pm_basic" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_pm_basic" placeholder="0" oninput="recalc()"></td>
           <td class="cell-check">✓</td><td class="cell-dash">—</td><td class="cell-dash">—</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pm_basic" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pm_basic" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_pm_basic">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_pm_basic">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_pm_basic" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Account Management</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_pm_account" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_pm_account" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-check">✓</td><td class="cell-dash">—</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pm_account" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pm_account" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_pm_account">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_pm_account">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_pm_account" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Embedded Readiness Partnership <small class="row-note">(SSVR seat at AFSFC HQ)</small></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_pm_embedded" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_pm_embedded" placeholder="0" oninput="recalc()"></td>
           <td class="cell-dash">—</td><td class="cell-dash">—</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_pm_embedded" placeholder="0" oninput="recalc()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_pm_embedded" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="md_pm_embedded">—</td>
           <td class="cost-col cell-marg marg-na" id="mp_pm_embedded">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_pm_embedded" placeholder="notes…"></td>
         </tr>
 
         <!-- ROLLUP -->
-        <tr class="cat-row"><td colspan="5" data-base="5">TIER ROLLUP — À LA CARTE SUM</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="display:none"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="5">TIER ROLLUP — À LA CARTE SUM</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
         <tr class="rollup-row">
           <td><strong>Calculated Sum — All Included Components</strong></td>
           <td class="cell-neutral" style="font-size:10px;">auto</td>
@@ -731,7 +807,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         </tr>
       </thead>
       <tbody>
-        <tr class="cat-row"><td colspan="4" data-base="4">SET DISCOUNT STRUCTURE FIRST</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="4">SET DISCOUNT STRUCTURE FIRST</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr class="disc-row">
           <td class="row-label">2-Year Commitment Discount</td>
           <td colspan="3" class="cell-input" style="text-align:center;">
@@ -757,12 +833,12 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="row-note">50-site commitment</td>
         </tr>
 
-        <tr class="cat-row"><td colspan="4" data-base="4">1-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="4">1-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label"><strong>Tier Price — 1-Year</strong></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t1_1yr" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t2_1yr" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t3_1yr" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t1_1yr" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t2_1yr" placeholder="0" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t3_1yr" placeholder="0" oninput="recalc()"></td>
           <td class="cost-col cell-marg marg-na" id="tm1d_1yr">—</td>
           <td class="cost-col cell-marg marg-na" id="tm1p_1yr">—</td>
           <td class="cost-col cell-marg marg-na" id="tm2d_1yr">—</td>
@@ -772,7 +848,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="row-note">Anchor price</td>
         </tr>
 
-        <tr class="cat-row"><td colspan="4" data-base="4">2-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="4">2-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label">Auto from 1-yr × (1−discount)</td>
           <td class="cell-calc" id="calc_t1_2yr">—</td>
@@ -788,14 +864,14 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         </tr>
         <tr>
           <td class="row-label">Override (leave blank to use auto)</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t1_2yr" placeholder="auto" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t2_2yr" placeholder="auto" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t3_2yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t1_2yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t2_2yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t3_2yr" placeholder="auto" oninput="recalc()"></td>
           <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note"></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="4" data-base="4">3-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="4">3-YEAR COMMITMENT</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr>
           <td class="row-label">Auto from 1-yr × (1−discount)</td>
           <td class="cell-calc" id="calc_t1_3yr">—</td>
@@ -811,14 +887,14 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         </tr>
         <tr>
           <td class="row-label">Override (leave blank to use auto)</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t1_3yr" placeholder="auto" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t2_3yr" placeholder="auto" oninput="recalc()"></td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_t3_3yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t1_3yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t2_3yr" placeholder="auto" oninput="recalc()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_t3_3yr" placeholder="auto" oninput="recalc()"></td>
           <td class="cost-col cell-neutral" colspan="6">—</td>
           <td class="row-note"></td>
         </tr>
 
-        <tr class="cat-row"><td colspan="4" data-base="4">BUNDLE SAVINGS &amp; ROLLUP</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
+        <tr class="cat-row"><td colspan="4">BUNDLE SAVINGS &amp; ROLLUP</td><td class="cost-col" colspan="6" style="background:var(--slate);"></td><td style="display:none"></td></tr>
         <tr class="rollup-row">
           <td><strong>Bundle Savings</strong> <small style="font-weight:normal;">(à la carte − 1-yr tier price)</small></td>
           <td class="cell-calc" id="save_t1">—</td>
@@ -837,16 +913,22 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       SECTION 3 — INVESTMENT LINE PRICING
       <span class="section-tag">50 squadrons</span>
     </div>
-    <div class="section-note">Enter per-site price. Total auto-calculates. Cost/Margin columns show margin on the total investment lines.</div>
+    <div class="section-note">
+      Enter per-site price. Total auto-calculates. Cost/Margin columns show margin on the total investment lines.
+      <span style="color:#555;font-style:normal;">Airmen/Squadron:</span>
+      <input class="airmen-in price-in" type="number" id="airmen_per_sqdn" value="200" oninput="recalcClins()" style="width:65px;">
+      <span style="color:#999;font-size:9px;">(change to see $/Airman shift)</span>
+    </div>
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:34%">Investment Line</th>
-          <th style="width:13%">Per-Site Price</th>
-          <th style="width:7%">Sites</th>
-          <th style="width:13%">Total (auto)</th>
-          <th class="cost-col" style="width:10%">Per-Site Cost</th>
-          <th class="cost-col" style="width:10%">Total Margin $</th>
+          <th class="th-left" style="width:30%">Investment Line</th>
+          <th style="width:11%">Per-Site Price</th>
+          <th style="width:6%">Sites</th>
+          <th style="width:11%">Total (auto)</th>
+          <th class="th-ppa" style="width:9%">$/Airman/Yr</th>
+          <th class="cost-col" style="width:9%">Per-Site Cost</th>
+          <th class="cost-col" style="width:9%">Total Margin $</th>
           <th class="cost-col" style="width:7%">Margin %</th>
           <th>Notes</th>
         </tr>
@@ -857,58 +939,63 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
             <div class="clin-name">Configuration Build <small style="font-weight:normal;">(NRE — one-time)</small></div>
             <div class="clin-scope">Course of fire, scoring logic, evidence engine routing, ARIS integration, commander dashboard config</div>
           </td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_clin001" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_clin001" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_001" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin001">$0</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin001" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-ppa" id="ppa_clin001">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="cc_clin001" placeholder="0" oninput="recalcClins()"></td>
           <td class="cost-col cell-marg marg-na" id="cm_clin001">—</td>
           <td class="cost-col cell-marg marg-na" id="cp_clin001">—</td>
-          <td class="row-note">Enter range if scope not locked</td>
+          <td><input class="note-in" type="text" id="nt_clin001" placeholder="notes…"></td>
         </tr>
         <tr>
           <td>
             <div class="clin-name">Fielding &amp; Stand-Up <small style="font-weight:normal;">(one-time)</small></div>
             <div class="clin-scope">Hardware refresh, peripheral + tracking at every site, onboarding, activation</div>
           </td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_clin002" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_clin002" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_002" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin002">$0</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin002" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-ppa" id="ppa_clin002">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="cc_clin002" placeholder="0" oninput="recalcClins()"></td>
           <td class="cost-col cell-marg marg-na" id="cm_clin002">—</td>
           <td class="cost-col cell-marg marg-na" id="cp_clin002">—</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_clin002" placeholder="notes…"></td>
         </tr>
         <tr>
           <td>
             <div class="clin-name">Annual Managed Service <small style="font-weight:normal;">(recurring)</small></div>
             <div class="clin-scope">Tier 2 per-lane/per-year × 50 sites — Standard Readiness subscription</div>
           </td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_clin003" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_clin003" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_003" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin003">$0</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin003" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-ppa" id="ppa_clin003">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="cc_clin003" placeholder="0" oninput="recalcClins()"></td>
           <td class="cost-col cell-marg marg-na" id="cm_clin003">—</td>
           <td class="cost-col cell-marg marg-na" id="cp_clin003">—</td>
-          <td class="row-note">Recurring annual</td>
+          <td><input class="note-in" type="text" id="nt_clin003" placeholder="notes…"></td>
         </tr>
         <tr>
           <td>
             <div class="clin-name">Sustainment &amp; Evolution <small style="font-weight:normal;">(recurring)</small></div>
             <div class="clin-scope">Ongoing hardware refresh, mission pack additions, content currency</div>
           </td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_clin004" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_clin004" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_004" value="50" oninput="recalcClins()" style="width:55px;"></td>
           <td class="cell-calc" id="tot_clin004">$0</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="cc_clin004" placeholder="0" oninput="recalcClins()"></td>
+          <td class="cell-ppa" id="ppa_clin004">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="cc_clin004" placeholder="0" oninput="recalcClins()"></td>
           <td class="cost-col cell-marg marg-na" id="cm_clin004">—</td>
           <td class="cost-col cell-marg marg-na" id="cp_clin004">—</td>
-          <td class="row-note">Option C: AFSFC funds Y1; Y2+ renewal</td>
+          <td><input class="note-in" type="text" id="nt_clin004" placeholder="notes…"></td>
         </tr>
         <tr class="rollup-row">
           <td><strong>Total Investment (one-time + Year 1 recurring)</strong></td>
           <td class="cell-neutral">—</td>
           <td class="cell-neutral">—</td>
           <td class="cell-calc" id="tot_all"><strong>$0</strong></td>
+          <td class="cell-ppa" id="ppa_total" style="font-size:10px;">—</td>
           <td class="cost-col cell-neutral">—</td>
           <td class="cost-col cell-calc" id="tot_margin_d" style="color:var(--purple);">—</td>
           <td class="cost-col cell-calc" id="tot_margin_p" style="color:var(--purple);">—</td>
@@ -925,46 +1012,46 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <table>
       <thead>
         <tr>
-          <th class="th-left" style="width:38%">Item</th>
-          <th style="width:15%">Price</th>
-          <th class="cost-col" style="width:12%">Est. Cost</th>
+          <th class="th-left" style="width:36%">Item</th>
+          <th style="width:14%">Price</th>
+          <th class="cost-col" style="width:11%">Est. Cost</th>
           <th class="cost-col" style="width:8%">Margin %</th>
-          <th style="width:15%">Unit</th>
+          <th style="width:13%">Unit</th>
           <th>Notes</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td class="row-label">DroneBuster EW WTS add-on</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_db" placeholder="0" oninput="recalcAddons()"></td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_db" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_db" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_db" placeholder="0" oninput="recalcAddons()"></td>
           <td class="cost-col cell-marg marg-na" id="ap_addon_db">—</td>
           <td style="text-align:center;color:#666;">/lane/year</td>
-          <td class="row-note">Confirm DroneBuster scope for Wednesday</td>
+          <td><input class="note-in" type="text" id="nt_addon_db" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Additional Mission Packs</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_packs" placeholder="0" oninput="recalcAddons()"></td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_packs" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_packs" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_packs" placeholder="0" oninput="recalcAddons()"></td>
           <td class="cost-col cell-marg marg-na" id="ap_addon_packs">—</td>
           <td style="text-align:center;color:#666;">/pack/year</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_addon_packs" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Enterprise Readiness Intelligence (above Tier 3)</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_eri" placeholder="0" oninput="recalcAddons()"></td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_eri" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_eri" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_eri" placeholder="0" oninput="recalcAddons()"></td>
           <td class="cost-col cell-marg marg-na" id="ap_addon_eri">—</td>
           <td style="text-align:center;color:#666;">/year</td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_addon_eri" placeholder="notes…"></td>
         </tr>
         <tr>
           <td class="row-label">Other</td>
-          <td class="cell-input"><input class="price-in" type="number" id="f_addon_other" placeholder="0" oninput="recalcAddons()"></td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="number" id="c_addon_other" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_other" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_other" placeholder="0" oninput="recalcAddons()"></td>
           <td class="cost-col cell-marg marg-na" id="ap_addon_other">—</td>
           <td class="cell-input"><input type="text" class="text-in" id="f_addon_other_unit" placeholder="/unit"></td>
-          <td class="row-note"></td>
+          <td><input class="note-in" type="text" id="nt_addon_other" placeholder="notes…"></td>
         </tr>
       </tbody>
     </table>
@@ -994,7 +1081,6 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
       <div id="compareContent"></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-exp" onclick="window.print()">🖨 Print</button>
       <button class="btn btn-exp" onclick="closeCompare()">Close</button>
     </div>
   </div>
@@ -1013,7 +1099,8 @@ const STORAGE_KEY = 'afsfc_cases_v3';
 const PRICE_FIELDS = [
   'f_plat_license','f_plat_endpoint','f_plat_network','f_plat_ato',
   'f_sust_impl','f_sust_ongoing',
-  'f_wts_shotgun','f_wts_rifle','f_wts_pistol','f_wts_nonlethal',
+  'f_wts_shotgun','f_wts_rifle','f_wts_pistol',
+  'f_wts_baton','f_wts_oc','f_wts_ecd',
   'f_pack_cuas','f_pack_base','f_pack_onbase',
   'f_rep_local','f_rep_cmd','f_rep_full',
   'f_pm_basic','f_pm_account','f_pm_embedded',
@@ -1023,15 +1110,17 @@ const PRICE_FIELDS = [
   'f_t1_3yr','f_t2_3yr','f_t3_3yr',
   'f_clin001','f_clin002','f_clin003','f_clin004',
   'sites_001','sites_002','sites_003','sites_004',
+  'airmen_per_sqdn',
   'f_addon_db','f_addon_packs','f_addon_eri','f_addon_other','f_addon_other_unit',
   'f_notes'
 ];
 
-// Cost field IDs (mirror of component price fields)
+// Cost field IDs
 const COST_FIELDS = [
   'c_plat_license','c_plat_endpoint','c_plat_network','c_plat_ato',
   'c_sust_impl','c_sust_ongoing',
-  'c_wts_shotgun','c_wts_rifle','c_wts_pistol','c_wts_nonlethal',
+  'c_wts_shotgun','c_wts_rifle','c_wts_pistol',
+  'c_wts_baton','c_wts_oc','c_wts_ecd',
   'c_pack_cuas','c_pack_base','c_pack_onbase',
   'c_rep_local','c_rep_cmd','c_rep_full',
   'c_pm_basic','c_pm_account','c_pm_embedded',
@@ -1039,7 +1128,20 @@ const COST_FIELDS = [
   'c_addon_db','c_addon_packs','c_addon_eri','c_addon_other'
 ];
 
-const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS];
+// Note field IDs
+const NOTE_FIELDS = [
+  'nt_plat_license','nt_plat_endpoint','nt_plat_network','nt_plat_ato',
+  'nt_sust_impl','nt_sust_ongoing','nt_sust_sla',
+  'nt_wts_shotgun','nt_wts_rifle','nt_wts_pistol',
+  'nt_wts_baton','nt_wts_oc','nt_wts_ecd',
+  'nt_pack_cuas','nt_pack_base','nt_pack_onbase',
+  'nt_rep_local','nt_rep_cmd','nt_rep_full',
+  'nt_pm_basic','nt_pm_account','nt_pm_embedded',
+  'nt_clin001','nt_clin002','nt_clin003','nt_clin004',
+  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_other'
+];
+
+const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS, ...NOTE_FIELDS];
 
 // Tier inclusion matrix [T1, T2, T3]
 const TIER_MAP = {
@@ -1047,7 +1149,9 @@ const TIER_MAP = {
   f_plat_network:  [1,1,1], f_plat_ato:      [1,1,1],
   f_sust_impl:     [1,1,1], f_sust_ongoing:  [1,1,1],
   f_wts_shotgun:   [1,1,1], f_wts_rifle:     [0,1,1],
-  f_wts_pistol:    [0,1,1], f_wts_nonlethal: [0,0,1],
+  f_wts_pistol:    [0,1,1],
+  f_wts_baton:     [0,0,1], f_wts_oc:        [0,0,1],
+  f_wts_ecd:       [0,0,1],
   f_pack_cuas:     [1,1,1], f_pack_base:     [0,1,1],
   f_pack_onbase:   [0,0,1], f_rep_local:     [1,0,0],
   f_rep_cmd:       [0,1,1], f_rep_full:      [0,0,1],
@@ -1061,12 +1165,31 @@ Object.keys(TIER_MAP).forEach(f => {
   COST_MAP[f] = f.replace('f_', 'c_');
 });
 
+// IDs that should never be money-formatted
+const SKIP_FORMAT_IDS = new Set([
+  'sites_001','sites_002','sites_003','sites_004','airmen_per_sqdn'
+]);
+
 // ═══════════════════════════════════════════════════
 //  STATE
 // ═══════════════════════════════════════════════════
 
 let cases = {};
 let currentCaseId = null;
+
+// ═══════════════════════════════════════════════════
+//  MONEY FORMATTING
+// ═══════════════════════════════════════════════════
+
+function formatMoney(input) {
+  const raw = parseFloat(input.value.replace(/[$,]/g, ''));
+  input.value = (!isNaN(raw) && raw !== 0) ? '$' + Math.round(raw).toLocaleString() : '';
+}
+
+function unformatMoney(input) {
+  const raw = parseFloat(input.value.replace(/[$,]/g, ''));
+  input.value = (!isNaN(raw) && raw !== 0) ? String(Math.round(raw)) : '';
+}
 
 // ═══════════════════════════════════════════════════
 //  PERSISTENCE
@@ -1091,16 +1214,37 @@ function createDefaultCase() {
 
 function getFieldValues() {
   const f = {};
-  FIELD_IDS.forEach(id => { const el = document.getElementById(id); if (el) f[id] = el.value; });
+  FIELD_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    // Strip money formatting for price-in/cost-in (but not sites_, airmen_per_sqdn, pct-in, note-in, text-in)
+    if ((el.classList.contains('price-in') || el.classList.contains('cost-in')) && !SKIP_FORMAT_IDS.has(id)) {
+      f[id] = el.value.replace(/[$,]/g, '');
+    } else {
+      f[id] = el.value;
+    }
+  });
   return f;
 }
 
 function setFieldValues(fields) {
-  FIELD_IDS.forEach(id => { const el = document.getElementById(id); if (el) el.value = (fields && fields[id]) || ''; });
+  FIELD_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = (fields && fields[id] !== undefined) ? fields[id] : '';
+  });
   // Restore site counts default
   ['sites_001','sites_002','sites_003','sites_004'].forEach(id => {
     const el = document.getElementById(id);
     if (el && !el.value) el.value = '50';
+  });
+  // Restore airmen default
+  const airmenEl = document.getElementById('airmen_per_sqdn');
+  if (airmenEl && !airmenEl.value) airmenEl.value = '200';
+  // Apply money formatting to price-in/cost-in fields that have a value
+  document.querySelectorAll('input.price-in, input.cost-in').forEach(input => {
+    if (SKIP_FORMAT_IDS.has(input.id)) return;
+    if (input.value && input.value !== '') formatMoney(input);
   });
 }
 
@@ -1171,7 +1315,12 @@ function toggleCosts() {
 //  CALCULATIONS
 // ═══════════════════════════════════════════════════
 
-function val(id)  { const el = document.getElementById(id); return el ? (parseFloat(el.value) || 0) : 0; }
+function val(id) {
+  const el = document.getElementById(id);
+  if (!el) return 0;
+  // Strip $ and commas for formatted inputs
+  return parseFloat(el.value.replace(/[$,]/g, '')) || 0;
+}
 function fmt(n)   { return n === null || n === undefined ? '—' : '$' + Math.round(n).toLocaleString(); }
 function fmtP(n)  { return (n === null || n === undefined) ? '—' : n.toFixed(1) + '%'; }
 function setText(id, txt) { const el = document.getElementById(id); if (el) el.textContent = txt; }
@@ -1189,7 +1338,6 @@ function setMarg(dId, pId, price, cost) {
   if (!dEl || !pEl) return;
 
   if (!price || !cost) {
-    // No data — show neutral
     [dEl, pEl].forEach(el => { el.textContent = '—'; el.className = 'cost-col cell-marg marg-na'; });
     return;
   }
@@ -1226,7 +1374,7 @@ function recalc() {
   setText('csum_t1', fmt(c1)); setText('csum_t2', fmt(c2)); setText('csum_t3', fmt(c3));
   setText('sb_c1', fmt(c1));   setText('sb_c2', fmt(c2));   setText('sb_c3', fmt(c3));
 
-  // Blended tier margins (à la carte price vs cost sum)
+  // Blended tier margins
   const blendMarg = (price, cost, dId, pId) => {
     if (price > 0 && cost > 0) {
       const d = price - cost, p = (d/price)*100;
@@ -1267,7 +1415,6 @@ function recalc() {
   tierMarg(p1, c1, 'tm1d_1yr', 'tm1p_1yr');
   tierMarg(p2, c2, 'tm2d_1yr', 'tm2p_1yr');
   tierMarg(p3, c3, 'tm3d_1yr', 'tm3p_1yr');
-  // 2yr overrides or auto
   const eff1_2 = val('f_t1_2yr') || a1_2;
   const eff2_2 = val('f_t2_2yr') || a2_2;
   const eff3_2 = val('f_t3_2yr') || a3_2;
@@ -1289,7 +1436,10 @@ function recalc() {
 
 function recalcClins() {
   const ids = ['001','002','003','004'];
+  const airmen = val('airmen_per_sqdn') || 200;
+  const refSites = val('sites_003') || 50;
   let totRev = 0, totCost = 0;
+
   ids.forEach(n => {
     const price = val('f_clin'+n), sites = val('sites_'+n)||50, cost = val('cc_clin'+n);
     const totalRev  = price * sites;
@@ -1299,6 +1449,18 @@ function recalcClins() {
     totRev  += totalRev;
     totCost += totalCost;
     setText('tot_clin'+n, fmt(totalRev));
+
+    // $/Airman/Yr for this row
+    const ppaEl = document.getElementById('ppa_clin'+n);
+    if (ppaEl) {
+      if (price > 0 && airmen > 0) {
+        const ppa = price / airmen;
+        ppaEl.textContent = '$' + ppa.toFixed(2);
+      } else {
+        ppaEl.textContent = '—';
+      }
+    }
+
     // margin cells
     const dEl = document.getElementById('cm_clin'+n);
     const pEl = document.getElementById('cp_clin'+n);
@@ -1312,7 +1474,20 @@ function recalcClins() {
       }
     }
   });
+
   setText('tot_all', fmt(totRev));
+
+  // $/Airman/Yr rollup: totRev / (airmen × refSites)
+  const ppaTotalEl = document.getElementById('ppa_total');
+  if (ppaTotalEl) {
+    if (totRev > 0 && airmen > 0 && refSites > 0) {
+      const ppaTot = totRev / (airmen * refSites);
+      ppaTotalEl.textContent = '$' + ppaTot.toFixed(2) + ' (Y1 total ÷ airmen×sqdn)';
+    } else {
+      ppaTotalEl.textContent = '—';
+    }
+  }
+
   const totMargD = totRev - totCost;
   const totMargP = totRev>0&&totCost>0 ? totMargD/totRev*100 : null;
   setText('tot_margin_d', totCost>0 ? fmt(totMargD) : '—');
@@ -1378,7 +1553,7 @@ function openCompare() {
     { label: 'Case Notes', fn: f => f['f_notes']||'—', raw: true },
   ];
 
-  function n(f, id)  { return parseFloat(f[id])||0; }
+  function n(f, id)  { return parseFloat((f[id]||'').replace ? (f[id]||'').replace(/[$,]/g,'') : f[id])||0; }
   function sumTier(f, t)  { return Object.entries(TIER_MAP).reduce((s,[id,ts])=>ts[t]?s+n(f,id):s,0); }
   function costTier(f, t) { return Object.entries(TIER_MAP).reduce((s,[id,ts])=>ts[t]?s+n(f,id.replace('f_','c_')):s,0); }
   function marginPct(price, cost) { return (price>0&&cost>0) ? ((price-cost)/price*100).toFixed(1)+'%' : '—'; }
@@ -1454,6 +1629,13 @@ window.addEventListener('DOMContentLoaded', () => {
   currentCaseId = keys[keys.length-1];
   populateCaseSelect();
   loadCase();
+
+  // Attach blur/focus money formatting handlers
+  document.querySelectorAll('input.price-in, input.cost-in').forEach(input => {
+    if (SKIP_FORMAT_IDS.has(input.id)) return;
+    input.addEventListener('blur', () => formatMoney(input));
+    input.addEventListener('focus', () => unformatMoney(input));
+  });
 
   // Auto-save on change
   FIELD_IDS.forEach(id => {
