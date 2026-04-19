@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Street Smarts VR / AFSFC Assessment — Operations Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0F1629;
+    font-family: 'Source Sans 3', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .deck-wrapper {
+    width: 980px;
+    max-width: 98vw;
+  }
+
+  .slide {
+    display: none;
+    min-height: 640px;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .slide.active {
+    display: flex;
+    animation: fadeIn 0.35s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* DARK slide (navy) */
+  .slide-dark {
+    background: #1A2340;
+    color: #E8E4DC;
+  }
+
+  /* LIGHT slide (stone) */
+  .slide-light {
+    background: #EDE9E0;
+    color: #1A2340;
+  }
+
+  /* ─── Section marker ─── */
+  .section-marker {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 10px 28px 8px;
+    border-bottom: 1px solid;
+  }
+
+  .slide-dark .section-marker {
+    color: #C8922A;
+    border-color: rgba(200,146,42,0.3);
+  }
+
+  .slide-light .section-marker {
+    color: #4A5E3A;
+    border-color: rgba(74,94,58,0.3);
+  }
+
+  /* ─── Slide inner ─── */
+  .slide-inner {
+    padding: 28px 36px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── Header block ─── */
+  .slide-header {
+    margin-bottom: 24px;
+  }
+
+  .slide-number {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 6px;
+  }
+
+  .slide-dark .slide-number { color: rgba(232,228,220,0.5); }
+  .slide-light .slide-number { color: rgba(26,35,64,0.5); }
+
+  .slide-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .slide-dark .slide-title { color: #FFFFFF; }
+  .slide-light .slide-title { color: #1A2340; }
+
+  .slide-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  .slide-dark .slide-subtitle { color: #C0BBB0; }
+  .slide-light .slide-subtitle { color: #5A6070; }
+
+  /* ─── Hierarchy diagram (Slide 1) ─── */
+  .hierarchy-3tier {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 680px;
+    align-self: center;
+    width: 100%;
+  }
+
+  .tier-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .tier-label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    width: 90px;
+    min-width: 90px;
+    color: rgba(232,228,220,0.5);
+    padding-right: 12px;
+    text-align: right;
+  }
+
+  .tier-boxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 12px 0;
+    flex: 1;
+  }
+
+  .tier-box {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 5px 12px;
+    border: 1px solid;
+  }
+
+  .tier-box.hq {
+    border-color: #C8922A;
+    color: #C8922A;
+    background: rgba(200,146,42,0.08);
+    font-size: 13px;
+    padding: 6px 20px;
+    font-weight: 700;
+  }
+
+  .tier-box.majcom {
+    border-color: rgba(232,228,220,0.4);
+    color: #E8E4DC;
+    background: rgba(232,228,220,0.05);
+  }
+
+  .tier-box.shard {
+    border-color: rgba(139,26,26,0.6);
+    color: #D08080;
+    background: rgba(139,26,26,0.08);
+    font-size: 10px;
+  }
+
+  .tier-connector {
+    width: 90px;
+    min-width: 90px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 12px;
+  }
+
+  .connector-arrow {
+    font-size: 14px;
+    color: rgba(232,228,220,0.2);
+  }
+
+  /* ─── Two-column (Slide 2) ─── */
+  .two-col {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+  }
+
+  .col-left {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .col-right {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .col-title {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid;
+  }
+
+  .slide-light .col-title {
+    color: #1A2340;
+    border-color: #C8922A;
+  }
+
+  /* Broken chain visual */
+  .chain-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .chain-node {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    padding: 5px 10px;
+    border: 1px solid #C4BFB8;
+    color: #1A2340;
+    background: #E5E1D8;
+    width: 100%;
+  }
+
+  .chain-break {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 2px 0;
+    width: 100%;
+  }
+
+  .chain-break-line {
+    flex: 1;
+    height: 1px;
+    background: #8B1A1A;
+    opacity: 0.5;
+  }
+
+  .chain-break-label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #8B1A1A;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* Numbered callout list */
+  .callout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .callout-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout-num {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #C8922A;
+    line-height: 1;
+    min-width: 28px;
+  }
+
+  .callout-body {
+    font-size: 13px;
+    color: #1A2340;
+    line-height: 1.6;
+    padding-top: 4px;
+  }
+
+  /* ─── Stacking diagram (Slide 3) ─── */
+  .stacking-layout {
+    display: flex;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .stack-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stack-label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(232,228,220,0.5);
+    margin-bottom: 6px;
+  }
+
+  .stack-item {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px;
+    padding: 6px 10px;
+    border-left: 3px solid;
+    letter-spacing: 0.04em;
+  }
+
+  .stack-item.accum {
+    border-color: #4A5E3A;
+    background: rgba(74,94,58,0.15);
+    color: #A8C898;
+  }
+
+  .stack-item.broken {
+    border-color: #8B1A1A;
+    background: rgba(139,26,26,0.12);
+    color: #D08080;
+  }
+
+  .highlight-callout {
+    margin-top: 16px;
+    border: 1px solid rgba(200,146,42,0.4);
+    background: rgba(200,146,42,0.06);
+    padding: 14px 16px;
+    font-size: 13px;
+    font-style: italic;
+    color: #E8E4DC;
+    line-height: 1.6;
+    border-left: 3px solid #C8922A;
+  }
+
+  /* ─── Assessment (Slide 4) ─── */
+  .assessment-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .assessment-headline {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1A2340;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .assessment-body {
+    font-size: 14px;
+    color: #3A4050;
+    line-height: 1.8;
+    max-width: 600px;
+  }
+
+  .assessment-body p {
+    margin-bottom: 14px;
+  }
+
+  /* ─── Hub diagram (Slide 5) ─── */
+  .hub-layout {
+    display: flex;
+    gap: 32px;
+    flex: 1;
+  }
+
+  .hub-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+  }
+
+  .hub-center-box {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 12px 24px;
+    border: 2px solid #C8922A;
+    color: #C8922A;
+    background: rgba(200,146,42,0.08);
+    text-align: center;
+    margin-bottom: 4px;
+    z-index: 2;
+    position: relative;
+  }
+
+  .hub-spokes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .hub-spoke-item {
+    text-align: center;
+    padding: 6px 4px;
+  }
+
+  .spoke-line {
+    width: 1px;
+    height: 16px;
+    background: rgba(232,228,220,0.2);
+    margin: 0 auto 4px;
+  }
+
+  .spoke-box {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: #E8E4DC;
+    border: 1px solid rgba(232,228,220,0.25);
+    padding: 4px 6px;
+    background: rgba(232,228,220,0.04);
+  }
+
+  .hub-connector-label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: rgba(232,228,220,0.35);
+    text-align: center;
+    margin: 8px 0;
+  }
+
+  .capability-list {
+    width: 320px;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .cap-item {
+    border-left: 3px solid #2E6DA4;
+    padding: 10px 14px;
+    background: rgba(46,109,164,0.08);
+  }
+
+  .cap-label {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C8922A;
+    margin-bottom: 5px;
+  }
+
+  .cap-text {
+    font-size: 12px;
+    color: #C0BBB0;
+    line-height: 1.55;
+  }
+
+  .closing-line-dark {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(232,228,220,0.45);
+    font-style: italic;
+    border-top: 1px solid rgba(232,228,220,0.15);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+
+  /* ─── Navigation ─── */
+  .nav-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 28px;
+    border-top: 1px solid;
+  }
+
+  .slide-dark .nav-strip {
+    border-color: rgba(232,228,220,0.12);
+    background: rgba(0,0,0,0.15);
+  }
+
+  .slide-light .nav-strip {
+    border-color: rgba(26,35,64,0.12);
+    background: rgba(26,35,64,0.04);
+  }
+
+  .nav-counter {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+  }
+
+  .slide-dark .nav-counter { color: rgba(232,228,220,0.5); }
+  .slide-light .nav-counter { color: rgba(26,35,64,0.5); }
+
+  .nav-dots {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .slide-dark .nav-dot {
+    border-color: rgba(232,228,220,0.3);
+    background: transparent;
+  }
+
+  .slide-dark .nav-dot.active {
+    background: #C8922A;
+    border-color: #C8922A;
+  }
+
+  .slide-light .nav-dot {
+    border-color: rgba(26,35,64,0.3);
+    background: transparent;
+  }
+
+  .slide-light .nav-dot.active {
+    background: #C8922A;
+    border-color: #C8922A;
+  }
+
+  .nav-btn {
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    background: none;
+    border: 1px solid;
+    cursor: pointer;
+    padding: 5px 14px;
+    transition: all 0.15s;
+  }
+
+  .slide-dark .nav-btn {
+    color: rgba(232,228,220,0.7);
+    border-color: rgba(232,228,220,0.2);
+  }
+
+  .slide-dark .nav-btn:hover:not(:disabled) {
+    color: #C8922A;
+    border-color: #C8922A;
+  }
+
+  .slide-light .nav-btn {
+    color: rgba(26,35,64,0.7);
+    border-color: rgba(26,35,64,0.2);
+  }
+
+  .slide-light .nav-btn:hover:not(:disabled) {
+    color: #C8922A;
+    border-color: #C8922A;
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+</style>
+</head>
+<body>
+
+<div class="deck-wrapper">
+
+  <!-- SLIDE 1 — DARK — SITUATION -->
+  <div class="slide slide-dark active" id="slide-1">
+    <div class="section-marker">SITUATION</div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-number">01 / 05</div>
+        <div class="slide-title">FRAGMENTED AT THE EDGE</div>
+        <div class="slide-subtitle">"The field was never given a common substrate to build on."</div>
+      </div>
+
+      <div class="hierarchy-3tier">
+        <div class="tier-row">
+          <div class="tier-label">HQ</div>
+          <div class="tier-boxes">
+            <div class="tier-box hq">AFSFC</div>
+          </div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-connector"><span class="connector-arrow">↓</span></div>
+          <div class="tier-boxes" style="padding:4px 0;"></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-label">MAJCOM</div>
+          <div class="tier-boxes">
+            <div class="tier-box majcom">ACC</div>
+            <div class="tier-box majcom">AFSPC</div>
+            <div class="tier-box majcom">AMC</div>
+            <div class="tier-box majcom">PACAF</div>
+            <div class="tier-box majcom">USAFE</div>
+          </div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-connector"><span class="connector-arrow">↓</span></div>
+          <div class="tier-boxes" style="padding:4px 0;"></div>
+        </div>
+        <div class="tier-row">
+          <div class="tier-label">SQUADRON</div>
+          <div class="tier-boxes">
+            <div class="tier-box shard">Vendor A Proprietary</div>
+            <div class="tier-box shard">Vendor B Legacy SW</div>
+            <div class="tier-box shard">Vendor C No Data</div>
+            <div class="tier-box shard">Spreadsheet Manual</div>
+            <div class="tier-box shard">Vendor D MAJCOM Only</div>
+            <div class="tier-box shard">No System Paper Log</div>
+            <div class="tier-box shard">Manual AAR</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px; font-family:'Roboto Condensed',sans-serif; font-size:11px; letter-spacing:0.12em; color:rgba(232,228,220,0.4); text-transform:uppercase;">
+        Multiple vendors &nbsp;·&nbsp; Inconsistent formats &nbsp;·&nbsp; No common standard &nbsp;·&nbsp; <span style="color:#8B1A1A;">No C-UAS pathway</span>
+      </div>
+    </div>
+    <div class="nav-strip">
+      <button class="nav-btn" onclick="changeSlide(-1)" disabled>← PREV</button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="nav-counter">01 / 05</span>
+        <div class="nav-dots" id="dots-1"></div>
+      </div>
+      <button class="nav-btn" onclick="changeSlide(1)">NEXT →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — LIGHT — SIGNAL LOSS -->
+  <div class="slide slide-light" id="slide-2">
+    <div class="section-marker">SIGNAL LOSS</div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-number">02 / 05</div>
+        <div class="slide-title">NO DATA FLOWS UP</div>
+        <div class="slide-subtitle">"Readiness is assumed — because it cannot be measured."</div>
+      </div>
+
+      <div class="two-col">
+        <div class="col-left">
+          <div class="col-title">THE BROKEN CHAIN</div>
+          <div class="chain-block">
+            <div class="chain-node" style="background:#D8D4CC;font-weight:700;">AFSFC — HQ</div>
+            <div class="chain-break">
+              <div class="chain-break-line"></div>
+              <div class="chain-break-label">signal degraded</div>
+              <div class="chain-break-line"></div>
+            </div>
+            <div class="chain-node">MAJCOM — ACC</div>
+            <div class="chain-node">MAJCOM — AFSPC</div>
+            <div class="chain-node">MAJCOM — AMC</div>
+            <div class="chain-break">
+              <div class="chain-break-line"></div>
+              <div class="chain-break-label">signal degraded</div>
+              <div class="chain-break-line"></div>
+            </div>
+            <div class="chain-node" style="color:#8B1A1A;border-color:#8B1A1A;background:#EDE0DC;">SQUADRON — FRAGMENTED</div>
+          </div>
+        </div>
+        <div class="col-right">
+          <div class="col-title">FINDINGS</div>
+          <div class="callout-list">
+            <div class="callout-item">
+              <div class="callout-num">1</div>
+              <div class="callout-body">Readiness data can't aggregate — incompatible systems, no common schema</div>
+            </div>
+            <div class="callout-item">
+              <div class="callout-num">2</div>
+              <div class="callout-body">Result: commanders layer more training requirements because no authoritative signal exists</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-strip">
+      <button class="nav-btn" onclick="changeSlide(-1)">← PREV</button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="nav-counter">02 / 05</span>
+        <div class="nav-dots" id="dots-2"></div>
+      </div>
+      <button class="nav-btn" onclick="changeSlide(1)">NEXT →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — DARK — DEPLOYMENT FAILURE -->
+  <div class="slide slide-dark" id="slide-3">
+    <div class="section-marker">DEPLOYMENT FAILURE</div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-number">03 / 05</div>
+        <div class="slide-title">NO RAILS DEPLOY DOWN</div>
+        <div class="slide-subtitle">"When requirements change, there is no pathway — so the institution accumulates."</div>
+      </div>
+
+      <div class="stacking-layout">
+        <div class="stack-col">
+          <div class="stack-label">MAJCOM-01 Accumulation</div>
+          <div class="stack-item accum">Ready Airman</div>
+          <div class="stack-item accum">+ AFFORGEN</div>
+          <div class="stack-item accum">+ C-UAS NEW</div>
+        </div>
+        <div class="stack-col">
+          <div class="stack-label">MAJCOM-02 Accumulation</div>
+          <div class="stack-item accum">Legacy Req</div>
+          <div class="stack-item accum">+ Layer 2</div>
+          <div class="stack-item accum">+ Layer 3</div>
+        </div>
+        <div class="stack-col">
+          <div class="stack-label">MAJCOM-03 Accumulation</div>
+          <div class="stack-item accum">Old Standard</div>
+          <div class="stack-item accum">+ Overlay</div>
+          <div class="stack-item accum">+ New Urgency</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:6px;">
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">No C-UAS Training</div>
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">Skeet Range</div>
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">Limited Throughput</div>
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">No Scoring vs Doctrine</div>
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">No Data Captured</div>
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">No Cmdr Visibility</div>
+        <div class="stack-item broken" style="font-size:10px;padding:4px 8px;">Assumed Ready</div>
+      </div>
+
+      <div class="highlight-callout" style="margin-top:14px;">
+        Two broken pipes. Nothing flows up. Nothing deploys down. The result isn't a training gap — it's a structural one. The drone is already in the airspace. The airman is still on the skeet range.
+      </div>
+    </div>
+    <div class="nav-strip">
+      <button class="nav-btn" onclick="changeSlide(-1)">← PREV</button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="nav-counter">03 / 05</span>
+        <div class="nav-dots" id="dots-3"></div>
+      </div>
+      <button class="nav-btn" onclick="changeSlide(1)">NEXT →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — LIGHT — ASSESSMENT -->
+  <div class="slide slide-light" id="slide-4">
+    <div class="section-marker">ASSESSMENT</div>
+    <div class="slide-inner">
+      <div class="assessment-center">
+        <div class="slide-number" style="text-align:center;margin-bottom:16px;">04 / 05</div>
+        <div class="assessment-headline">This Isn't a Training Problem.<br>It's an Operating System Problem.</div>
+        <div class="assessment-body">
+          <p>Your architecture was built for a world where information traveled at human speed. The threat moves at algorithmic speed.</p>
+          <p>What AFSFC needs is a two-way operating system for readiness — data flowing up automatically, standards and content deploying down instantly.</p>
+          <p>And once the OS exists — every future requirement has a home.</p>
+        </div>
+      </div>
+    </div>
+    <div class="nav-strip">
+      <button class="nav-btn" onclick="changeSlide(-1)">← PREV</button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="nav-counter">04 / 05</span>
+        <div class="nav-dots" id="dots-4"></div>
+      </div>
+      <button class="nav-btn" onclick="changeSlide(1)">NEXT →</button>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 — DARK — RECOMMENDED COA -->
+  <div class="slide slide-dark" id="slide-5">
+    <div class="section-marker">RECOMMENDED COA</div>
+    <div class="slide-inner">
+      <div class="slide-header">
+        <div class="slide-number">05 / 05</div>
+        <div class="slide-title">THE AUTHORITATIVE READINESS ENVIRONMENT</div>
+      </div>
+
+      <div class="hub-layout">
+        <div class="hub-visual">
+          <div class="hub-center-box">AFSFC<br><span style="font-size:10px;font-weight:400;letter-spacing:0.06em;">ENTERPRISE HQ</span></div>
+          <div class="hub-connector-label">↕ &nbsp; BIDIRECTIONAL · REAL-TIME &nbsp; ↕</div>
+          <div class="hub-spokes">
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 01</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 02</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 03</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 04</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 05</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 06</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 07</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 08</div></div>
+            <div class="hub-spoke-item"><div class="spoke-line"></div><div class="spoke-box">SQ 09</div></div>
+          </div>
+        </div>
+
+        <div class="capability-list">
+          <div class="cap-item">
+            <div class="cap-label">DATA FLOWS UP — AUTOMATICALLY</div>
+            <div class="cap-text">Every training rep scored against doctrine. Individual proficiency, unit readiness, installation status — all flowing to AFSFC in real time.</div>
+          </div>
+          <div class="cap-item">
+            <div class="cap-label">STANDARDS DEPLOY DOWN — INSTANTLY</div>
+            <div class="cap-text">New C-UAS threat variant. Updated course of fire. AFSFC authors it once. It pushes to all 50 nodes simultaneously.</div>
+          </div>
+          <div class="cap-item">
+            <div class="cap-label">THE NETWORK RUNS — NOT JUST RESPONDS</div>
+            <div class="cap-text">Commanders don't wait for a report. From individual airman to enterprise force — one authoritative view.</div>
+          </div>
+          <div class="closing-line-dark">Not a network you check. A network that runs.</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav-strip">
+      <button class="nav-btn" onclick="changeSlide(-1)">← PREV</button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="nav-counter">05 / 05</span>
+        <div class="nav-dots" id="dots-5"></div>
+      </div>
+      <button class="nav-btn" onclick="changeSlide(1)" disabled>NEXT →</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  // Build dots for each slide
+  slides.forEach((slide, slideIdx) => {
+    const dotContainer = slide.querySelector('.nav-dots');
+    if (!dotContainer) return;
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot' + (i === slideIdx ? ' active' : '');
+      dot.addEventListener('click', (function(t){ return function(){ goTo(t); }; })(i));
+      dotContainer.appendChild(dot);
+    }
+  });
+
+  function updateDots() {
+    slides.forEach((slide, sIdx) => {
+      const dots = slide.querySelectorAll('.nav-dot');
+      dots.forEach((dot, dIdx) => {
+        dot.classList.toggle('active', dIdx === current);
+      });
+    });
+  }
+
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    current = idx;
+    slides[current].classList.add('active');
+    updateDots();
+  }
+
+  function changeSlide(dir) {
+    const next = current + dir;
+    if (next < 0 || next >= total) return;
+    goTo(next);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+  });
+
+  updateDots();
+</script>
+</body>
+</html>

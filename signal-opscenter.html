@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSVR × AFSFC — OPSCENTER DARK</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1C1F24;
+    --panel: #242729;
+    --panel-alt: #2C3035;
+    --border: #3A3F44;
+    --text-primary: #D4D8DC;
+    --text-secondary: #8A9099;
+    --amber: #C8922A;
+    --red: #9B3A3A;
+    --blue: #3A7EC4;
+    --green: #3A7A4A;
+    --header-bg: #111316;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 300;
+    overflow: hidden;
+  }
+
+  .deck { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+
+  /* Persistent header bar */
+  .header-bar {
+    height: 28px;
+    background: var(--header-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    z-index: 10;
+  }
+
+  /* Slides container */
+  .slides-container { flex: 1; position: relative; overflow: hidden; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .slide.active { opacity: 1; pointer-events: all; }
+
+  /* Left amber rule */
+  .amber-rule {
+    width: 3px;
+    background: var(--amber);
+    flex-shrink: 0;
+    align-self: stretch;
+    margin: 12px 0;
+  }
+
+  /* Two-zone layout */
+  .slide-inner {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .left-col {
+    width: 30%;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+  }
+
+  .right-col {
+    flex: 1;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Full width for slide 4 */
+  .slide-full .left-col { display: none; }
+  .slide-full .right-col { width: 100%; padding: 40px 80px; }
+
+  /* Section label */
+  .section-label {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+  }
+
+  .finding-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    padding: 2px 8px;
+    margin-bottom: 6px;
+  }
+
+  .slide-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .slide-subtitle {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 1px;
+  }
+  .badge-red { background: #2A1515; color: #CC6666; border: 1px solid var(--red); }
+  .badge-green { background: #152A1D; color: #6EAF80; border: 1px solid var(--green); }
+  .badge-gray { background: #222427; color: var(--text-secondary); border: 1px solid var(--border); }
+  .badge-amber { background: #2A2010; color: var(--amber); border: 1px solid var(--amber); }
+
+  /* Status table */
+  .status-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .status-table th {
+    background: var(--panel);
+    color: var(--amber);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 5px 8px;
+    text-align: left;
+    border: 1px solid var(--border);
+    font-size: 10px;
+  }
+  .status-table td {
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 400;
+  }
+  .status-table tr:nth-child(odd) td { background: var(--panel); }
+  .status-table tr:nth-child(even) td { background: var(--panel-alt); }
+
+  /* Hierarchy diagram */
+  .hierarchy { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+
+  .h-node {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    min-width: 160px;
+  }
+  .h-node.top-node {
+    border-color: var(--amber);
+    color: var(--amber);
+    font-size: 14px;
+  }
+
+  .h-arrow { color: var(--text-secondary); font-size: 14px; }
+  .h-arrow.broken { color: var(--red); }
+
+  .majcom-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .majcom-node {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-width: 70px;
+  }
+  .majcom-shape { font-size: 16px; color: var(--text-secondary); }
+  .majcom-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; color: var(--text-primary); }
+
+  .shard-row {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 700px;
+  }
+
+  .shard {
+    background: #201C1C;
+    border: 1px solid var(--red);
+    padding: 5px 8px;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: #B87070;
+    text-align: center;
+  }
+
+  .caption {
+    margin-top: 10px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+
+  /* Legend */
+  .legend {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    font-size: 9px;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+  .legend-title { color: var(--amber); font-weight: 700; margin-bottom: 4px; font-size: 9px; letter-spacing: 0.1em; }
+  .legend-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+  .legend-shape { font-size: 12px; color: var(--text-secondary); width: 16px; text-align: center; }
+
+  /* Callout box */
+  .callout {
+    background: var(--panel);
+    border-left: 3px solid var(--red);
+    padding: 10px 12px;
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  .callout.blue { border-left-color: var(--blue); }
+
+  /* Accumulation list */
+  .accum-list { display: flex; flex-direction: column; gap: 6px; }
+  .accum-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
+  .accum-num { color: var(--amber); font-weight: 700; margin-right: 6px; }
+
+  /* Reframe */
+  .reframe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .reframe-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+  }
+  .reframe-main {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+  .reframe-main .amber { color: var(--amber); }
+  .reframe-sub {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    max-width: 600px;
+  }
+  .reframe-close {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    line-height: 1.6;
+  }
+
+  /* Hub diagram (slide 5) */
+  .hub-diagram {
+    position: relative;
+    width: 420px;
+    height: 360px;
+  }
+  .hub-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--panel);
+    border: 2px solid var(--amber);
+    padding: 14px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--amber);
+    text-align: center;
+    z-index: 2;
+  }
+  .hub-node {
+    position: absolute;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    text-align: center;
+    white-space: nowrap;
+    z-index: 2;
+  }
+  .hub-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  .line-up { stroke: var(--amber); }
+  .line-down { stroke: var(--blue); }
+
+  /* Slide 5 status grid */
+  .capability-grid { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .cap-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .cap-label { font-size: 11px; font-weight: 700; color: var(--amber); letter-spacing: 0.06em; }
+  .cap-desc { font-size: 10px; font-weight: 300; color: var(--text-secondary); line-height: 1.4; }
+
+  /* Navigation */
+  .nav-bar {
+    height: 44px;
+    background: var(--header-bg);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex-shrink: 0;
+  }
+  .nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 4px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .nav-btn:hover { border-color: var(--amber); color: var(--amber); }
+  .nav-dots { display: flex; gap: 8px; align-items: center; }
+  .nav-dot {
+    width: 8px; height: 8px;
+    background: var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-dot.active { background: var(--amber); }
+
+  /* Signal status table */
+  .signal-table { width: 100%; }
+
+  /* Broken arrow visual */
+  .broken-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 100%;
+  }
+  .break-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 2px 8px;
+    background: #1A0E0E;
+  }
+
+  /* Downward flow diagram */
+  .deploy-diagram { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; }
+  .deploy-node {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 6px 20px;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-align: center;
+  }
+  .deploy-node.top-node { border-color: var(--amber); color: var(--amber); font-weight: 700; }
+  .deploy-node.majcom-level { width: 85%; }
+  .accumulation-block {
+    background: #201C10;
+    border: 1px solid var(--amber);
+    padding: 8px 16px;
+    font-size: 10px;
+    color: #B89A50;
+    letter-spacing: 0.06em;
+    text-align: center;
+    width: 90%;
+  }
+  .bottom-shards {
+    display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; max-width: 650px;
+  }
+  .bottom-shard {
+    background: #201C1C;
+    border: 1px solid var(--red);
+    padding: 4px 8px;
+    font-size: 8px;
+    color: #B87070;
+    letter-spacing: 0.03em;
+  }
+  .quote-block {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    padding: 10px 12px;
+    font-size: 11px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: auto;
+  }
+</style>
+</head>
+<body>
+<div class="deck">
+  <!-- Persistent Header -->
+  <div class="header-bar">
+    <span>SSVR // AFSFC READINESS ASSESSMENT</span>
+    <span>UNCLASSIFIED // FOR OFFICIAL USE ONLY</span>
+    <span id="slide-counter">01 / 05</span>
+  </div>
+
+  <!-- Slides Container -->
+  <div class="slides-container">
+
+    <!-- SLIDE 1: Fragmented at the Edge -->
+    <div class="slide active" id="slide-1">
+      <div class="amber-rule"></div>
+      <div class="slide-inner">
+        <div class="left-col">
+          <div>
+            <div class="finding-tag">FINDING 01</div>
+            <div class="slide-title">Fragmented at the Edge</div>
+            <div class="slide-subtitle">The field was never given a common substrate to build on.</div>
+          </div>
+          <div class="section-label">SYSTEM STATUS BY TYPE</div>
+          <table class="status-table">
+            <thead><tr><th>SYSTEM</th><th>STATUS</th></tr></thead>
+            <tbody>
+              <tr><td>Vendor A</td><td><span class="badge badge-amber">PROPRIETARY</span></td></tr>
+              <tr><td>Vendor B</td><td><span class="badge badge-red">LEGACY</span></td></tr>
+              <tr><td>Vendor C</td><td><span class="badge badge-gray">NO DATA</span></td></tr>
+              <tr><td>Spreadsheet</td><td><span class="badge badge-gray">MANUAL</span></td></tr>
+              <tr><td>Vendor D</td><td><span class="badge badge-amber">MAJCOM ONLY</span></td></tr>
+              <tr><td>No System</td><td><span class="badge badge-red">PAPER LOG</span></td></tr>
+              <tr><td>Manual AAR</td><td><span class="badge badge-red">DEGRADED</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="right-col">
+          <div class="hierarchy">
+            <div class="h-node top-node">AFSFC</div>
+            <div class="h-arrow">↓</div>
+            <div class="majcom-row">
+              <div class="majcom-node">
+                <span class="majcom-shape">◆</span>
+                <span class="majcom-label">ACC</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">●</span>
+                <span class="majcom-label">AFSPC</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">■</span>
+                <span class="majcom-label">AMC</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">▲</span>
+                <span class="majcom-label">PACAF</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">⬡</span>
+                <span class="majcom-label">USAFE</span>
+              </div>
+            </div>
+            <div class="h-arrow">↓</div>
+            <div class="shard-row">
+              <div class="shard">Vendor A<br>Proprietary</div>
+              <div class="shard">Vendor B<br>Legacy SW</div>
+              <div class="shard">Vendor C<br>No Data</div>
+              <div class="shard">Spreadsheet<br>Manual</div>
+              <div class="shard">Vendor D<br>MAJCOM Only</div>
+              <div class="shard">No System<br>Paper Log</div>
+              <div class="shard">Manual AAR</div>
+            </div>
+            <div class="caption">Multiple vendors · Inconsistent formats · No common standard · No C-UAS pathway</div>
+          </div>
+          <div class="legend">
+            <div class="legend-title">MAJCOM SHAPE ENCODING</div>
+            <div class="legend-row"><span class="legend-shape">◆</span> ACC</div>
+            <div class="legend-row"><span class="legend-shape">●</span> AFSPC</div>
+            <div class="legend-row"><span class="legend-shape">■</span> AMC</div>
+            <div class="legend-row"><span class="legend-shape">▲</span> PACAF</div>
+            <div class="legend-row"><span class="legend-shape">⬡</span> USAFE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: No Data Flows Up -->
+    <div class="slide" id="slide-2">
+      <div class="amber-rule"></div>
+      <div class="slide-inner">
+        <div class="left-col">
+          <div>
+            <div class="finding-tag">FINDING 02</div>
+            <div class="slide-title">No Data Flows Up</div>
+            <div class="slide-subtitle">Readiness is assumed — because it cannot be measured.</div>
+          </div>
+          <div class="section-label">SIGNAL STATUS</div>
+          <table class="status-table signal-table">
+            <thead><tr><th>METRIC</th><th>STATE</th></tr></thead>
+            <tbody>
+              <tr><td>Upward Flow</td><td><span class="badge badge-red">DEGRADED</span></td></tr>
+              <tr><td>Data Latency</td><td><span class="badge badge-gray">UNKNOWN</span></td></tr>
+              <tr><td>Last Verified</td><td><span class="badge badge-gray">N/A</span></td></tr>
+              <tr><td>Schema Match</td><td><span class="badge badge-red">NONE</span></td></tr>
+              <tr><td>Aggregation</td><td><span class="badge badge-red">FAILED</span></td></tr>
+            </tbody>
+          </table>
+          <div class="callout">
+            Readiness data can't aggregate — incompatible systems, no common schema.
+          </div>
+          <div class="callout">
+            Result: commanders layer more training requirements because no authoritative signal exists.
+          </div>
+        </div>
+        <div class="right-col">
+          <div class="broken-flow">
+            <div class="majcom-row">
+              <div class="majcom-node">
+                <span class="majcom-shape">◆</span>
+                <span class="majcom-label">ACC</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">●</span>
+                <span class="majcom-label">AFSPC</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">■</span>
+                <span class="majcom-label">AMC</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">▲</span>
+                <span class="majcom-label">PACAF</span>
+              </div>
+              <div class="majcom-node">
+                <span class="majcom-shape">⬡</span>
+                <span class="majcom-label">USAFE</span>
+              </div>
+            </div>
+            <div style="color: var(--red); font-size: 18px; letter-spacing: 4px;">↑ ↑ ↑ ↑ ↑</div>
+            <div class="break-label">SIGNAL DEGRADED</div>
+            <div style="color: var(--red); font-size: 18px;">↑</div>
+            <div class="h-node top-node">AFSFC</div>
+          </div>
+          <div class="legend" style="margin-top: 20px;">
+            <div class="legend-title">MAJCOM SHAPE ENCODING</div>
+            <div class="legend-row"><span class="legend-shape">◆</span> ACC</div>
+            <div class="legend-row"><span class="legend-shape">●</span> AFSPC</div>
+            <div class="legend-row"><span class="legend-shape">■</span> AMC</div>
+            <div class="legend-row"><span class="legend-shape">▲</span> PACAF</div>
+            <div class="legend-row"><span class="legend-shape">⬡</span> USAFE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: No Rails Deploy Down -->
+    <div class="slide" id="slide-3">
+      <div class="amber-rule"></div>
+      <div class="slide-inner">
+        <div class="left-col">
+          <div>
+            <div class="finding-tag">FINDING 03</div>
+            <div class="slide-title">No Rails Deploy Down</div>
+            <div class="slide-subtitle">When requirements change, there is no pathway — so the institution accumulates.</div>
+          </div>
+          <div class="section-label">ACCUMULATION INDEX</div>
+          <div class="accum-list">
+            <div class="accum-item"><span class="accum-num">01</span> AFSFC issues updates — no deployment mechanism</div>
+            <div class="accum-item"><span class="accum-num">02</span> MAJCOMs absorb requirements — stack at layer</div>
+            <div class="accum-item"><span class="accum-num">03</span> Squadrons inherit — incompatible with local system</div>
+          </div>
+          <div class="quote-block">
+            "The drone is already in the airspace. The airman is still on the skeet range."
+          </div>
+        </div>
+        <div class="right-col">
+          <div class="deploy-diagram">
+            <div class="deploy-node top-node">AFSFC — Issues Updates</div>
+            <div style="color: var(--red); font-size: 18px;">↓</div>
+            <div class="break-label">NO DEPLOYMENT RAILS</div>
+            <div style="color: var(--red); font-size: 18px;">↓</div>
+            <div class="accumulation-block" style="width: 80%;">⚠ MAJCOM LAYER — ACCUMULATED REQUIREMENTS</div>
+            <div style="color: var(--text-secondary); font-size: 14px;">↓</div>
+            <div class="bottom-shards">
+              <div class="bottom-shard">No C-UAS Training</div>
+              <div class="bottom-shard">Skeet Range</div>
+              <div class="bottom-shard">Limited Throughput</div>
+              <div class="bottom-shard">No Scoring vs Doctrine</div>
+              <div class="bottom-shard">No Data Captured</div>
+              <div class="bottom-shard">No Cmdr Visibility</div>
+              <div class="bottom-shard">Assumed Ready</div>
+            </div>
+          </div>
+          <div class="legend" style="margin-top: 16px;">
+            <div class="legend-title">MAJCOM SHAPE ENCODING</div>
+            <div class="legend-row"><span class="legend-shape">◆</span> ACC</div>
+            <div class="legend-row"><span class="legend-shape">●</span> AFSPC</div>
+            <div class="legend-row"><span class="legend-shape">■</span> AMC</div>
+            <div class="legend-row"><span class="legend-shape">▲</span> PACAF</div>
+            <div class="legend-row"><span class="legend-shape">⬡</span> USAFE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: The Reframe -->
+    <div class="slide slide-full" id="slide-4">
+      <div class="amber-rule"></div>
+      <div class="slide-inner">
+        <div class="right-col" style="width: 100%;">
+          <div class="reframe-container">
+            <div class="reframe-eyebrow">Assessment</div>
+            <div class="reframe-main">
+              This Isn't a Training Problem.<br>
+              It's an <span class="amber">Operating System Problem.</span>
+            </div>
+            <div class="reframe-sub">
+              Your architecture was built for a world where information traveled at human speed.<br>
+              The threat moves at algorithmic speed.<br><br>
+              What AFSFC needs is a two-way operating system for readiness —<br>
+              data flowing up automatically, standards and content deploying down instantly.<br><br>
+              And once the OS exists — every future requirement has a home.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: The Authoritative Readiness Environment -->
+    <div class="slide" id="slide-5">
+      <div class="amber-rule"></div>
+      <div class="slide-inner">
+        <div class="left-col">
+          <div>
+            <div class="section-label">THE SOLUTION</div>
+            <div class="slide-title">Authoritative Readiness Environment</div>
+            <div class="slide-subtitle">Not a network you check. A network that runs.</div>
+          </div>
+          <div class="capability-grid">
+            <div class="cap-item">
+              <div class="cap-label"><span class="badge badge-green">ACTIVE</span> 01 — Data Flows Up</div>
+              <div class="cap-desc">Automatically. Every node reporting. Real-time readiness signal to AFSFC.</div>
+            </div>
+            <div class="cap-item">
+              <div class="cap-label"><span class="badge badge-green">ACTIVE</span> 02 — Standards Deploy Down</div>
+              <div class="cap-desc">Instantly. New C-UAS standards reach every squadron the moment they're issued.</div>
+            </div>
+            <div class="cap-item">
+              <div class="cap-label"><span class="badge badge-green">ACTIVE</span> 03 — The Network Runs</div>
+              <div class="cap-desc">Not just responds. Continuous. Authoritative. The OS for force readiness.</div>
+            </div>
+          </div>
+        </div>
+        <div class="right-col">
+          <div class="hub-diagram">
+            <svg class="hub-svg" id="hub-svg-5">
+              <!-- Lines from center to nodes -->
+              <line x1="210" y1="180" x2="210" y2="30" stroke-width="1" opacity="0.6" class="line-up"/>
+              <line x1="210" y1="180" x2="360" y2="70" stroke-width="1" opacity="0.6" class="line-down"/>
+              <line x1="210" y1="180" x2="390" y2="180" stroke-width="1" opacity="0.6" class="line-up"/>
+              <line x1="210" y1="180" x2="360" y2="290" stroke-width="1" opacity="0.6" class="line-down"/>
+              <line x1="210" y1="180" x2="210" y2="330" stroke-width="1" opacity="0.6" class="line-up"/>
+              <line x1="210" y1="180" x2="60" y2="290" stroke-width="1" opacity="0.6" class="line-down"/>
+              <line x1="210" y1="180" x2="30" y2="180" stroke-width="1" opacity="0.6" class="line-up"/>
+              <line x1="210" y1="180" x2="60" y2="70" stroke-width="1" opacity="0.6" class="line-down"/>
+              <line x1="210" y1="180" x2="130" y2="30" stroke-width="1" opacity="0.6" class="line-up"/>
+            </svg>
+            <div class="hub-center">AFSFC<br><span style="font-size:9px;font-weight:400;color:var(--text-secondary);letter-spacing:0.06em;">AUTHORITATIVE<br>HUB</span></div>
+            <div class="hub-node" style="top:8px;left:160px;">SQ 01</div>
+            <div class="hub-node" style="top:40px;left:315px;">SQ 02</div>
+            <div class="hub-node" style="top:158px;left:345px;">SQ 03</div>
+            <div class="hub-node" style="top:270px;left:315px;">SQ 04</div>
+            <div class="hub-node" style="top:310px;left:160px;">SQ 05</div>
+            <div class="hub-node" style="top:270px;left:15px;">SQ 06</div>
+            <div class="hub-node" style="top:158px;left:0px;">SQ 07</div>
+            <div class="hub-node" style="top:40px;left:15px;">SQ 08</div>
+            <div class="hub-node" style="top:8px;left:85px;">SQ 09</div>
+          </div>
+          <div style="margin-top:12px; font-size:10px; color:var(--text-secondary); letter-spacing:0.06em; text-align:center;">
+            <span style="color:var(--amber);">——</span> Data up &nbsp;&nbsp; <span style="color:var(--blue);">——</span> Standards down
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /slides-container -->
+
+  <!-- Navigation Bar -->
+  <div class="nav-bar">
+    <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">PREV</button>
+    <div class="nav-dots" id="nav-dots"></div>
+    <button class="nav-btn" id="next-btn" onclick="navigate(1)">NEXT</button>
+  </div>
+</div>
+
+<script>
+  const totalSlides = 5;
+  let current = 0;
+
+  const dotsContainer = document.getElementById('nav-dots');
+  const counter = document.getElementById('slide-counter');
+
+  // Build dots
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  function goTo(index) {
+    document.getElementById('slide-' + (current + 1)).classList.remove('active');
+    dotsContainer.children[current].classList.remove('active');
+    current = Math.max(0, Math.min(totalSlides - 1, index));
+    document.getElementById('slide-' + (current + 1)).classList.add('active');
+    dotsContainer.children[current].classList.add('active');
+    counter.textContent = String(current + 1).padStart(2, '0') + ' / 0' + totalSlides;
+  }
+
+  function navigate(dir) { goTo(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+</script>
+</body>
+</html>

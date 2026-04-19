@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilot to Program of Record — AFSFC × SSVR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F1;
+    --panel: #EEEADE;
+    --border: #D0CBBF;
+    --text: #1A1A2E;
+    --text-muted: #5A5A72;
+    --navy: #1A4F8A;
+    --amber: #C8922A;
+    --red-muted: #8B2020;
+    --table-alt: #EEE9E0;
+    --font-display: 'Libre Baskerville', Georgia, serif;
+    --font-body: 'Source Sans 3', sans-serif;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow: hidden;
+  }
+
+  .deck {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 52px 88px 96px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* NAV */
+  .nav-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 52px;
+    background: var(--bg);
+    border-top: 1px solid var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 100;
+  }
+
+  .nav-btn {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: color 0.2s;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+  }
+
+  .nav-btn:hover { text-decoration-color: var(--navy); }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; text-decoration: none; }
+
+  .dots { display: flex; gap: 8px; align-items: center; }
+
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .dot.active { background: var(--navy); }
+
+  .slide-counter {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* SHARED */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 32px;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  p {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  /* ==================== SLIDE 1 ==================== */
+  #slide-1 .pilot-header {
+    font-family: var(--font-display);
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  #slide-1 .pilot-tagline {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  .scope-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  .scope-col {
+    padding: 24px 28px;
+    border-right: 1px solid var(--border);
+  }
+
+  .scope-col:last-child { border-right: none; }
+
+  .scope-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 10px;
+    font-variant: small-caps;
+  }
+
+  .scope-value {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .scope-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .risk-box {
+    border: 1px solid var(--amber);
+    padding: 14px 20px;
+    background: rgba(200,146,42,0.05);
+    max-width: 680px;
+  }
+
+  .risk-box p {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.6;
+  }
+
+  .risk-box p strong { font-weight: 700; color: var(--text); }
+
+  /* ==================== SLIDE 2 ==================== */
+  #slide-2 .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 8px;
+    flex: 1;
+  }
+
+  .pipe-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pipe-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--red-muted);
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--red-muted);
+  }
+
+  .pipe-arrow {
+    text-align: center;
+    font-size: 32px;
+    color: var(--red-muted);
+    opacity: 0.4;
+    margin: 8px 0;
+    line-height: 1;
+  }
+
+  .pipe-tier {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    background: white;
+  }
+
+  .pipe-tier-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .pipe-tier-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .pipe-broken {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--red-muted);
+    margin-top: 4px;
+  }
+
+  #slide-2 .main-quote {
+    margin-top: 24px;
+    grid-column: 1 / -1;
+    border-left: 4px solid var(--amber);
+    padding: 14px 20px;
+    background: rgba(200,146,42,0.06);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ==================== SLIDE 3 ==================== */
+  #slide-3 .eval-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    margin-bottom: 20px;
+  }
+
+  .eval-table th {
+    background: var(--navy);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    text-align: left;
+  }
+
+  .eval-table td {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text);
+    vertical-align: top;
+    line-height: 1.5;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .eval-table tr:nth-child(even) td { background: var(--table-alt); }
+  .eval-table tr:nth-child(odd) td { background: white; }
+
+  .metric-name { font-weight: 700; color: var(--text); }
+  .target-cell { font-weight: 600; color: var(--navy); }
+  .owner-cell { font-size: 12px; color: var(--text-muted); font-variant: small-caps; }
+
+  .offramp {
+    border-left: 4px solid var(--amber);
+    padding: 12px 18px;
+    background: rgba(200,146,42,0.06);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .offramp strong { font-weight: 700; color: var(--text); }
+
+  /* ==================== SLIDE 4 ==================== */
+  #slide-4 .timeline-bar {
+    display: flex;
+    align-items: stretch;
+    margin-top: 24px;
+    margin-bottom: 32px;
+    position: relative;
+  }
+
+  .timeline-bar::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .stage-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .stage.current .stage-dot {
+    border-color: var(--amber);
+    background: var(--amber);
+    box-shadow: 0 0 0 4px rgba(200,146,42,0.15);
+  }
+
+  .stage-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .stage.current .stage-label { color: var(--amber); }
+
+  .stage-dur {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .stage-tag {
+    margin-top: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    text-align: center;
+  }
+
+  .stage-connector {
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 8px;
+  }
+
+  .conn-line {
+    width: 100%;
+    height: 2px;
+    background: var(--border);
+  }
+
+  .contracting-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .contract-card {
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    background: white;
+  }
+
+  .contract-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .contract-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+  .contract-card p strong { color: var(--text); font-weight: 600; }
+
+  /* ==================== SLIDE 5 ==================== */
+  #slide-5 .ask-header {
+    font-family: var(--font-display);
+    font-size: 60px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: 0.02em;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  #slide-5 .ask-sub {
+    font-size: 15px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  .ask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+  .ask-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    background: white;
+  }
+
+  .checkbox {
+    font-size: 18px;
+    color: var(--border);
+    flex-shrink: 0;
+    padding-top: 1px;
+    line-height: 1;
+  }
+
+  .ask-item-num {
+    width: 24px;
+    flex-shrink: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    padding-top: 1px;
+  }
+
+  .ask-item-body { flex: 1; }
+
+  .ask-item-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .ask-item-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .what-is-box {
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    max-width: 680px;
+    background: white;
+  }
+
+  .what-is-row {
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .what-is-row + .what-is-row {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+  }
+
+  .what-label {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    width: 130px;
+  }
+
+  .what-label.not { color: var(--red-muted); }
+  .what-label.is { color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <!-- SLIDE 1 -->
+  <div class="slide active" id="slide-1">
+    <div class="eyebrow">Street Smarts VR × AFSFC — Pilot Proposal</div>
+    <div class="pilot-header">90-DAY READINESS PILOT</div>
+    <div class="pilot-tagline">A bounded, measurable evaluation. One installation. Clear off-ramp.</div>
+
+    <div class="scope-cols">
+      <div class="scope-col">
+        <div class="scope-label">Installation</div>
+        <div class="scope-value">1 Installation</div>
+        <div class="scope-sub">Selected by AFSFC. SSVR configures and integrates within 30 days of selection.</div>
+      </div>
+      <div class="scope-col">
+        <div class="scope-label">Duration</div>
+        <div class="scope-value">90 Days</div>
+        <div class="scope-sub">Measurement begins Day 1. Interim review at Day 60. Final assessment at Day 90.</div>
+      </div>
+      <div class="scope-col" style="border-right:none;">
+        <div class="scope-label">Outcome</div>
+        <div class="scope-value">Verified Baseline</div>
+        <div class="scope-sub">C-UAS readiness baseline for pilot installation with documented replication pathway for enterprise rollout.</div>
+      </div>
+    </div>
+
+    <div class="risk-box">
+      <p><strong>No long-term commitment. No large budget authority required.</strong> One installation. Measurable outcomes. Clear off-ramp at Day 60 if targets are not being met. This is the lowest-risk mechanism for verifying the solution before any program-of-record decision is made.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide" id="slide-2">
+    <div class="eyebrow">Pilot Proposal — Context</div>
+    <h2>Why This Matters</h2>
+
+    <div class="two-col">
+      <div class="pipe-col">
+        <div class="pipe-header">Broken Upward Flow — No Signal to AFSFC</div>
+        <div class="pipe-tier">
+          <div class="pipe-tier-name">Squadrons</div>
+          <div class="pipe-tier-desc">Produce raw training data inside vendor-specific platforms. Multiple vendors. No common schema.</div>
+          <div class="pipe-broken">Data stays at unit level</div>
+        </div>
+        <div class="pipe-arrow">↑</div>
+        <div class="pipe-tier">
+          <div class="pipe-tier-name">MAJCOMs</div>
+          <div class="pipe-tier-desc">Receive interpreted summaries. Re-summarize for headquarters.</div>
+          <div class="pipe-broken">Signal degraded, not transmitted</div>
+        </div>
+        <div class="pipe-arrow">↑</div>
+        <div class="pipe-tier">
+          <div class="pipe-tier-name">AFSFC</div>
+          <div class="pipe-tier-desc">Receives summaries of summaries. No real-time enterprise readiness view.</div>
+          <div class="pipe-broken">No live C-UAS readiness picture</div>
+        </div>
+      </div>
+
+      <div class="pipe-col">
+        <div class="pipe-header">Broken Downward Flow — No Rails to the Field</div>
+        <div class="pipe-tier">
+          <div class="pipe-tier-name">AFSFC</div>
+          <div class="pipe-tier-desc">Issues C-UAS requirements. No automated deployment mechanism to push standards to all nodes simultaneously.</div>
+          <div class="pipe-broken">Requirements stall at MAJCOM layer</div>
+        </div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-tier">
+          <div class="pipe-tier-name">MAJCOMs</div>
+          <div class="pipe-tier-desc">Interpret and re-issue. Each MAJCOM versions requirements differently. Accumulation, not transmission.</div>
+          <div class="pipe-broken">Inconsistent interpretation layer</div>
+        </div>
+        <div class="pipe-arrow">↓</div>
+        <div class="pipe-tier">
+          <div class="pipe-tier-name">Squadrons</div>
+          <div class="pipe-tier-desc">Default to available capability. Skeet ranges. Legacy platforms. No C-UAS-specific scoring vs. doctrine.</div>
+          <div class="pipe-broken">Field unit gap: skeet, not drones</div>
+        </div>
+      </div>
+
+      <div class="main-quote">
+        "The drone is already in the airspace. The airman is still on the skeet range."
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide" id="slide-3">
+    <div class="eyebrow">Pilot Proposal — Evaluation Framework</div>
+    <h2>What Gets Measured</h2>
+
+    <table class="eval-table">
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Baseline (Day 1)</th>
+          <th>Target (Day 90)</th>
+          <th>Owner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="metric-name">C-UAS Proficiency Rate</span><br><span style="font-size:11px;color:#5A5A72;">% personnel meeting AFSFC-defined standard</span></td>
+          <td>TBD — established Day 1</td>
+          <td class="target-cell">&gt; 85% by Day 90</td>
+          <td class="owner-cell">AFSFC S3</td>
+        </tr>
+        <tr>
+          <td><span class="metric-name">Data Latency</span><br><span style="font-size:11px;color:#5A5A72;">Time from rep completion to AFSFC visibility</span></td>
+          <td>Days to weeks (manual)</td>
+          <td class="target-cell">Real-time (&lt; 60 sec)</td>
+          <td class="owner-cell">SSVR</td>
+        </tr>
+        <tr>
+          <td><span class="metric-name">Standard Deployment Time</span><br><span style="font-size:11px;color:#5A5A72;">Time from AFSFC requirement issuance to field activation</span></td>
+          <td>Months (MAJCOM layer)</td>
+          <td class="target-cell">&lt; 24 hours</td>
+          <td class="owner-cell">AFSFC</td>
+        </tr>
+        <tr>
+          <td><span class="metric-name">Commander Visibility</span><br><span style="font-size:11px;color:#5A5A72;">Quality and currency of readiness picture available to installation commander</span></td>
+          <td>Summary reports (stale)</td>
+          <td class="target-cell">Live dashboard, current</td>
+          <td class="owner-cell">AFSFC</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="offramp">
+      <strong>Day 60 Off-Ramp:</strong> If targets are not trending toward attainment by Day 60, the pilot terminates with no further obligation. SSVR provides a final assessment report. AFSFC retains all data generated during the pilot period.
+    </div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide" id="slide-4">
+    <div class="eyebrow">Pilot Proposal — Acquisition Pathway</div>
+    <h2>Path to Program of Record</h2>
+
+    <div class="timeline-bar">
+      <div class="stage current">
+        <div class="stage-dot"></div>
+        <div class="stage-label">Pilot</div>
+        <div class="stage-dur">90 days</div>
+        <div class="stage-tag">Start here</div>
+      </div>
+      <div class="stage-connector"><div class="conn-line"></div></div>
+      <div class="stage">
+        <div class="stage-dot"></div>
+        <div class="stage-label">Assessment</div>
+        <div class="stage-dur">30 days</div>
+      </div>
+      <div class="stage-connector"><div class="conn-line"></div></div>
+      <div class="stage">
+        <div class="stage-dot"></div>
+        <div class="stage-label">OTA Award</div>
+        <div class="stage-dur">60–90 days</div>
+      </div>
+      <div class="stage-connector"><div class="conn-line"></div></div>
+      <div class="stage">
+        <div class="stage-dot"></div>
+        <div class="stage-label">Program of Record</div>
+        <div class="stage-dur">Enterprise rollout</div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+
+    <div class="contracting-info">
+      <div class="contract-card">
+        <div class="contract-card-label">Eligible Contracting Vehicle — Pilot</div>
+        <p><strong>OTA — 10 U.S.C. § 4022</strong><br>Other Transaction Authority enables rapid prototype execution without traditional FAR requirements. No large budget authority required for pilot phase. Appropriate for technology demonstration.</p>
+      </div>
+      <div class="contract-card">
+        <div class="contract-card-label">Eligible Contracting Vehicle — Scale</div>
+        <p><strong>SBIR Phase II</strong><br>If SSVR qualifies as a small business, SBIR Phase II provides a streamlined path from prototype to program of record. Pilot performance data serves as the technical baseline for Phase II application.</p>
+      </div>
+      <div class="contract-card">
+        <div class="contract-card-label">Budget Authority — Pilot Phase</div>
+        <p>Pilot phase structured to operate within existing O&amp;M or RDT&amp;E authority. <strong>No programmatic budget line required to begin.</strong> Assessment period determines follow-on resource requirements before any POM input is needed.</p>
+      </div>
+      <div class="contract-card">
+        <div class="contract-card-label">Acquisition Risk Profile</div>
+        <p>Minimal. Pilot is bounded in scope, duration, and cost. Documented off-ramp at Day 60. No vendor lock-in during pilot period. All data generated remains property of AFSFC regardless of outcome.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide" id="slide-5">
+    <div class="eyebrow">Pilot Proposal — The Ask</div>
+    <div class="ask-header">AUTHORIZE<br>THE PILOT.</div>
+    <div class="ask-sub">Three actions. Bounded scope. No follow-on obligation.</div>
+
+    <div class="ask-list">
+      <div class="ask-item">
+        <div class="checkbox">□</div>
+        <div class="ask-item-num">1</div>
+        <div class="ask-item-body">
+          <div class="ask-item-title">Designate pilot installation</div>
+          <div class="ask-item-desc">AFSFC nominates the installation. SSVR configures and integrates within 30 days of selection. No installation-level budget action required.</div>
+        </div>
+      </div>
+      <div class="ask-item">
+        <div class="checkbox">□</div>
+        <div class="ask-item-num">2</div>
+        <div class="ask-item-body">
+          <div class="ask-item-title">Assign program manager</div>
+          <div class="ask-item-desc">Single AFSFC POC. Estimated time commitment: 4 hours per week for the 90-day pilot period. SSVR provides weekly status reports and handles all technical coordination.</div>
+        </div>
+      </div>
+      <div class="ask-item">
+        <div class="checkbox">□</div>
+        <div class="ask-item-num">3</div>
+        <div class="ask-item-body">
+          <div class="ask-item-title">Sign pilot agreement</div>
+          <div class="ask-item-desc">90-day term. Evaluation framework established on this slide deck's Slide 3. Day 60 off-ramp included. No follow-on obligation. AFSFC retains all data.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="what-is-box">
+      <div class="what-is-row">
+        <div class="what-label not">What this is not:</div>
+        <div>A commitment to a program of record. A large budget action. A long-term vendor relationship. A bet on a solution before it's been verified.</div>
+      </div>
+      <div class="what-is-row">
+        <div class="what-label is">What this is:</div>
+        <div>The lowest-risk mechanism available to verify whether the solution works — before making any decision about scale, acquisition, or program of record.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- NAV BAR -->
+<div class="nav-bar">
+  <button class="nav-btn" id="btn-prev" onclick="navigate(-1)" disabled>← Previous</button>
+  <div class="dots" id="dots"></div>
+  <span class="slide-counter" id="counter">01 / 05</span>
+  <button class="nav-btn" id="btn-next" onclick="navigate(1)">Next →</button>
+</div>
+
+<script>
+  const totalSlides = 5;
+  let current = 0;
+
+  const dotsEl = document.getElementById('dots');
+  const counterEl = document.getElementById('counter');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+
+  for (let i = 0; i < totalSlides; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(index) {
+    document.getElementById('slide-' + (current + 1)).classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = index;
+    document.getElementById('slide-' + (current + 1)).classList.add('active');
+    dotsEl.children[current].classList.add('active');
+    counterEl.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(totalSlides).padStart(2, '0');
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === totalSlides - 1;
+  }
+
+  function navigate(dir) {
+    const next = current + dir;
+    if (next >= 0 && next < totalSlides) goTo(next);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+</script>
+</body>
+</html>
