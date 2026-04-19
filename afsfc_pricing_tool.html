@@ -595,35 +595,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
         <!-- IMPL & SUSTAINMENT -->
         <tr class="cat-row"><td colspan="5">CUSTOMER ENABLEMENT &amp; SUSTAINMENT</td><td class="cost-col" colspan="3" style="background:var(--slate);"></td><td style="background:var(--slate);"></td></tr>
-        <tr>
-          <td class="row-label">Site Activation &amp; Ongoing Enablement — CONUS <small class="row-note">(activation + retraining + instructor recert)</small></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl_conus" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-neutral" colspan="3" style="font-size:10px;color:#aaa;font-style:italic;">ref only</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl_conus" placeholder="0" oninput="recalc()"></td>
-          <td class="cost-col cell-neutral">—</td>
-          <td class="cost-col cell-neutral">—</td>
-          <td><input class="note-in" type="text" id="nt_sust_impl_conus" placeholder="notes…"></td>
-        </tr>
-        <tr>
-          <td class="row-label">Site Activation &amp; Ongoing Enablement — OCONUS <small class="row-note">(activation + retraining + travel/logistics)</small></td>
-          <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl_oconus" placeholder="0" oninput="recalc()"></td>
-          <td class="cell-neutral" colspan="3" style="font-size:10px;color:#aaa;font-style:italic;">ref only</td>
-          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl_oconus" placeholder="0" oninput="recalc()"></td>
-          <td class="cost-col cell-neutral">—</td>
-          <td class="cost-col cell-neutral">—</td>
-          <td><input class="note-in" type="text" id="nt_sust_impl_oconus" placeholder="notes…"></td>
-        </tr>
-        <tr style="background:#F5F7FA;">
-          <td class="row-label" style="padding-left:20px;color:#555;">
-            <em>↳ Blended Rate</em> <small class="row-note">(midpoint used in tier rollup)</small>
-          </td>
-          <td class="cell-calc" id="impl_blend_price" style="font-style:italic;color:var(--navy-light);">—</td>
-          <td class="cell-check">✓</td><td class="cell-check">✓</td><td class="cell-check">✓</td>
-          <td class="cost-col cell-calc" id="impl_blend_cost" style="background:#EDE3F5;color:var(--purple);font-style:italic;">—</td>
-          <td class="cost-col cell-marg marg-na" id="md_sust_impl">—</td>
-          <td class="cost-col cell-marg marg-na" id="mp_sust_impl">—</td>
-          <td class="row-note">Auto: (CONUS + OCONUS) ÷ 2</td>
-        </tr>
+        <!-- CONUS/OCONUS moved to Site Setup Calculator section below S2 -->
         <tr>
           <td class="row-label">Continuous Operations <small class="row-note">(ongoing hardware + software + helpdesk)</small></td>
           <td class="cell-input"><input class="price-in" type="text" id="f_sust_ongoing" placeholder="0" oninput="recalc()"></td>
@@ -958,6 +930,63 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     </table>
   </div>
 
+  <!-- ─── SITE SETUP CALCULATOR ─── -->
+  <div class="section-block">
+    <div class="section-header">
+      SITE SETUP — ONE-TIME IMPLEMENTATION
+      <span class="section-tag">one-time per site · auto-fills CLIN 002</span>
+    </div>
+    <div class="section-note">
+      Enter per-site rate and site count for each deployment type. Combined total auto-populates CLIN 002 (Fielding &amp; Stand-Up) in Section 3 below.
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="th-left" style="width:28%">Deployment Type</th>
+          <th style="width:13%">$/Site (one-time)</th>
+          <th style="width:8%"># Sites</th>
+          <th style="width:13%">Subtotal</th>
+          <th class="cost-col" style="width:11%">Cost/Site</th>
+          <th class="cost-col" style="width:11%">Subtotal Cost</th>
+          <th class="cost-col" style="width:7%">Margin %</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">CONUS <small class="row-note">(activation + retraining + instructor recert)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl_conus" placeholder="0" oninput="recalcImpl()"></td>
+          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="f_impl_conus_sites" placeholder="0" oninput="recalcImpl()" style="width:55px;"></td>
+          <td class="cell-calc" id="impl_conus_total">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl_conus" placeholder="0" oninput="recalcImpl()"></td>
+          <td class="cost-col cell-calc" id="impl_conus_cost_total">—</td>
+          <td class="cost-col cell-marg marg-na" id="impl_conus_marg">—</td>
+          <td><input class="note-in" type="text" id="nt_sust_impl_conus" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">OCONUS <small class="row-note">(activation + retraining + travel/logistics)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_sust_impl_oconus" placeholder="0" oninput="recalcImpl()"></td>
+          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="f_impl_oconus_sites" placeholder="0" oninput="recalcImpl()" style="width:55px;"></td>
+          <td class="cell-calc" id="impl_oconus_total">—</td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_sust_impl_oconus" placeholder="0" oninput="recalcImpl()"></td>
+          <td class="cost-col cell-calc" id="impl_oconus_cost_total">—</td>
+          <td class="cost-col cell-marg marg-na" id="impl_oconus_marg">—</td>
+          <td><input class="note-in" type="text" id="nt_sust_impl_oconus" placeholder="notes…"></td>
+        </tr>
+        <tr class="rollup-row">
+          <td><strong>Combined Fielding Total</strong> <small style="font-weight:normal;color:#7EC8E3;">→ auto-fills CLIN 002</small></td>
+          <td class="cell-neutral">—</td>
+          <td class="cell-calc" id="impl_total_sites" style="text-align:center;">—</td>
+          <td class="cell-calc" id="impl_grand_total">—</td>
+          <td class="cost-col cell-neutral">—</td>
+          <td class="cost-col cell-calc" id="impl_grand_cost">—</td>
+          <td class="cost-col cell-marg marg-na" id="impl_grand_marg">—</td>
+          <td class="row-note">Per-site avg + total sites → CLIN 002</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- ─── SECTION 3: CLIN Pricing ─── -->
   <div class="section-block">
     <div class="section-header">
@@ -1003,6 +1032,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td>
             <div class="clin-name">Fielding &amp; Stand-Up <small style="font-weight:normal;">(one-time)</small></div>
             <div class="clin-scope">Hardware refresh, peripheral + tracking at every site, onboarding, activation</div>
+            <div id="clin002_auto_note" style="display:none;margin-top:4px;font-size:9px;color:#7EC8E3;font-style:italic;">⟳ auto from Site Setup Calculator</div>
           </td>
           <td class="cell-input"><input class="price-in" type="text" id="f_clin002" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_002" value="50" oninput="recalcClins()" style="width:55px;"></td>
@@ -1272,7 +1302,9 @@ const STORAGE_KEY = 'afsfc_cases_v3';
 // Price field IDs
 const PRICE_FIELDS = [
   'f_plat_license','f_plat_endpoint','f_plat_network','f_plat_ato',
-  'f_sust_impl_conus','f_sust_impl_oconus','f_sust_ongoing',
+  'f_sust_impl_conus','f_impl_conus_sites',
+  'f_sust_impl_oconus','f_impl_oconus_sites',
+  'f_sust_ongoing',
   'f_wts_shotgun','f_wts_rifle','f_wts_pistol',
   'f_wts_baton','f_wts_oc','f_wts_ecd',
   'f_pack_cuas','f_pack_base','f_pack_onbase',
@@ -1444,7 +1476,7 @@ function loadCase() {
   document.getElementById('caseName').value = c.name;
   document.getElementById('heroName').textContent = c.name;
   setFieldValues(c.fields);
-  recalc(); recalcClins(); recalcAddons();
+  recalc(); recalcImpl(); recalcClins(); recalcAddons();
 }
 
 function saveCase() {
@@ -1465,7 +1497,7 @@ function newCase() {
   document.getElementById('caseName').value = cases[id].name;
   document.getElementById('heroName').textContent = cases[id].name;
   setFieldValues({});
-  recalc(); recalcClins(); recalcAddons();
+  recalc(); recalcImpl(); recalcClins(); recalcAddons();
   showToast('➕ New case created', 'info');
 }
 
@@ -1542,17 +1574,6 @@ function recalc() {
     const sfx = fid.replace('f_', '');
     setMarg('md_' + sfx, 'mp_' + sfx, price || 0, cost || 0);
   });
-
-  // Implementation blended rate (midpoint of CONUS + OCONUS, or whichever is filled)
-  const implC = val('f_sust_impl_conus'), implO = val('f_sust_impl_oconus');
-  const implBlend = (implC > 0 && implO > 0) ? (implC + implO) / 2 : (implC || implO);
-  const cImplC = val('c_sust_impl_conus'), cImplO = val('c_sust_impl_oconus');
-  const implCostBlend = (cImplC > 0 && cImplO > 0) ? (cImplC + cImplO) / 2 : (cImplC || cImplO);
-  t1 += implBlend; t2 += implBlend; t3 += implBlend;
-  c1 += implCostBlend; c2 += implCostBlend; c3 += implCostBlend;
-  setText('impl_blend_price', implBlend > 0 ? fmt(implBlend) : '—');
-  setText('impl_blend_cost',  implCostBlend > 0 ? fmt(implCostBlend) : '—');
-  setMarg('md_sust_impl', 'mp_sust_impl', implBlend, implCostBlend);
 
   // Price sums
   setText('sum_t1', fmt(t1)); setText('sum_t2', fmt(t2)); setText('sum_t3', fmt(t3));
@@ -1688,6 +1709,58 @@ function recalcClins() {
   }
 
   recalcMultiYear();
+}
+
+function recalcImpl() {
+  const pC = val('f_sust_impl_conus'),  nC = val('f_impl_conus_sites');
+  const pO = val('f_sust_impl_oconus'), nO = val('f_impl_oconus_sites');
+  const cC = val('c_sust_impl_conus'),  cO = val('c_sust_impl_oconus');
+
+  const revC = pC * nC,  revO = pO * nO;
+  const cstC = cC * nC,  cstO = cO * nO;
+  const grandRev  = revC + revO;
+  const grandCost = cstC + cstO;
+  const totalSites = nC + nO;
+
+  setText('impl_conus_total',      revC > 0 ? fmt(revC) : '—');
+  setText('impl_oconus_total',     revO > 0 ? fmt(revO) : '—');
+  setText('impl_grand_total',      grandRev > 0 ? fmt(grandRev) : '—');
+  setText('impl_total_sites',      totalSites > 0 ? totalSites : '—');
+
+  // Cost subtotals (cost-col cells, always set text regardless of toggle)
+  const setC = (id, v) => { const el=document.getElementById(id); if(el) el.textContent = v>0?fmt(v):'—'; };
+  setC('impl_conus_cost_total', cstC);
+  setC('impl_oconus_cost_total', cstO);
+  setC('impl_grand_cost', grandCost);
+
+  // Margin per row
+  const setIM = (id, rev, cost) => {
+    const el = document.getElementById(id); if (!el) return;
+    if (rev > 0 && cost > 0) {
+      const p = (rev-cost)/rev*100;
+      el.textContent = fmtP(p);
+      el.className = 'cost-col cell-marg ' + margClass(p);
+    } else { el.textContent = '—'; el.className = 'cost-col cell-marg marg-na'; }
+  };
+  setIM('impl_conus_marg',  revC, cstC);
+  setIM('impl_oconus_marg', revO, cstO);
+  setIM('impl_grand_marg',  grandRev, grandCost);
+
+  // Auto-populate CLIN 002: per-site weighted avg + total site count
+  const noteEl = document.getElementById('clin002_auto_note');
+  if (totalSites > 0 && grandRev > 0) {
+    const perSiteAvg = grandRev / totalSites;
+    const el002  = document.getElementById('f_clin002');
+    const s002   = document.getElementById('sites_002');
+    const cc002  = document.getElementById('cc_clin002');
+    if (el002)  { el002.value = Math.round(perSiteAvg); formatMoney(el002); }
+    if (s002)   { s002.value  = totalSites; }
+    if (cc002 && grandCost > 0) { cc002.value = Math.round(grandCost / totalSites); formatMoney(cc002); }
+    if (noteEl) noteEl.style.display = 'block';
+    recalcClins();
+  } else {
+    if (noteEl) noteEl.style.display = 'none';
+  }
 }
 
 function recalcMultiYear() {
