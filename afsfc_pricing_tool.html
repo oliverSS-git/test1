@@ -1016,6 +1016,15 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-marg marg-na" id="mix_grand_marg">—</td>
           <td class="row-note">Weighted avg/site → CLIN 003</td>
         </tr>
+        <tr style="background:#EAF4FF;border-top:2px solid var(--border);">
+          <td class="row-label"><strong>Cost per Airman / Year</strong> <small style="font-weight:normal;color:#5B9BD5;">@ 200 airmen per base</small></td>
+          <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">$/airman</td>
+          <td class="cell-calc" id="mix_ppa_t1" style="color:#1A5276;font-weight:700;">—</td>
+          <td class="cell-calc" id="mix_ppa_t2" style="color:#1A5276;font-weight:700;">—</td>
+          <td class="cell-calc" id="mix_ppa_t3" style="color:#1A5276;font-weight:700;">—</td>
+          <td class="cost-col cell-neutral" colspan="3">—</td>
+          <td class="row-note" id="mix_ppa_blended_note">—</td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -1887,6 +1896,26 @@ function recalcMix() {
   setMM('mix_marg_t2', rev2, cost2);
   setMM('mix_marg_t3', rev3, cost3);
   setMM('mix_grand_marg', grandRev, grandCost);
+
+  // $/Airman/Year — per tier and blended across mix
+  const airmen = val('airmen_per_sqdn') || 200;
+  const setPPA = (id, price) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.textContent = (price > 0 && airmen > 0) ? '$' + (price / airmen).toFixed(2) : '—';
+  };
+  setPPA('mix_ppa_t1', p1);
+  setPPA('mix_ppa_t2', p2);
+  setPPA('mix_ppa_t3', p3);
+  // Blended $/airman across all sites in the mix
+  const blendedNote = document.getElementById('mix_ppa_blended_note');
+  if (blendedNote) {
+    if (totalSites > 0 && grandRev > 0) {
+      const blendedPPA = (grandRev / totalSites) / airmen;
+      blendedNote.textContent = 'Blended: $' + blendedPPA.toFixed(2) + '/airman/yr across ' + totalSites + ' sites × ' + airmen + ' airmen';
+    } else {
+      blendedNote.textContent = 'Enter site counts above to see blended rate';
+    }
+  }
 
   // Auto-populate CLIN 003: weighted per-site avg revenue + total sites + cost/site
   const noteEl003 = document.getElementById('clin003_auto_note');
