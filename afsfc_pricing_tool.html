@@ -173,6 +173,10 @@ body.present-mode .nc-col-th { display: none !important; }
 .brkdn-status-pays { color:#888; font-size:10px; }
 .brkdn-status-oos   { color:#bbb; font-size:10px; font-style:italic; }
 .brkdn-status-afimsc { color:#1A5276; font-size:10px; font-weight:600; }
+.brkdn-status-unitpaid { color:#6C3483; font-size:10px; font-weight:600; }
+.brkdn-item.is-unitpaid td { background:#F5EEF8; }
+.brkdn-item.is-unitpaid .brkdn-label { color:#9B59B6; }
+.brkdn-item.is-unitpaid .brkdn-price { color:#BA8FD0; font-style:italic; }
 .brkdn-item.is-oos td { background:#F7F7F7; }
 .brkdn-item.is-oos .brkdn-label { color:#ccc; text-decoration:line-through; }
 .brkdn-item.is-oos .brkdn-price { color:#ddd; }
@@ -1272,28 +1276,28 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
                   <tr class="brkdn-item" data-field="f_plat_license" data-tiers="123">
                     <td class="brkdn-label">Platform License <small style="color:#aaa;">(Sim Execution + Ground Truth Engine)</small></td>
                     <td class="brkdn-price" id="bv_plat_license">—</td>
-                    <td><select class="brkdn-sel" id="cv_plat_license" data-field="f_plat_license" onchange="updateCoveredField();recalcBrkdn();"><option value="pays">AFSFC pays</option><option value="covered" selected>✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_plat_license" data-field="f_plat_license" onchange="updateCoveredField();recalcBrkdn();"><option value="pays">AFSFC pays</option><option value="covered" selected>✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-covered" id="bs_plat_license">✓ Covered</span></td>
                     <td style="font-size:9px;color:#666;">Absorbed by V-CSTR / AFWERX deployment</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_plat_endpoint" data-tiers="123">
                     <td class="brkdn-label">Readiness Sensing Endpoint <small style="color:#aaa;">(managed terminal: PC + HMD)</small></td>
                     <td class="brkdn-price" id="bv_plat_endpoint">—</td>
-                    <td><select class="brkdn-sel" id="cv_plat_endpoint" data-field="f_plat_endpoint" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_plat_endpoint" data-field="f_plat_endpoint" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_plat_endpoint">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;"></td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_plat_network" data-tiers="123">
                     <td class="brkdn-label">Readiness Sensing Network <small style="color:#aaa;">(data routing + enterprise view)</small></td>
                     <td class="brkdn-price" id="bv_plat_network">—</td>
-                    <td><select class="brkdn-sel" id="cv_plat_network" data-field="f_plat_network" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_plat_network" data-field="f_plat_network" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_plat_network">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;"></td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_plat_ato" data-tiers="123">
                     <td class="brkdn-label">ATO / RMF / Cyber Compliance</td>
                     <td class="brkdn-price" id="bv_plat_ato">—</td>
-                    <td><select class="brkdn-sel" id="cv_plat_ato" data-field="f_plat_ato" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_plat_ato" data-field="f_plat_ato" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_plat_ato">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;"></td>
                   </tr>
@@ -1302,7 +1306,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
                   <tr class="brkdn-item" data-field="f_sust_ongoing" data-tiers="123">
                     <td class="brkdn-label">Continuous Operations <small style="color:#aaa;">(hardware + software + helpdesk)</small></td>
                     <td class="brkdn-price" id="bv_sust_ongoing">—</td>
-                    <td><select class="brkdn-sel" id="cv_sust_ongoing" data-field="f_sust_ongoing" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_sust_ongoing" data-field="f_sust_ongoing" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_sust_ongoing">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;"></td>
                   </tr>
@@ -1311,42 +1315,42 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
                   <tr class="brkdn-item" data-field="f_wts_shotgun" data-tiers="123">
                     <td class="brkdn-label">WTS — Shotgun (M870 / M26)</td>
                     <td class="brkdn-price" id="bv_wts_shotgun">—</td>
-                    <td><select class="brkdn-sel" id="cv_wts_shotgun" data-field="f_wts_shotgun" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_wts_shotgun" data-field="f_wts_shotgun" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_wts_shotgun">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_wts_rifle" data-tiers="23">
                     <td class="brkdn-label">WTS — Rifle (M4 / M16)</td>
                     <td class="brkdn-price" id="bv_wts_rifle">—</td>
-                    <td><select class="brkdn-sel" id="cv_wts_rifle" data-field="f_wts_rifle" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_wts_rifle" data-field="f_wts_rifle" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_wts_rifle">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T2+ only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_wts_pistol" data-tiers="23">
                     <td class="brkdn-label">WTS — Pistol (M18 / M17)</td>
                     <td class="brkdn-price" id="bv_wts_pistol">—</td>
-                    <td><select class="brkdn-sel" id="cv_wts_pistol" data-field="f_wts_pistol" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_wts_pistol" data-field="f_wts_pistol" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_wts_pistol">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T2+ only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_wts_baton" data-tiers="3">
                     <td class="brkdn-label">WTS — Baton (non-lethal)</td>
                     <td class="brkdn-price" id="bv_wts_baton">—</td>
-                    <td><select class="brkdn-sel" id="cv_wts_baton" data-field="f_wts_baton" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_wts_baton" data-field="f_wts_baton" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_wts_baton">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T3 only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_wts_oc" data-tiers="3">
                     <td class="brkdn-label">WTS — OC Spray (non-lethal)</td>
                     <td class="brkdn-price" id="bv_wts_oc">—</td>
-                    <td><select class="brkdn-sel" id="cv_wts_oc" data-field="f_wts_oc" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_wts_oc" data-field="f_wts_oc" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_wts_oc">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T3 only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_wts_ecd" data-tiers="3">
                     <td class="brkdn-label">WTS — ECD / Taser (non-lethal)</td>
                     <td class="brkdn-price" id="bv_wts_ecd">—</td>
-                    <td><select class="brkdn-sel" id="cv_wts_ecd" data-field="f_wts_ecd" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_wts_ecd" data-field="f_wts_ecd" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_wts_ecd">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T3 only</td>
                   </tr>
@@ -1355,21 +1359,21 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
                   <tr class="brkdn-item" data-field="f_pack_cuas" data-tiers="123">
                     <td class="brkdn-label">C-UAS Defender Pack <small style="color:#aaa;">(AFJQS SEI 3CS)</small></td>
                     <td class="brkdn-price" id="bv_pack_cuas">—</td>
-                    <td><select class="brkdn-sel" id="cv_pack_cuas" data-field="f_pack_cuas" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_pack_cuas" data-field="f_pack_cuas" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_pack_cuas">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_pack_base" data-tiers="23">
                     <td class="brkdn-label">Base Defense Pack <small style="color:#aaa;">(DAFI 31-131)</small></td>
                     <td class="brkdn-price" id="bv_pack_base">—</td>
-                    <td><select class="brkdn-sel" id="cv_pack_base" data-field="f_pack_base" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_pack_base" data-field="f_pack_base" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_pack_base">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T2+ only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_pack_onbase" data-tiers="3">
                     <td class="brkdn-label">On-Base Ops Pack <small style="color:#aaa;">(AFI 31-207)</small></td>
                     <td class="brkdn-price" id="bv_pack_onbase">—</td>
-                    <td><select class="brkdn-sel" id="cv_pack_onbase" data-field="f_pack_onbase" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_pack_onbase" data-field="f_pack_onbase" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_pack_onbase">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T3 only</td>
                   </tr>
@@ -1378,21 +1382,21 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
                   <tr class="brkdn-item" data-field="f_rep_local" data-tiers="123">
                     <td class="brkdn-label">Reporting — Local Dashboard</td>
                     <td class="brkdn-price" id="bv_rep_local">—</td>
-                    <td><select class="brkdn-sel" id="cv_rep_local" data-field="f_rep_local" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_rep_local" data-field="f_rep_local" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_rep_local">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_rep_cmd" data-tiers="23">
                     <td class="brkdn-label">Reporting — Command Dashboard</td>
                     <td class="brkdn-price" id="bv_rep_cmd">—</td>
-                    <td><select class="brkdn-sel" id="cv_rep_cmd" data-field="f_rep_cmd" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_rep_cmd" data-field="f_rep_cmd" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_rep_cmd">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T2+ only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_rep_full" data-tiers="3">
                     <td class="brkdn-label">Reporting — Enterprise BI</td>
                     <td class="brkdn-price" id="bv_rep_full">—</td>
-                    <td><select class="brkdn-sel" id="cv_rep_full" data-field="f_rep_full" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_rep_full" data-field="f_rep_full" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_rep_full">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T3 only</td>
                   </tr>
@@ -1401,21 +1405,21 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
                   <tr class="brkdn-item" data-field="f_pm_basic" data-tiers="1">
                     <td class="brkdn-label">PM — Basic</td>
                     <td class="brkdn-price" id="bv_pm_basic">—</td>
-                    <td><select class="brkdn-sel" id="cv_pm_basic" data-field="f_pm_basic" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_pm_basic" data-field="f_pm_basic" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_pm_basic">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T1 only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_pm_account" data-tiers="2">
                     <td class="brkdn-label">PM — Account Manager</td>
                     <td class="brkdn-price" id="bv_pm_account">—</td>
-                    <td><select class="brkdn-sel" id="cv_pm_account" data-field="f_pm_account" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_pm_account" data-field="f_pm_account" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_pm_account">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T2 only</td>
                   </tr>
                   <tr class="brkdn-item" data-field="f_pm_embedded" data-tiers="3">
                     <td class="brkdn-label">PM — Embedded Program Manager</td>
                     <td class="brkdn-price" id="bv_pm_embedded">—</td>
-                    <td><select class="brkdn-sel" id="cv_pm_embedded" data-field="f_pm_embedded" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><select class="brkdn-sel" id="cv_pm_embedded" data-field="f_pm_embedded" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ IMSC PoP3</option><option value="oos">Out of Scope</option><option value="unitpaid">Unit already funded</option><option value="afimsc">AFIMSC pays</option></select></td>
                     <td><span class="brkdn-status-pays" id="bs_pm_embedded">AFSFC pays</span></td>
                     <td style="font-size:9px;color:#666;">T3 only</td>
                   </tr>
@@ -2671,7 +2675,7 @@ function updateCoveredField() {
   const covIds = [], oosIds = [];
   document.querySelectorAll('.brkdn-sel').forEach(sel => {
     if (!sel.dataset.field) return;
-    if (sel.value === 'covered') covIds.push(sel.dataset.field);
+    if (sel.value === 'covered' || sel.value === 'unitpaid') covIds.push(sel.dataset.field);
     if (sel.value === 'oos')     oosIds.push(sel.dataset.field);
   });
   const el = document.getElementById('f_c003_covered');
@@ -2702,19 +2706,22 @@ function recalcBrkdn() {
     // Read 3-way select status
     const sel       = document.getElementById('cv_' + sfx);
     const selVal    = sel ? sel.value : 'pays';
-    const isCovered = selVal === 'covered';
+    const isCovered = selVal === 'covered' || selVal === 'unitpaid';
     const isOos     = selVal === 'oos';
-    const isAfimsc  = selVal === 'afimsc';
+    const isAfimsc   = selVal === 'afimsc';
+    const isUnitPaid = selVal === 'unitpaid';
 
     row.classList.toggle('is-covered', isCovered);
     row.classList.toggle('is-oos', isOos);
+    row.classList.toggle('is-unitpaid', isUnitPaid);
 
     // Status label (hidden span, kept for compat)
     const statusEl = document.getElementById('bs_' + sfx);
     if (statusEl) {
       if (isOos)          { statusEl.textContent = 'Out of Scope'; statusEl.className = 'brkdn-status-oos'; }
       else if (isCovered) { statusEl.textContent = '✓ Covered';    statusEl.className = 'brkdn-status-covered'; }
-      else if (isAfimsc)  { statusEl.textContent = 'AFIMSC pays';  statusEl.className = 'brkdn-status-afimsc'; }
+      else if (isAfimsc)   { statusEl.textContent = 'AFIMSC pays';       statusEl.className = 'brkdn-status-afimsc'; }
+      else if (isUnitPaid) { statusEl.textContent = 'Unit already funded'; statusEl.className = 'brkdn-status-unitpaid'; }
       else                { statusEl.textContent = 'AFSFC pays';   statusEl.className = 'brkdn-status-pays'; }
     }
 
