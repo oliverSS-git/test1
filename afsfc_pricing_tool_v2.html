@@ -74,11 +74,120 @@ body.present-mode input.text-in {
 body.present-mode input.note-in { display: none; }
 body.present-mode .btn-save, body.present-mode .btn-new,
 body.present-mode .btn-del, body.present-mode .btn-exp,
-body.present-mode .btn-cmp, body.present-mode .btn-costs { display: none; }
-body.present-mode #costToggleBtn { display: none; }
+body.present-mode .btn-cmp { display: none; }
 body.present-mode .present-hide { display: none !important; }
 .btn-present { background: #2C7BE5; color: white; font-weight: 700; }
 body.present-mode .btn-present { background: #27AE60; }
+
+/* ─── SECTION AUDIENCE TAGS ─── */
+.tag-customer {
+  display: inline-block; margin-left: 10px;
+  background: #27AE60; color: white;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 10px; vertical-align: middle;
+  text-transform: uppercase;
+}
+.tag-internal {
+  display: inline-block; margin-left: 10px;
+  background: var(--purple); color: white;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 10px; vertical-align: middle;
+  text-transform: uppercase;
+}
+.tag-mixed {
+  display: inline-block; margin-left: 10px;
+  background: #E67E22; color: white;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.5px;
+  padding: 2px 7px; border-radius: 10px; vertical-align: middle;
+  text-transform: uppercase;
+}
+/* Hide internal tags in present mode */
+body.present-mode .tag-internal,
+body.present-mode .tag-mixed { display: none; }
+
+/* ─── PROPOSAL SUMMARY SECTION ─── */
+/* NC (new-customer benchmark) column — disappears in present mode */
+.nc-col { }
+body.present-mode .nc-col { display: none !important; }
+body.present-mode .nc-col-th { display: none !important; }
+
+.prop-narrative {
+  background: #F8F9FB;
+  border-left: 3px solid var(--slate-dark);
+  padding: 10px 18px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: #444;
+  font-style: italic;
+}
+.subsec-label {
+  background: var(--rollup);
+  border-top: 2px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 16px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+.prop-absorbed-line {
+  background: #EAF4FF;
+  border-left: 3px solid var(--blue);
+  padding: 8px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #1A5276;
+  line-height: 1.5;
+}
+.nc-input-cell {
+  background: #FEFAF0;
+  border-left: 2px solid var(--yellow-border);
+}
+
+/* ─── CLIN 003 COMPONENT BREAKDOWN ─── */
+.brkdn-wrap { padding:10px 18px 14px 36px; background:#F8FAFC; border-top:1px solid var(--border); }
+.brkdn-controls { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
+.brkdn-tier-btn {
+  padding:2px 9px; border:1px solid var(--border); border-radius:4px;
+  background:white; cursor:pointer; font-size:10px; font-weight:700;
+  color:var(--navy); transition:all 0.1s;
+}
+.brkdn-tier-btn.active { background:var(--navy); color:white; border-color:var(--navy); }
+.brkdn-table { width:100%; border-collapse:collapse; font-size:11px; }
+.brkdn-table th {
+  background:var(--slate); color:var(--navy); padding:4px 8px;
+  font-weight:700; font-size:10px; text-align:center;
+}
+.brkdn-table th.th-left { text-align:left; }
+.brkdn-table td { padding:3px 8px; border-bottom:1px solid #EEF0F3; vertical-align:middle; }
+.brkdn-cat td {
+  background:var(--rollup); font-weight:700; font-size:10px;
+  letter-spacing:0.5px; color:var(--navy); text-transform:uppercase; padding:4px 8px;
+}
+.brkdn-item td { background:white; }
+.brkdn-item.is-covered td { background:#F0FBF5; }
+.brkdn-item.is-covered .brkdn-label { text-decoration:line-through; color:#aaa; }
+.brkdn-item.is-covered .brkdn-price { color:var(--green-text); font-style:italic; }
+.brkdn-status-covered { color:var(--green-text); font-weight:700; font-size:10px; }
+.brkdn-status-pays { color:#888; font-size:10px; }
+.brkdn-status-oos   { color:#bbb; font-size:10px; font-style:italic; }
+.brkdn-status-afimsc { color:#1A5276; font-size:10px; font-weight:600; }
+.brkdn-item.is-oos td { background:#F7F7F7; }
+.brkdn-item.is-oos .brkdn-label { color:#ccc; text-decoration:line-through; }
+.brkdn-item.is-oos .brkdn-price { color:#ddd; }
+.brkdn-sel { font-size:10px; padding:2px 4px; border:1px solid var(--border); border-radius:3px; cursor:pointer; width:100%; }
+.brkdn-total-row td { background:var(--rollup); font-weight:700; border-top:2px solid var(--border); }
+.brkdn-covered-row td { background:#EBF8F0; color:var(--green-text); font-weight:700; }
+.brkdn-net-row td { background:#EAF4FF; color:#1A5276; font-weight:700; font-size:12px; }
+body.present-mode .brkdn-wrap { display:none; }
+
+.nc-header {
+  background: #FFF9E6;
+  color: #856404;
+  font-size: 10px;
+}
+
 .present-banner {
   display: none; background: #2C7BE5; color: white;
   text-align: center; padding: 5px; font-size: 11px; font-weight: 600;
@@ -156,8 +265,6 @@ body.present-mode .present-banner { display: block; }
 .btn-del    { background: var(--red); color: white; }
 .btn-cmp    { background: #E67E22; color: white; }
 .btn-exp    { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3); }
-.btn-costs  { background: var(--purple); color: white; }
-body.show-costs .btn-costs { background: var(--success); }
 
 /* ─── MAIN ─── */
 .main {
@@ -516,6 +623,128 @@ input[type=text].text-in {
   font-size: 12px;
 }
 input[type=text].text-in:focus { outline: 2px solid var(--blue); }
+
+/* ─── EXECUTIVE VIEW (present-mode only) ─── */
+.exec-view { display: none; }
+body.present-mode .exec-view { display: flex; flex-direction: column; gap: 14px; padding-bottom: 20px; }
+body.present-mode .section-block { display: none !important; }
+body.present-mode .hero { display: none !important; }
+body.present-mode .sum-bar { display: none !important; }
+
+.exec-hero {
+  background: var(--navy);
+  color: white;
+  border-radius: 6px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.exec-hero-left { display: flex; flex-direction: column; gap: 4px; }
+.exec-hero-logo { font-size: 16px; font-weight: 800; letter-spacing: 0.5px; }
+.exec-hero-logo span { color: #7EC8E3; }
+.exec-hero-subtitle { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+.exec-hero-case { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 6px; }
+.exec-hero-right { text-align: right; }
+.exec-hero-value { font-size: 36px; font-weight: 800; font-family: 'Consolas', 'Courier New', monospace; color: #7EC8E3; line-height: 1; }
+.exec-hero-unit { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+.exec-tier-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+.exec-card {
+  background: white;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.exec-card-featured {
+  border-color: var(--navy);
+  box-shadow: 0 4px 16px rgba(27,42,74,0.18);
+}
+.exec-card-badge {
+  background: var(--navy);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 4px 0;
+}
+.exec-card-header { padding: 14px 16px 0; }
+.exec-card-name { font-size: 14px; font-weight: 800; color: var(--navy); }
+.exec-card-sublabel { font-size: 10px; color: #888; margin-top: 2px; }
+.exec-card-ppa { font-size: 28px; font-weight: 800; font-family: 'Consolas', 'Courier New', monospace; color: var(--navy); padding: 12px 16px 0; }
+.exec-ppa-unit { font-size: 11px; font-weight: 400; color: #888; display: block; margin-top: 2px; padding: 0 16px 10px; }
+
+.exec-feat-list { padding: 4px 16px 12px; display: flex; flex-direction: column; gap: 4px; flex: 1; }
+.exec-feat { font-size: 11px; display: flex; align-items: flex-start; gap: 6px; }
+.exec-feat.inc { color: var(--navy); }
+.exec-feat.inc::before { content: "✓"; color: var(--success); font-weight: 800; flex-shrink: 0; }
+.exec-feat.out { color: #ccc; }
+.exec-feat.out::before { content: "—"; color: #ddd; flex-shrink: 0; }
+
+.exec-card-prices { background: #FAFAFA; border-top: 1px solid var(--border); padding: 10px 16px 12px; }
+.exec-price-section-label { font-size: 9px; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+.exec-price-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; font-size: 12px; }
+.exec-price-label { color: #666; font-size: 11px; }
+.exec-price-val { font-family: 'Consolas', monospace; font-weight: 700; color: var(--navy); font-size: 11px; }
+.exec-disc { display: inline-block; background: var(--green-bg); color: var(--success); font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; margin-left: 4px; }
+.exec-card-ann-wrap { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); font-size: 11px; color: var(--navy); display: flex; justify-content: space-between; align-items: center; }
+.exec-card-ann-val { font-family: 'Consolas', monospace; font-weight: 800; color: var(--success); }
+
+.exec-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.exec-vsq, .exec-onetime {
+  background: white;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  padding: 14px 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.exec-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-bottom: 10px;
+}
+.exec-vsq-inputs { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.exec-vsq-input-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 11px; color: #666; }
+.exec-vsq-in {
+  width: 110px;
+  padding: 4px 7px;
+  border: 1px solid var(--yellow-border);
+  border-radius: 3px;
+  background: var(--yellow);
+  font-size: 12px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  text-align: right;
+  color: #222;
+}
+.exec-vsq-in:focus { outline: 2px solid var(--blue); }
+.exec-vsq-results { opacity: 0.4; transition: opacity 0.2s; }
+.exec-vsq-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 11px; border-bottom: 1px solid #F0F0F0; }
+.exec-vsq-row:last-child { border-bottom: none; }
+.exec-vsq-row-label { color: #666; }
+.exec-vsq-row-val { font-family: 'Consolas', monospace; font-weight: 700; color: var(--navy); font-size: 11px; }
+.exec-vsq-savings strong { color: var(--success); font-size: 14px; }
+
+.exec-onetime-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 11px; border-bottom: 1px solid #F0F0F0; }
+.exec-onetime-row:last-child { border-bottom: none; }
+.exec-onetime-label { color: #666; }
+.exec-onetime-val { font-family: 'Consolas', monospace; font-weight: 700; color: var(--navy); font-size: 11px; }
+.exec-onetime-total { border-top: 2px solid var(--border) !important; margin-top: 4px; padding-top: 8px !important; }
+.exec-onetime-total strong { font-size: 14px; color: var(--navy); }
+.exec-onetime-note { font-size: 9px; color: #aaa; margin-top: 8px; font-style: italic; }
 </style>
 </head>
 <body>
@@ -533,21 +762,217 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <button class="btn btn-new"  onclick="newCase()">＋ New</button>
   <button class="btn btn-del"  onclick="deleteCase()">🗑</button>
   <div class="app-divider"></div>
-  <button class="btn btn-costs" id="costToggleBtn" onclick="toggleCosts()">🔒 Internal View</button>
-  <button class="btn btn-present" id="presentBtn" onclick="togglePresent()">▶ Present</button>
+  <button class="btn btn-present" id="viewToggleBtn" onclick="toggleView()">External View</button>
   <button class="btn btn-cmp"   onclick="openCompare()">⚖ Compare</button>
   <button class="btn btn-exp"   onclick="exportCSV()">↓ CSV</button>
 </div>
 
 <!-- ═══════════════ MAIN ═══════════════ -->
-<div class="present-banner">▶ PRESENTATION MODE — Internal costs and margins hidden &nbsp;|&nbsp; Click <strong>■ Exit Present</strong> to return to edit view</div>
+<div class="present-banner">External View — Executive Summary &nbsp;|&nbsp; Click <strong>Internal View</strong> to return</div>
 <div class="main">
+
+  <!-- ═══════════════ EXECUTIVE VIEW (present-mode only) ═══════════════ -->
+  <div class="exec-view">
+
+    <!-- Hero Banner -->
+    <div class="exec-hero">
+      <div class="exec-hero-left">
+        <div class="exec-hero-logo">SSVR <span>Street Smarts VR</span></div>
+        <div class="exec-hero-subtitle">C-UAS Readiness Platform — AFSFC Enterprise</div>
+        <div class="exec-hero-case" id="exec_case_name">—</div>
+      </div>
+      <div class="exec-hero-right">
+        <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-bottom:4px;"><span id="exec_hero_tier"></span></div>
+        <div class="exec-hero-value" id="exec_ppa_hero">—</div>
+        <div class="exec-hero-unit">/airman/yr starting rate &nbsp;·&nbsp; <span id="exec_qty_label">per site</span> &nbsp;·&nbsp; <span id="exec_airmen_val">200</span> airmen/site</div>
+      </div>
+    </div>
+
+    <!-- Tier Cards -->
+    <div class="exec-tier-row">
+
+      <!-- T1: Essential -->
+      <div class="exec-card">
+        <div class="exec-card-header">
+          <div class="exec-card-name">Essential</div>
+          <div class="exec-card-sublabel">C-UAS Baseline · Tier 1</div>
+        </div>
+        <div class="exec-card-ppa" id="exec_t1_ppa">—</div>
+        <span class="exec-ppa-unit">/airman/yr</span>
+        <div class="exec-feat-list">
+          <div class="exec-feat inc">C-UAS Defender Pack (AFJQS SEI 3CS)</div>
+          <div class="exec-feat inc">Instrumented M870 (Shotgun WTS)</div>
+          <div class="exec-feat inc">Local Readiness Reporting</div>
+          <div class="exec-feat inc">Basic Program Support</div>
+          <div class="exec-feat out">Base Defense Pack (DAFI 31-131)</div>
+          <div class="exec-feat out">Commander Dashboard</div>
+          <div class="exec-feat out">MAJCOM Rollup</div>
+          <div class="exec-feat out">Embedded Partnership</div>
+        </div>
+        <div class="exec-card-prices">
+          <div class="exec-price-section-label">Commitment Pricing</div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">1-Year</span>
+            <span class="exec-price-val" id="exec_t1_1yr">—</span>
+          </div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">2-Year <span class="exec-disc" id="exec_t1_2yr_disc"></span></span>
+            <span class="exec-price-val" id="exec_t1_2yr">—</span>
+          </div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">3-Year <span class="exec-disc" id="exec_t1_3yr_disc"></span></span>
+            <span class="exec-price-val" id="exec_t1_3yr">—</span>
+          </div>
+          <div class="exec-card-ann-wrap" id="exec_t1_ann_wrap" style="display:none;">
+            <span><span id="exec_t1_qty">0</span> sites → Annual</span>
+            <span class="exec-card-ann-val" id="exec_t1_ann">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- T2: Proficient (featured) -->
+      <div class="exec-card exec-card-featured">
+        <div class="exec-card-badge">Most Deployed</div>
+        <div class="exec-card-header">
+          <div class="exec-card-name">Proficient</div>
+          <div class="exec-card-sublabel">Base Defense Ready · Tier 2</div>
+        </div>
+        <div class="exec-card-ppa" id="exec_t2_ppa">—</div>
+        <span class="exec-ppa-unit">/airman/yr</span>
+        <div class="exec-feat-list">
+          <div class="exec-feat inc">C-UAS + Base Defense Pack (DAFI 31-131)</div>
+          <div class="exec-feat inc">M870 + M4 + M18 WTS (3-weapon suite)</div>
+          <div class="exec-feat inc">Commander Dashboard</div>
+          <div class="exec-feat inc">Account Management</div>
+          <div class="exec-feat out">On-Base Ops (AFI 31-207)</div>
+          <div class="exec-feat out">MAJCOM Rollup</div>
+          <div class="exec-feat out">Embedded Partnership</div>
+        </div>
+        <div class="exec-card-prices">
+          <div class="exec-price-section-label">Commitment Pricing</div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">1-Year</span>
+            <span class="exec-price-val" id="exec_t2_1yr">—</span>
+          </div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">2-Year <span class="exec-disc" id="exec_t2_2yr_disc"></span></span>
+            <span class="exec-price-val" id="exec_t2_2yr">—</span>
+          </div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">3-Year <span class="exec-disc" id="exec_t2_3yr_disc"></span></span>
+            <span class="exec-price-val" id="exec_t2_3yr">—</span>
+          </div>
+          <div class="exec-card-ann-wrap" id="exec_t2_ann_wrap" style="display:none;">
+            <span><span id="exec_t2_qty">0</span> sites → Annual</span>
+            <span class="exec-card-ann-val" id="exec_t2_ann">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- T3: Mission-Ready -->
+      <div class="exec-card">
+        <div class="exec-card-header">
+          <div class="exec-card-name">Mission-Ready</div>
+          <div class="exec-card-sublabel">Full Capability · Tier 3</div>
+        </div>
+        <div class="exec-card-ppa" id="exec_t3_ppa">—</div>
+        <span class="exec-ppa-unit">/airman/yr</span>
+        <div class="exec-feat-list">
+          <div class="exec-feat inc">All 6 WTS (M870, M4, M18, Baton, OC, ECD)</div>
+          <div class="exec-feat inc">On-Base Ops Pack (AFI 31-207)</div>
+          <div class="exec-feat inc">Full Readiness Intelligence Layer</div>
+          <div class="exec-feat inc">MAJCOM HQ Rollup</div>
+          <div class="exec-feat inc">Embedded Partnership (SSVR at AFSFC HQ)</div>
+          <div class="exec-feat inc">Priority SLA</div>
+        </div>
+        <div class="exec-card-prices">
+          <div class="exec-price-section-label">Commitment Pricing</div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">1-Year</span>
+            <span class="exec-price-val" id="exec_t3_1yr">—</span>
+          </div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">2-Year <span class="exec-disc" id="exec_t3_2yr_disc"></span></span>
+            <span class="exec-price-val" id="exec_t3_2yr">—</span>
+          </div>
+          <div class="exec-price-row">
+            <span class="exec-price-label">3-Year <span class="exec-disc" id="exec_t3_3yr_disc"></span></span>
+            <span class="exec-price-val" id="exec_t3_3yr">—</span>
+          </div>
+          <div class="exec-card-ann-wrap" id="exec_t3_ann_wrap" style="display:none;">
+            <span><span id="exec_t3_qty">0</span> sites → Annual</span>
+            <span class="exec-card-ann-val" id="exec_t3_ann">—</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end exec-tier-row -->
+
+    <!-- Bottom Row: vs. Status Quo + One-Time Investment -->
+    <div class="exec-bottom-row">
+
+      <!-- Left: vs. Status Quo -->
+      <div class="exec-vsq">
+        <div class="exec-section-label">vs. Status Quo</div>
+        <div class="exec-vsq-inputs">
+          <div class="exec-vsq-input-row">
+            <label>Current cost / airman / yr</label>
+            <input class="exec-vsq-in" type="text" id="f_vsq_baseline" placeholder="$0"
+              oninput="recalcExecView(); if(typeof saveCurrentCase==='function') saveCurrentCase(); else document.getElementById('f_vsq_baseline').dispatchEvent(new Event('change'));">
+          </div>
+          <div class="exec-vsq-input-row">
+            <label># Sites for comparison</label>
+            <input class="exec-vsq-in" type="number" id="f_vsq_sqdn" placeholder="e.g. 50"
+              oninput="recalcExecView(); if(typeof saveCurrentCase==='function') saveCurrentCase(); else document.getElementById('f_vsq_sqdn').dispatchEvent(new Event('change'));">
+          </div>
+        </div>
+        <div class="exec-vsq-results" id="exec_vsq_results">
+          <div class="exec-vsq-row">
+            <span class="exec-vsq-row-label">Current annual cost</span>
+            <span class="exec-vsq-row-val" id="exec_vsq_curr">—</span>
+          </div>
+          <div class="exec-vsq-row">
+            <span class="exec-vsq-row-label">SSVR annual cost</span>
+            <span class="exec-vsq-row-val" id="exec_vsq_ssvr_ann">—</span>
+          </div>
+          <div class="exec-vsq-row exec-vsq-savings">
+            <span class="exec-vsq-row-label">Annual savings</span>
+            <strong class="exec-vsq-row-val" id="exec_vsq_savings">—</strong>
+          </div>
+          <div class="exec-vsq-row">
+            <span class="exec-vsq-row-label">Payback period</span>
+            <span class="exec-vsq-row-val" id="exec_vsq_payback">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: One-Time Investment -->
+      <div class="exec-onetime">
+        <div class="exec-section-label">One-Time Investment (Year 1 only)</div>
+        <div class="exec-onetime-row">
+          <span class="exec-onetime-label">Config &amp; NRE (CLIN 001)</span>
+          <span class="exec-onetime-val" id="exec_nre">—</span>
+        </div>
+        <div class="exec-onetime-row">
+          <span class="exec-onetime-label">Fielding &amp; Stand-Up (CLIN 002)</span>
+          <span class="exec-onetime-val" id="exec_field">—</span>
+        </div>
+        <div class="exec-onetime-row exec-onetime-total">
+          <span class="exec-onetime-label"><strong>Total One-Time</strong></span>
+          <strong class="exec-onetime-val" id="exec_onetime_total">—</strong>
+        </div>
+        <div class="exec-onetime-note">CLINs 001 + 002 · charged Year 1 only</div>
+      </div>
+
+    </div><!-- end exec-bottom-row -->
+
+  </div><!-- end exec-view -->
 
   <!-- Hero -->
   <div class="hero">
     <div class="hero-text">
       <h2>AFSFC C-UAS Training Platform — FA8003-25-D-SSVR</h2>
-      <p class="present-hide">Internal pricing tool · Toggle <strong>🔒 Internal View</strong> for cost/margin columns · <strong>▶ Present</strong> to enter customer-facing mode</p>
+      <p class="present-hide">Internal pricing tool · Click <strong>External View</strong> to switch to customer-facing mode</p>
     </div>
     <div class="hero-case">
       <div class="hero-case-label">Current Case</div>
@@ -560,6 +985,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       SECTION 1 — COMPONENT COSTS &amp; TIER PRICING
       <span class="section-tag">per lane / per year</span>
+      <span class="tag-internal">Internal</span>
     </div>
     <div class="section-note">Enter unit cost (price) per component. Toggle Cost/Margin columns to show internal cost and margin. ✓ = included in tier.</div>
 
@@ -878,6 +1304,39 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="row-note">Show to customer</td>
         </tr>
 
+        <!-- Quantity / Annual Cost / PPA -->
+        <tr style="background:#EAF4FF;border-top:3px solid var(--navy);">
+          <td><strong>Quantity</strong> <small style="font-weight:normal;color:#5B9BD5;">sites / lanes</small></td>
+          <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">qty</td>
+          <td class="cell-input" style="background:#EAF4FF;padding:3px 5px;"><input type="number" class="price-in" id="tr_qty_t1" placeholder="0" min="0" oninput="recalcTierQty()" style="width:60px;background:#EAF4FF;"></td>
+          <td class="cell-input" style="background:#EAF4FF;padding:3px 5px;"><input type="number" class="price-in" id="tr_qty_t2" placeholder="0" min="0" oninput="recalcTierQty()" style="width:60px;background:#EAF4FF;"></td>
+          <td class="cell-input" style="background:#EAF4FF;padding:3px 5px;"><input type="number" class="price-in" id="tr_qty_t3" placeholder="0" min="0" oninput="recalcTierQty()" style="width:60px;background:#EAF4FF;"></td>
+          <td class="cost-col cell-neutral" colspan="3">—</td>
+          <td class="row-note">Enter site count → annual cost below</td>
+        </tr>
+        <tr class="rollup-row" style="background:#EAF4FF;">
+          <td><strong>Annual Recurring Cost</strong> <small style="font-weight:normal;color:#5B9BD5;">at quantity</small></td>
+          <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">1-yr price × qty</td>
+          <td class="cell-calc" id="tr_ann_t1" style="color:#1A5276;">—</td>
+          <td class="cell-calc" id="tr_ann_t2" style="color:#1A5276;">—</td>
+          <td class="cell-calc" id="tr_ann_t3" style="color:#1A5276;">—</td>
+          <td class="cost-col cell-neutral" colspan="3">—</td>
+          <td class="row-note"></td>
+        </tr>
+        <tr style="background:#EAF4FF;border-bottom:3px solid var(--navy);">
+          <td class="row-label"><strong>$/Airman/Year</strong>
+            <small style="font-weight:normal;color:#5B9BD5;">@ <span id="tr_airmen_display">200</span> airmen/site
+              <a href="#airmen_per_sqdn" style="color:#5B9BD5;font-size:9px;" title="Edit in Section 3 CLIN Pricing">(edit ↓)</a>
+            </small>
+          </td>
+          <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">÷ airmen</td>
+          <td class="cell-ppa" id="tr_ppa_t1">—</td>
+          <td class="cell-ppa" id="tr_ppa_t2">—</td>
+          <td class="cell-ppa" id="tr_ppa_t3">—</td>
+          <td class="cost-col cell-neutral" colspan="3">—</td>
+          <td class="row-note">Annual cost ÷ (qty × airmen/site)</td>
+        </tr>
+
       </tbody>
     </table>
 
@@ -901,6 +1360,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       SITE SETUP — ONE-TIME IMPLEMENTATION
       <span class="section-tag">one-time per site · auto-fills CLIN 002</span>
+      <span class="tag-internal">Internal</span>
     </div>
     <div class="section-note">
       Enter per-site rate and site count for each deployment type. Combined total auto-populates CLIN 002 (Fielding &amp; Stand-Up) in Section 3 below.
@@ -956,11 +1416,12 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
   <!-- ─── TIER DEPLOYMENT MIX ─── -->
   <div class="section-block">
     <div class="section-header">
-      TIER DEPLOYMENT MIX — RECURRING REVENUE FORECAST
+      TIER DEPLOYMENT MIX — ANNUAL INVESTMENT FORECAST
       <span class="section-tag">per-tier site counts · auto-fills CLIN 003</span>
+      <span class="tag-customer">Customer Facing</span>
     </div>
     <div class="section-note">
-      Enter site counts per tier. Uses the 1-yr per-lane prices from Section 2. Grand total auto-populates CLIN 003 (Annual Managed Service) in Section 3 below.
+      Enter site counts per tier. Uses the 1-yr per-lane prices from Section 1. Grand total auto-populates CLIN 003 (Annual Managed Service) in the CLIN Pricing Summary below.
     </div>
     <table>
       <thead>
@@ -968,7 +1429,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <th class="th-left" style="width:20%">Tier</th>
           <th style="width:14%">1-Yr Price/Lane</th>
           <th style="width:8%"># Sites</th>
-          <th style="width:14%">Annual Revenue</th>
+          <th style="width:14%">Annual Investment</th>
           <th class="cost-col" style="width:12%">Cost/Lane</th>
           <th class="cost-col" style="width:12%">Annual Cost</th>
           <th class="cost-col" style="width:8%">Margin %</th>
@@ -1007,7 +1468,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td><input class="note-in" type="text" id="nt_mix_t3" placeholder="notes…"></td>
         </tr>
         <tr class="rollup-row">
-          <td><strong>Total Annual Recurring</strong> <small style="font-weight:normal;color:#7EC8E3;">→ auto-fills CLIN 003</small></td>
+          <td><strong>Total Annual Investment</strong> <small style="font-weight:normal;color:#7EC8E3;">→ auto-fills CLIN 003</small></td>
           <td class="cell-neutral">—</td>
           <td class="cell-calc" id="mix_total_sites" style="text-align:center;">—</td>
           <td class="cell-calc" id="mix_grand_rev">—</td>
@@ -1015,6 +1476,15 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-calc" id="mix_grand_cost">—</td>
           <td class="cost-col cell-marg marg-na" id="mix_grand_marg">—</td>
           <td class="row-note">Weighted avg/site → CLIN 003</td>
+        </tr>
+        <tr style="background:#EAF4FF;border-top:2px solid var(--border);">
+          <td class="row-label"><strong>Cost per Airman / Year</strong> <small style="font-weight:normal;color:#5B9BD5;">@ 200 airmen per base</small></td>
+          <td class="cell-neutral" style="font-size:10px;color:#5B9BD5;">$/airman</td>
+          <td class="cell-calc" id="mix_ppa_t1" style="color:#1A5276;font-weight:700;">—</td>
+          <td class="cell-calc" id="mix_ppa_t2" style="color:#1A5276;font-weight:700;">—</td>
+          <td class="cell-calc" id="mix_ppa_t3" style="color:#1A5276;font-weight:700;">—</td>
+          <td class="cost-col cell-neutral" colspan="3">—</td>
+          <td class="row-note" id="mix_ppa_blended_note">—</td>
         </tr>
       </tbody>
     </table>
@@ -1025,6 +1495,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       SECTION 3 — CLIN PRICING SUMMARY
       <span class="section-tag">50 squadrons</span>
+      <span class="tag-customer">Customer Facing</span>
     </div>
     <div class="section-note">
       Enter per-site price. Total auto-calculates. Cost/Margin columns show margin on the total investment lines.
@@ -1050,10 +1521,10 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
         <tr>
           <td>
             <div class="clin-name">Configuration Build <small style="font-weight:normal;">(NRE — one-time)</small></div>
-            <div class="clin-scope">Course of fire, scoring logic, evidence engine routing, ARIS integration, commander dashboard config</div>
+            <div class="clin-scope">Government-wide platform license — course of fire, scoring logic, evidence engine routing, ARIS integration, commander dashboard config. Usable across any/all deployed bases.</div>
           </td>
           <td class="cell-input"><input class="price-in" type="text" id="f_clin001" placeholder="0" oninput="recalcClins()"></td>
-          <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_001" value="50" oninput="recalcClins()" style="width:55px;"></td>
+          <td class="cell-input" style="padding:3px 5px;text-align:center;"><input class="price-in" type="number" id="sites_001" value="1" readonly style="width:55px;background:#F2F2F2;border:1px solid #ccc;cursor:not-allowed;text-align:center;" title="Qty 1 — government-wide license"></td>
           <td class="cell-calc" id="tot_clin001">$0</td>
           <td class="cell-ppa" id="ppa_clin001">—</td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="cc_clin001" placeholder="0" oninput="recalcClins()"></td>
@@ -1091,10 +1562,208 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td class="cost-col cell-marg marg-na" id="cp_clin003">—</td>
           <td><input class="note-in" type="text" id="nt_clin003" placeholder="notes…"></td>
         </tr>
+        <tr id="clin003_brkdn_row">
+          <td colspan="9" style="padding:0;">
+            <div class="brkdn-wrap">
+              <input type="hidden" id="f_c003_covered" value="f_plat_license">
+              <input type="hidden" id="f_c003_oos" value="">
+              <input type="hidden" id="f_c003_tier" value="2">
+              <div class="brkdn-controls">
+                <span style="font-size:10px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:0.4px;">Component Build-Up · Tier:</span>
+                <button class="brkdn-tier-btn" id="btn_brkdn_t1" onclick="setBrkdnTier(1)">T1 — Entry</button>
+                <button class="brkdn-tier-btn active" id="btn_brkdn_t2" onclick="setBrkdnTier(2)">T2 — Standard</button>
+                <button class="brkdn-tier-btn" id="btn_brkdn_t3" onclick="setBrkdnTier(3)">T3 — Full Mgd</button>
+                <span style="font-size:9px;color:#999;margin-left:6px;">Check <strong>Covered</strong> on items funded by prior AFWERX / SBIR investment — reduces AFSFC net</span>
+              </div>
+              <table class="brkdn-table">
+                <thead>
+                  <tr>
+                    <th class="th-left" style="width:36%">Component</th>
+                    <th style="width:14%">$/site/yr</th>
+                    <th style="width:20%">Status</th>
+                    <th style="width:8%"> </th>
+                    <th style="width:28%">Note</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- PLATFORM -->
+                  <tr class="brkdn-cat"><td colspan="5">Platform</td></tr>
+                  <tr class="brkdn-item" data-field="f_plat_license" data-tiers="123">
+                    <td class="brkdn-label">Platform License <small style="color:#aaa;">(Sim Execution + Ground Truth Engine)</small></td>
+                    <td class="brkdn-price" id="bv_plat_license">—</td>
+                    <td><select class="brkdn-sel" id="cv_plat_license" data-field="f_plat_license" onchange="updateCoveredField();recalcBrkdn();"><option value="pays">AFSFC pays</option><option value="covered" selected>✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-covered" id="bs_plat_license">✓ Covered</span></td>
+                    <td style="font-size:9px;color:#666;">Absorbed by V-CSTR / AFWERX deployment</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_plat_endpoint" data-tiers="123">
+                    <td class="brkdn-label">Readiness Sensing Endpoint <small style="color:#aaa;">(managed terminal: PC + HMD)</small></td>
+                    <td class="brkdn-price" id="bv_plat_endpoint">—</td>
+                    <td><select class="brkdn-sel" id="cv_plat_endpoint" data-field="f_plat_endpoint" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_plat_endpoint">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_plat_network" data-tiers="123">
+                    <td class="brkdn-label">Readiness Sensing Network <small style="color:#aaa;">(data routing + enterprise view)</small></td>
+                    <td class="brkdn-price" id="bv_plat_network">—</td>
+                    <td><select class="brkdn-sel" id="cv_plat_network" data-field="f_plat_network" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_plat_network">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_plat_ato" data-tiers="123">
+                    <td class="brkdn-label">ATO / RMF / Cyber Compliance</td>
+                    <td class="brkdn-price" id="bv_plat_ato">—</td>
+                    <td><select class="brkdn-sel" id="cv_plat_ato" data-field="f_plat_ato" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_plat_ato">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <!-- SUSTAINMENT -->
+                  <tr class="brkdn-cat"><td colspan="5">Ongoing Operations</td></tr>
+                  <tr class="brkdn-item" data-field="f_sust_ongoing" data-tiers="123">
+                    <td class="brkdn-label">Continuous Operations <small style="color:#aaa;">(hardware + software + helpdesk)</small></td>
+                    <td class="brkdn-price" id="bv_sust_ongoing">—</td>
+                    <td><select class="brkdn-sel" id="cv_sust_ongoing" data-field="f_sust_ongoing" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_sust_ongoing">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;"></td>
+                  </tr>
+                  <!-- WTS -->
+                  <tr class="brkdn-cat"><td colspan="5">Weapon Training System</td></tr>
+                  <tr class="brkdn-item" data-field="f_wts_shotgun" data-tiers="123">
+                    <td class="brkdn-label">WTS — Shotgun (M870 / M26)</td>
+                    <td class="brkdn-price" id="bv_wts_shotgun">—</td>
+                    <td><select class="brkdn-sel" id="cv_wts_shotgun" data-field="f_wts_shotgun" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_shotgun">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_rifle" data-tiers="23">
+                    <td class="brkdn-label">WTS — Rifle (M4 / M16)</td>
+                    <td class="brkdn-price" id="bv_wts_rifle">—</td>
+                    <td><select class="brkdn-sel" id="cv_wts_rifle" data-field="f_wts_rifle" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_rifle">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_pistol" data-tiers="23">
+                    <td class="brkdn-label">WTS — Pistol (M18 / M17)</td>
+                    <td class="brkdn-price" id="bv_wts_pistol">—</td>
+                    <td><select class="brkdn-sel" id="cv_wts_pistol" data-field="f_wts_pistol" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_pistol">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_baton" data-tiers="3">
+                    <td class="brkdn-label">WTS — Baton (non-lethal)</td>
+                    <td class="brkdn-price" id="bv_wts_baton">—</td>
+                    <td><select class="brkdn-sel" id="cv_wts_baton" data-field="f_wts_baton" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_baton">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_oc" data-tiers="3">
+                    <td class="brkdn-label">WTS — OC Spray (non-lethal)</td>
+                    <td class="brkdn-price" id="bv_wts_oc">—</td>
+                    <td><select class="brkdn-sel" id="cv_wts_oc" data-field="f_wts_oc" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_oc">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_wts_ecd" data-tiers="3">
+                    <td class="brkdn-label">WTS — ECD / Taser (non-lethal)</td>
+                    <td class="brkdn-price" id="bv_wts_ecd">—</td>
+                    <td><select class="brkdn-sel" id="cv_wts_ecd" data-field="f_wts_ecd" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_wts_ecd">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- MISSION PACKS -->
+                  <tr class="brkdn-cat"><td colspan="5">Mission Packs</td></tr>
+                  <tr class="brkdn-item" data-field="f_pack_cuas" data-tiers="123">
+                    <td class="brkdn-label">C-UAS Defender Pack <small style="color:#aaa;">(AFJQS SEI 3CS)</small></td>
+                    <td class="brkdn-price" id="bv_pack_cuas">—</td>
+                    <td><select class="brkdn-sel" id="cv_pack_cuas" data-field="f_pack_cuas" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_pack_cuas">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pack_base" data-tiers="23">
+                    <td class="brkdn-label">Base Defense Pack <small style="color:#aaa;">(DAFI 31-131)</small></td>
+                    <td class="brkdn-price" id="bv_pack_base">—</td>
+                    <td><select class="brkdn-sel" id="cv_pack_base" data-field="f_pack_base" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_pack_base">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pack_onbase" data-tiers="3">
+                    <td class="brkdn-label">On-Base Ops Pack <small style="color:#aaa;">(AFI 31-207)</small></td>
+                    <td class="brkdn-price" id="bv_pack_onbase">—</td>
+                    <td><select class="brkdn-sel" id="cv_pack_onbase" data-field="f_pack_onbase" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_pack_onbase">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- REPORTING -->
+                  <tr class="brkdn-cat"><td colspan="5">Reporting</td></tr>
+                  <tr class="brkdn-item" data-field="f_rep_local" data-tiers="123">
+                    <td class="brkdn-label">Reporting — Local Dashboard</td>
+                    <td class="brkdn-price" id="bv_rep_local">—</td>
+                    <td><select class="brkdn-sel" id="cv_rep_local" data-field="f_rep_local" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_rep_local">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 / T2 / T3</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_rep_cmd" data-tiers="23">
+                    <td class="brkdn-label">Reporting — Command Dashboard</td>
+                    <td class="brkdn-price" id="bv_rep_cmd">—</td>
+                    <td><select class="brkdn-sel" id="cv_rep_cmd" data-field="f_rep_cmd" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_rep_cmd">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2+ only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_rep_full" data-tiers="3">
+                    <td class="brkdn-label">Reporting — Enterprise BI</td>
+                    <td class="brkdn-price" id="bv_rep_full">—</td>
+                    <td><select class="brkdn-sel" id="cv_rep_full" data-field="f_rep_full" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_rep_full">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- PROGRAM MANAGEMENT -->
+                  <tr class="brkdn-cat"><td colspan="5">Program Management</td></tr>
+                  <tr class="brkdn-item" data-field="f_pm_basic" data-tiers="1">
+                    <td class="brkdn-label">PM — Basic</td>
+                    <td class="brkdn-price" id="bv_pm_basic">—</td>
+                    <td><select class="brkdn-sel" id="cv_pm_basic" data-field="f_pm_basic" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_pm_basic">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T1 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pm_account" data-tiers="2">
+                    <td class="brkdn-label">PM — Account Manager</td>
+                    <td class="brkdn-price" id="bv_pm_account">—</td>
+                    <td><select class="brkdn-sel" id="cv_pm_account" data-field="f_pm_account" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_pm_account">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T2 only</td>
+                  </tr>
+                  <tr class="brkdn-item" data-field="f_pm_embedded" data-tiers="3">
+                    <td class="brkdn-label">PM — Embedded Program Manager</td>
+                    <td class="brkdn-price" id="bv_pm_embedded">—</td>
+                    <td><select class="brkdn-sel" id="cv_pm_embedded" data-field="f_pm_embedded" onchange="updateCoveredField();recalcBrkdn();"><option value="pays" selected>AFSFC pays</option><option value="covered">✓ Covered (V-CSTR)</option><option value="oos">Out of Scope</option><option value="afimsc">AFIMSC pays</option></select></td>
+                    <td><span class="brkdn-status-pays" id="bs_pm_embedded">AFSFC pays</span></td>
+                    <td style="font-size:9px;color:#666;">T3 only</td>
+                  </tr>
+                  <!-- SUBTOTALS -->
+                  <tr class="brkdn-total-row">
+                    <td>Total Value Delivered / site / yr</td>
+                    <td id="brkdn_total_val" style="font-family:monospace;">—</td>
+                    <td colspan="3"></td>
+                  </tr>
+                  <tr class="brkdn-covered-row" id="brkdn_covered_row">
+                    <td>Covered by AFWERX / Prior SBIR Investment</td>
+                    <td id="brkdn_covered_val" style="font-family:monospace;">—</td>
+                    <td colspan="3" style="font-size:9px;color:var(--green-text);">Not charged to AFSFC</td>
+                  </tr>
+                  <tr class="brkdn-net-row">
+                    <td><strong>AFSFC Net / site / yr</strong> <small style="font-weight:normal;color:#5B9BD5;">(should equal CLIN 003 price)</small></td>
+                    <td id="brkdn_net_val" style="font-family:monospace;font-size:13px;">—</td>
+                    <td colspan="2" style="font-size:9px;" id="brkdn_reconcile"></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
         <tr>
           <td>
-            <div class="clin-name">Sustainment &amp; Evolution <small style="font-weight:normal;">(recurring)</small></div>
-            <div class="clin-scope">Ongoing hardware refresh, mission pack additions, content currency</div>
+            <div class="clin-name">Platform Evolution <small style="font-weight:normal;">(recurring)</small></div>
+            <div class="clin-scope">Hardware refresh, mission pack additions, content currency</div>
           </td>
           <td class="cell-input"><input class="price-in" type="text" id="f_clin004" placeholder="0" oninput="recalcClins()"></td>
           <td class="cell-input" style="padding:3px 5px;"><input class="price-in" type="number" id="sites_004" value="50" oninput="recalcClins()" style="width:55px;"></td>
@@ -1125,6 +1794,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     <div class="section-header">
       MULTI-YEAR ECONOMICS — 3-YEAR CONTRACT VIEW
       <span class="section-tag">based on Section 3 CLINs</span>
+      <span class="tag-internal">Internal</span>
     </div>
     <div class="section-note" style="flex-direction:column;align-items:flex-start;gap:4px;padding:8px 16px;">
       <span>CLINs 001 + 002 are <strong>one-time</strong> (Year 1 only) — NRE, fielding, hardware. CLINs 003 + 004 are <strong>recurring</strong> (Years 1–3) — managed service + sustainment.</span>
@@ -1243,9 +1913,155 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
     </table>
   </div>
 
+  <!-- ─── PROPOSAL SUMMARY ─── -->
+  <div class="section-block">
+    <div class="section-header">
+      PROPOSAL SUMMARY — ICST / C-UAS MISSION PACK
+      <span class="section-tag">FA8003-25-D-SSVR · auto-linked from CLIN pricing</span>
+      <span class="tag-customer">Customer Facing</span>
+    </div>
+    <div class="section-note present-hide">Numbers auto-calculate from Section 3 CLIN inputs. <strong style="color:#856404;">New-Customer Benchmark</strong> column (yellow) is internal reference only — hidden in Presentation Mode.</div>
+
+    <div class="prop-narrative">
+      The Street Smarts training platform baseline — the commercial deployment serving 80+ Security Forces squadrons, the V-CSTR infrastructure fielded to AFIMSC under AFWERX, and the SBIR-funded technical foundations — is already deployed and licensed. AFSFC is not paying for the platform, the content library, or the integration work that would normally be required to stand it up. AFSFC is paying only the delta required to instantiate it as ICST and field the C-UAS Mission Pack.
+    </div>
+
+    <!-- ── Cost Delta ── -->
+    <div class="subsec-label">Cost Delta — New-Customer Stand-Up vs. AFSFC Under This Proposal</div>
+    <table>
+      <thead>
+        <tr>
+          <th class="th-left" style="width:34%">Cost Component</th>
+          <th class="nc-col-th nc-header" style="width:17%">New-Customer<br><small>Benchmark (internal ▼)</small></th>
+          <th style="width:22%">AFSFC Under This Proposal</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Absorbed rows -->
+        <tr>
+          <td class="row-label">Platform License <small class="row-note">(80+ sqdn commercial deploy + V-CSTR / AFWERX)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_platform" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-neutral" style="color:var(--green-text);font-weight:700;">$0 — Absorbed</td>
+          <td class="row-note">Built under AFWERX / SBIR Phase II</td>
+        </tr>
+        <tr>
+          <td class="row-label">Content Library Access <small class="row-note">(C-UAS, base defense, LE/UoF scenario library)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_content" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-neutral" style="color:var(--green-text);font-weight:700;">$0 — Absorbed</td>
+          <td class="row-note">Absorbed by prior investment</td>
+        </tr>
+        <tr>
+          <td class="row-label">Platform Integration &amp; Setup <small class="row-note">(enterprise arch, ARIS routing, SSO, ATO/RMF)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_integ" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-neutral" style="color:var(--green-text);font-weight:700;">$0 — Absorbed</td>
+          <td class="row-note">Absorbed by prior deployment</td>
+        </tr>
+        <!-- CLIN rows — AFSFC column pulls live from Section 3 -->
+        <tr>
+          <td class="row-label">C-UAS Mission Pack — NRE <small class="row-note">(CLIN 0001 · qty 1, gov-wide)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_nre" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-calc" id="sum_af_clin001">—</td>
+          <td class="row-note">← CLIN 0001 total</td>
+        </tr>
+        <tr>
+          <td class="row-label">Initial Fielding — <span id="sum_sites002_label">50</span> installations <small class="row-note">(CLIN 0002)</small></td>
+          <td class="nc-col nc-input-cell cell-input"><input class="price-in" type="text" id="nc_fielding" placeholder="0" oninput="recalcSummary()"></td>
+          <td class="cell-calc" id="sum_af_clin002">—</td>
+          <td class="row-note">← CLIN 0002 total</td>
+        </tr>
+        <tr>
+          <td class="row-label">Annual Managed Service <small class="row-note">(CLIN 0003 · per installation / yr)</small></td>
+          <td class="nc-col nc-input-cell cell-input" style="white-space:nowrap;">
+            <input class="price-in" type="text" id="nc_annual" placeholder="0" oninput="recalcSummary()" style="width:90px;">
+            <span style="font-size:9px;color:#999;">/site/yr</span>
+          </td>
+          <td class="cell-calc" id="sum_af_clin003">—</td>
+          <td class="row-note">← CLIN 0003 rate · /site/yr</td>
+        </tr>
+        <tr>
+          <td class="row-label">Hardware Refresh / Expansion <small class="row-note">(CLIN 0004 — Option · per site)</small></td>
+          <td class="nc-col nc-input-cell cell-input" style="white-space:nowrap;">
+            <input class="price-in" type="text" id="nc_hw" placeholder="0" oninput="recalcSummary()" style="width:90px;">
+            <span style="font-size:9px;color:#999;">/site</span>
+          </td>
+          <td class="cell-calc" id="sum_af_clin004">—</td>
+          <td class="row-note">← CLIN 0004 option rate</td>
+        </tr>
+        <!-- 5-Year TCO rollup -->
+        <tr class="rollup-row">
+          <td><strong>Estimated 5-Year Total Cost of Ownership</strong></td>
+          <td class="nc-col cell-calc" id="sum_nc_5yr" style="background:#FFF9E6;color:#856404;font-weight:700;">—</td>
+          <td class="cell-calc" id="sum_af_5yr">—</td>
+          <td class="row-note" id="sum_savings_note">—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Net absorbed callout -->
+    <div class="prop-absorbed-line" id="sum_absorbed_callout">
+      Net value absorbed by prior deployment: enter New-Customer benchmarks above to calculate.
+    </div>
+
+    <!-- ── Contract Package ── -->
+    <div class="subsec-label">Proposed Contract Package — FA8003-25-D-SSVR Task Order 1</div>
+    <div class="section-note" style="padding:6px 16px;font-size:10px;color:#555;">Executable under existing SBIR Phase III IDIQ via task order — no new procurement action required. (15 U.S.C. § 638(r))</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:7%">CLIN</th>
+          <th class="th-left" style="width:35%">Title</th>
+          <th style="width:24%">Structure</th>
+          <th style="width:16%">Amount</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0001</td>
+          <td class="row-label">C-UAS Mission Pack — NRE</td>
+          <td style="font-size:11px;color:#666;">One-time · qty 1 (government-wide license)</td>
+          <td class="cell-calc" id="pkg_clin001">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_001" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0002</td>
+          <td class="row-label">Initial Fielding — <span id="pkg_sites002">50</span> installations</td>
+          <td style="font-size:11px;color:#666;">One-time</td>
+          <td class="cell-calc" id="pkg_clin002">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_002" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0003</td>
+          <td class="row-label">Annual Managed Service — per installation</td>
+          <td style="font-size:11px;color:#666;">Recurring · /site/yr × <span id="pkg_sites003">50</span> sites</td>
+          <td class="cell-calc" id="pkg_clin003">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_003" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td style="text-align:center;font-weight:700;font-family:monospace;">0004</td>
+          <td class="row-label">Hardware Refresh / Expansion</td>
+          <td style="font-size:11px;color:#666;">Option · /site × <span id="pkg_sites004">50</span> sites</td>
+          <td class="cell-calc" id="pkg_clin004">—</td>
+          <td><input class="note-in" type="text" id="nt_pkg_004" placeholder="notes…"></td>
+        </tr>
+        <tr class="rollup-row" style="background:#EAF4FF;">
+          <td colspan="3"><strong>Year 1 Task Order Total</strong> <small style="font-weight:normal;color:#5B9BD5;">(CLIN 0001 + 0002 + 0003 × 1 yr)</small></td>
+          <td class="cell-calc" id="pkg_yr1_total">—</td>
+          <td></td>
+        </tr>
+        <tr class="rollup-row" style="background:#EAF0F6;">
+          <td colspan="3"><strong>5-Year Period of Performance Total</strong> <small style="font-weight:normal;color:var(--navy);">(0001 + 0002 once · 0003 × 5 yrs · 0004 option exercised once)</small></td>
+          <td class="cell-calc" id="pkg_5yr_total">—</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- ─── SECTION 4: Add-Ons ─── -->
   <div class="section-block">
-    <div class="section-header">SECTION 4 — OPTIONAL CAPABILITIES <span class="section-tag">exercisable options</span></div>
+    <div class="section-header">SECTION 4 — OPTIONAL CAPABILITIES <span class="section-tag">exercisable options</span><span class="tag-customer">Customer Facing</span></div>
     <div class="section-note present-hide">Pre-priced optional capabilities — exercisable via task order modification. Not included in base tier pricing.</div>
     <table>
       <thead>
@@ -1284,6 +2100,38 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
           <td><input class="note-in" type="text" id="nt_addon_eri" placeholder="notes…"></td>
         </tr>
         <tr>
+          <td class="row-label">Additional Terminal / Extra Lane <small class="row-note">(surge or OCONUS second-terminal)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_lane" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_lane" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_lane">—</td>
+          <td style="text-align:center;color:#666;">/lane/year</td>
+          <td><input class="note-in" type="text" id="nt_addon_lane" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">Custom Scenario Development <small class="row-note">(bespoke course-of-fire beyond standard library)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_scen" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_scen" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_scen">—</td>
+          <td style="text-align:center;color:#666;">/engagement</td>
+          <td><input class="note-in" type="text" id="nt_addon_scen" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">Training-the-Trainer Cohort <small class="row-note">(certify unit Range OIC/NCOs as SSVR operators)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_t3" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_t3" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_t3">—</td>
+          <td style="text-align:center;color:#666;">/cohort</td>
+          <td><input class="note-in" type="text" id="nt_addon_t3" placeholder="notes…"></td>
+        </tr>
+        <tr>
+          <td class="row-label">OCONUS Field Support Visit <small class="row-note">(on-site sustainment during deployment workup)</small></td>
+          <td class="cell-input"><input class="price-in" type="text" id="f_addon_oconus" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_oconus" placeholder="0" oninput="recalcAddons()"></td>
+          <td class="cost-col cell-marg marg-na" id="ap_addon_oconus">—</td>
+          <td style="text-align:center;color:#666;">/event</td>
+          <td><input class="note-in" type="text" id="nt_addon_oconus" placeholder="notes…"></td>
+        </tr>
+        <tr>
           <td class="row-label">Other</td>
           <td class="cell-input"><input class="price-in" type="text" id="f_addon_other" placeholder="0" oninput="recalcAddons()"></td>
           <td class="cost-col cell-cost"><input class="cost-in" type="text" id="c_addon_other" placeholder="0" oninput="recalcAddons()"></td>
@@ -1297,7 +2145,7 @@ input[type=text].text-in:focus { outline: 2px solid var(--blue); }
 
   <!-- ─── SECTION 5: Notes ─── -->
   <div class="section-block">
-    <div class="section-header">SECTION 5 — CASE NOTES</div>
+    <div class="section-header">SECTION 5 — CASE NOTES <span class="tag-internal">Internal</span></div>
     <div style="background:white;padding:12px 16px;">
       <textarea id="f_notes" rows="4" style="width:100%;border:1px solid var(--border);border-radius:4px;padding:10px;font-size:12px;font-family:'Segoe UI',Arial,sans-serif;resize:vertical;" placeholder="Assumptions, flags, margin targets, rationale for this pricing case…"></textarea>
     </div>
@@ -1351,8 +2199,12 @@ const PRICE_FIELDS = [
   'sites_001','sites_002','sites_003','sites_004',
   'airmen_per_sqdn',
   'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
-  'f_addon_db','f_addon_packs','f_addon_eri','f_addon_other','f_addon_other_unit',
+  'f_addon_db','f_addon_packs','f_addon_eri','f_addon_lane','f_addon_scen','f_addon_t3','f_addon_oconus','f_addon_other','f_addon_other_unit',
   'f_extra_y1_cost',
+  'f_c003_covered','f_c003_oos','f_c003_tier',
+  'tr_qty_t1','tr_qty_t2','tr_qty_t3',
+  'nc_platform','nc_content','nc_integ','nc_nre','nc_fielding','nc_annual','nc_hw',
+  'f_vsq_baseline','f_vsq_sqdn',
   'f_notes'
 ];
 
@@ -1366,7 +2218,7 @@ const COST_FIELDS = [
   'c_rep_local','c_rep_cmd','c_rep_full',
   'c_pm_basic','c_pm_account','c_pm_embedded',
   'cc_clin001','cc_clin002','cc_clin003','cc_clin004',
-  'c_addon_db','c_addon_packs','c_addon_eri','c_addon_other'
+  'c_addon_db','c_addon_packs','c_addon_eri','c_addon_lane','c_addon_scen','c_addon_t3','c_addon_oconus','c_addon_other'
 ];
 
 // Note field IDs
@@ -1379,8 +2231,9 @@ const NOTE_FIELDS = [
   'nt_rep_local','nt_rep_cmd','nt_rep_full',
   'nt_pm_basic','nt_pm_account','nt_pm_embedded',
   'nt_clin001','nt_clin002','nt_clin003','nt_clin004',
-  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_other',
-  'nt_mix_t1','nt_mix_t2','nt_mix_t3'
+  'nt_addon_db','nt_addon_packs','nt_addon_eri','nt_addon_lane','nt_addon_scen','nt_addon_t3','nt_addon_oconus','nt_addon_other',
+  'nt_mix_t1','nt_mix_t2','nt_mix_t3',
+  'nt_pkg_001','nt_pkg_002','nt_pkg_003','nt_pkg_004'
 ];
 
 const FIELD_IDS = [...PRICE_FIELDS, ...COST_FIELDS, ...NOTE_FIELDS];
@@ -1413,7 +2266,10 @@ Object.keys(TIER_MAP).forEach(f => {
 const SKIP_FORMAT_IDS = new Set([
   'sites_001','sites_002','sites_003','sites_004','airmen_per_sqdn',
   'f_mix_t1_sites','f_mix_t2_sites','f_mix_t3_sites',
-  'f_impl_conus_sites','f_impl_oconus_sites'
+  'f_impl_conus_sites','f_impl_oconus_sites',
+  'f_c003_covered','f_c003_oos','f_c003_tier',
+  'tr_qty_t1','tr_qty_t2','tr_qty_t3',
+  'f_vsq_baseline','f_vsq_sqdn'
 ]);
 
 // ═══════════════════════════════════════════════════
@@ -1423,6 +2279,7 @@ const SKIP_FORMAT_IDS = new Set([
 let cases = {};
 let currentCaseId = null;
 let _c1=0, _c2=0, _c3=0; // tier cost totals from recalc(), consumed by recalcMix()
+let _brkdnTier = 2; // active tier for CLIN 003 breakdown
 
 // ═══════════════════════════════════════════════════
 //  MONEY FORMATTING
@@ -1455,7 +2312,11 @@ function createDefaultCase() {
     // Tier prices from initial pricing model (screenshot 2026-04-19)
     f_t1_1yr: '29650', f_t2_1yr: '39150', f_t3_1yr: '46650',
     airmen_per_sqdn: '200',
-    sites_003: '50', sites_004: '50'
+    sites_003: '50', sites_004: '50',
+    // New-customer benchmark column (internal reference — market analysis)
+    nc_platform: '850000', nc_content: '400000', nc_integ: '575000',
+    nc_nre: '275000', nc_fielding: '250000', nc_annual: '52000', nc_hw: '9500',
+    f_vsq_baseline: '', f_vsq_sqdn: ''
   }};
   currentCaseId = id;
 }
@@ -1489,11 +2350,15 @@ function setFieldValues(fields) {
     if (!el) return;
     el.value = (fields && fields[id] !== undefined) ? fields[id] : '';
   });
-  // Restore site counts default
-  ['sites_001','sites_002','sites_003','sites_004'].forEach(id => {
+  // Restore site counts default (sites_001 is always qty 1 — gov-wide license)
+  const siteDefaults = { sites_001: '1', sites_002: '50', sites_003: '50', sites_004: '50' };
+  Object.entries(siteDefaults).forEach(([id, def]) => {
     const el = document.getElementById(id);
-    if (el && !el.value) el.value = '50';
+    if (el && !el.value) el.value = def;
   });
+  // Always force sites_001 to 1 — readonly gov-wide license, never per-base
+  const s001 = document.getElementById('sites_001');
+  if (s001) s001.value = '1';
   // Restore airmen default
   const airmenEl = document.getElementById('airmen_per_sqdn');
   if (airmenEl && !airmenEl.value) airmenEl.value = '200';
@@ -1523,6 +2388,7 @@ function loadCase() {
   document.getElementById('caseName').value = c.name;
   document.getElementById('heroName').textContent = c.name;
   setFieldValues(c.fields);
+  restoreBrkdnState();
   recalc(); recalcImpl(); recalcMix(); recalcClins(); recalcAddons();
 }
 
@@ -1544,6 +2410,7 @@ function newCase() {
   document.getElementById('caseName').value = cases[id].name;
   document.getElementById('heroName').textContent = cases[id].name;
   setFieldValues({});
+  restoreBrkdnState();
   recalc(); recalcImpl(); recalcMix(); recalcClins(); recalcAddons();
   showToast('➕ New case created', 'info');
 }
@@ -1558,13 +2425,112 @@ function deleteCase() {
 }
 
 // ═══════════════════════════════════════════════════
-//  TOGGLE COST/MARGIN COLUMNS
+//  VIEW TOGGLE — Internal (default) / External
 // ═══════════════════════════════════════════════════
 
-function toggleCosts() {
-  const showing = document.body.classList.toggle('show-costs');
-  document.getElementById('costToggleBtn').textContent = showing ? '🔓 Hide Internal' : '🔒 Internal View';
-  showToast(showing ? '🔓 Internal cost/margin visible' : '🔒 Internal columns hidden', 'info');
+function recalcTierQty() {
+  const p1 = val('f_t1_1yr'), p2 = val('f_t2_1yr'), p3 = val('f_t3_1yr');
+  const q1 = parseFloat(document.getElementById('tr_qty_t1')?.value) || 0;
+  const q2 = parseFloat(document.getElementById('tr_qty_t2')?.value) || 0;
+  const q3 = parseFloat(document.getElementById('tr_qty_t3')?.value) || 0;
+  const airmen = val('airmen_per_sqdn') || 200;
+
+  const disp = document.getElementById('tr_airmen_display');
+  if (disp) disp.textContent = airmen;
+
+  const setAnn = (id, p, q) => { const el = document.getElementById(id); if (el) el.textContent = (p > 0 && q > 0) ? fmt(p * q) : '—'; };
+  const setPPA = (id, p, q) => {
+    const el = document.getElementById(id); if (!el) return;
+    if (p > 0 && airmen > 0) {
+      const totalAirmen = q > 0 ? q * airmen : airmen;
+      const annualCost  = p * (q > 0 ? q : 1);
+      el.textContent = '$' + (annualCost / totalAirmen).toFixed(2);
+    } else { el.textContent = '—'; }
+  };
+
+  setAnn('tr_ann_t1', p1, q1); setAnn('tr_ann_t2', p2, q2); setAnn('tr_ann_t3', p3, q3);
+  setPPA('tr_ppa_t1', p1, q1); setPPA('tr_ppa_t2', p2, q2); setPPA('tr_ppa_t3', p3, q3);
+}
+
+function recalcExecView() {
+  const airmen = val('airmen_per_sqdn') || 200;
+  const p1 = val('f_t1_1yr'), p2 = val('f_t2_1yr'), p3 = val('f_t3_1yr');
+  const p1_2 = val('f_t1_2yr'), p2_2 = val('f_t2_2yr'), p3_2 = val('f_t3_2yr');
+  const p1_3 = val('f_t1_3yr'), p2_3 = val('f_t2_3yr'), p3_3 = val('f_t3_3yr');
+  const d2 = val('f_disc2'), d3 = val('f_disc3');
+  const q1 = parseFloat(document.getElementById('tr_qty_t1')?.value) || 0;
+  const q2 = parseFloat(document.getElementById('tr_qty_t2')?.value) || 0;
+  const q3 = parseFloat(document.getElementById('tr_qty_t3')?.value) || 0;
+  const totalQty = q1 + q2 + q3;
+
+  const s = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+
+  // Hero
+  s('exec_case_name', document.getElementById('caseName')?.value || '—');
+  s('exec_airmen_val', airmen);
+  s('exec_qty_label', totalQty > 0 ? totalQty + ' site' + (totalQty > 1 ? 's' : '') : 'per site');
+
+  // Hero PPA — lowest priced tier
+  const activePrices = [p1, p2, p3].filter(p => p > 0);
+  const heroPPA = activePrices.length > 0 ? Math.min(...activePrices) / airmen : 0;
+  s('exec_ppa_hero', heroPPA > 0 ? '$' + heroPPA.toFixed(2) : '—');
+  s('exec_hero_tier', p1 > 0 ? 'Essential tier · ' : p2 > 0 ? 'Proficient tier · ' : p3 > 0 ? 'Mission-Ready · ' : '');
+
+  // Per-tier PPA
+  [[p1,'exec_t1_ppa'],[p2,'exec_t2_ppa'],[p3,'exec_t3_ppa']].forEach(([p,id]) =>
+    s(id, p > 0 ? '$' + (p / airmen).toFixed(2) : '—')
+  );
+
+  // Per-tier prices
+  [[p1,'exec_t1_1yr'],[p2,'exec_t2_1yr'],[p3,'exec_t3_1yr'],
+   [p1_2,'exec_t1_2yr'],[p2_2,'exec_t2_2yr'],[p3_2,'exec_t3_2yr'],
+   [p1_3,'exec_t1_3yr'],[p2_3,'exec_t2_3yr'],[p3_3,'exec_t3_3yr']].forEach(([p,id]) =>
+    s(id, p > 0 ? fmt(p) + '/site/yr' : '—')
+  );
+
+  // Discount badges
+  [[d2,'exec_t1_2yr_disc',p1],[d2,'exec_t2_2yr_disc',p2],[d2,'exec_t3_2yr_disc',p3],
+   [d3,'exec_t1_3yr_disc',p1],[d3,'exec_t2_3yr_disc',p2],[d3,'exec_t3_3yr_disc',p3]].forEach(([d,id,base]) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.textContent = (d > 0 && base > 0) ? '-' + parseFloat(d).toFixed(0) + '%' : '';
+  });
+
+  // Annual at qty
+  [[p1,q1,'exec_t1_ann_wrap','exec_t1_qty','exec_t1_ann'],
+   [p2,q2,'exec_t2_ann_wrap','exec_t2_qty','exec_t2_ann'],
+   [p3,q3,'exec_t3_ann_wrap','exec_t3_qty','exec_t3_ann']].forEach(([p,q,wrap,qid,aid]) => {
+    const wEl = document.getElementById(wrap);
+    if (wEl) wEl.style.display = (p > 0 && q > 0) ? '' : 'none';
+    s(qid, q); s(aid, (p > 0 && q > 0) ? fmt(p * q) : '—');
+  });
+
+  // vs. Status Quo
+  const vsqBase = val('f_vsq_baseline');
+  const vsqSites = val('f_vsq_sqdn') || totalQty || 1;
+  const ssvrPrice = p1 || p2 || p3;
+  if (vsqBase > 0 && ssvrPrice > 0) {
+    const baseAnn = vsqBase * airmen * vsqSites;
+    const ssvrAnn = ssvrPrice * vsqSites;
+    const savings = baseAnn - ssvrAnn;
+    s('exec_vsq_curr', fmt(baseAnn) + '/yr');
+    s('exec_vsq_ssvr_ann', fmt(ssvrAnn) + '/yr');
+    s('exec_vsq_savings', savings > 0 ? fmt(savings) + '/yr' : savings < 0 ? 'SSVR exceeds baseline' : 'Break-even');
+    const nre = val('f_clin001') * (val('sites_001') || vsqSites);
+    const fld = val('f_clin002') * (val('sites_002') || vsqSites);
+    const oneTime = nre + fld;
+    s('exec_vsq_payback', (savings > 0 && oneTime > 0) ? Math.round((oneTime / savings) * 12) + ' months' : '—');
+    const vEl = document.getElementById('exec_vsq_results');
+    if (vEl) vEl.style.opacity = '1';
+  } else {
+    s('exec_vsq_curr','—'); s('exec_vsq_ssvr_ann','—'); s('exec_vsq_savings','—'); s('exec_vsq_payback','—');
+  }
+
+  // One-time
+  const nre = val('f_clin001') * (val('sites_001') || 1);
+  const fld = val('f_clin002') * (val('sites_002') || 1);
+  s('exec_nre', nre > 0 ? fmt(nre) : '—');
+  s('exec_field', fld > 0 ? fmt(fld) : '—');
+  s('exec_onetime_total', (nre + fld) > 0 ? fmt(nre + fld) : '—');
 }
 
 function resetTierPrices() {
@@ -1577,14 +2543,15 @@ function resetTierPrices() {
   showToast('↺ Tier prices reset to component sums', 'info');
 }
 
-function togglePresent() {
-  const presenting = document.body.classList.toggle('present-mode');
-  if (presenting) {
+function toggleView() {
+  const external = document.body.classList.toggle('present-mode');
+  if (external) {
     document.body.classList.remove('show-costs');
-    document.getElementById('costToggleBtn').textContent = '🔒 Internal View';
+  } else {
+    document.body.classList.add('show-costs');
   }
-  document.getElementById('presentBtn').textContent = presenting ? '■ Exit Present' : '▶ Present';
-  showToast(presenting ? '▶ Presentation mode — internal data hidden' : '■ Returned to edit mode', 'info');
+  document.getElementById('viewToggleBtn').textContent = external ? 'Internal View' : 'External View';
+  showToast(external ? 'External view — internal data hidden' : 'Internal view restored', 'info');
 }
 
 // ═══════════════════════════════════════════════════
@@ -1721,6 +2688,9 @@ function recalc() {
 
   // Refresh Deployment Mix displays whenever tier prices or costs change
   if (typeof recalcMix === 'function') recalcMix();
+  if (typeof recalcBrkdn === 'function') recalcBrkdn();
+  if (typeof recalcTierQty === 'function') recalcTierQty();
+  if (typeof recalcExecView === 'function') recalcExecView();
 }
 
 function recalcClins() {
@@ -1789,6 +2759,9 @@ function recalcClins() {
   }
 
   recalcMultiYear();
+  if (typeof recalcSummary === 'function') recalcSummary();
+  if (typeof recalcTierQty === 'function') recalcTierQty();
+  if (typeof recalcExecView === 'function') recalcExecView();
 }
 
 function recalcImpl() {
@@ -1887,6 +2860,26 @@ function recalcMix() {
   setMM('mix_marg_t2', rev2, cost2);
   setMM('mix_marg_t3', rev3, cost3);
   setMM('mix_grand_marg', grandRev, grandCost);
+
+  // $/Airman/Year — per tier and blended across mix
+  const airmen = val('airmen_per_sqdn') || 200;
+  const setPPA = (id, price) => {
+    const el = document.getElementById(id); if (!el) return;
+    el.textContent = (price > 0 && airmen > 0) ? '$' + (price / airmen).toFixed(2) : '—';
+  };
+  setPPA('mix_ppa_t1', p1);
+  setPPA('mix_ppa_t2', p2);
+  setPPA('mix_ppa_t3', p3);
+  // Blended $/airman across all sites in the mix
+  const blendedNote = document.getElementById('mix_ppa_blended_note');
+  if (blendedNote) {
+    if (totalSites > 0 && grandRev > 0) {
+      const blendedPPA = (grandRev / totalSites) / airmen;
+      blendedNote.textContent = 'Blended: $' + blendedPPA.toFixed(2) + '/airman/yr across ' + totalSites + ' sites × ' + airmen + ' airmen';
+    } else {
+      blendedNote.textContent = 'Enter site counts above to see blended rate';
+    }
+  }
 
   // Auto-populate CLIN 003: weighted per-site avg revenue + total sites + cost/site
   const noteEl003 = document.getElementById('clin003_auto_note');
@@ -2009,8 +3002,219 @@ function recalcMultiYear() {
   }
 }
 
+// ═══════════════════════════════════════════════════
+//  PROPOSAL SUMMARY  (links to Section 3 CLINs)
+// ═══════════════════════════════════════════════════
+function recalcSummary() {
+  // ── Pull CLIN values from Section 3 ──────────────────────
+  const c001_price = val('f_clin001');
+  const c001_qty   = val('sites_001') || 1;           // always 1 (gov-wide NRE)
+  const c001_total = c001_price * c001_qty;
+
+  const c002_price = val('f_clin002');
+  const c002_qty   = val('sites_002') || 50;
+  const c002_total = c002_price * c002_qty;
+
+  const c003_per   = val('f_clin003');                // per-site price
+  const c003_qty   = val('sites_003') || 50;
+  const c003_annual= c003_per * c003_qty;             // annual total
+
+  const c004_per   = val('f_clin004');
+  const c004_qty   = val('sites_004') || 50;
+  const c004_total = c004_per * c004_qty;
+
+  // ── AFSFC 5-year TCO ─────────────────────────────────────
+  const af_5yr = c001_total + c002_total + (c003_annual * 5) + c004_total;
+  const af_yr1 = c001_total + c002_total + c003_annual;
+
+  // ── New-customer benchmarks (internal) ───────────────────
+  const nc_plat   = val('nc_platform');
+  const nc_cont   = val('nc_content');
+  const nc_intg   = val('nc_integ');
+  const nc_nre    = val('nc_nre');
+  const nc_field  = val('nc_fielding');
+  const nc_ann    = val('nc_annual');
+  const nc_hw     = val('nc_hw');
+  const nc_5yr = nc_plat + nc_cont + nc_intg + nc_nre + nc_field
+               + (nc_ann * c003_qty * 5) + (nc_hw * c004_qty);
+
+  // ── Format helpers ───────────────────────────────────────
+  const fmtM = n => {
+    if (!n) return '—';
+    if (n >= 1_000_000) return '$' + (n / 1_000_000).toFixed(1) + 'M';
+    if (n >= 1_000)     return '$' + Math.round(n / 1000) + 'K';
+    return fmt(n);
+  };
+  const st = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+
+  // ── Cost delta table — AFSFC column ──────────────────────
+  st('sum_af_clin001', c001_total > 0 ? fmt(c001_total) : '—');
+  st('sum_af_clin002', c002_total > 0 ? fmt(c002_total) : '—');
+  st('sum_af_clin003', c003_per   > 0 ? fmt(c003_per) + '/site/yr' : '—');
+  st('sum_af_clin004', c004_per   > 0 ? fmt(c004_per) + '/site' : '—');
+  st('sum_nc_5yr',     nc_5yr     > 0 ? fmtM(nc_5yr)   : '—');
+  st('sum_af_5yr',     af_5yr     > 0 ? fmtM(af_5yr)   : '—');
+  st('sum_sites002_label', c002_qty);
+
+  // 5yr savings note
+  if (nc_5yr > 0 && af_5yr > 0) {
+    const savings = nc_5yr - af_5yr;
+    st('sum_savings_note', savings > 0 ? fmtM(savings) + ' total savings vs. new-customer TCO' : '—');
+  } else {
+    st('sum_savings_note', '—');
+  }
+
+  // Absorbed callout
+  const calloutEl = document.getElementById('sum_absorbed_callout');
+  if (calloutEl) {
+    const absorbed = nc_plat + nc_cont + nc_intg;
+    calloutEl.textContent = absorbed > 0
+      ? 'Net value absorbed by prior deployment:  approximately ' + fmtM(absorbed) + ' over the 5-year period of performance.'
+      : 'Net value absorbed by prior deployment: enter New-Customer benchmarks above to calculate.';
+  }
+
+  // ── Contract Package table ────────────────────────────────
+  st('pkg_clin001',   c001_total   > 0 ? fmt(c001_total)   : '—');
+  st('pkg_clin002',   c002_total   > 0 ? fmt(c002_total)   : '—');
+  st('pkg_clin003',   c003_annual  > 0 ? fmtM(c003_annual) + ' / yr' : '—');
+  st('pkg_clin004',   c004_per     > 0 ? fmt(c004_per) + '/site' : '—');
+  st('pkg_yr1_total', af_yr1       > 0 ? fmtM(af_yr1)     : '—');
+  st('pkg_5yr_total', af_5yr       > 0 ? fmtM(af_5yr)     : '—');
+
+  // Site counts in structure column
+  st('pkg_sites002', c002_qty);
+  st('pkg_sites003', c003_qty);
+  st('pkg_sites004', c004_qty);
+}
+
+// ═══════════════════════════════════════════════════
+//  CLIN 003 COMPONENT BREAKDOWN
+// ═══════════════════════════════════════════════════
+function setBrkdnTier(t) {
+  _brkdnTier = t;
+  [1,2,3].forEach(i => {
+    const btn = document.getElementById('btn_brkdn_t' + i);
+    if (btn) btn.classList.toggle('active', i === t);
+  });
+  // Update hidden field so it persists with case save
+  const tierEl = document.getElementById('f_c003_tier');
+  if (tierEl) tierEl.value = String(t);
+  recalcBrkdn();
+}
+
+function updateCoveredField() {
+  const covIds = [], oosIds = [];
+  document.querySelectorAll('.brkdn-sel').forEach(sel => {
+    if (!sel.dataset.field) return;
+    if (sel.value === 'covered') covIds.push(sel.dataset.field);
+    if (sel.value === 'oos')     oosIds.push(sel.dataset.field);
+  });
+  const el = document.getElementById('f_c003_covered');
+  if (el) el.value = covIds.join(',');
+  const oosEl = document.getElementById('f_c003_oos');
+  if (oosEl) oosEl.value = oosIds.join(',');
+}
+
+function recalcBrkdn() {
+  const tier = _brkdnTier || 2;
+  let totalDelivered = 0, totalCovered = 0;
+
+  document.querySelectorAll('.brkdn-item').forEach(row => {
+    const field = row.dataset.field;
+    const tiers  = row.dataset.tiers || '';
+    const inTier = tiers.includes(String(tier));
+
+    row.style.display = inTier ? '' : 'none';
+    if (!inTier) return;
+
+    const price = val(field) || 0;
+    const sfx   = field.replace('f_', '');
+
+    // Update price cell
+    const priceEl = document.getElementById('bv_' + sfx);
+    if (priceEl) priceEl.textContent = price > 0 ? fmt(price) : '—';
+
+    // Read 3-way select status
+    const sel       = document.getElementById('cv_' + sfx);
+    const selVal    = sel ? sel.value : 'pays';
+    const isCovered = selVal === 'covered';
+    const isOos     = selVal === 'oos';
+    const isAfimsc  = selVal === 'afimsc';
+
+    row.classList.toggle('is-covered', isCovered);
+    row.classList.toggle('is-oos', isOos);
+
+    // Status label (hidden span, kept for compat)
+    const statusEl = document.getElementById('bs_' + sfx);
+    if (statusEl) {
+      if (isOos)          { statusEl.textContent = 'Out of Scope'; statusEl.className = 'brkdn-status-oos'; }
+      else if (isCovered) { statusEl.textContent = '✓ Covered';    statusEl.className = 'brkdn-status-covered'; }
+      else if (isAfimsc)  { statusEl.textContent = 'AFIMSC pays';  statusEl.className = 'brkdn-status-afimsc'; }
+      else                { statusEl.textContent = 'AFSFC pays';   statusEl.className = 'brkdn-status-pays'; }
+    }
+
+    if (!isOos) {
+      totalDelivered += price;
+      if (isCovered) totalCovered += price;
+    }
+  });
+
+  const net = totalDelivered - totalCovered;
+
+  // Subtotal rows
+  setText('brkdn_total_val',   totalDelivered > 0 ? fmt(totalDelivered) : '—');
+  const coveredRow = document.getElementById('brkdn_covered_row');
+  if (coveredRow) coveredRow.style.display = totalCovered > 0 ? '' : 'none';
+  setText('brkdn_covered_val', totalCovered > 0 ? '− ' + fmt(totalCovered) : '—');
+  setText('brkdn_net_val',     net >= 0 && totalDelivered > 0 ? fmt(net) : '—');
+
+  // Reconcile vs CLIN 003 price
+  const c003 = val('f_clin003');
+  const reconcileEl = document.getElementById('brkdn_reconcile');
+  if (reconcileEl) {
+    if (c003 > 0 && net > 0) {
+      const diff = Math.abs(c003 - net);
+      if (diff < 2) {
+        reconcileEl.textContent = '✓ Matches CLIN 003';
+        reconcileEl.style.color = 'var(--success)';
+      } else {
+        reconcileEl.textContent = 'CLIN 003 set to ' + fmt(c003) + ' (Δ ' + fmt(diff) + ')';
+        reconcileEl.style.color = 'var(--amber-text)';
+      }
+    } else {
+      reconcileEl.textContent = '';
+    }
+  }
+}
+
+function restoreBrkdnState() {
+  // Restore tier selection
+  const tierEl = document.getElementById('f_c003_tier');
+  const tier   = tierEl ? (parseInt(tierEl.value) || 2) : 2;
+  _brkdnTier   = tier;
+  [1,2,3].forEach(i => {
+    const btn = document.getElementById('btn_brkdn_t' + i);
+    if (btn) btn.classList.toggle('active', i === tier);
+  });
+
+  // Restore status selects
+  const covEl    = document.getElementById('f_c003_covered');
+  const covValue = covEl ? covEl.value : 'f_plat_license';
+  const coveredIds = covValue ? covValue.split(',').map(s => s.trim()).filter(Boolean) : ['f_plat_license'];
+  const oosEl    = document.getElementById('f_c003_oos');
+  const oosIds   = oosEl && oosEl.value ? oosEl.value.split(',').map(s => s.trim()).filter(Boolean) : [];
+  document.querySelectorAll('.brkdn-sel').forEach(sel => {
+    const field = sel.dataset.field || '';
+    if (oosIds.includes(field))     sel.value = 'oos';
+    else if (coveredIds.includes(field)) sel.value = 'covered';
+    else sel.value = 'pays';
+  });
+
+  recalcBrkdn();
+}
+
 function recalcAddons() {
-  ['db','packs','eri','other'].forEach(sfx => {
+  ['db','packs','eri','lane','scen','t3','oconus','other'].forEach(sfx => {
     const price = val('f_addon_'+sfx), cost = val('c_addon_'+sfx);
     const pEl = document.getElementById('ap_addon_'+sfx);
     if (!pEl) return;
@@ -2053,7 +3257,7 @@ function openCompare() {
     { label: '2-Year discount', fn: f => n(f,'f_disc2')+'%', raw: true },
     { label: '3-Year discount', fn: f => n(f,'f_disc3')+'%', raw: true },
     { section: 'INVESTMENT LINES (50-site totals)' },
-    { label: 'Config Build (NRE)',  fn: f => n(f,'f_clin001')*(n(f,'sites_001')||50) },
+    { label: 'Config Build (NRE)',  fn: f => n(f,'f_clin001')*(n(f,'sites_001')||1) },
     { label: 'Fielding',            fn: f => n(f,'f_clin002')*(n(f,'sites_002')||50) },
     { label: 'Annual Service',      fn: f => n(f,'f_clin003')*(n(f,'sites_003')||50) },
     { label: 'Sustainment',         fn: f => n(f,'f_clin004')*(n(f,'sites_004')||50) },
@@ -2138,6 +3342,10 @@ window.addEventListener('DOMContentLoaded', () => {
   currentCaseId = keys[keys.length-1];
   populateCaseSelect();
   loadCase();
+  if (typeof recalcExecView === 'function') recalcExecView();
+
+  // Default to internal view (costs/margins always visible)
+  document.body.classList.add('show-costs');
 
   // Attach blur/focus money formatting handlers
   document.querySelectorAll('input.price-in, input.cost-in').forEach(input => {
